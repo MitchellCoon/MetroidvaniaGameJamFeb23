@@ -283,11 +283,11 @@
       "url": "https://packages.unity.com"
     },
     "nl.elraccoone.tweens": {
-      "version": "git+https://github.com/jeffreylanters/unity-tweens",
+      "version": "2.1.0",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {},
-      "hash": "ab3515b3f578d0a24555363f201eedbc55f2b7f9"
+      "url": "https://package.openupm.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
