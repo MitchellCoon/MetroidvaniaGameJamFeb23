@@ -151,7 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6be7cc98a6bc45f29cc4e59202d4137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableTimer: 3
-  delay: 1
+  fadeOutTime: 1
   fadeOnCollide: 1
   fadeStarted: 0
