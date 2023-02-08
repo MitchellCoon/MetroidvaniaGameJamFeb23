@@ -5,8 +5,8 @@ using UnityEngine;
 public class TempObject : MonoBehaviour
 {
     // Start is called before the first frame update
-   public float disableTimer = 1f ;
-   public float delay = 1f ;
+   //public float disableTimer = 1f ;
+   public float fadeOutTime = 0.5f ;
 
     public bool fadeOnCollide = true; 
     public bool fadeStarted; 
@@ -33,7 +33,7 @@ public class TempObject : MonoBehaviour
         fadeStarted = true;
       
         var localRender = this.gameObject.GetComponent<SpriteRenderer>();   
-        for (float f = delay; f >= 0; f -= 0.1f)
+        for (float f = fadeOutTime; f >= 0; f -= 0.1f)
         {
             Color c = localRender.material.color;
             c.a = f;
