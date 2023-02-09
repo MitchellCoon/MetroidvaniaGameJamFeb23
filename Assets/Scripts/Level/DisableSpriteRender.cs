@@ -12,6 +12,7 @@ public class DisableSpriteRender : MonoBehaviour
         if (disableInEditor)
         {
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            
         }
         else
         {
