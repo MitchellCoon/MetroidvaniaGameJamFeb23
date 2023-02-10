@@ -31,7 +31,7 @@ public class ProjectileMotion : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position);
+            other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position, attackData.knockback);
         }
     }
 }

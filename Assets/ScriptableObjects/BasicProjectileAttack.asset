@@ -22,3 +22,4 @@ MonoBehaviour:
   projectileSpeed: 10
   projectileRange: 10
   destroyProjectileOnHit: 1
+  knockback: 0

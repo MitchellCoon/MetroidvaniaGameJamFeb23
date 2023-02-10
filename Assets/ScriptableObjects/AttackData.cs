@@ -18,5 +18,6 @@ public class AttackData : ScriptableObject
     public float projectileSpeed;
     public float projectileRange;
     public bool destroyProjectileOnHit;
+    public bool knockback; 
 
 }

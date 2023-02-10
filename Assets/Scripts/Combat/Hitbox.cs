@@ -15,7 +15,7 @@ public class Hitbox : MonoBehaviour
     {
         if(other.CompareTag("Enemy"))
         {
-            other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position);
+            other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position, attackData.knockback);
         }
     }
 }

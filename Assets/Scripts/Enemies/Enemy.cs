@@ -21,12 +21,14 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void TakeDamage(int damage, Vector3 hitPosition)
+    public void TakeDamage(int damage, Vector3 hitPosition, bool knockback)
     {
         currentHealth -= damage;
+        if(knockback){
         Vector2 getX = knockbackForce* (hitPosition - transform.position).normalized; 
 
-        rb.AddForce( new Vector2( getX.x,knockbackForce.y), ForceMode2D.Impulse); 
+        rb.AddForce( new Vector2( getX.x, knockbackForce.y), ForceMode2D.Impulse); 
+        }
         changeColor();
         if(currentHealth <= 0)
         {
