@@ -1293,6 +1293,7 @@ MonoBehaviour:
   currentHealth: 0
   damagedColor: {r: 0.990566, g: 0.014017418, b: 0.014017418, a: 1}
   knockbackForce: {x: -2, y: 5}
+  inKnockback: 0
 --- !u!70 &740380414
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1566,9 +1567,10 @@ GameObject:
   - component: {fileID: 1099828547}
   - component: {fileID: 1099828546}
   - component: {fileID: 1099828550}
+  - component: {fileID: 1099828551}
   m_Layer: 0
-  m_Name: Square
-  m_TagString: Untagged
+  m_Name: MovingEnemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1611,6 +1613,7 @@ MonoBehaviour:
   m_Speed: 5
   currentDirection: 1
   platformEdgeDistance: 2
+  enemy: {fileID: 0}
 --- !u!212 &1099828548
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1704,6 +1707,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1099828551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099828545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b35f236623a40f408a40cedc5c3f705, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  currentHealth: 0
+  damagedColor: {r: 1, g: 0, b: 0, a: 0}
+  knockbackForce: {x: 10, y: 0}
+  inKnockback: 0
 --- !u!1 &1207695344
 GameObject:
   m_ObjectHideFlags: 0
