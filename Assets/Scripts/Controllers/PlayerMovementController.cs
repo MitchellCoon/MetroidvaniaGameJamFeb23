@@ -52,9 +52,24 @@ public class PlayerMovementController : MonoBehaviour
 	{
 		bool wasGrounded = isGrounded;
 		isGrounded = groundCheck.IsGrounded();
+
 	}
 
-
+	void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag.Equals ("MovingPlatform") || other.gameObject.tag.Equals ("Floor"))
+        {
+            transform.parent = other.transform;
+        }
+    }
+ 
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag.Equals ("MovingPlatform")|| other.gameObject.tag.Equals ("Floor")) 
+        {
+            transform.parent = null;
+        }
+    }
 	public void Move(float move, bool isCrouching, bool jump)
 	{
 		// If crouching, check to see if the character can stand up

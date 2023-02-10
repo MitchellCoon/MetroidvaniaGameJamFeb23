@@ -8,7 +8,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] float smoothSpeed = 0.125f;
     [SerializeField] Vector3 offset = new Vector3(0, 5, -10);
     
-    void FixedUpdate()
+    void Update()
     {
         Vector3 desiredPosition = transform.position;
         desiredPosition = target.position + offset;
