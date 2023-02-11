@@ -6,6 +6,8 @@ TagManager:
   tags:
   - MovingPlatform
   - Floor
+  - Enemy
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -45,6 +47,9 @@ TagManager:
     locked: 0
   - name: Placeholder
     uniqueID: 1987816541
+    locked: 0
+  - name: NPC
+    uniqueID: 450743503
     locked: 0
   - name: Default
     uniqueID: 0
