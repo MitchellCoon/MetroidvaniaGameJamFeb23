@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     public Vector2 knockbackForce;
     Rigidbody2D rb ; 
     Color originalColor;
+    public bool inKnockback = false;
+    public float damagedTime = 0.2f;
 
     void Start()
     {
@@ -29,6 +31,8 @@ public class Enemy : MonoBehaviour
 
         rb.AddForce( new Vector2( getX.x, knockbackForce.y), ForceMode2D.Impulse); 
         }
+        inKnockback = knockback;
+
         changeColor();
         if(currentHealth <= 0)
         {
@@ -36,12 +40,13 @@ public class Enemy : MonoBehaviour
         }
     }
     public void changeColor()
-    {
+    {   
         GetComponent<SpriteRenderer>().color = damagedColor;
-        Invoke("resetColor", 0.1f);
+        Invoke("resetColor",damagedTime);
     }
     public void resetColor()
     {
+        inKnockback = false;
         GetComponent<SpriteRenderer>().color = originalColor;
     }
 
