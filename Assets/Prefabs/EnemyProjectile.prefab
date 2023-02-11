@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7520381118451425661}
   - component: {fileID: 7520381118451425662}
   - component: {fileID: -8830770737061115985}
+  - component: {fileID: 3067255956164295743}
   m_Layer: 0
   m_Name: EnemyProjectile
   m_TagString: Untagged
@@ -136,3 +137,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d823f09582d49719b9005378b4bf2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileAttackData: {fileID: 0}
+--- !u!114 &3067255956164295743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7520381118451425663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6be7cc98a6bc45f29cc4e59202d4137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeOutTime: 0.5
+  fadeOnCollide: 0
+  fadeStarted: 0
+  fadeDelay: 3

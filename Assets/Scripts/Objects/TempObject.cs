@@ -10,7 +10,7 @@ public class TempObject : MonoBehaviour
 
     public bool fadeOnCollide = true; 
     public bool fadeStarted; 
-    public float fadeDelay = 2.5f;
+    public float fadeDelay = 0f;
     void Start()
     {   if(!fadeOnCollide){
         StartCoroutine(fadeOut());

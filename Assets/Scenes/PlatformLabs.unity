@@ -1980,7 +1980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a53142bd550624ec6849bc5d007ee92a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeAttack: {fileID: 0}
+  activeAttack: {fileID: 11400000, guid: c7fdcca1ed23941879779ac67514dd9b, type: 2}
   checkRate: 1
   checkRadiusProjectile: 10
   checkRadiusMelee: 1
