@@ -7,6 +7,18 @@ using System.Collections;
 
 namespace DTDEV.SceneManagement
 {
+
+    /// <summary>
+    /// SETUP
+    /// - add door script to a GameObject
+    /// - add a colider2d (trigger)
+    /// - add a rigidbody2d (kinematic)
+    /// - add a child GameObject - assign as the spawnPoint
+    /// USAGE
+    /// - doorChannel determines which door in a scene maps to a door in another scene
+    /// - targetSceneRef utilizes a slick SceneReference library so we don't have to reference scenes by name
+    /// - spawnPoint is where the player will appear after they enter a door collider and the next scene loads
+    /// </summary>
     public class Door : MonoBehaviour
     {
         enum DoorChannel
