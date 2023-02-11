@@ -10,7 +10,7 @@ public class TempObject : MonoBehaviour
 
     public bool fadeOnCollide = true; 
     public bool fadeStarted; 
-
+    public float fadeDelay = 2.5f;
     void Start()
     {   if(!fadeOnCollide){
         StartCoroutine(fadeOut());
@@ -31,7 +31,7 @@ public class TempObject : MonoBehaviour
             yield break;
         }
         fadeStarted = true;
-      
+        yield return new WaitForSeconds(fadeDelay);
         var localRender = this.gameObject.GetComponent<SpriteRenderer>();   
         for (float f = fadeOutTime; f >= 0; f -= 0.1f)
         {
