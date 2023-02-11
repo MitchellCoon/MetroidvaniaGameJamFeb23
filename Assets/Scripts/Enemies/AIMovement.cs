@@ -12,6 +12,8 @@ public class AIMovement : MonoBehaviour
     public float currentDirection = 1f; 
     public float platformEdgeDistance = 2;
     public Enemy enemy;
+    public bool randomizeDirection = true;
+    public float randomizeDirectionTime = 1f;
     void Start()
 
     {
@@ -19,8 +21,15 @@ public class AIMovement : MonoBehaviour
        m_Rigidbody = GetComponent<Rigidbody2D>();
        enemy = GetComponentInParent<Enemy>();
 
-  
+        if( randomizeDirection){
+        InvokeRepeating("randomlyChangeDirection", 0, randomizeDirectionTime);
+        }
        // parentCollider.bounds.extents.x; 
+    }
+    void randomlyChangeDirection(){
+        if(Random.Range(0, 100) > 95){
+            currentDirection *= -1;
+        }
     }
 
     // Update is called once per frame
