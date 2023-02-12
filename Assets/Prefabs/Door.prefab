@@ -198,3 +198,6 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: 
   spawnPoint: {fileID: 3693175746738980487}
+  collider: {fileID: 3693175747619874724}
+  transitionType: 0
+  slideTransitionDuration: {fileID: 0}

@@ -20,5 +20,4 @@ public class PlayerInputController : InputController
     {
         return Input.GetButtonUp("Jump");
     }
-
 }

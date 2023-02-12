@@ -10,11 +10,6 @@ public class Parallax : MonoBehaviour
 
     new Camera camera;
 
-    void Awake()
-    {
-        camera = Camera.main;
-    }
-
     void Start()
     {
         initialPosition = transform.position;
@@ -22,6 +17,8 @@ public class Parallax : MonoBehaviour
 
     void LateUpdate()
     {
+        if (camera == null) camera = Camera.main;
+        if (camera == null) return;
         position = initialPosition + (Vector2)camera.transform.position * depth;
         position.z = transform.position.z;
         transform.position = position;
