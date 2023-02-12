@@ -11,6 +11,7 @@ TagManager:
   - Room
   - PlayerSpawnPoint
   - PlayerRespawnPoint
+  - CameraBounds
   layers:
   - Default
   - TransparentFX

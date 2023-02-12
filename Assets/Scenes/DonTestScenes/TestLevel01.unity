@@ -274,7 +274,8 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/DonTestScenes/TestLevel02.unity
   spawnPoint: {fileID: 1116034723}
-  transitionType: 0
+  transitionType: 1
+  slideTransitionDuration: 0.5
 --- !u!61 &235550592
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -461,7 +462,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621280458}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.03, z: 0}
+  m_LocalPosition: {x: -34, y: 1.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4941,7 +4942,7 @@ GameObject:
   - component: {fileID: 1050853674}
   m_Layer: 6
   m_Name: CameraBounds
-  m_TagString: Untagged
+  m_TagString: CameraBounds
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28817,6 +28818,7 @@ MonoBehaviour:
     m_ScenePath: Assets/Scenes/DonTestScenes/TestLevel02.unity
   spawnPoint: {fileID: 3693175747274329870}
   transitionType: 0
+  slideTransitionDuration: 0.5
 --- !u!4 &3693175746006658771
 Transform:
   m_ObjectHideFlags: 0

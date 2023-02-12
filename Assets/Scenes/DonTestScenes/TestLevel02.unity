@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 43774879}
   m_Layer: 6
   m_Name: CameraBounds
-  m_TagString: Untagged
+  m_TagString: CameraBounds
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6120,6 +6120,10 @@ PrefabInstance:
     - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
       propertyPath: doorChannel
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
+      propertyPath: slideTransitionDuration
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
       propertyPath: targetSceneRef.m_IsDirty
@@ -25320,6 +25324,14 @@ PrefabInstance:
     - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
       propertyPath: doorChannel
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
+      propertyPath: transitionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
+      propertyPath: slideTransitionDuration
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
       propertyPath: targetSceneRef.m_IsDirty

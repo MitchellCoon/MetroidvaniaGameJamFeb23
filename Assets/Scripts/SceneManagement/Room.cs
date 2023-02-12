@@ -22,13 +22,6 @@ namespace DTDEV.SceneManagement
 
         bool initialSpawnEnabled = true;
 
-        public static Room FindActive()
-        {
-            GameObject roomObj = GameObject.FindWithTag("Room");
-            if (roomObj == null) return null;
-            return roomObj.GetComponent<Room>();
-        }
-
         public void DisableInitialSpawn()
         {
             initialSpawnEnabled = false;
