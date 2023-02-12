@@ -1,55 +1,94 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] AttackData activeAttack;
-    public float checkRate = 0.5f; 
+    public float fireRate = 0.5f; 
     public float checkRadiusProjectile = 10f;
     public float checkRadiusMelee = 1f;
      [SerializeField]
     public Vector3 rotationAsVector;
+    [SerializeField]
+    AimType aimType;
+    [SerializeField]
+    Vector2 aimAtPlayerDirection = new Vector2(1,1); 
+    [SerializeField]
+    List<Vector2> directionsToFire;
+    [SerializeField]
+    float projectileSpeed = 10f;
+    
+    // Later write logic where we get signals to stop firing
+    public bool canFire = true; 
+
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("CheckForPlayer", 0f, checkRate);
+        InvokeRepeating("ShootLogic", 0f, fireRate);
     }
 
-    void CheckForPlayer () {
-         Collider2D[] hitColliders = null ; 
-        if( activeAttack.attackType == AttackType.Projectile){
-            // Melee attack
-             hitColliders = Physics2D.OverlapCircleAll(transform.position, checkRadiusProjectile);
+    void ShootLogic ()
+    {
+       switch (aimType)
+        {
+            case AimType.Player:
+                aimAtPlayer();
+                break;
+            case AimType.Direction:
+                aimInDirection();
+                break;
+            default:
+                break;
         }
-        else if( activeAttack.attackType == AttackType.Melee){
-            // Melee attack
-             hitColliders = Physics2D.OverlapCircleAll(transform.position, checkRadiusMelee);
+       // aimAtPlayer();
+    }
+    void aimInDirection(){
+
+        foreach (Vector2 direction in directionsToFire)
+        {
+            fireProjectile(direction);
         }
-       // = Physics2D.OverlapCircleAll(transform.position, checkRadiusProjectile);
+
+    }
+
+    private void aimAtPlayer()
+    {
+        Collider2D[] hitColliders = null;
+        if (activeAttack.attackType == AttackType.Projectile)
+        {
+            // Melee attack
+            hitColliders = Physics2D.OverlapCircleAll(transform.position, checkRadiusProjectile);
+        }
+        else if (activeAttack.attackType == AttackType.Melee)
+        {
+            // Melee attack
+            hitColliders = Physics2D.OverlapCircleAll(transform.position, checkRadiusMelee);
+        }
+        // = Physics2D.OverlapCircleAll(transform.position, checkRadiusProjectile);
         int i = 0;
         while (i < hitColliders.Length)
-        {   
+        {
             if (hitColliders[i].CompareTag("Player"))
             {
-                if( activeAttack.attackType == AttackType.Projectile){
-               
-               var  rotation =  Quaternion.Euler( rotationAsVector); 
-                
-                GameObject projectile = Instantiate(activeAttack.projectilePrefab, transform.position, rotation);
-                projectile.transform.parent = transform;
-                Vector2 fireDirection ; 
-                if( (hitColliders[i].transform.position.x - transform.position.x) < 0){
-                    fireDirection = new Vector2(-1,-1);
+                if (activeAttack.attackType == AttackType.Projectile)
+                {
+
+
+                    Vector2 fireDirection;
+                    if ((hitColliders[i].transform.position.x - transform.position.x) < 0)
+                    {
+                        fireDirection = aimAtPlayerDirection * -1 ; //new Vector2(-1, -1);
+                    }
+                    else
+                    {
+                        fireDirection = aimAtPlayerDirection; //new Vector2(1, -1);
+                    }
+
+                    fireProjectile(fireDirection);
                 }
-                else{
-                    fireDirection = new Vector2(1,1);
-                }
-                projectile.GetComponent<Rigidbody2D>().velocity = (fireDirection).normalized * 10f;
-                projectile.GetComponent<EnemyProjectile>().projectileAttackData = activeAttack;
-                }
-                else if( activeAttack.attackType == AttackType.Melee){
+                else if (activeAttack.attackType == AttackType.Melee)
+                {
                     // Melee attack
                 }
                 break;
@@ -58,6 +97,24 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
+    private void fireProjectile(Vector2 fireDirection)
+    {
+        if( canFire == false){
+            return;
+        }
+        var rotation = Quaternion.Euler(rotationAsVector);
+        GameObject projectile = Instantiate(activeAttack.projectilePrefab, transform.position, rotation);
+        projectile.transform.parent = transform;
+        projectile.GetComponent<Rigidbody2D>().velocity = (fireDirection).normalized * projectileSpeed;
+        projectile.GetComponent<EnemyProjectile>().projectileAttackData = activeAttack;
+    }
+
 
     // Update is called once per frame
+}
+public enum AimType{
+    Player, 
+    Direction,
+    
+
 }
