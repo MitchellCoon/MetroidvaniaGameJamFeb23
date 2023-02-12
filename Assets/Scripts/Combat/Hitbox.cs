@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hitbox : MonoBehaviour
 {
     [SerializeField] AttackData attackData;
-
+    public bool isEnemyHitbox = false;
     public void UpdateAttackData(AttackData newAttackData)
     {
         attackData = newAttackData;
@@ -16,6 +16,11 @@ public class Hitbox : MonoBehaviour
         if(other.CompareTag("Enemy"))
         {
             other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position, attackData.knockback);
+        }
+        if( isEnemyHitbox && other.CompareTag("Player"))
+        {
+            // TODO - Add logic to deal damage to player
+            //other.GetComponent<Player>().TakeDamage(attackData.damage, transform.position, attackData.knockback);
         }
     }
 }
