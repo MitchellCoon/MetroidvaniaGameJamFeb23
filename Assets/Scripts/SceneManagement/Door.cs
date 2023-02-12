@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 using DevLocker.Utils;
 using System.Collections;
-using Cinemachine;
+using CyberneticStudios.SOFramework;
 
 namespace DTDEV.SceneManagement
 {
@@ -52,7 +53,7 @@ namespace DTDEV.SceneManagement
         [Space]
 
         [SerializeField] TransitionType transitionType;
-        [SerializeField][Range(0f, 3f)] float slideTransitionDuration = 1.5f;
+        [SerializeField] FloatVariable slideTransitionDuration;
 
         Room outgoingRoom;
 
@@ -64,6 +65,7 @@ namespace DTDEV.SceneManagement
         void Awake()
         {
             targetSceneName = targetSceneRef.IsEmpty ? "" : targetSceneRef.SceneName;
+            slideTransitionDuration.ResetVariable();
         }
 
         void OnTriggerEnter2D(Collider2D other)
@@ -221,7 +223,7 @@ namespace DTDEV.SceneManagement
             float t = 0;
             while (t < 1)
             {
-                t += Time.unscaledDeltaTime / slideTransitionDuration;
+                t += Time.unscaledDeltaTime / slideTransitionDuration.value;
                 SetPlayerPositionPreserveY(player, Vector3.Lerp(playerTransition.from, playerTransition.to, t));
                 SetCameraPositionPreserveZ(outgoingCamera, Vector3.Lerp(cameraTransition.from, cameraTransition.to, t));
                 yield return null;
