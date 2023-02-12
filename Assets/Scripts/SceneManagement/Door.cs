@@ -6,6 +6,7 @@ using Cinemachine;
 using DevLocker.Utils;
 using System.Collections;
 using CyberneticStudios.SOFramework;
+using System;
 
 namespace DTDEV.SceneManagement
 {
@@ -25,6 +26,7 @@ namespace DTDEV.SceneManagement
     /// - targetSceneRef utilizes a slick SceneReference library so we don't have to reference scenes by name
     /// - spawnPoint is where the player will appear after they enter a door collider and the next scene loads
     /// </summary>
+    [RequireComponent(typeof(BoxCollider2D))]
     public class Door : MonoBehaviour
     {
         const string UNTAGGED = "Untagged";
@@ -40,6 +42,12 @@ namespace DTDEV.SceneManagement
             Slide,
         }
 
+        enum TransitionDirection
+        {
+            Horizontal,
+            Vertical,
+        }
+
         enum DoorChannel
         {
             A, B, C, D, E, F, G,
@@ -48,6 +56,7 @@ namespace DTDEV.SceneManagement
         [SerializeField] DoorChannel doorChannel;
         [SerializeField] SceneReference targetSceneRef;
         [SerializeField] Transform spawnPoint;
+        [SerializeField] new BoxCollider2D collider;
 
         [Space]
         [Space]
@@ -220,15 +229,16 @@ namespace DTDEV.SceneManagement
                 from = outgoingCamera.transform.position,
                 to = incomingCamera.transform.position,
             };
+            TransitionDirection direction = GetTransitionDirection(otherDoor);
             float t = 0;
             while (t < 1)
             {
                 t += Time.unscaledDeltaTime / slideTransitionDuration.value;
-                SetPlayerPositionPreserveY(player, Vector3.Lerp(playerTransition.from, playerTransition.to, t));
+                SetPlayerPosition(player, Vector3.Lerp(playerTransition.from, playerTransition.to, t), direction);
                 SetCameraPositionPreserveZ(outgoingCamera, Vector3.Lerp(cameraTransition.from, cameraTransition.to, t));
                 yield return null;
             }
-            SetPlayerPositionPreserveY(player, playerTransition.to);
+            SetPlayerPosition(player, playerTransition.to, direction);
             SetCameraPositionPreserveZ(incomingCamera, cameraTransition.to);
             // unload outgoing scene
             foreach (var bound in cameraBounds) if (bound != null) bound.SetActive(true);
@@ -238,6 +248,14 @@ namespace DTDEV.SceneManagement
             Time.timeScale = 1;
             player.SetDynamic();
             Destroy(gameObject);
+        }
+
+        TransitionDirection GetTransitionDirection(Door otherDoor)
+        {
+            float diffX = Mathf.Abs(spawnPoint.transform.position.x - otherDoor.spawnPoint.transform.position.x);
+            float diffY = Mathf.Abs(spawnPoint.transform.position.y - otherDoor.spawnPoint.transform.position.y);
+            if (diffX > diffY) return TransitionDirection.Horizontal;
+            return TransitionDirection.Vertical;
         }
 
         void DisableIncomingRoomSpawn()
@@ -262,11 +280,12 @@ namespace DTDEV.SceneManagement
             camera.transform.position = cameraPosition;
         }
 
-        void SetPlayerPositionPreserveY(PlayerMain player, Vector3 position)
+        void SetPlayerPosition(PlayerMain player, Vector3 position, TransitionDirection direction)
         {
             if (player == null) return;
             Vector3 playerPosition = position;
-            playerPosition.y = player.transform.position.y;
+            if (direction == TransitionDirection.Horizontal) playerPosition.y = player.transform.position.y;
+            if (direction == TransitionDirection.Vertical) playerPosition.x = player.transform.position.x;
             player.transform.position = playerPosition;
         }
 
@@ -288,6 +307,15 @@ namespace DTDEV.SceneManagement
                 if (outgoingSceneRootObjects[i].CompareTag("Player")) continue;
                 if (!outgoingSceneRootObjects[i].activeSelf) continue;
                 Destroy(outgoingSceneRootObjects[i]);
+            }
+        }
+
+        void OnDrawGizmos()
+        {
+            if (collider != null)
+            {
+                Gizmos.color = Color.green.toAlpha(0.5f);
+                Gizmos.DrawCube(transform.position, collider.size);
             }
         }
     }
