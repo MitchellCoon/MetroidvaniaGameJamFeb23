@@ -12,6 +12,7 @@ TagManager:
   - PlayerSpawnPoint
   - PlayerRespawnPoint
   - CameraBounds
+  - Interactable
   layers:
   - Default
   - TransparentFX
