@@ -6,8 +6,6 @@ public class Key : BasePickup
 {
     [SerializeField] BoolVariable hasKey;
 
-    bool isActive = false;
-
     void Start()
     {
         if (hasKey.value) Hide();
