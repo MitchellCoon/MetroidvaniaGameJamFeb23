@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
+    [SerializeField] 
+    float hitBoxActivetime = 0.1f;
     [SerializeField] AttackData defaultProjectileAttack;
     public float fireRate = 0.5f;
     public float checkRadiusProjectile = 10f;
@@ -112,7 +114,7 @@ public class EnemyAttack : MonoBehaviour
     }
     IEnumerator DisableHitbox()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(hitBoxActivetime);
         hitbox.gameObject.SetActive(false);
     }
 
