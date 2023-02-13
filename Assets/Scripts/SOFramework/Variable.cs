@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
 namespace CyberneticStudios.SOFramework
 {
-    public abstract class Variable<T> : ScriptableObject, ISerializationCallbackReceiver
+    public abstract class Variable<T> : BaseVariable, ISerializationCallbackReceiver
     {
 
 #if UNITY_EDITOR
@@ -29,7 +28,7 @@ namespace CyberneticStudios.SOFramework
             }
         }
 
-        public void ResetVariable()
+        public override void ResetVariable()
         {
             // _value = default(T);
             value = _initialValue;

@@ -13,9 +13,20 @@ public class Hitbox : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
             other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position, attackData.knockback);
+        }
+        if (other.CompareTag("Interactable"))
+        {
+            if (other.TryGetComponent<IInteractable>(out var interactable))
+            {
+                interactable.Use();
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} has \"Interactable\" tag but needs a component that implements the Interactable interface");
+            }
         }
     }
 }
