@@ -13,13 +13,14 @@ public class AttackData : ScriptableObject
     public float duration;
     public AudioClip attackSoundEffect;
     public AttackType attackType;
+    public bool knockback;
+    public float knockbackForce;
 
 
     public GameObject projectilePrefab;
     public float projectileSpeed;
     public float projectileRange;
     public bool destroyProjectileOnHit;
-    public bool knockback; 
 
 }
 public enum AttackType {Melee, Projectile};
