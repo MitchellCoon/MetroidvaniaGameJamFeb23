@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    // Start is called before the first frame update
     public  AttackData projectileAttackData;
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            if(projectileAttackData.destroyProjectileOnHit)
+            {
+                Destroy(gameObject);
+            }
+            other.GetComponent<PlayerCombat>().TakeDamage(projectileAttackData, transform.position);
+        }
+    }
  
 }

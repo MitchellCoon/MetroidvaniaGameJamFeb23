@@ -15,12 +15,13 @@ MonoBehaviour:
   name: 
   description: 
   animationName: 
-  damage: 0
+  damage: 1
   duration: 0
   attackSoundEffect: {fileID: 0}
   attackType: 1
+  knockback: 0
+  knockbackForce: 0
   projectilePrefab: {fileID: 7520381118451425663, guid: 0955c152f31ff45da98cb8b068496c11, type: 3}
   projectileSpeed: 0
   projectileRange: 0
   destroyProjectileOnHit: 0
-  knockback: 0
