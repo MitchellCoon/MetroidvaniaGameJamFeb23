@@ -2,7 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+public enum AimType
+{
+    Player,
+    Direction,
 
+
+}
 public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] 
@@ -133,11 +139,4 @@ public class EnemyAttack : MonoBehaviour
 
 
     // Update is called once per frame
-}
-public enum AimType
-{
-    Player,
-    Direction,
-
-
 }

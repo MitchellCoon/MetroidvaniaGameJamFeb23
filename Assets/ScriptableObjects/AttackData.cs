@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum AttackType {Melee, Projectile};
 
 [CreateAssetMenu(fileName = "New Attack", menuName = "AttackData")]
 
@@ -22,4 +23,3 @@ public class AttackData : ScriptableObject
     public bool knockback; 
 
 }
-public enum AttackType {Melee, Projectile};
