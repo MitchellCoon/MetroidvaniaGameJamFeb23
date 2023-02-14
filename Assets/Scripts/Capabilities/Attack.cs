@@ -23,12 +23,12 @@ public class Attack : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.K))
         {
             inputManager.AddInputRequestToQueue(InputManager.Input.Attack1, Time.time);
             inputManager.SetPreviousPressedTime(InputManager.Input.Attack1, Time.time);
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.O))
         {
             inputManager.AddInputRequestToQueue(InputManager.Input.Attack2, Time.time);
             inputManager.SetPreviousPressedTime(InputManager.Input.Attack2, Time.time);

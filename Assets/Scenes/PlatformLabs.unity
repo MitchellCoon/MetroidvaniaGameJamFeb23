@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 8311323}
   - component: {fileID: 8311322}
   m_Layer: 0
-  m_Name: Hitbox (1)
+  m_Name: HitboxEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackData: {fileID: 0}
-  isEnemyHitbox: 0
+  isEnemyHitbox: 1
 --- !u!1 &162495561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2220,6 +2220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a53142bd550624ec6849bc5d007ee92a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitBoxActivetime: 0.1
   defaultProjectileAttack: {fileID: 11400000, guid: c7fdcca1ed23941879779ac67514dd9b, type: 2}
   fireRate: 0.5
   checkRadiusProjectile: 10
@@ -3003,6 +3004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a53142bd550624ec6849bc5d007ee92a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitBoxActivetime: 0.1
   defaultProjectileAttack: {fileID: 11400000, guid: c7fdcca1ed23941879779ac67514dd9b, type: 2}
   fireRate: 0.5
   checkRadiusProjectile: 10
