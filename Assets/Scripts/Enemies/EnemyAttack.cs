@@ -6,7 +6,12 @@ public enum AimType
 {
     Player,
     Direction,
+    // Both of these are for melee attacks that occur when colliding with the player 
+    // Single Collision will melee once and then set canMelee to false
+    // Think something like a falling rock 
     SingleCollision,
+    // Multiple Collision will melee every time it collides with the player
+    // Think something like a spiked floor 
     MultipleCollision
 
 
@@ -126,9 +131,9 @@ public class EnemyAttack : MonoBehaviour
         }
         if (aimType == AimType.SingleCollision)
         {
+            // for now once this is disabled the enemy will never melee again
             canMelee = false;
-            //meleeOnce = false;
-            //return;
+
         }
         hitbox.UpdateAttackData(defaultMeleeAttack);
         hitbox.gameObject.SetActive(true);
