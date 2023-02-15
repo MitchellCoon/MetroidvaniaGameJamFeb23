@@ -6,9 +6,12 @@ public enum AimType
 {
     Player,
     Direction,
+    SingleCollision,
+    MultipleCollision
 
 
 }
+
 public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] 
@@ -37,11 +40,20 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField]
     AttackData defaultMeleeAttack;
     // Start is called before the first frame update
+
     void Start()
     {
         InvokeRepeating("ShootLogic", 0f, fireRate);
     }
-
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if( aimType == AimType.SingleCollision || aimType == AimType.MultipleCollision){
+        if (col.gameObject.CompareTag("Player"))
+        {
+            MeleeAttack(); 
+        }
+        }
+    } 
     void ShootLogic()
     {
         switch (aimType)
@@ -111,6 +123,12 @@ public class EnemyAttack : MonoBehaviour
         if( canMelee == false)
         {
             return;
+        }
+        if (aimType == AimType.SingleCollision)
+        {
+            canMelee = false;
+            //meleeOnce = false;
+            //return;
         }
         hitbox.UpdateAttackData(defaultMeleeAttack);
         hitbox.gameObject.SetActive(true);

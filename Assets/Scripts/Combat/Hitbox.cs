@@ -13,7 +13,7 @@ public class Hitbox : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!isEnemyHitbox &&  other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
             other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position, attackData.knockback);
         }
