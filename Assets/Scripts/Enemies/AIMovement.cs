@@ -40,7 +40,6 @@ public class AIMovement : MonoBehaviour
         if( movementType == MovementType.Flying){
            
            StartCoroutine(CheckForVerticalMovement());
-            //VerticalMovement();
         }
     }
     IEnumerator CheckForVerticalMovement()
@@ -59,7 +58,6 @@ public class AIMovement : MonoBehaviour
         yield return new WaitForSeconds(randomizeDirectionTime);
         StartCoroutine(RandomlyChangeDirection());
     }
-    // Update is called once per frame
     
     void FixedUpdate()
     {
