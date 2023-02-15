@@ -44,7 +44,6 @@ public class EnemyAttack : MonoBehaviour
     Hitbox hitbox;
     [SerializeField]
     AttackData defaultMeleeAttack;
-    // Start is called before the first frame update
 
     void Start()
     {
@@ -72,7 +71,6 @@ public class EnemyAttack : MonoBehaviour
             default:
                 break;
         }
-        // aimAtPlayer();
     }
     void aimInDirection()
     {
@@ -108,11 +106,11 @@ public class EnemyAttack : MonoBehaviour
                     Vector2 fireDirection;
                     if ((hitColliders[i].transform.position.x - transform.position.x) < 0)
                     {
-                        fireDirection = aimAtPlayerDirection * -1; //new Vector2(-1, -1);
+                        fireDirection = aimAtPlayerDirection * -1; 
                     }
                     else
                     {
-                        fireDirection = aimAtPlayerDirection; //new Vector2(1, -1);
+                        fireDirection = aimAtPlayerDirection; 
                     }
 
                     fireProjectile(fireDirection);
@@ -138,7 +136,6 @@ public class EnemyAttack : MonoBehaviour
         hitbox.UpdateAttackData(defaultMeleeAttack);
         hitbox.gameObject.SetActive(true);
         StartCoroutine(DisableHitbox());
-//        hitbox.gameObject.SetActive(false);
 
     }
     IEnumerator DisableHitbox()
@@ -161,5 +158,4 @@ public class EnemyAttack : MonoBehaviour
     }
 
 
-    // Update is called once per frame
 }
