@@ -115,7 +115,6 @@ public class AIMovement : MonoBehaviour
         {
             currentDirection = 1f;
         }
-        //Store user input as a movement vector
 
         Vector3 m_Input = new Vector2(0,0) ;
         if( movementType == MovementType.Flying){
