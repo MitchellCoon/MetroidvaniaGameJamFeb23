@@ -6,7 +6,8 @@ public enum AimType
 {
     Player,
     Direction,
-    Collision
+    SingleCollision,
+    MultipleCollision
 
 
 }
@@ -46,7 +47,7 @@ public class EnemyAttack : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-        if( aimType == AimType.Collision){
+        if( aimType == AimType.SingleCollision || aimType == AimType.MultipleCollision){
         if (col.gameObject.CompareTag("Player"))
         {
             MeleeAttack(); 
@@ -123,7 +124,7 @@ public class EnemyAttack : MonoBehaviour
         {
             return;
         }
-        if (aimType == AimType.Collision)
+        if (aimType == AimType.SingleCollision)
         {
             canMelee = false;
             //meleeOnce = false;

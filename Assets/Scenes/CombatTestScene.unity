@@ -378,7 +378,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 20, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 550434559}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1326,12 +1327,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingY: 0
   m_Rigidbody: {fileID: 475270971}
-  m_Speed: 5
+  horizontalSpeed: 5
+  verticalSpeed: 5
   currentDirection: 1
   platformEdgeDistance: 2
   enemy: {fileID: 0}
   randomizeDirection: 1
   randomizeDirectionTime: 1
+  movementType: 0
+  verticleSearchRadius: 3
+  currentDirectionY: 0
+  verticleCheckTime: 0.1
 --- !u!212 &475270973
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1587,6 +1593,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!4 &550434559 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7666271855664599754, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+  m_PrefabInstance: {fileID: 808372194}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &714931468
 GameObject:
   m_ObjectHideFlags: 0
@@ -2090,6 +2101,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthText: {fileID: 1313833968}
+--- !u!1001 &808372194
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 162495565}
+    m_Modifications:
+    - target: {fileID: 7666271855664599754, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666271855664599754, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1775
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666271855664599754, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666271855664599754, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666271855664599754, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666271855664599754, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666271855664599754, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666271855664599754, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666271855664599754, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666271855664599754, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666271855664599754, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666271855664599793, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
+      propertyPath: m_Name
+      value: FlyingEnemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2dab16e51dfe44c29965bf477ef49295, type: 3}
 --- !u!1 &928681905
 GameObject:
   m_ObjectHideFlags: 0
@@ -2304,12 +2372,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingY: 0
   m_Rigidbody: {fileID: 1099828546}
-  m_Speed: 3
+  horizontalSpeed: 5
+  verticalSpeed: 5
   currentDirection: 1
   platformEdgeDistance: 2
   enemy: {fileID: 0}
   randomizeDirection: 1
   randomizeDirectionTime: 0.5
+  movementType: 0
+  verticleSearchRadius: 3
+  currentDirectionY: 0
+  verticleCheckTime: 0.1
 --- !u!212 &1099828548
 SpriteRenderer:
   m_ObjectHideFlags: 0
