@@ -18,8 +18,10 @@ MonoBehaviour:
   damage: 1
   duration: 0.5
   attackSoundEffect: {fileID: 0}
+  attackType: 0
+  knockback: 1
+  knockbackForce: 1
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   projectileRange: 0
   destroyProjectileOnHit: 0
-  knockback: 1
