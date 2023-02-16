@@ -11966,14 +11966,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500ba50e82bd44afabd9986366168a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorChannel: 1
+  doorChannel: 2
   targetSceneRef:
-    m_SceneAsset: {fileID: 102900000, guid: 871122d253d3b4284923be0bbda6f90c, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: 750d6e3617ddc4347a646988e8f9e7d5, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/DonTestScenes/TestLevel02.unity
+    m_ScenePath: Assets/Scenes/DonTestScenes/TestLevel03.unity
   spawnPoint: {fileID: 3693175747274329870}
   collider: {fileID: 3693175746006658605}
-  transitionType: 0
+  transitionType: 1
   slideTransitionDuration: {fileID: 11400000, guid: f344c4a5a8f9d4b0fa9e71abc5b2f096, type: 2}
 --- !u!4 &3693175746006658771
 Transform:
