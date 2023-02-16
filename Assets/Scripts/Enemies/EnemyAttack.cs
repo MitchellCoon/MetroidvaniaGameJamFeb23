@@ -5,10 +5,7 @@ using UnityEngine;
 public enum AimType
 {
     Player,
-    Direction,
-    SingleCollision,
-    MultipleCollision
-
+    Direction
 
 }
 
@@ -45,15 +42,7 @@ public class EnemyAttack : MonoBehaviour
     {
         InvokeRepeating("ShootLogic", 0f, fireRate);
     }
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if( aimType == AimType.SingleCollision || aimType == AimType.MultipleCollision){
-        if (col.gameObject.CompareTag("Player"))
-        {
-            MeleeAttack(); 
-        }
-        }
-    } 
+
     void ShootLogic()
     {
         switch (aimType)
@@ -124,12 +113,7 @@ public class EnemyAttack : MonoBehaviour
         {
             return;
         }
-        if (aimType == AimType.SingleCollision)
-        {
-            canMelee = false;
-            //meleeOnce = false;
-            //return;
-        }
+
         hitbox.UpdateAttackData(defaultMeleeAttack);
         hitbox.gameObject.SetActive(true);
         StartCoroutine(DisableHitbox());
