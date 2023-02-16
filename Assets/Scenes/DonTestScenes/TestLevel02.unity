@@ -191,6 +191,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
+      propertyPath: transitionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
       propertyPath: slideTransitionDuration
       value: 
       objectReference: {fileID: 11400000, guid: f344c4a5a8f9d4b0fa9e71abc5b2f096, type: 2}
@@ -6933,7 +6937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
       propertyPath: targetSceneRef.m_ScenePath
-      value: Assets/Scenes/DonTestScenes/TestLevel01.unity
+      value: Assets/Scenes/DonTestScenes/TestLevel03.unity
       objectReference: {fileID: 0}
     - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
       propertyPath: targetSceneRef.m_BuildIndex
@@ -6942,7 +6946,7 @@ PrefabInstance:
     - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
       propertyPath: targetSceneRef.m_SceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: 3a4442381a82742bb94393e1cf58751e, type: 3}
+      objectReference: {fileID: 102900000, guid: 750d6e3617ddc4347a646988e8f9e7d5, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
 --- !u!4 &1470230071 stripped

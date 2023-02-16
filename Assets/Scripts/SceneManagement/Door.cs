@@ -55,14 +55,13 @@ namespace DTDEV.SceneManagement
 
         [SerializeField] DoorChannel doorChannel;
         [SerializeField] SceneReference targetSceneRef;
+        [SerializeField] TransitionType transitionType;
+        [SerializeField] FloatVariable slideTransitionDuration;
+        [Space]
+        [Space]
         [SerializeField] Transform spawnPoint;
         [SerializeField] new BoxCollider2D collider;
 
-        [Space]
-        [Space]
-
-        [SerializeField] TransitionType transitionType;
-        [SerializeField] FloatVariable slideTransitionDuration;
 
         Room outgoingRoom;
 

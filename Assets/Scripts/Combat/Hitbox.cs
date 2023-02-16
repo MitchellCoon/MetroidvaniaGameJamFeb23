@@ -25,7 +25,7 @@ public class Hitbox : DisableSpriteRender
             other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position, attackData.knockback);
         }
 
-        if( isEnemyHitbox && other.CompareTag("Player"))
+        if (isEnemyHitbox && other.CompareTag("Player"))
         {
             other.GetComponent<PlayerCombat>().TakeDamage(attackData, transform.position);
             if( hitOnce){

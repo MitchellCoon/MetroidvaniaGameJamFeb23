@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65c87f4b0249140fb9b41f12827a94a2, type: 3}
-  m_Name: DidHitSwitchTestLevel01
+  m_Name: DidTriggerMotionTestLevel03
   m_EditorClassIdentifier: 
   DeveloperDescription: 
   _initialValue: 0
