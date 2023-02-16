@@ -42,7 +42,6 @@ public class LockedDoor : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (hasOpenedDoor.value) return;
         if (!other.CompareTag("Player")) return;
         if (!hasKey.value) return;
         hasOpenedDoor.value = true;
