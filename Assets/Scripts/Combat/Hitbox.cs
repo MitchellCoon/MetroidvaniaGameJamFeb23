@@ -18,7 +18,7 @@ public class Hitbox : MonoBehaviour
             other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position, attackData.knockback);
         }
 
-        if( isEnemyHitbox && other.CompareTag("Player"))
+        if (isEnemyHitbox && other.CompareTag("Player"))
         {
             // TODO - Add logic to deal damage to player
             //other.GetComponent<Player>().TakeDamage(attackData.damage, transform.position, attackData.knockback);

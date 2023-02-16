@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackData: {fileID: 0}
+  isEnemyHitbox: 0
 --- !u!212 &2814348809876267327
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -239,7 +240,7 @@ GameObject:
   - component: {fileID: 2814348810090761043}
   - component: {fileID: 2814348810090761045}
   - component: {fileID: 2709627963287695259}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
