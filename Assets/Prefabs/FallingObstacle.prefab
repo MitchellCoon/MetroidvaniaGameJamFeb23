@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 6552297420232723242}
   - component: {fileID: 8206248053045119971}
   - component: {fileID: 5918321761258899716}
-  - component: {fileID: 7613213380753066521}
-  - component: {fileID: 408292082}
   m_Layer: 0
   m_Name: FallingObstacle
   m_TagString: Untagged
@@ -158,50 +156,6 @@ MonoBehaviour:
   fadeOnCollide: 1
   fadeStarted: 0
   fadeDelay: 0
---- !u!114 &7613213380753066521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6817959757001638112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a53142bd550624ec6849bc5d007ee92a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitBoxActivetime: 0.1
-  defaultProjectileAttack: {fileID: 0}
-  fireRate: 0.1
-  checkRadiusProjectile: 10
-  checkRadiusMelee: 0.5
-  rotationAsVector: {x: 0, y: 0, z: 0}
-  aimType: 2
-  aimAtPlayerDirection: {x: 1, y: 1}
-  directionsToFire: []
-  projectileSpeed: 10
-  canFire: 0
-  canMelee: 1
-  hitbox: {fileID: 1947005455263022467}
-  defaultMeleeAttack: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
---- !u!114 &408292082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6817959757001638112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b35f236623a40f408a40cedc5c3f705, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 1
-  currentHealth: 0
-  damagedColor: {r: 0, g: 0, b: 0, a: 0}
-  knockbackForce: {x: 0, y: 0}
-  inKnockback: 0
-  damagedTime: 0.2
 --- !u!1 &8946121810195295418
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2444051976761447090
 Transform:
   m_ObjectHideFlags: 0
@@ -230,8 +184,8 @@ Transform:
   m_GameObject: {fileID: 8946121810195295418}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6161904287802582680}
   m_RootOrder: 0
@@ -248,8 +202,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ea566673b88c74f925f458d07d7f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableInEditor: 0
   attackData: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
   isEnemyHitbox: 1
+  hitOnce: 1
 --- !u!212 &2378863033860754755
 SpriteRenderer:
   m_ObjectHideFlags: 0
