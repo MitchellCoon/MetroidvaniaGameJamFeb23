@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 using CyberneticStudios.SOFramework;
+using System.Collections.Generic;
 
 /// <summary>
 /// A Gate requires a Switch to open it.
@@ -13,7 +14,7 @@ using CyberneticStudios.SOFramework;
 [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
 public class Gate : MonoBehaviour
 {
-    [SerializeField] BoolVariable didHitSwitch;
+    [SerializeField] BoolCondition[] openConditions = new BoolCondition[0];
     [SerializeField] float openAnimationDuration = 0f;
 
     [Space]
@@ -24,33 +25,69 @@ public class Gate : MonoBehaviour
     Collider2D[] colliders;
     SpriteRenderer[] sprites;
 
+    Dictionary<Collider2D, bool> collidersInitiallyEnabledMap = new Dictionary<Collider2D, bool>();
+
+    Coroutine closing;
+    Coroutine opening;
+
     void OnEnable()
     {
-        didHitSwitch.OnChanged += OnActivateSwitch;
+        for (int i = 0; i < openConditions.Length; i++)
+        {
+            if (openConditions[i] == null) continue;
+            openConditions[i].OnChanged += OnBoolVariableChange;
+        }
     }
 
     void OnDisable()
     {
-        didHitSwitch.OnChanged -= OnActivateSwitch;
+        for (int i = 0; i < openConditions.Length; i++)
+        {
+            if (openConditions[i] == null) continue;
+            openConditions[i].OnChanged -= OnBoolVariableChange;
+        }
     }
 
     void Awake()
     {
-        Assert.IsNotNull(didHitSwitch);
+        Assert.IsTrue(openConditions.Length > 0);
         sprites = GetComponentsInChildren<SpriteRenderer>();
         colliders = GetComponentsInChildren<Collider2D>();
+        foreach (var collider in colliders) collidersInitiallyEnabledMap[collider] = collider.enabled;
     }
 
     void Start()
     {
         if (hiddenGateSprite != null) hiddenGateSprite.enabled = false;
-        if (didHitSwitch.value) HideGate();
+        if (AllConditionsMet()) HideGate();
     }
 
-    void OnActivateSwitch(bool isActivated)
+    void OnBoolVariableChange(bool isActivated)
     {
-        if (!isActivated) return;
-        StartCoroutine(OpenGate());
+        HandleConditionsChange();
+    }
+
+    void HandleConditionsChange()
+    {
+        if (AllConditionsMet())
+        {
+            if (closing != null) StopCoroutine(closing);
+            if (opening == null) opening = StartCoroutine(OpenGate());
+        }
+        else
+        {
+            if (opening != null) StopCoroutine(opening);
+            if (closing == null) closing = StartCoroutine(CloseGate());
+        }
+    }
+
+    bool AllConditionsMet()
+    {
+        for (int i = 0; i < openConditions.Length; i++)
+        {
+            if (!openConditions[i].value) return false;
+        }
+        return true;
     }
 
     IEnumerator OpenGate()
@@ -58,6 +95,15 @@ public class Gate : MonoBehaviour
         // we can add animations, FX, etc. here.
         yield return new WaitForSeconds(openAnimationDuration);
         HideGate();
+        opening = null;
+    }
+
+    IEnumerator CloseGate()
+    {
+        ShowGate();
+        // we can add animations, FX, etc. here.
+        yield return new WaitForSeconds(openAnimationDuration);
+        closing = null;
     }
 
     void HideGate()
@@ -65,5 +111,12 @@ public class Gate : MonoBehaviour
         foreach (var sprite in sprites) if (sprite != null) sprite.enabled = false;
         if (hiddenGateSprite != null) hiddenGateSprite.enabled = true;
         foreach (var collider in colliders) if (collider != null) collider.enabled = false;
+    }
+
+    void ShowGate()
+    {
+        foreach (var sprite in sprites) if (sprite != null) sprite.enabled = true;
+        if (hiddenGateSprite != null) hiddenGateSprite.enabled = false;
+        foreach (var collider in colliders) if (collider != null && collidersInitiallyEnabledMap[collider]) collider.enabled = true;
     }
 }

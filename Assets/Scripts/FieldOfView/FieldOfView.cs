@@ -81,7 +81,7 @@ public class FieldOfView : MonoBehaviour
         {
             yield return new WaitForSeconds(delayBetweenRaycasts);
             FindVisibleTargets();
-            if (isTriggered) didMotionSensorTrigger.value = true;
+            didMotionSensorTrigger.value = isTriggered;
         }
     }
 
