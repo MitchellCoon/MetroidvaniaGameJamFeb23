@@ -18,6 +18,10 @@ public class FieldOfView : MonoBehaviour
 
     [SerializeField] bool debug = false;
 
+    [Space]
+    [Space]
+
+    [SerializeField] bool canUntrigger = true;
     [SerializeField][Range(0, 50)] float viewRadius = 10f;
     [SerializeField][Range(0, 360)] float viewAngle = 30f;
     [SerializeField] Color activeColor = Color.yellow;
@@ -81,7 +85,14 @@ public class FieldOfView : MonoBehaviour
         {
             yield return new WaitForSeconds(delayBetweenRaycasts);
             FindVisibleTargets();
-            if (isTriggered) didMotionSensorTrigger.value = true;
+            if (canUntrigger)
+            {
+                didMotionSensorTrigger.value = isTriggered;
+            }
+            else
+            {
+                if (isTriggered) didMotionSensorTrigger.value = true;
+            }
         }
     }
 

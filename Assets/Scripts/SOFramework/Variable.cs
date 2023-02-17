@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CyberneticStudios.SOFramework
 {
-    public abstract class Variable<T> : BaseVariable, ISerializationCallbackReceiver
+    public abstract class Variable<T> : BaseVariable
     {
 
 #if UNITY_EDITOR
@@ -10,7 +10,7 @@ namespace CyberneticStudios.SOFramework
         public string DeveloperDescription = "";
 #endif
 
-        public System.Action<T> OnChanged;
+        public event System.Action<T> OnChanged;
 
         [SerializeField] private T _initialValue;
         [SerializeField] private T _value;
@@ -34,11 +34,9 @@ namespace CyberneticStudios.SOFramework
             value = _initialValue;
         }
 
-        public void OnAfterDeserialize()
+        public void InvokeCallbacks()
         {
-            OnChanged?.Invoke(_value);
+            OnChanged?.Invoke(value);
         }
-
-        public void OnBeforeSerialize() { }
     }
 }

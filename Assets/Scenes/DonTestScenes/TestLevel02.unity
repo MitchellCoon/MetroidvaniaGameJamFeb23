@@ -861,6 +861,14 @@ PrefabInstance:
       propertyPath: didHitSwitch
       value: 
       objectReference: {fileID: 11400000, guid: bc635a4e69c1341f1b059283e1e14fed, type: 2}
+    - target: {fileID: 8677064692514345824, guid: a2d70c1c22a024d0c8c7297ffb45aebc, type: 3}
+      propertyPath: openConditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8677064692514345824, guid: a2d70c1c22a024d0c8c7297ffb45aebc, type: 3}
+      propertyPath: openConditions.Array.data[0].boolValue
+      value: 
+      objectReference: {fileID: 11400000, guid: bc635a4e69c1341f1b059283e1e14fed, type: 2}
     - target: {fileID: 8677064692514345885, guid: a2d70c1c22a024d0c8c7297ffb45aebc, type: 3}
       propertyPath: m_Name
       value: Gate

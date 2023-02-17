@@ -4,24 +4,25 @@ using UnityEngine;
 namespace CyberneticStudios.SOFramework
 {
 
-    [CreateAssetMenu(menuName = "Conditions/Bool Condition")]
-    public class BoolCondition : ScriptableObject
+    [Serializable]
+    public class BoolCondition
     {
-        public enum ConditionType
-        {
-            IS_TRUE,
-            IS_FALSE
-        }
-
         [SerializeField] BoolVariable boolValue;
-        [SerializeField] ConditionType conditionType;
+        [SerializeField] bool invert;
 
         public bool value => GetValue();
 
+        public event System.Action<bool> OnChanged
+        {
+            // see: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/add
+            add { boolValue.OnChanged += value; }
+            remove { boolValue.OnChanged -= value; }
+        }
+
         bool GetValue()
         {
-            if (conditionType == ConditionType.IS_TRUE) return boolValue.value;
-            return !boolValue.value;
+            if (invert) return !boolValue.value;
+            return boolValue.value;
         }
     }
 }
