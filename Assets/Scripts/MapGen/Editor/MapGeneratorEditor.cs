@@ -23,7 +23,7 @@ public class MapGeneratorEditor : Editor
             script.Generate();
         }
 
-        if (GUILayout.Button("Remove Test Sprites", GUILayout.Height(40)))
+        if (GUILayout.Button("Remove Test Map", GUILayout.Height(40)))
         {
             script.DiscardTestSprites();
         }

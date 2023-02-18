@@ -15,6 +15,13 @@ namespace MapGen
         public void OnRoomVisited(string roomGuid)
         {
             roomVisitedMap[roomGuid] = true;
+            RenderVisibleRooms();
+        }
+
+        public void SetMapRoomDataList(List<MapRoomData> incoming)
+        {
+            mapRoomDataList.Clear();
+            foreach (var item in incoming) mapRoomDataList.Add(item);
         }
 
         void Awake()
@@ -24,6 +31,11 @@ namespace MapGen
             {
                 roomVisitedMap[item.RoomGuid] = item.IsVisited;
             }
+        }
+
+        void Start()
+        {
+            RenderVisibleRooms();
         }
 
         bool IsRoomVisited(string roomGuid)

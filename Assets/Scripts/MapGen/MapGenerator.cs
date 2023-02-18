@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -33,42 +34,13 @@ namespace MapGen
         const string DATA_PATH = "Generated/MapData/";
         const string IMPORTER_SETTINGS_PATH = "Assets/Settings/MapGenTextureImporter.preset";
 
+        List<MapRoomData> mapRoomDataList = new List<MapRoomData>();
+
 #if UNITY_EDITOR
 
         Scene initialScene;
 
         const string GENERATED_SPRITE_TAG = "EditorOnly";
-
-        // [System.Serializable]
-        // public struct MinimapRoomData
-        // {
-        //     public string roomGuid;
-        //     public MinimapRoomLayer tileLayer;
-        //     public MinimapRoomLayer backgroundLayer;
-        //     public MinimapRoomLayer borderLayer;
-
-        //     public override string ToString()
-        //     {
-        //         return $"{roomGuid}\n{borderLayer}\n{tileLayer}\n{backgroundLayer}";
-        //     }
-        // }
-
-        // [System.Serializable]
-        // public struct MinimapRoomLayer
-        // {
-        //     public bool valid;
-        //     public string name;
-        //     public MapLayerType layerType;
-        //     public Vector2 position;
-        //     public int sortingOrder;
-        //     public Sprite sprite;
-
-        //     public override string ToString()
-        //     {
-        //         if (!valid) return "Invalid MinimapRoomData";
-        //         return $"{name} - {sortingOrder} - {position}";
-        //     }
-        // }
 
         void Start()
         {
@@ -84,13 +56,14 @@ namespace MapGen
         {
             foreach (var item in GameObject.FindGameObjectsWithTag(GENERATED_SPRITE_TAG))
             {
-                if (item.GetComponent<SpriteRenderer>() != null) DestroyImmediate(item);
+                if (item.GetComponent<WorldMap>() != null) DestroyImmediate(item);
             }
         }
 
         [ContextMenu("Generate Map")]
         public void Generate()
         {
+            mapRoomDataList.Clear();
             initialScene = EditorSceneManager.GetActiveScene();
             DiscardTestSprites();
             StopAllCoroutines();
@@ -107,24 +80,25 @@ namespace MapGen
                 EditorSceneManager.MarkSceneDirty(scene);
                 EditorSceneManager.SaveScene(scene);
                 EditorSceneManager.CloseScene(scene, true);
-
-                // try
-                // {
-                //     Debug.Log($"Processing Scene \"{scene.name}\"...");
-                //     ProcessScene(scene);
-                // }
-                // catch (System.Exception e)
-                // {
-                //     Debug.LogError(e);
-                // }
-                // finally
-                // {
-                //     EditorSceneManager.MarkSceneDirty(scene);
-                //     EditorSceneManager.SaveScene(scene);
-                //     EditorSceneManager.CloseScene(scene, true);
-                // }
             }
+            Debug.Log("Generating Map Prefab...");
+            GenerateMapPrefab();
             Debug.Log("✓ all done!");
+        }
+
+        void GenerateMapPrefab()
+        {
+            GameObject worldMapObj = new GameObject("WorldMap");
+            worldMapObj.transform.position = Vector2.zero;
+            WorldMap worldMap = worldMapObj.AddComponent<WorldMap>();
+            worldMap.SetMapRoomDataList(mapRoomDataList);
+            foreach (var mapRoomData in mapRoomDataList)
+            {
+                GameObject mapRoomObj = mapRoomData.CreateGameObject();
+                mapRoomObj.transform.SetParent(worldMapObj.transform);
+            }
+            worldMapObj.tag = GENERATED_SPRITE_TAG;
+            // EditorSceneManager.MoveGameObjectToScene(worldMapObj, initialScene);
         }
 
         void ProcessScene(Scene scene)
@@ -149,23 +123,34 @@ namespace MapGen
             {
                 if (mappableTilesets[i].IsMapBorder)
                 {
-                    roomData.borderLayer = ProcessTiles(mappableTilesets[i], scene, MapLayerType.Border);
+                    roomData.SetBorderLayer(ProcessTiles(mappableTilesets[i], scene, MapLayerType.Border));
                 }
                 else
                 {
-                    roomData.backgroundLayer = ProcessTiles(mappableTilesets[i], scene, MapLayerType.Background);
-                    roomData.tileLayer = ProcessTiles(mappableTilesets[i], scene, MapLayerType.Tile);
+                    roomData.SetBackgroundLayer(ProcessTiles(mappableTilesets[i], scene, MapLayerType.Background));
+                    roomData.SetTileLayer(ProcessTiles(mappableTilesets[i], scene, MapLayerType.Tile));
                 }
             }
 
-            SaveMapData(roomData, room.guid, scene);
+            SaveMapRoomData(roomData, room.guid, scene);
+            // We need to save the map images as a separate step, because
+            // calling AssetDatabase.ImportAsset() clobbers changes made
+            // to the ScriptableObject. In other words, ImportAsset() sets
+            // off a chain reaction that forcibly refreshes all assets.
+            // Per docs:
+            //   This imports an Asset at the specified path, and triggers a number
+            //   of callbacks including AssetModificationProcessor.OnWillSaveAssets and
+            //   AssetPostProcessor.OnPostProcessAllAssets
+            //   see: https://docs.unity3d.com/ScriptReference/AssetDatabase.ImportAsset.html
+            SaveMapRoomImages(roomData);
             room.SetMapRoomData(roomData);
+            mapRoomDataList.Add(roomData);
         }
 
         MapRoomLayer ProcessTiles(MappableTileset mappableTileset, Scene scene, MapLayerType layerType)
         {
-            MapRoomLayer data = new MapRoomLayer { valid = false };
-            if (mappableTileset == null) return data;
+            MapRoomLayer layer = new MapRoomLayer { valid = false };
+            if (mappableTileset == null) return layer;
             Debug.Log("- processing mappableTileset...");
             mappableTileset.PrepareMapGen();
             (TileBase[] tiles, int numTilesFound) = mappableTileset.GetTileData();
@@ -175,22 +160,13 @@ namespace MapGen
             Texture2D texture = TilesToTexture2D(tiles, size.x, size.y, layerType);
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, size.x, size.y), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.Tight, Vector4.zero, false);
 
-            data.valid = true;
-            data.name = $"{scene.name}_Layer{GetMapLayerTypeName(layerType)}";
-            data.type = layerType;
-            data.position = center * 0.5f;
-            data.sortingOrder = GetSortingOrderFromMapLayerType(layerType);
-            data.sprite = sprite;
-
-            // add a new sprite to the original scene
-            GameObject generated = new GameObject(data.name);
-            SpriteRenderer spriteRenderer = generated.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = sprite;
-            spriteRenderer.sortingOrder = GetSortingOrderFromMapLayerType(layerType);
-            generated.transform.position = data.position;
-            generated.tag = GENERATED_SPRITE_TAG;
-            EditorSceneManager.MoveGameObjectToScene(generated, initialScene);
-            return data;
+            layer.valid = true;
+            layer.name = $"{scene.name}_Layer{GetMapLayerTypeName(layerType)}";
+            layer.type = layerType;
+            layer.position = center * 0.5f;
+            layer.sortingOrder = GetSortingOrderFromMapLayerType(layerType);
+            layer.sprite = sprite;
+            return layer;
         }
 
         Texture2D TilesToTexture2D(TileBase[] tiles, int width, int height, MapLayerType layerType)
@@ -240,37 +216,44 @@ namespace MapGen
         MapRoomData LoadOrCreateMapRoomData(string roomGuid)
         {
             string assetName = $"map-data-{roomGuid}";
-            string[] result = AssetDatabase.FindAssets($"{DATA_PATH}{assetName}");
-            MapRoomData mapRoomData = null;
+            string relativePath = $"Assets/{DATA_PATH}{assetName}.asset";
             CreateDirIfNotExists($"Assets/{DATA_PATH}");
+            MapRoomData mapRoomData = AssetDatabase.LoadAssetAtPath<MapRoomData>(relativePath);
 
-            if (result.Length > 1)
+            if (mapRoomData == null)
             {
-                throw new UnityException("More than one MapRoomData found - naming collision!");
-            }
-            if (result.Length == 0)
-            {
+                Debug.Log("- unable to find MapRoomData... creating new one");
                 mapRoomData = ScriptableObject.CreateInstance<MapRoomData>();
-                AssetDatabase.CreateAsset(mapRoomData, $"Assets/{DATA_PATH}{assetName}.asset");
+                AssetDatabase.CreateAsset(mapRoomData, relativePath);
             }
             else
             {
-                string path = AssetDatabase.GUIDToAssetPath(result[0]);
-                mapRoomData = (MapRoomData)AssetDatabase.LoadAssetAtPath(path, typeof(MapRoomData));
+                Debug.Log("- found existing MapRoomData");
             }
+
             return mapRoomData;
         }
 
-        void SaveMapData(MapRoomData data, string roomGuid, Scene scene)
+        void SaveMapRoomData(MapRoomData data, string roomGuid, Scene scene)
         {
             data.roomGuid = roomGuid;
             data.roomName = scene.name;
-            data.backgroundLayer.sprite = SaveLayerImage(data.backgroundLayer);
-            data.borderLayer.sprite = SaveLayerImage(data.borderLayer);
-            data.tileLayer.sprite = SaveLayerImage(data.tileLayer);
             EditorUtility.SetDirty(data);
             AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+        }
+
+        void SaveMapRoomImages(MapRoomData data)
+        {
+            Sprite backgroundSprite = SaveLayerImage(data.backgroundLayer);
+            Sprite borderSprite = SaveLayerImage(data.borderLayer);
+            Sprite tileSprite = SaveLayerImage(data.tileLayer);
+            data.SetBackgroundSprite(backgroundSprite);
+            data.SetBorderSprite(borderSprite);
+            data.SetTileSprite(tileSprite);
+            EditorUtility.SetDirty(data);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
         }
 
         Sprite SaveLayerImage(MapRoomLayer layer)
@@ -287,7 +270,16 @@ namespace MapGen
             byte[] byteArray = texture.EncodeToPNG();
             System.IO.Directory.CreateDirectory(directryPath);
             System.IO.File.WriteAllBytes(absolutePath, byteArray);
+            ApplySpriteDefaults(relativePath);
+            AssetDatabase.ImportAsset(relativePath, ImportAssetOptions.DontDownloadFromCacheServer);
+            ResetSpriteImporter(relativePath);
+            Sprite newSprite = (Sprite)AssetDatabase.LoadAssetAtPath<Sprite>(relativePath);
+            if (newSprite == null) Debug.LogError($"Unable to import sprite for img \"{relativePath}\"");
+            return newSprite;
+        }
 
+        void ApplySpriteDefaults(string relativePath)
+        {
             // all this to just override default import settings...
             TextureImporter importer = (TextureImporter)TextureImporter.GetAtPath(relativePath);
             importer.textureType = TextureImporterType.Sprite;
@@ -306,29 +298,19 @@ namespace MapGen
             importer.textureCompression = TextureImporterCompression.Uncompressed;
             importer.alphaSource = TextureImporterAlphaSource.FromInput;
             EditorUtility.SetDirty(importer);
-            importer.SaveAndReimport();
-
-            Sprite newSprite = (Sprite)AssetDatabase.LoadAssetAtPath<Sprite>(relativePath);
-            if (newSprite == null) Debug.LogError($"Unable to import sprite for img \"{relativePath}\"");
-            return newSprite;
+            // importer.SaveAndReimport();
         }
 
-        // this did not work for sprites, but I think it will work for ScriptableObjects
-        void ApplySpriteDefaults(Sprite sprite)
+        void ResetSpriteImporter(string relativePath)
         {
-            if (sprite == null) return;
-
-            var so = new SerializedObject(sprite);
-            // you can Shift+Right Click on property names in the Inspector to see their paths (ONLY SOMETIMES)
-            so.FindProperty("m_PixelsToUnits").floatValue = 1;
-            so.ApplyModifiedProperties();
-            so = new SerializedObject(sprite.texture);
-            so.FindProperty("m_TextureSettings.m_FilterMode").intValue = 0;
-            so.ApplyModifiedProperties();
-
-            EditorUtility.SetDirty(sprite);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+            // all this to just override default import settings...
+            TextureImporter importer = (TextureImporter)TextureImporter.GetAtPath(relativePath);
+            importer.textureType = TextureImporterType.Sprite;
+            TextureImporterSettings importerSettings = new TextureImporterSettings();
+            importer.ReadTextureSettings(importerSettings);
+            importerSettings.spritePixelsPerUnit = 100;
+            importer.SetTextureSettings(importerSettings);
+            EditorUtility.SetDirty(importer);
         }
 
         void CreateDirIfNotExists(string dir)
@@ -357,6 +339,7 @@ namespace MapGen
 
 
 // // HANDY CODE SNIPPETS
+//
 // // Here is an example of using SerializedObject to update a room.
 // // It turns out that simply setting room properties, marking the scene as dirty,
 // // and saving the scene was enough to save changes to a room. But this approach
@@ -371,3 +354,31 @@ namespace MapGen
 //     // AssetDatabase.SaveAssets();
 //     // AssetDatabase.Refresh();
 // }
+
+// // this did not work for sprites, but I think it will work for ScriptableObjects
+// void ApplySpriteDefaults(Sprite sprite)
+// {
+//     if (sprite == null) return;
+
+//     var so = new SerializedObject(sprite);
+//     // you can Shift+Right Click on property names in the Inspector to see their paths (ONLY SOMETIMES)
+//     so.FindProperty("m_PixelsToUnits").floatValue = 1;
+//     so.ApplyModifiedProperties();
+//     so = new SerializedObject(sprite.texture);
+//     so.FindProperty("m_TextureSettings.m_FilterMode").intValue = 0;
+//     so.ApplyModifiedProperties();
+
+//     EditorUtility.SetDirty(sprite);
+//     AssetDatabase.SaveAssets();
+//     AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+// }
+
+// // Originally placed in ProcessTiles()
+// // add a new sprite to the original scene
+// GameObject generated = new GameObject(data.name);
+// SpriteRenderer spriteRenderer = generated.AddComponent<SpriteRenderer>();
+// spriteRenderer.sprite = sprite;
+// spriteRenderer.sortingOrder = GetSortingOrderFromMapLayerType(layerType);
+// generated.transform.position = data.position;
+// generated.tag = GENERATED_SPRITE_TAG;
+// EditorSceneManager.MoveGameObjectToScene(generated, initialScene);

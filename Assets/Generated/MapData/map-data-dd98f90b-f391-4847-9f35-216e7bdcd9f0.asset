@@ -12,30 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2e5324cb6c549b6a3d427c3f237f83, type: 3}
   m_Name: map-data-dd98f90b-f391-4847-9f35-216e7bdcd9f0
   m_EditorClassIdentifier: 
-  roomGuid: 
-  roomName: 
-  backgroundLayer:
-    valid: 0
-    name: 
-    type: 0
-    position: {x: 0, y: 0}
+  roomGuid: dd98f90b-f391-4847-9f35-216e7bdcd9f0
+  roomName: TestLevel02
+  _backgroundLayer:
+    valid: 1
+    name: TestLevel02_LayerBackground
+    type: 1
+    position: {x: -30, y: -11.5}
     sortingOrder: 0
-    sprite: {fileID: 21300000, guid: 06d352e037d7342fdae5bede6923eeac, type: 3}
+    sprite: {fileID: 21300000, guid: 33eb10ab3cbc048cf9a1b4c3bcec5b6a, type: 3}
     spriteOverride: {fileID: 0}
-  borderLayer:
-    valid: 0
-    name: 
-    type: 0
-    position: {x: 0, y: 0}
-    sortingOrder: 0
-    sprite: {fileID: 0}
+  _borderLayer:
+    valid: 1
+    name: TestLevel02_LayerBorder
+    type: 2
+    position: {x: -30, y: -11.5}
+    sortingOrder: 2
+    sprite: {fileID: 21300000, guid: 6a36721e0eb094175a9ceec010310e6d, type: 3}
     spriteOverride: {fileID: 0}
-  tileLayer:
-    valid: 0
-    name: 
+  _tileLayer:
+    valid: 1
+    name: TestLevel02_LayerTile
     type: 0
-    position: {x: 0, y: 0}
-    sortingOrder: 0
-    sprite: {fileID: 0}
+    position: {x: -30, y: -11.5}
+    sortingOrder: 1
+    sprite: {fileID: 21300000, guid: c1b28d77640a741888e0fceb10483732, type: 3}
     spriteOverride: {fileID: 0}
   isVisited: 0

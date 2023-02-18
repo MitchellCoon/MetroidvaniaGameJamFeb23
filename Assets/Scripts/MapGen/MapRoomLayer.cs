@@ -32,6 +32,17 @@ namespace MapGen
             return obj;
         }
 
+        public void Config(MapRoomLayer incoming)
+        {
+            if (!incoming.valid) return;
+            this.valid = incoming.valid;
+            this.name = incoming.name;
+            this.type = incoming.type;
+            this.position = incoming.position;
+            this.sortingOrder = incoming.sortingOrder;
+            this.sprite = incoming.sprite;
+        }
+
         Sprite GetSprite()
         {
             if (!valid) return null;
@@ -39,10 +50,15 @@ namespace MapGen
             return sprite;
         }
 
+        string GetSpriteName()
+        {
+            return GetSprite() != null ? GetSprite().name : "";
+        }
+
         public override string ToString()
         {
-            if (!valid) return "Invalid MinimapRoomData";
-            return $"{name} - {sortingOrder} - {position}";
+            if (!valid) return "Invalid MapRoomData";
+            return $"{name} - {sortingOrder} - {position} - {GetSpriteName()}";
         }
     }
 }

@@ -12,30 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2e5324cb6c549b6a3d427c3f237f83, type: 3}
   m_Name: map-data-ea1e7fd5-f1eb-4cae-bca5-82dbb8144006
   m_EditorClassIdentifier: 
-  roomGuid: 
-  roomName: 
-  backgroundLayer:
-    valid: 0
-    name: 
-    type: 0
-    position: {x: 0, y: 0}
+  roomGuid: ea1e7fd5-f1eb-4cae-bca5-82dbb8144006
+  roomName: TestLevel01
+  _backgroundLayer:
+    valid: 1
+    name: TestLevel01_LayerBackground
+    type: 1
+    position: {x: 0, y: 3.5}
     sortingOrder: 0
     sprite: {fileID: 21300000, guid: abd671765941545868c44248d0f90eb5, type: 3}
     spriteOverride: {fileID: 0}
-  borderLayer:
-    valid: 0
-    name: 
-    type: 0
-    position: {x: 0, y: 0}
-    sortingOrder: 0
-    sprite: {fileID: 0}
+  _borderLayer:
+    valid: 1
+    name: TestLevel01_LayerBorder
+    type: 2
+    position: {x: 0, y: 3.5}
+    sortingOrder: 2
+    sprite: {fileID: 21300000, guid: 908c70ce3363b4ac2bc8e5b4a6e1613f, type: 3}
     spriteOverride: {fileID: 0}
-  tileLayer:
-    valid: 0
-    name: 
+  _tileLayer:
+    valid: 1
+    name: TestLevel01_LayerTile
     type: 0
-    position: {x: 0, y: 0}
-    sortingOrder: 0
-    sprite: {fileID: 0}
+    position: {x: 0, y: 3.5}
+    sortingOrder: 1
+    sprite: {fileID: 21300000, guid: b534e33ec51904214a5c06baaa76b940, type: 3}
     spriteOverride: {fileID: 0}
   isVisited: 0
