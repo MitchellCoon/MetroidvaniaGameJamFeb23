@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-using CyberneticStudios.SOFramework;
+using MapGen;
 
 [CustomEditor(typeof(MapGenerator))]
 public class MapGeneratorEditor : Editor

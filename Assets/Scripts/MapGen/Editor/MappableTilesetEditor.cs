@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-using CyberneticStudios.SOFramework;
+using MapGen;
 
 [CustomEditor(typeof(MappableTileset))]
 public class MappableTilesetEditor : Editor
