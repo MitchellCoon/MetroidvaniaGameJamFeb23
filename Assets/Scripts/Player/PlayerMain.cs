@@ -1,6 +1,8 @@
 using UnityEngine;
-using Cinemachine;
 using UnityEngine.Assertions;
+using Cinemachine;
+
+using MapGen;
 
 public class PlayerMain : MonoBehaviour
 {
@@ -30,8 +32,19 @@ public class PlayerMain : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
     }
 
+    void LateUpdate()
+    {
+        GlobalMapState.playerPosition = transform.position;
+    }
+
     void OnEnable()
     {
         SetCameraTargetAsPlayer();
+        GlobalMapState.isPlayerActive = true;
+    }
+
+    void OnDisable()
+    {
+        GlobalMapState.isPlayerActive = false;
     }
 }

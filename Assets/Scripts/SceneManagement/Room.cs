@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
+using MapGen;
+
 namespace DTDEV.SceneManagement
 {
 
@@ -18,6 +20,9 @@ namespace DTDEV.SceneManagement
     public class Room : MonoBehaviour
     {
         [SerializeField] GameObject playerPrefab;
+
+        [Tooltip("Do not edit this directly - it gets automatically assigned by MapGenerator")]
+        [SerializeField] MapRoomData mapRoomData;
 
         GuidComponent _guidComponent;
         GuidComponent guidComponent
@@ -45,6 +50,11 @@ namespace DTDEV.SceneManagement
         public void DisableInitialSpawn()
         {
             initialSpawnEnabled = false;
+        }
+
+        public void SetMapRoomData(MapRoomData incoming)
+        {
+            mapRoomData = incoming;
         }
 
         public void SetRespawnPoint(Transform respawnPoint)
@@ -78,6 +88,7 @@ namespace DTDEV.SceneManagement
                 if (currentRespawnPoint == null) SetRespawnPoint(playerSpawnPoint);
                 yield return SpawnPlayer();
             }
+            if (mapRoomData != null) mapRoomData.FlagRoomVisited();
             yield return null;
         }
 

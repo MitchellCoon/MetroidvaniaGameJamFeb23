@@ -790,6 +790,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
   currentHealth: 0
+  damagedColor: {r: 0, g: 0, b: 0, a: 0}
+  knockbackForce: {x: 0, y: 0}
+  inKnockback: 0
+  damagedTime: 0.2
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,7 +1002,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ea566673b88c74f925f458d07d7f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableInEditor: 0
   attackData: {fileID: 0}
+  isEnemyHitbox: 0
+  hitOnce: 0
 --- !u!61 &965812405
 BoxCollider2D:
   m_ObjectHideFlags: 0

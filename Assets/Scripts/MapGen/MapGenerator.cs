@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 using DTDEV.SceneManagement;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -38,43 +39,36 @@ namespace MapGen
 
         const string GENERATED_SPRITE_TAG = "EditorOnly";
 
-        public enum FillType
-        {
-            Tile,
-            Background,
-            Border
-        }
+        // [System.Serializable]
+        // public struct MinimapRoomData
+        // {
+        //     public string roomGuid;
+        //     public MinimapRoomLayer tileLayer;
+        //     public MinimapRoomLayer backgroundLayer;
+        //     public MinimapRoomLayer borderLayer;
 
-        [System.Serializable]
-        public struct MinimapRoomData
-        {
-            public string roomGuid;
-            public MinimapRoomLayer tileLayer;
-            public MinimapRoomLayer backgroundLayer;
-            public MinimapRoomLayer borderLayer;
+        //     public override string ToString()
+        //     {
+        //         return $"{roomGuid}\n{borderLayer}\n{tileLayer}\n{backgroundLayer}";
+        //     }
+        // }
 
-            public override string ToString()
-            {
-                return $"{roomGuid}\n{borderLayer}\n{tileLayer}\n{backgroundLayer}";
-            }
-        }
+        // [System.Serializable]
+        // public struct MinimapRoomLayer
+        // {
+        //     public bool valid;
+        //     public string name;
+        //     public MapLayerType layerType;
+        //     public Vector2 position;
+        //     public int sortingOrder;
+        //     public Sprite sprite;
 
-        [System.Serializable]
-        public struct MinimapRoomLayer
-        {
-            public bool valid;
-            public string name;
-            public FillType fillType;
-            public Vector2 position;
-            public int sortingOrder;
-            public Sprite sprite;
-
-            public override string ToString()
-            {
-                if (!valid) return "Invalid MinimapRoomData";
-                return $"{name} - {sortingOrder} - {position}";
-            }
-        }
+        //     public override string ToString()
+        //     {
+        //         if (!valid) return "Invalid MinimapRoomData";
+        //         return $"{name} - {sortingOrder} - {position}";
+        //     }
+        // }
 
         void Start()
         {
@@ -107,19 +101,28 @@ namespace MapGen
             {
                 string path = SceneUtility.GetScenePathByBuildIndex(i);
                 Scene scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
-                try
-                {
-                    Debug.Log($"Processing Scene \"{scene.name}\"...");
-                    ProcessScene(scene);
-                }
-                catch (System.Exception e)
-                {
-                    Debug.LogError(e);
-                }
-                finally
-                {
-                    EditorSceneManager.CloseScene(scene, true);
-                }
+
+                Debug.Log($"Processing Scene \"{scene.name}\"...");
+                ProcessScene(scene);
+                EditorSceneManager.MarkSceneDirty(scene);
+                EditorSceneManager.SaveScene(scene);
+                EditorSceneManager.CloseScene(scene, true);
+
+                // try
+                // {
+                //     Debug.Log($"Processing Scene \"{scene.name}\"...");
+                //     ProcessScene(scene);
+                // }
+                // catch (System.Exception e)
+                // {
+                //     Debug.LogError(e);
+                // }
+                // finally
+                // {
+                //     EditorSceneManager.MarkSceneDirty(scene);
+                //     EditorSceneManager.SaveScene(scene);
+                //     EditorSceneManager.CloseScene(scene, true);
+                // }
             }
             Debug.Log("✓ all done!");
         }
@@ -140,27 +143,28 @@ namespace MapGen
             }
 
             room.Validate();
-            MinimapRoomData roomData = new MinimapRoomData { roomGuid = room.guid };
+            MapRoomData roomData = LoadOrCreateMapRoomData(room.guid);
 
             for (int i = 0; i < mappableTilesets.Length; i++)
             {
                 if (mappableTilesets[i].IsMapBorder)
                 {
-                    roomData.borderLayer = ProcessTiles(mappableTilesets[i], scene, FillType.Border);
+                    roomData.borderLayer = ProcessTiles(mappableTilesets[i], scene, MapLayerType.Border);
                 }
                 else
                 {
-                    roomData.backgroundLayer = ProcessTiles(mappableTilesets[i], scene, FillType.Background);
-                    roomData.tileLayer = ProcessTiles(mappableTilesets[i], scene, FillType.Tile);
+                    roomData.backgroundLayer = ProcessTiles(mappableTilesets[i], scene, MapLayerType.Background);
+                    roomData.tileLayer = ProcessTiles(mappableTilesets[i], scene, MapLayerType.Tile);
                 }
             }
 
-            SaveMapData(roomData);
+            SaveMapData(roomData, room.guid, scene);
+            room.SetMapRoomData(roomData);
         }
 
-        MinimapRoomLayer ProcessTiles(MappableTileset mappableTileset, Scene scene, FillType fillType)
+        MapRoomLayer ProcessTiles(MappableTileset mappableTileset, Scene scene, MapLayerType layerType)
         {
-            MinimapRoomLayer data = new MinimapRoomLayer { valid = false };
+            MapRoomLayer data = new MapRoomLayer { valid = false };
             if (mappableTileset == null) return data;
             Debug.Log("- processing mappableTileset...");
             mappableTileset.PrepareMapGen();
@@ -168,28 +172,28 @@ namespace MapGen
             Vector2Int size = mappableTileset.GetCellBasedSize();
             Vector2 center = mappableTileset.GetCenter();
 
-            Texture2D texture = TilesToTexture2D(tiles, size.x, size.y, fillType);
+            Texture2D texture = TilesToTexture2D(tiles, size.x, size.y, layerType);
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, size.x, size.y), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.Tight, Vector4.zero, false);
 
             data.valid = true;
-            data.name = $"{scene.name}_Layer{GetFillTypeName(fillType)}";
-            data.fillType = fillType;
+            data.name = $"{scene.name}_Layer{GetMapLayerTypeName(layerType)}";
+            data.type = layerType;
             data.position = center * 0.5f;
-            data.sortingOrder = GetSortingOrderFromFillType(fillType);
+            data.sortingOrder = GetSortingOrderFromMapLayerType(layerType);
             data.sprite = sprite;
 
             // add a new sprite to the original scene
             GameObject generated = new GameObject(data.name);
             SpriteRenderer spriteRenderer = generated.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = sprite;
-            spriteRenderer.sortingOrder = GetSortingOrderFromFillType(fillType);
+            spriteRenderer.sortingOrder = GetSortingOrderFromMapLayerType(layerType);
             generated.transform.position = data.position;
             generated.tag = GENERATED_SPRITE_TAG;
             EditorSceneManager.MoveGameObjectToScene(generated, initialScene);
             return data;
         }
 
-        Texture2D TilesToTexture2D(TileBase[] tiles, int width, int height, FillType fillType)
+        Texture2D TilesToTexture2D(TileBase[] tiles, int width, int height, MapLayerType layerType)
         {
             Color[] colors = new Color[width * height];
             int i = 0;
@@ -200,12 +204,12 @@ namespace MapGen
                     i = x + y * width;
                     if (tiles[i] == null)
                     {
-                        if (fillType == FillType.Background) colors[i] = colorVoid;
+                        if (layerType == MapLayerType.Background) colors[i] = colorVoid;
                     }
                     else
                     {
-                        if (fillType == FillType.Tile) colors[i] = colorTile;
-                        if (fillType == FillType.Border) colors[i] = colorBorder;
+                        if (layerType == MapLayerType.Tile) colors[i] = colorTile;
+                        if (layerType == MapLayerType.Border) colors[i] = colorBorder;
                     }
                 }
             }
@@ -221,31 +225,57 @@ namespace MapGen
             return texture;
         }
 
-        int GetSortingOrderFromFillType(FillType fillType)
+        int GetSortingOrderFromMapLayerType(MapLayerType layerType)
         {
-            if (fillType == FillType.Border) return 2;
-            if (fillType == FillType.Tile) return 1;
+            if (layerType == MapLayerType.Border) return 2;
+            if (layerType == MapLayerType.Tile) return 1;
             return 0;
         }
 
-        string GetFillTypeName(FillType fillType)
+        string GetMapLayerTypeName(MapLayerType layerType)
         {
-            return System.Enum.GetName(typeof(FillType), fillType);
+            return System.Enum.GetName(typeof(MapLayerType), layerType);
         }
 
-        void SaveMapData(MinimapRoomData data)
+        MapRoomData LoadOrCreateMapRoomData(string roomGuid)
         {
-            Sprite backgroundSprite = SaveMapLayerImages(data.backgroundLayer);
-            Sprite borderSprite = SaveMapLayerImages(data.borderLayer);
-            Sprite tileSprite = SaveMapLayerImages(data.tileLayer);
+            string assetName = $"map-data-{roomGuid}";
+            string[] result = AssetDatabase.FindAssets($"{DATA_PATH}{assetName}");
+            MapRoomData mapRoomData = null;
+            CreateDirIfNotExists($"Assets/{DATA_PATH}");
 
-            // TODO: find or create SO data asset file for room data
-
-            // TODO: save data, referencing above textures
+            if (result.Length > 1)
+            {
+                throw new UnityException("More than one MapRoomData found - naming collision!");
+            }
+            if (result.Length == 0)
+            {
+                mapRoomData = ScriptableObject.CreateInstance<MapRoomData>();
+                AssetDatabase.CreateAsset(mapRoomData, $"Assets/{DATA_PATH}{assetName}.asset");
+            }
+            else
+            {
+                string path = AssetDatabase.GUIDToAssetPath(result[0]);
+                mapRoomData = (MapRoomData)AssetDatabase.LoadAssetAtPath(path, typeof(MapRoomData));
+            }
+            return mapRoomData;
         }
 
-        Sprite SaveMapLayerImages(MinimapRoomLayer layer)
+        void SaveMapData(MapRoomData data, string roomGuid, Scene scene)
         {
+            data.roomGuid = roomGuid;
+            data.roomName = scene.name;
+            data.backgroundLayer.sprite = SaveLayerImage(data.backgroundLayer);
+            data.borderLayer.sprite = SaveLayerImage(data.borderLayer);
+            data.tileLayer.sprite = SaveLayerImage(data.tileLayer);
+            EditorUtility.SetDirty(data);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+
+        Sprite SaveLayerImage(MapRoomLayer layer)
+        {
+            if (layer.sprite == null) return null;
             return SaveImageAsset(layer.sprite.texture, layer.name);
         }
 
@@ -325,3 +355,19 @@ namespace MapGen
     }
 }
 
+
+// // HANDY CODE SNIPPETS
+// // Here is an example of using SerializedObject to update a room.
+// // It turns out that simply setting room properties, marking the scene as dirty,
+// // and saving the scene was enough to save changes to a room. But this approach
+// // could be used for dynamically updating other object references.
+// void UpdateRoom(Room room, MapRoomData roomData)
+// {
+//     room.SetMapRoomData(roomData);
+//     // SerializedObject so = new SerializedObject(room);
+//     // so.FindProperty("mapRoomData").objectReferenceValue = roomData;
+//     // so.ApplyModifiedProperties();
+//     // EditorUtility.SetDirty(room);
+//     // AssetDatabase.SaveAssets();
+//     // AssetDatabase.Refresh();
+// }
