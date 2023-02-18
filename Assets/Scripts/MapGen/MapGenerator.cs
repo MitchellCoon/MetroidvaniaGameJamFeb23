@@ -27,6 +27,7 @@ public class MapGenerator : MonoBehaviour
     // NOTE - full path will be /Assets/<DIR_NAME>
     const string IMAGE_PATH = "Generated/MapImages/";
     const string DATA_PATH = "Generated/MapData/";
+    const string IMPORTER_SETTINGS_PATH = "Assets/Settings/MapGenTextureImporter.preset";
 
 #if UNITY_EDITOR
 
@@ -103,9 +104,19 @@ public class MapGenerator : MonoBehaviour
         {
             string path = SceneUtility.GetScenePathByBuildIndex(i);
             Scene scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
-            Debug.Log($"Processing Scene \"{scene.name}\"...");
-            ProcessScene(scene);
-            EditorSceneManager.CloseScene(scene, true);
+            try
+            {
+                Debug.Log($"Processing Scene \"{scene.name}\"...");
+                ProcessScene(scene);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(e);
+            }
+            finally
+            {
+                EditorSceneManager.CloseScene(scene, true);
+            }
         }
         Debug.Log("✓ all done!");
     }
@@ -141,8 +152,6 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        Debug.Log(roomData);
-
         SaveMapData(roomData);
     }
 
@@ -155,11 +164,6 @@ public class MapGenerator : MonoBehaviour
         (TileBase[] tiles, int numTilesFound) = mappableTileset.GetTileData();
         Vector2Int size = mappableTileset.GetCellBasedSize();
         Vector2 center = mappableTileset.GetCenter();
-        Debug.Log($"- {numTilesFound} tiles found");
-        Debug.Log($"- center: {mappableTileset.GetCenter()}");
-        Debug.Log($"- bounds: {mappableTileset.GetBounds()}");
-        Debug.Log($"- cellbounds: {mappableTileset.GetCellBasedSize()}");
-        Debug.Log($"- position: {mappableTileset.transform.position}");
 
         Texture2D texture = TilesToTexture2D(tiles, size.x, size.y, fillType);
         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, size.x, size.y), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.Tight, Vector4.zero, false);
@@ -228,29 +232,90 @@ public class MapGenerator : MonoBehaviour
 
     void SaveMapData(MinimapRoomData data)
     {
-        SaveMapLayerImages(data.backgroundLayer);
-        SaveMapLayerImages(data.borderLayer);
-        SaveMapLayerImages(data.tileLayer);
+        Sprite backgroundSprite = SaveMapLayerImages(data.backgroundLayer);
+        Sprite borderSprite = SaveMapLayerImages(data.borderLayer);
+        Sprite tileSprite = SaveMapLayerImages(data.tileLayer);
+
+        // TODO: find or create SO data asset file for room data
+
+        // TODO: save data, referencing above textures
     }
 
-    void SaveMapLayerImages(MinimapRoomLayer layer)
+    Sprite SaveMapLayerImages(MinimapRoomLayer layer)
     {
-        SaveImageAsset(layer.sprite.texture, layer.name);
+        return SaveImageAsset(layer.sprite.texture, layer.name);
     }
 
-    void SaveImageAsset(Texture2D texture, string name)
+    Sprite SaveImageAsset(Texture2D texture, string name)
     {
-        CreateDirIfNotExists($"{Application.dataPath}/{IMAGE_PATH}");
-        AssetDatabase.CreateAsset(texture, $"{Application.dataPath}/{IMAGE_PATH}{name}.png");
+        string relativePath = $"Assets/{IMAGE_PATH}{name}.png";
+        string absolutePath = $"{Application.dataPath}/{IMAGE_PATH}{name}.png";
+        string directryPath = $"{Application.dataPath}/{IMAGE_PATH}";
+        byte[] byteArray = texture.EncodeToPNG();
+        System.IO.Directory.CreateDirectory(directryPath);
+        System.IO.File.WriteAllBytes(absolutePath, byteArray);
 
-        // byte[] byteArray = texture.EncodeToPNG();
-        // System.IO.Directory.CreateDirectory($"{Application.dataPath}/{IMAGE_PATH}");
-        // System.IO.File.WriteAllBytes($"{Application.dataPath}/{IMAGE_PATH}{name}.png", byteArray);
+        // all this to just override default import settings...
+        TextureImporter importer = (TextureImporter)TextureImporter.GetAtPath(relativePath);
+        importer.textureType = TextureImporterType.Sprite;
+        TextureImporterSettings importerSettings = new TextureImporterSettings();
+        importer.ReadTextureSettings(importerSettings);
+        importerSettings.filterMode = FilterMode.Point;
+        importerSettings.spritePixelsPerUnit = 1;
+        importerSettings.spriteExtrude = 0;
+        importerSettings.spriteGenerateFallbackPhysicsShape = false;
+        importerSettings.spriteMeshType = SpriteMeshType.FullRect;
+        importerSettings.spriteMode = (int)SpriteImportMode.Single;
+        importer.SetTextureSettings(importerSettings);
+        importer.spriteImportMode = SpriteImportMode.Single;
+        importer.maxTextureSize = 1024; // or whatever
+        importer.alphaIsTransparency = true;
+        importer.textureCompression = TextureImporterCompression.Uncompressed;
+        importer.alphaSource = TextureImporterAlphaSource.FromInput;
+        EditorUtility.SetDirty(importer);
+        importer.SaveAndReimport();
+
+        Sprite newSprite = (Sprite)AssetDatabase.LoadAssetAtPath<Sprite>(relativePath);
+        if (newSprite == null) Debug.LogError($"Unable to import sprite for img \"{relativePath}\"");
+        return newSprite;
+    }
+
+    // this did not work for sprites, but I think it will work for ScriptableObjects
+    void ApplySpriteDefaults(Sprite sprite)
+    {
+        if (sprite == null) return;
+
+        var so = new SerializedObject(sprite);
+        // you can Shift+Right Click on property names in the Inspector to see their paths (ONLY SOMETIMES)
+        so.FindProperty("m_PixelsToUnits").floatValue = 1;
+        so.ApplyModifiedProperties();
+        so = new SerializedObject(sprite.texture);
+        so.FindProperty("m_TextureSettings.m_FilterMode").intValue = 0;
+        so.ApplyModifiedProperties();
+
+        EditorUtility.SetDirty(sprite);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
     }
 
     void CreateDirIfNotExists(string dir)
     {
         System.IO.Directory.CreateDirectory($"{dir}");
+    }
+
+    // best way to use this is to search in the console for the property
+    // sometimes copying the name from the Inspector does not work, maddeningly!
+    void DebugSerializedObject(SerializedObject so)
+    {
+        SerializedProperty prop;
+        prop = so.GetIterator();
+        Debug.Log($"{prop.name} {prop.propertyPath} {prop.type}");
+        int i = 0;
+        while (prop.Next(true) && i < 1000)
+        {
+            Debug.Log($"{i} {prop.name} {prop.propertyPath} {prop.type}");
+            i++;
+        }
     }
 
 #endif
