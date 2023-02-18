@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 namespace DTDEV.SceneManagement
 {
@@ -12,15 +13,34 @@ namespace DTDEV.SceneManagement
     /// Each Room initially tries to load one or more common Scenes in order to load
     /// in common systems, like a Camera, etc. It also spawns in the player.
     /// </summary>
+
+    [RequireComponent(typeof(GuidComponent))]
     public class Room : MonoBehaviour
     {
         [SerializeField] GameObject playerPrefab;
+
+        GuidComponent _guidComponent;
+        GuidComponent guidComponent
+        {
+            get
+            {
+                if (_guidComponent == null) _guidComponent = GetComponent<GuidComponent>();
+                return _guidComponent;
+            }
+        }
 
         GameObject playerSpawnPointObj;
         Transform playerSpawnPoint;
         Transform currentRespawnPoint;
 
         bool initialSpawnEnabled = true;
+
+        public string guid => guidComponent.GetUniqueIdentifier();
+
+        public void Validate()
+        {
+            Assert.IsNotNull(guidComponent, $"Please add a GuidComponent to Room \"{gameObject.name}\" in scene {SceneManager.GetActiveScene().name}");
+        }
 
         public void DisableInitialSpawn()
         {
@@ -32,10 +52,16 @@ namespace DTDEV.SceneManagement
             currentRespawnPoint = respawnPoint;
         }
 
+        void Awake()
+        {
+            _guidComponent = GetComponent<GuidComponent>();
+        }
+
         void Start()
         {
             SetPlayerSpawnPoint();
             StartCoroutine(OnLevelStart());
+            Assert.IsNotNull(guidComponent, $"Please add a GuidComponent to Room \"{gameObject.name}\" in scene {SceneManager.GetActiveScene().name}");
         }
 
         void SetPlayerSpawnPoint()

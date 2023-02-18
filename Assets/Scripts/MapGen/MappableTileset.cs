@@ -4,12 +4,18 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Tilemap))]
 public class MappableTileset : MonoBehaviour
 {
-    // EXERCISE CAUTION - RAISING THIS NUMBER GROWS COMPUTATION TIME GEOMETRICALLY
-    const int MAX_MAPPABLE_SIZE = 1200;
+    [SerializeField] bool isMapBorder;
 
     Tilemap tilemap;
     Bounds bounds;
     BoundsInt cellBounds;
+
+    public bool IsMapBorder => isMapBorder;
+
+    void Awake()
+    {
+        if (isMapBorder) gameObject.SetActive(false);
+    }
 
     public void PrepareMapGen()
     {
@@ -52,6 +58,9 @@ public class MappableTileset : MonoBehaviour
     public (TileBase[], int) GetTileData()
     {
         if (Application.isPlaying) throw new UnityException("This class is editor-only");
+
+
+
         int width = cellBounds.size.x;
         int height = cellBounds.size.y;
         TileBase[] tiles = new TileBase[width * height];

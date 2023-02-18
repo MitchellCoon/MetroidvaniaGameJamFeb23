@@ -3,7 +3,10 @@ using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
+using DTDEV.SceneManagement;
+
 #if UNITY_EDITOR
+using UnityEditor;
 using UnityEditor.SceneManagement;
 #endif
 
@@ -14,21 +17,60 @@ using UnityEditor.SceneManagement;
 /// - Tries to grab a MappableTileset component from each scene
 /// - If present, gets tile data from MappableTileset
 /// - Generates a separate sprite image for each scene
-/// TODO:
-/// - [ ] add map outline
-/// - [ ] add different room sprites for hiding unexplored areas on map
-/// - [ ] add different colors depending on biome / region
-/// - [ ] show the minimap in-game
-/// - [ ] add pan / zoom controls to minimap
-/// - [ ] show the player's position on the minimap
-/// - [ ] highlight the current room on the minimap
-/// - [ ] show areas of interest on the minimap (only if in an already-explored region)
 /// </summary>
 public class MapGenerator : MonoBehaviour
 {
+    [SerializeField] Color colorTile = Color.yellow;
+    [SerializeField] Color colorVoid = Color.red;
+    [SerializeField] Color colorBorder = Color.white;
+
+    // NOTE - full path will be /Assets/<DIR_NAME>
+    const string IMAGE_PATH = "Generated/MapImages/";
+    const string DATA_PATH = "Generated/MapData/";
+
 #if UNITY_EDITOR
 
     Scene initialScene;
+
+    const string GENERATED_SPRITE_TAG = "EditorOnly";
+
+    public enum FillType
+    {
+        Tile,
+        Background,
+        Border
+    }
+
+    [System.Serializable]
+    public struct MinimapRoomData
+    {
+        public string roomGuid;
+        public MinimapRoomLayer tileLayer;
+        public MinimapRoomLayer backgroundLayer;
+        public MinimapRoomLayer borderLayer;
+
+        public override string ToString()
+        {
+            return $"{roomGuid}\n{borderLayer}\n{tileLayer}\n{backgroundLayer}";
+        }
+    }
+
+    [System.Serializable]
+    public struct MinimapRoomLayer
+    {
+        public bool valid;
+        public string name;
+        public FillType fillType;
+        public Vector2 position;
+        public int sortingOrder;
+        public Sprite sprite;
+
+        public override string ToString()
+        {
+            if (!valid) return "Invalid MinimapRoomData";
+            return $"{name} - {sortingOrder} - {position}";
+        }
+    }
 
     void Start()
     {
@@ -40,10 +82,19 @@ public class MapGenerator : MonoBehaviour
         Assert.IsFalse(EditorSceneManager.GetActiveScene().buildIndex >= 0, "Map Generator Scene needs to be removed from Build Settings");
     }
 
+    public void DiscardTestSprites()
+    {
+        foreach (var item in GameObject.FindGameObjectsWithTag(GENERATED_SPRITE_TAG))
+        {
+            if (item.GetComponent<SpriteRenderer>() != null) DestroyImmediate(item);
+        }
+    }
+
     [ContextMenu("Generate Map")]
-    void Generate()
+    public void Generate()
     {
         initialScene = EditorSceneManager.GetActiveScene();
+        DiscardTestSprites();
         StopAllCoroutines();
         Validate();
         Debug.ClearDeveloperConsole();
@@ -61,12 +112,44 @@ public class MapGenerator : MonoBehaviour
 
     void ProcessScene(Scene scene)
     {
-        MappableTileset mappableTileset = FindObjectOfType<MappableTileset>();
-        if (mappableTileset == null)
+        Room room = FindObjectOfType<Room>();
+        if (room == null)
         {
-            Debug.Log("- no mappableTileset found for ");
+            Debug.Log("- no room found");
             return;
         }
+        MappableTileset[] mappableTilesets = FindObjectsOfType<MappableTileset>();
+        if (mappableTilesets.Length == 0)
+        {
+            Debug.Log("- no mappableTilesets found");
+            return;
+        }
+
+        room.Validate();
+        MinimapRoomData roomData = new MinimapRoomData { roomGuid = room.guid };
+
+        for (int i = 0; i < mappableTilesets.Length; i++)
+        {
+            if (mappableTilesets[i].IsMapBorder)
+            {
+                roomData.borderLayer = ProcessTiles(mappableTilesets[i], scene, FillType.Border);
+            }
+            else
+            {
+                roomData.backgroundLayer = ProcessTiles(mappableTilesets[i], scene, FillType.Background);
+                roomData.tileLayer = ProcessTiles(mappableTilesets[i], scene, FillType.Tile);
+            }
+        }
+
+        Debug.Log(roomData);
+
+        SaveMapData(roomData);
+    }
+
+    MinimapRoomLayer ProcessTiles(MappableTileset mappableTileset, Scene scene, FillType fillType)
+    {
+        MinimapRoomLayer data = new MinimapRoomLayer { valid = false };
+        if (mappableTileset == null) return data;
         Debug.Log("- processing mappableTileset...");
         mappableTileset.PrepareMapGen();
         (TileBase[] tiles, int numTilesFound) = mappableTileset.GetTileData();
@@ -78,19 +161,28 @@ public class MapGenerator : MonoBehaviour
         Debug.Log($"- cellbounds: {mappableTileset.GetCellBasedSize()}");
         Debug.Log($"- position: {mappableTileset.transform.position}");
 
-        Texture2D texture = TilesToTexture2D(tiles, size.x, size.y);
+        Texture2D texture = TilesToTexture2D(tiles, size.x, size.y, fillType);
         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, size.x, size.y), new Vector2(0.5f, 0.5f), 1f, 0, SpriteMeshType.Tight, Vector4.zero, false);
 
+        data.valid = true;
+        data.name = $"{scene.name}_Layer{GetFillTypeName(fillType)}";
+        data.fillType = fillType;
+        data.position = center * 0.5f;
+        data.sortingOrder = GetSortingOrderFromFillType(fillType);
+        data.sprite = sprite;
+
         // add a new sprite to the original scene
-        GameObject generated = new GameObject($"MapPortion:{scene.name}");
+        GameObject generated = new GameObject(data.name);
         SpriteRenderer spriteRenderer = generated.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprite;
-        generated.transform.position = center;
-        generated.transform.localScale = new Vector3(2, 2, 1);
+        spriteRenderer.sortingOrder = GetSortingOrderFromFillType(fillType);
+        generated.transform.position = data.position;
+        generated.tag = GENERATED_SPRITE_TAG;
         EditorSceneManager.MoveGameObjectToScene(generated, initialScene);
+        return data;
     }
 
-    Texture2D TilesToTexture2D(TileBase[] tiles, int width, int height)
+    Texture2D TilesToTexture2D(TileBase[] tiles, int width, int height, FillType fillType)
     {
         Color[] colors = new Color[width * height];
         int i = 0;
@@ -101,11 +193,12 @@ public class MapGenerator : MonoBehaviour
                 i = x + y * width;
                 if (tiles[i] == null)
                 {
-                    colors[i] = Color.red;
+                    if (fillType == FillType.Background) colors[i] = colorVoid;
                 }
                 else
                 {
-                    colors[i] = Color.yellow;
+                    if (fillType == FillType.Tile) colors[i] = colorTile;
+                    if (fillType == FillType.Border) colors[i] = colorBorder;
                 }
             }
         }
@@ -119,6 +212,45 @@ public class MapGenerator : MonoBehaviour
         texture.filterMode = FilterMode.Point;
         texture.Apply();
         return texture;
+    }
+
+    int GetSortingOrderFromFillType(FillType fillType)
+    {
+        if (fillType == FillType.Border) return 2;
+        if (fillType == FillType.Tile) return 1;
+        return 0;
+    }
+
+    string GetFillTypeName(FillType fillType)
+    {
+        return System.Enum.GetName(typeof(FillType), fillType);
+    }
+
+    void SaveMapData(MinimapRoomData data)
+    {
+        SaveMapLayerImages(data.backgroundLayer);
+        SaveMapLayerImages(data.borderLayer);
+        SaveMapLayerImages(data.tileLayer);
+    }
+
+    void SaveMapLayerImages(MinimapRoomLayer layer)
+    {
+        SaveImageAsset(layer.sprite.texture, layer.name);
+    }
+
+    void SaveImageAsset(Texture2D texture, string name)
+    {
+        CreateDirIfNotExists($"{Application.dataPath}/{IMAGE_PATH}");
+        AssetDatabase.CreateAsset(texture, $"{Application.dataPath}/{IMAGE_PATH}{name}.png");
+
+        // byte[] byteArray = texture.EncodeToPNG();
+        // System.IO.Directory.CreateDirectory($"{Application.dataPath}/{IMAGE_PATH}");
+        // System.IO.File.WriteAllBytes($"{Application.dataPath}/{IMAGE_PATH}{name}.png", byteArray);
+    }
+
+    void CreateDirIfNotExists(string dir)
+    {
+        System.IO.Directory.CreateDirectory($"{dir}");
     }
 
 #endif

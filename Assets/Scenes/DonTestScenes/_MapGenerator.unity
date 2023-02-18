@@ -167,6 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9727a08e8b84f668a77c390f83c3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorTile: {r: 0.08121218, g: 0.1915413, b: 0.23584908, a: 1}
+  colorVoid: {r: 0.10760058, g: 0.51095694, b: 0.5849056, a: 1}
+  colorBorder: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1710579058
 GameObject:
   m_ObjectHideFlags: 0
