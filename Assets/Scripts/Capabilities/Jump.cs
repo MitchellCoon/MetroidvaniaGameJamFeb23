@@ -72,6 +72,10 @@ public class Jump : MonoBehaviour
             coyoteTimeCounter = inputManager.GetInputBufferTime(InputManager.Input.CoyoteJump);
             inputManager.SetPreviousActionTime(InputManager.Action.Grounded, Time.time);
         }
+        else
+        {
+            coyoteTimeCounter -= Time.fixedDeltaTime;
+        }
 
         if(inputManager.GetInputRequested(InputManager.Input.Jump))
         {

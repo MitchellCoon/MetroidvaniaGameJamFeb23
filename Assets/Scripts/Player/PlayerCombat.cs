@@ -5,16 +5,11 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    [SerializeField] PlayerResources resources;
+    [SerializeField] ResourceManager resources;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float weightMultiplier = 1f;
 
-    private PlayerResource health;
-
-    void Start()
-    {
-        health = resources.Health;
-    }
+    [SerializeField] Resource health;
 
     public void TakeDamage(AttackData attackData, Vector3 attackOrigin)
 	{
