@@ -60,6 +60,7 @@ public class PlayerMovementController : MonoBehaviour
         if (other.gameObject.tag.Equals ("MovingPlatform") || other.gameObject.tag.Equals ("Floor"))
         {
             transform.parent = other.transform;
+			rigidbody2D.interpolation = RigidbodyInterpolation2D.None;
         }
     }
  
@@ -68,6 +69,7 @@ public class PlayerMovementController : MonoBehaviour
         if (other.gameObject.tag.Equals ("MovingPlatform")|| other.gameObject.tag.Equals ("Floor")) 
         {
             transform.parent = null;
+			rigidbody2D.interpolation = RigidbodyInterpolation2D.Interpolate;
         }
     }
 	public void Move(float move, bool isCrouching, bool jump)

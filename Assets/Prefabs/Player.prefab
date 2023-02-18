@@ -327,10 +327,6 @@ MonoBehaviour:
   groundCheck: {fileID: 2814348810090761054}
   ceilingCheck: {fileID: 2814348809637482043}
   crouchCollider: {fileID: 0}
-  input: {fileID: 11400000, guid: 771c146892f477244879b8dfa7bde516, type: 2}
-  maxSpeed: 10
-  maxAcceleration: 100
-  maxAirAcceleration: 100
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -396,7 +392,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2814348810090761049}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5eee664c053a2b04e92f2f5f80eaacd7, type: 3}
   m_Name: 
@@ -424,8 +420,6 @@ MonoBehaviour:
   maxAirJumps: 0
   downwardMovementMultiplier: 10
   upwardMovementMultiplier: 7
-  jumpBufferCounter: 0
-  coyoteTimeCounter: 0
 --- !u!114 &2814348810090761054
 MonoBehaviour:
   m_ObjectHideFlags: 0
