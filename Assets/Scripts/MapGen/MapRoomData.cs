@@ -94,29 +94,3 @@ namespace MapGen
         }
     }
 }
-
-// Okay, so we have a big fuckin' map with lots of sprites. Map component needs to know
-// if / when to turn each of these sprites on.
-
-// Creating the map and saving the prefab shouldn't be difficult. Editing the prefab shouldn't
-// be difficult. We just:
-// - Use a dictionary - `Dictionary<Guid, GameObject>`
-// - Update `mapRoomDataList` array with the current list of MapRoomData SOs
-// - Iterate through this list, checking Dictionary<Guid, GameObject>
-// - If GameObject exists, replace the sprites with GetSprite()
-// - If GameObject does not exist, append a new MapRoom GO as a child of Map
-// - Hierarchy:
-//      Map
-//          MapRoom
-//              - MapRoomSprite
-//              - MapRoomSprite
-//              - MapRoomSprite
-//          MapRoom
-//              - MapRoomSprite
-//              - MapRoomSprite
-//              - MapRoomSprite
-// - Just enable/disable each MapRoom
-
-
-// Okay, so that's the Map prefab itself.
-

@@ -22,6 +22,9 @@ namespace MapGen
     /// - Tries to grab a MappableTileset component from each scene
     /// - If present, gets tile data from MappableTileset
     /// - Generates a separate sprite image for each scene
+    /// - Generates a MapRoomData ScriptableObject for each scene
+    /// - Saves appropriate assets and links them up
+    /// - Creates a final WorldMap component to be used within scenes
     /// </summary>
     public class MapGenerator : MonoBehaviour
     {
