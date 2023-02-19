@@ -71,11 +71,21 @@ namespace MapGen
             GameObject borderObj = _borderLayer.CreateGameObject();
             GameObject tileObj = _tileLayer.CreateGameObject();
             GameObject roomObj = new GameObject($"MapRoom_{roomName}");
+            WorldMapRoom worldMapRoom = roomObj.AddComponent<WorldMapRoom>();
+            worldMapRoom.SetRoomGuid(roomGuid);
+            roomObj.layer = Layer.Parse(MapGenerator.MAP_LAYER);
             roomObj.transform.position = Vector2.zero;
-            if (backgroundObj != null) backgroundObj.transform.SetParent(roomObj.transform);
-            if (borderObj != null) borderObj.transform.SetParent(roomObj.transform);
-            if (tileObj != null) tileObj.transform.SetParent(roomObj.transform);
+            UpdateChild(backgroundObj, roomObj);
+            UpdateChild(borderObj, roomObj);
+            UpdateChild(tileObj, roomObj);
             return roomObj;
+        }
+
+        void UpdateChild(GameObject childObj, GameObject parentObj)
+        {
+            if (childObj == null) return;
+            childObj.layer = Layer.Parse(MapGenerator.MAP_LAYER);
+            childObj.transform.SetParent(parentObj.transform);
         }
 
         public override string ToString()
@@ -109,5 +119,4 @@ namespace MapGen
 
 
 // Okay, so that's the Map prefab itself.
-
 

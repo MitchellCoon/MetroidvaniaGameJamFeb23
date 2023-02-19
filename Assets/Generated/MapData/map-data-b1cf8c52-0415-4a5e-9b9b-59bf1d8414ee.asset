@@ -38,4 +38,4 @@ MonoBehaviour:
     sortingOrder: 1
     sprite: {fileID: 21300000, guid: 5e400413d6adf43118530b41a2fe3670, type: 3}
     spriteOverride: {fileID: 0}
-  isVisited: 0
+  isVisited: 1

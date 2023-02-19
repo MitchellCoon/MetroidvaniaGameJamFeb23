@@ -221,6 +221,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   depth: 0.25
+--- !u!1001 &220950107
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8948414842600775489, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948414842600775489, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948414842600775489, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948414842600775489, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948414842600775489, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948414842600775489, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948414842600775489, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948414842600775489, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948414842600775489, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948414842600775489, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948414842600775489, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948414842600775490, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_Name
+      value: WorldMapContainer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
 --- !u!1 &235550589
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +411,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 255
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4355,10 +4412,6 @@ CompositeCollider2D:
       - X: 440000000
         Y: 200000000
       - X: 440000000
-        Y: 80000000
-      - X: 460000000
-        Y: 80000000
-      - X: 460000000
         Y: 40000000
       - X: 480000000
         Y: 40000000
@@ -4372,13 +4425,9 @@ CompositeCollider2D:
         Y: 40000000
     - - X: 480000000
         Y: 0
-      - X: 460000000
+      - X: 360000000
         Y: 0
-      - X: 460000000
-        Y: -40000000
-      - X: 340000000
-        Y: -40000000
-      - X: 340000000
+      - X: 360000000
         Y: -20000000
       - X: 320000000
         Y: -20000000
@@ -4461,19 +4510,15 @@ CompositeCollider2D:
       - {x: 0, y: 10.000293}
       - {x: 0.000293, y: 20}
       - {x: 44, y: 19.999708}
-      - {x: 44.000294, y: 8}
-      - {x: 46, y: 7.999707}
-      - {x: 46.000294, y: 4}
+      - {x: 44.000294, y: 4}
       - {x: 48, y: 4.000293}
       - {x: 47.999706, y: 24}
       - {x: -48, y: 23.999708}
       - {x: -47.999706, y: 4}
     - - {x: 47.999706, y: -10}
       - {x: 47.999706, y: 0}
-      - {x: 46, y: -0.0002929}
-      - {x: 45.999706, y: -4}
-      - {x: 34, y: -3.9997072}
-      - {x: 33.999706, y: -2}
+      - {x: 36, y: -0.0002929}
+      - {x: 35.999706, y: -2}
       - {x: 32, y: -2.0002928}
       - {x: 31.999706, y: -4}
       - {x: 20, y: -3.9997072}

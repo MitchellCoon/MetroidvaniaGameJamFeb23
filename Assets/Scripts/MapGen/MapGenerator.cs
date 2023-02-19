@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 
 using DTDEV.SceneManagement;
-using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -30,9 +30,17 @@ namespace MapGen
         [SerializeField] Color colorBorder = Color.white;
 
         // NOTE - full path will be /Assets/<DIR_NAME>
+        const string PREFAB_PATH = "Generated/MapPrefabs/";
         const string IMAGE_PATH = "Generated/MapImages/";
         const string DATA_PATH = "Generated/MapData/";
         const string IMPORTER_SETTINGS_PATH = "Assets/Settings/MapGenTextureImporter.preset";
+
+        const string PREFAB_NAME_WORLD_MAP = "GeneratedWorldMap";
+        const string GENERATED_SPRITE_TAG = "Map";
+
+        const int MAP_SORTING_ORDER = 10;
+        public const string MAP_LAYER = "Map";
+
 
         List<MapRoomData> mapRoomDataList = new List<MapRoomData>();
 
@@ -40,7 +48,6 @@ namespace MapGen
 
         Scene initialScene;
 
-        const string GENERATED_SPRITE_TAG = "EditorOnly";
 
         void Start()
         {
@@ -88,17 +95,30 @@ namespace MapGen
 
         void GenerateMapPrefab()
         {
-            GameObject worldMapObj = new GameObject("WorldMap");
+            GameObject worldMapObj = new GameObject(PREFAB_NAME_WORLD_MAP);
+            worldMapObj.layer = Layer.Parse(MAP_LAYER);
             worldMapObj.transform.position = Vector2.zero;
             WorldMap worldMap = worldMapObj.AddComponent<WorldMap>();
+            SortingGroup sortingGroup = worldMapObj.AddComponent<SortingGroup>();
             worldMap.SetMapRoomDataList(mapRoomDataList);
+            sortingGroup.sortingOrder = MAP_SORTING_ORDER;
             foreach (var mapRoomData in mapRoomDataList)
             {
                 GameObject mapRoomObj = mapRoomData.CreateGameObject();
+                mapRoomObj.layer = Layer.Parse(MAP_LAYER);
                 mapRoomObj.transform.SetParent(worldMapObj.transform);
             }
             worldMapObj.tag = GENERATED_SPRITE_TAG;
-            // EditorSceneManager.MoveGameObjectToScene(worldMapObj, initialScene);
+            SavePrefab(worldMapObj);
+        }
+
+        void SavePrefab(GameObject worldMapObj)
+        {
+            string relativePath = $"Assets/{PREFAB_PATH}{PREFAB_NAME_WORLD_MAP}.prefab";
+            CreateDirIfNotExists($"Assets/{PREFAB_PATH}");
+            bool prefabSuccess;
+            PrefabUtility.SaveAsPrefabAssetAndConnect(worldMapObj, relativePath, InteractionMode.UserAction, out prefabSuccess);
+            if (!prefabSuccess) Debug.LogError("Unable to save WorldMap prefab");
         }
 
         void ProcessScene(Scene scene)

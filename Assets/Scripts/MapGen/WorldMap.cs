@@ -12,11 +12,7 @@ namespace MapGen
         WorldMapRoom[] mapRooms = new WorldMapRoom[0];
         Dictionary<string, bool> roomVisitedMap = new Dictionary<string, bool>();
 
-        public void OnRoomVisited(string roomGuid)
-        {
-            roomVisitedMap[roomGuid] = true;
-            RenderVisibleRooms();
-        }
+        static bool didInit = false;
 
         public void SetMapRoomDataList(List<MapRoomData> incoming)
         {
@@ -24,17 +20,35 @@ namespace MapGen
             foreach (var item in incoming) mapRoomDataList.Add(item);
         }
 
+        void OnEnable()
+        {
+            foreach (var mapRoomData in mapRoomDataList) mapRoomData.OnRoomVisited += OnRoomVisited;
+        }
+
+        void OnDisable()
+        {
+            foreach (var mapRoomData in mapRoomDataList) mapRoomData.OnRoomVisited -= OnRoomVisited;
+        }
+
         void Awake()
         {
             mapRooms = GetComponentsInChildren<WorldMapRoom>();
-            foreach (var item in mapRoomDataList)
+            foreach (var mapRoomData in mapRoomDataList)
             {
-                roomVisitedMap[item.RoomGuid] = item.IsVisited;
+                if (!didInit) mapRoomData.Init();
+                roomVisitedMap[mapRoomData.RoomGuid] = mapRoomData.IsVisited;
             }
+            didInit = true;
         }
 
         void Start()
         {
+            RenderVisibleRooms();
+        }
+
+        void OnRoomVisited(string roomGuid)
+        {
+            roomVisitedMap[roomGuid] = true;
             RenderVisibleRooms();
         }
 

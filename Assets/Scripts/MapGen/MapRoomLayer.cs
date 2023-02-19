@@ -25,6 +25,7 @@ namespace MapGen
         {
             if (!valid) return null;
             GameObject obj = new GameObject($"MapRoomLayer_{name}");
+            obj.layer = Layer.Parse(MapGenerator.MAP_LAYER);
             SpriteRenderer renderer = obj.AddComponent<SpriteRenderer>();
             renderer.sprite = GetSprite();
             renderer.sortingOrder = sortingOrder;

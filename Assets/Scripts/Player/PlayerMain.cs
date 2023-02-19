@@ -32,7 +32,7 @@ public class PlayerMain : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
     }
 
-    void LateUpdate()
+    void Update()
     {
         GlobalMapState.playerPosition = transform.position;
     }

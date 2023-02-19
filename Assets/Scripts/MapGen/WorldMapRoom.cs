@@ -8,5 +8,10 @@ namespace MapGen
         [SerializeField] string roomGuid;
 
         public string RoomGuid => roomGuid;
+
+        public void SetRoomGuid(string incoming)
+        {
+            roomGuid = incoming;
+        }
     }
 }
