@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
+
+using MapGen;
 
 namespace DTDEV.SceneManagement
 {
@@ -12,9 +15,24 @@ namespace DTDEV.SceneManagement
     /// Each Room initially tries to load one or more common Scenes in order to load
     /// in common systems, like a Camera, etc. It also spawns in the player.
     /// </summary>
+
+    [RequireComponent(typeof(GuidComponent))]
     public class Room : MonoBehaviour
     {
         [SerializeField] GameObject playerPrefab;
+
+        [Tooltip("Do not edit this directly - it gets automatically assigned by MapGenerator")]
+        [SerializeField] MapRoomData mapRoomData;
+
+        GuidComponent _guidComponent;
+        GuidComponent guidComponent
+        {
+            get
+            {
+                if (_guidComponent == null) _guidComponent = GetComponent<GuidComponent>();
+                return _guidComponent;
+            }
+        }
 
         GameObject playerSpawnPointObj;
         Transform playerSpawnPoint;
@@ -22,9 +40,21 @@ namespace DTDEV.SceneManagement
 
         bool initialSpawnEnabled = true;
 
+        public string guid => guidComponent.GetUniqueIdentifier();
+
+        public void Validate()
+        {
+            Assert.IsNotNull(guidComponent, $"Please add a GuidComponent to Room \"{gameObject.name}\" in scene {SceneManager.GetActiveScene().name}");
+        }
+
         public void DisableInitialSpawn()
         {
             initialSpawnEnabled = false;
+        }
+
+        public void SetMapRoomData(MapRoomData incoming)
+        {
+            mapRoomData = incoming;
         }
 
         public void SetRespawnPoint(Transform respawnPoint)
@@ -32,10 +62,16 @@ namespace DTDEV.SceneManagement
             currentRespawnPoint = respawnPoint;
         }
 
+        void Awake()
+        {
+            _guidComponent = GetComponent<GuidComponent>();
+        }
+
         void Start()
         {
             SetPlayerSpawnPoint();
             StartCoroutine(OnLevelStart());
+            Assert.IsNotNull(guidComponent, $"Please add a GuidComponent to Room \"{gameObject.name}\" in scene {SceneManager.GetActiveScene().name}");
         }
 
         void SetPlayerSpawnPoint()
@@ -52,6 +88,7 @@ namespace DTDEV.SceneManagement
                 if (currentRespawnPoint == null) SetRespawnPoint(playerSpawnPoint);
                 yield return SpawnPlayer();
             }
+            if (mapRoomData != null) mapRoomData.FlagRoomVisited();
             yield return null;
         }
 

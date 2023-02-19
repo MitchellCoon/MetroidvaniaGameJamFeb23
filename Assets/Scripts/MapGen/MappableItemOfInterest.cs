@@ -1,9 +1,13 @@
 using UnityEngine;
 
-public class MappableItemOfInterest : MonoBehaviour
+namespace MapGen
 {
-    enum ItemOfInterestType
+
+    public class MappableItemOfInterest : MonoBehaviour
     {
-        Boss,
+        enum ItemOfInterestType
+        {
+            Boss,
+        }
     }
 }
