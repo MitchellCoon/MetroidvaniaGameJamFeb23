@@ -8,6 +8,7 @@ public class TurretRotate : MonoBehaviour
     public float maxDistance ; 
     public EnemyAttack enemyAttack;
     Quaternion initalRotation ;
+    public Vector3 dir;
     void Start()
     {
     playerGameObject =    GameObject.FindWithTag("Player");
@@ -29,7 +30,7 @@ public class TurretRotate : MonoBehaviour
               transform.rotation = initalRotation;
            return ; 
         }
-         Vector3 dir = playerGameObject.transform.position - transform.position;
+          dir = playerGameObject.transform.position - transform.position;
 
         float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward); 

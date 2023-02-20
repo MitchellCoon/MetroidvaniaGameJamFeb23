@@ -5,6 +5,13 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     public  AttackData projectileAttackData;
+    public bool turretProjectile = false;
+    void Update()
+    {
+        if( turretProjectile){
+        transform.Translate(Vector3.right * projectileAttackData.projectileSpeed * Time.deltaTime);
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
