@@ -187,6 +187,7 @@ namespace MapGen
             layer.name = $"{scene.name}_Layer{GetMapLayerTypeName(layerType)}";
             layer.type = layerType;
             layer.position = center * 0.5f;
+            layer.scale = mappableTileset.GetUnscaleValue();
             layer.sortingOrder = GetSortingOrderFromMapLayerType(layerType);
             layer.sprite = sprite;
             return layer;
@@ -295,7 +296,7 @@ namespace MapGen
             System.IO.File.WriteAllBytes(absolutePath, byteArray);
             ApplySpriteDefaults(relativePath);
             AssetDatabase.ImportAsset(relativePath, ImportAssetOptions.DontDownloadFromCacheServer);
-            ResetSpriteImporter(relativePath);
+            // ResetSpriteImporter(relativePath);
             Sprite newSprite = (Sprite)AssetDatabase.LoadAssetAtPath<Sprite>(relativePath);
             if (newSprite == null) Debug.LogError($"Unable to import sprite for img \"{relativePath}\"");
             return newSprite;
@@ -305,6 +306,11 @@ namespace MapGen
         {
             // all this to just override default import settings...
             TextureImporter importer = (TextureImporter)TextureImporter.GetAtPath(relativePath);
+            if (importer == null)
+            {
+                Debug.LogError($"Could not get TextureImporter for {relativePath}");
+                return;
+            }
             importer.textureType = TextureImporterType.Sprite;
             TextureImporterSettings importerSettings = new TextureImporterSettings();
             importer.ReadTextureSettings(importerSettings);

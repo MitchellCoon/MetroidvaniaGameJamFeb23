@@ -17,6 +17,7 @@ namespace MapGen
         public string name;
         public MapLayerType type;
         public Vector2 position;
+        public float scale;
         public int sortingOrder;
         public Sprite sprite;
         public Sprite spriteOverride;
@@ -30,6 +31,7 @@ namespace MapGen
             renderer.sprite = GetSprite();
             renderer.sortingOrder = sortingOrder;
             obj.transform.position = position;
+            obj.transform.localScale = new Vector3(scale, scale, 1);
             return obj;
         }
 
@@ -40,6 +42,7 @@ namespace MapGen
             this.name = incoming.name;
             this.type = incoming.type;
             this.position = incoming.position;
+            this.scale = incoming.scale;
             this.sortingOrder = incoming.sortingOrder;
             this.sprite = incoming.sprite;
         }

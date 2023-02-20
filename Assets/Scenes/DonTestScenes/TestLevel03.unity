@@ -4915,7 +4915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c96970ebf484ed1ac4e41deb8611bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 2814348810090761049, guid: b81ceb76fe5494d449726a59c7cd6d4d, type: 3}
+  playerPrefab: {fileID: 2806582366043827928, guid: b81ceb76fe5494d449726a59c7cd6d4d, type: 3}
   mapRoomData: {fileID: 11400000, guid: c8faa28bbb5004ad1bb487c015654f70, type: 2}
 --- !u!114 &1137149863
 MonoBehaviour:
@@ -6571,7 +6571,7 @@ Tilemap:
       e33: 1
   m_TileColorArray:
   - m_RefCount: 122
-    m_Data: {r: 1, g: 0, b: 0.90713406, a: 1}
+    m_Data: {r: 1, g: 0, b: 0.90713406, a: 0.84313726}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}

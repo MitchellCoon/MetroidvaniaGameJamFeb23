@@ -89,6 +89,7 @@ namespace DTDEV.SceneManagement
                 yield return SpawnPlayer();
             }
             if (mapRoomData != null) mapRoomData.FlagRoomVisited();
+            GlobalEvent.Invoke.OnRoomLoaded(transform.position);
             yield return null;
         }
 

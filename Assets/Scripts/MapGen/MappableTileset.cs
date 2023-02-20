@@ -57,6 +57,12 @@ namespace MapGen
             return transform.position + bounds.center * scale;
         }
 
+        public float GetUnscaleValue()
+        {
+            float scale = Mathf.Max(transform.localScale.x, transform.localScale.y);
+            return scale * 0.5f;
+        }
+
         public (TileBase[], int) GetTileData()
         {
             if (Application.isPlaying) throw new UnityException("This class is editor-only");
