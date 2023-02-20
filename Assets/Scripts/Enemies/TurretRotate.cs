@@ -26,6 +26,7 @@ public class TurretRotate : MonoBehaviour
             enemyAttack.canFire = true;
         }else {
            enemyAttack.canFire = false;
+              transform.rotation = initalRotation;
            return ; 
         }
          Vector3 dir = playerGameObject.transform.position - transform.position;
