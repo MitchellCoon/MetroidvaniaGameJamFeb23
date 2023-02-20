@@ -56,12 +56,21 @@ public class EnemyAttack : MonoBehaviour
                 aimInDirection();
                 break;
             case AimType.Right :
-                fireProjectile(transform.parent.right);
+                AimRight(); 
+                //fireProjectile(transform.parent.right);
                 break;
             default:
                 break;
         }
         // aimAtPlayer();
+    }
+    void AimRight () {
+        // We only shoot right or left , 
+        // so if player is too close or above us , we dont shoot
+        if( Mathf.Abs(transform.parent.right.x) < 0.5f){
+            return ; 
+        }
+        fireProjectile(transform.right);
     }
     void aimInDirection()
     {
@@ -139,7 +148,7 @@ public class EnemyAttack : MonoBehaviour
         }
         var rotation = Quaternion.Euler(rotationAsVector);
         GameObject projectile = Instantiate(defaultProjectileAttack.projectilePrefab, transform.position, rotation);
-       
+        //fireDirection.x)
         projectile.GetComponent<Rigidbody2D>().velocity = (fireDirection).normalized * projectileSpeed;
         projectile.GetComponent<EnemyProjectile>().projectileAttackData = defaultProjectileAttack;
     }
