@@ -5,7 +5,9 @@ using UnityEngine;
 public enum AimType
 {
     Player,
-    Direction
+    Direction,
+    // this is what turret uses 
+    Right
 
 }
 
@@ -52,6 +54,9 @@ public class EnemyAttack : MonoBehaviour
                 break;
             case AimType.Direction:
                 aimInDirection();
+                break;
+            case AimType.Right :
+                fireProjectile(transform.parent.right);
                 break;
             default:
                 break;
@@ -126,7 +131,7 @@ public class EnemyAttack : MonoBehaviour
         hitbox.gameObject.SetActive(false);
     }
 
-    private void fireProjectile(Vector2 fireDirection)
+    public  void fireProjectile(Vector2 fireDirection)
     {
         if (canFire == false)
         {
@@ -134,7 +139,7 @@ public class EnemyAttack : MonoBehaviour
         }
         var rotation = Quaternion.Euler(rotationAsVector);
         GameObject projectile = Instantiate(defaultProjectileAttack.projectilePrefab, transform.position, rotation);
-        projectile.transform.parent = transform;
+       
         projectile.GetComponent<Rigidbody2D>().velocity = (fireDirection).normalized * projectileSpeed;
         projectile.GetComponent<EnemyProjectile>().projectileAttackData = defaultProjectileAttack;
     }
