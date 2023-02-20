@@ -16,7 +16,8 @@ public class ProjectileMotion : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.right * attackData.projectileSpeed * Time.deltaTime);
+        
+        transform.Translate( transform.rotation * Vector3.right * attackData.projectileSpeed * Time.deltaTime);
         if ((startPosition - transform.position).magnitude > attackData.projectileRange)
         {
             Destroy(gameObject);

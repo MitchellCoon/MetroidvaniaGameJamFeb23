@@ -146,7 +146,13 @@ public class EnemyAttack : MonoBehaviour
         {
             return;
         }
-        var rotation = Quaternion.Euler(rotationAsVector);
+        Quaternion rotation = Quaternion.Euler(rotationAsVector);
+
+        if( aimType == AimType.Right){
+           rotation = transform.rotation;
+           // fireDirection = transform.right;
+        }
+       // var rotation = Quaternion.Euler(rotationAsVector);
         GameObject projectile = Instantiate(defaultProjectileAttack.projectilePrefab, transform.position, rotation);
         //fireDirection.x)
         projectile.GetComponent<Rigidbody2D>().velocity = (fireDirection).normalized * projectileSpeed;
