@@ -6,8 +6,7 @@ public enum AimType
 {
     Player,
     Direction,
-    // this is what turret uses 
-    Right
+    Turret
 
 }
 
@@ -55,8 +54,8 @@ public class EnemyAttack : MonoBehaviour
             case AimType.Direction:
                 aimInDirection();
                 break;
-            case AimType.Right:
-                AimRight();
+            case AimType.Turret:
+                AimTurret();
                 //fireProjectile(transform.parent.right);
                 break;
             default:
@@ -64,7 +63,7 @@ public class EnemyAttack : MonoBehaviour
         }
         // aimAtPlayer();
     }
-    void AimRight()
+    void AimTurret()
     {
        
         fireProjectile(new Vector2(0,0));
@@ -144,7 +143,7 @@ public class EnemyAttack : MonoBehaviour
             return;
         }
         Quaternion rotation = Quaternion.identity;
-        if (aimType == AimType.Right)
+        if (aimType == AimType.Turret)
         {
             rotation = transform.rotation;
            // rotation = Quaternion.Euler(transform.right) ;
@@ -160,7 +159,7 @@ public class EnemyAttack : MonoBehaviour
         var enemyProjectile = projectile.GetComponent<EnemyProjectile>();
         enemyProjectile.projectileAttackData = defaultProjectileAttack;
 
-        if( aimType == AimType.Right)
+        if( aimType == AimType.Turret)
         {
             enemyProjectile.turretProjectile = true ; 
         }   else {
