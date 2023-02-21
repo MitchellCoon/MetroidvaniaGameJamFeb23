@@ -5262,6 +5262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b857bd4807d2443d932b071b4e1c1d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMapBorder: 0
 --- !u!1 &863817360
 GameObject:
   m_ObjectHideFlags: 0
@@ -5575,6 +5576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1137149861}
   - component: {fileID: 1137149862}
+  - component: {fileID: 1137149863}
   m_Layer: 0
   m_Name: Room
   m_TagString: Room
@@ -5610,6 +5612,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 2806582366043827928, guid: b81ceb76fe5494d449726a59c7cd6d4d, type: 3}
+  mapRoomData: {fileID: 0}
+--- !u!114 &1137149863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137149860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c2668b2c8b1544f4a3966932c191d3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueIdentifier: 1ac7dc85-ebf5-49b1-892d-2c7fee648362
 --- !u!1 &1198434875
 GameObject:
   m_ObjectHideFlags: 0
