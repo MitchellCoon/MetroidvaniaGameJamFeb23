@@ -2682,7 +2682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitBoxActivetime: 0.1
-  defaultProjectileAttack: {fileID: 11400000, guid: 2e429c86e80e543709a99dd034feb5a8, type: 2}
+  defaultProjectileAttack: {fileID: 11400000, guid: c7fdcca1ed23941879779ac67514dd9b, type: 2}
   fireRate: 1
   checkRadiusProjectile: 10
   checkRadiusMelee: 2

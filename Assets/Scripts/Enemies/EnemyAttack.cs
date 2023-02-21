@@ -154,7 +154,7 @@ public class EnemyAttack : MonoBehaviour
             rotation = Quaternion.Euler(rotationAsVector);
         }
 
-        GameObject projectile = Instantiate(defaultProjectileAttack.projectilePrefab, transform.position, rotation);
+        GameObject projectile = Instantiate(defaultProjectileAttack.projectilePrefab, transform.position, defaultProjectileAttack.projectilePrefab.transform.rotation * rotation);
 
         var enemyProjectile = projectile.GetComponent<EnemyProjectile>();
         enemyProjectile.projectileAttackData = defaultProjectileAttack;

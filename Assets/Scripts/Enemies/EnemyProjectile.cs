@@ -9,7 +9,7 @@ public class EnemyProjectile : MonoBehaviour
     void Update()
     {
         if( turretProjectile){
-        transform.Translate(Vector3.right * projectileAttackData.projectileSpeed * Time.deltaTime);
+        transform.Translate(Vector3.up * projectileAttackData.projectileSpeed * Time.deltaTime);
         }
     }
 
