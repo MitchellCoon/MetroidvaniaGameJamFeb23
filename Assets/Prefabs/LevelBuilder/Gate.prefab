@@ -149,7 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f43964d7c73490399f2f34506cc838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  didHitSwitch: {fileID: 0}
+  openConditions:
+  - boolValue: {fileID: 0}
+    invert: 0
   openAnimationDuration: 0
   hiddenGateSprite: {fileID: 0}
 --- !u!1 &8677064692530228378

@@ -196,13 +196,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
+  canUntrigger: 1
   viewRadius: 34.8
   viewAngle: 48
   activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   triggeredColor: {r: 1, g: 0, b: 0, a: 1}
   alpha: 0.5
   eclipsePlayer: 0
-  didMotionSensorTrigger: {fileID: 11400000, guid: 4ce39da9613854e259db57038c09cf9e, type: 2}
+  didMotionSensorTrigger: {fileID: 0}
   targetMask:
     serializedVersion: 2
     m_Bits: 128
