@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1843560d2a69354bbb725f676e46067, type: 3}
+  m_Name: PlayerMovement
+  m_EditorClassIdentifier: 
+  crouchSpeed: 0.36
+  movementSmoothing: 0.05
+  maxSpeed: 10
+  maxAcceleration: 100
+  maxAirAcceleration: 100
+  jumpForce: 800
+  jumpHeight: 30
+  maxAirJumps: 0
+  downwardMovementMultiplier: 10
+  upwardMovementMultiplier: 7

@@ -23,6 +23,6 @@ public class AttackData : ScriptableObject
     public float projectileRange;
     public bool destroyProjectileOnHit;
 
-    public bool possessTarget;
+    public bool willPossessTarget;
 
 }

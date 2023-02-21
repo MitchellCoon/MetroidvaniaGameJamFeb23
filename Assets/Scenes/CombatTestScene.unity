@@ -2045,6 +2045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e05baaf04139d42b8f6794c8f98730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movement: {fileID: 0}
   jumpForce: 800
   crouchSpeed: 0.36
   movementSmoothing: 0.05
@@ -2093,6 +2094,7 @@ MonoBehaviour:
   maxAirJumps: 0
   downwardMovementMultiplier: 10
   upwardMovementMultiplier: 7
+  movement: {fileID: 0}
 --- !u!114 &1099828556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2107,6 +2109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 771c146892f477244879b8dfa7bde516, type: 2}
   controller: {fileID: 1099828553}
+  movement: {fileID: 0}
   maxSpeed: 10
   maxAcceleration: 100
   maxAirAcceleration: 100
@@ -3936,6 +3939,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7897570920410490816, guid: a658cfb54edf871488fa26948c32ae90, type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
     - target: {fileID: 7897570920410490818, guid: a658cfb54edf871488fa26948c32ae90, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3984,5 +3991,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7897570920410490826, guid: a658cfb54edf871488fa26948c32ae90, type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
+    - target: {fileID: 7897570920410490827, guid: a658cfb54edf871488fa26948c32ae90, type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a658cfb54edf871488fa26948c32ae90, type: 3}

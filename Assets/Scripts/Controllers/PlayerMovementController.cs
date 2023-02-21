@@ -5,12 +5,10 @@ using UnityEngine.Events;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    [SerializeField] private float jumpForce = 400f;							// Amount of force added when the player jumps.
-	[Range(0, 1)] [SerializeField] private float crouchSpeed = .36f;			// Amount of maxSpeed applied to crouching movement. 1 = 100%
-	[Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;	// How much to smooth out the movement
+	[SerializeField] MovementOverride movement;
 	[SerializeField] private bool isAirControlEnabled = false;					// Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask groundLayer;						    	// A mask determining what is ground to the character
-	[SerializeField] private GroundCheck groundCheck;				    			// A position marking where to check if the player is grounded
+	[SerializeField] private GroundCheck groundCheck;				    		// A position marking where to check if the player is grounded
 	[SerializeField] private Transform ceilingCheck;							// A position marking where to check for ceilings
 	[SerializeField] private Collider2D crouchCollider;				            // A collider that will be disabled when crouching
 
@@ -98,7 +96,7 @@ public class PlayerMovementController : MonoBehaviour
 				}
 
 				// Reduce the speed by the crouchSpeed multiplier
-				move *= crouchSpeed;
+				move *= movement.crouchSpeed;
 
 				// Disable one of the colliders when crouching
 				if (crouchCollider != null)
@@ -119,7 +117,7 @@ public class PlayerMovementController : MonoBehaviour
 			// Move the character by finding the target velocity
 			Vector3 targetVelocity = new Vector2(move * 10f, rigidbody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
-			rigidbody2D.velocity = Vector3.SmoothDamp(rigidbody2D.velocity, targetVelocity, ref velocity, movementSmoothing);
+			rigidbody2D.velocity = Vector3.SmoothDamp(rigidbody2D.velocity, targetVelocity, ref velocity, movement.movementSmoothing);
 
 			// If the input is moving the player right and the player is facing left...
 			if (move > 0 && !isFacingRight)
@@ -139,7 +137,7 @@ public class PlayerMovementController : MonoBehaviour
 		{
 			// Add a vertical force to the player.
 			isGrounded = false;
-			rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+			rigidbody2D.AddForce(new Vector2(0f, movement.jumpForce));
 		}
 	}
 

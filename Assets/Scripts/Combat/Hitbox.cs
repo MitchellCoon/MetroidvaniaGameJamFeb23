@@ -16,7 +16,7 @@ public class Hitbox : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position, attackData.knockback);
-            if(attackData.possessTarget)
+            if(attackData.willPossessTarget)
             {
                 other.GetComponent<PossessionManager>().GetPossessed(transform.parent.gameObject);
             }

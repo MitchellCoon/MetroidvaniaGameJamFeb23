@@ -56,6 +56,8 @@ public class PossessionManager : MonoBehaviour
         gameObject.tag = "Enemy";
     }
 
+    // This method will be used to update the prefab created when respawning the player
+
     public void UpdatePlayerPrefab(GameObject newPlayerPrefab)
     {
         playerPrefab = newPlayerPrefab;
