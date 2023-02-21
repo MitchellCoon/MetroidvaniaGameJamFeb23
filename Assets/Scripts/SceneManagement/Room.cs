@@ -39,7 +39,7 @@ namespace DTDEV.SceneManagement
         GameObject playerSpawnPointObj;
         Transform playerSpawnPoint;
         Transform currentRespawnPoint;
-        Coroutine spawning;
+        Coroutine levelLoading;
         Coroutine respawning;
 
         bool initialSpawnEnabled = true;
@@ -84,7 +84,7 @@ namespace DTDEV.SceneManagement
         void Start()
         {
             SetPlayerSpawnPoint();
-            spawning = StartCoroutine(OnLevelStart());
+            levelLoading = StartCoroutine(OnLevelStart());
             Assert.IsNotNull(guidComponent, $"Please add a GuidComponent to Room \"{gameObject.name}\" in scene {SceneManager.GetActiveScene().name}");
         }
 
@@ -105,6 +105,7 @@ namespace DTDEV.SceneManagement
             if (mapRoomData != null) mapRoomData.FlagRoomVisited();
             GlobalEvent.Invoke.OnRoomLoaded(transform.position);
             yield return null;
+            levelLoading = null;
         }
 
         IEnumerator SpawnPlayer()
@@ -112,7 +113,6 @@ namespace DTDEV.SceneManagement
             // we can add SFX and VFX here as needed, hence the Coroutine
             Instantiate(playerPrefab, currentRespawnPoint.position, Quaternion.identity);
             yield return null;
-            spawning = null;
         }
 
         IEnumerator RespawnPlayer()
@@ -124,7 +124,7 @@ namespace DTDEV.SceneManagement
 
         void OnPlayerDeath()
         {
-            if (spawning != null) StopCoroutine(spawning);
+            if (levelLoading != null) StopCoroutine(levelLoading);
             if (respawning != null) StopCoroutine(respawning);
             respawning = StartCoroutine(RespawnPlayer());
         }
