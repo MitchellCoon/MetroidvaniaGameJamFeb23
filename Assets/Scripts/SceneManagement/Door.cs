@@ -344,7 +344,7 @@ namespace DTDEV.SceneManagement
             if (collider != null)
             {
                 Gizmos.color = Color.green.toAlpha(0.5f);
-                Gizmos.DrawCube(transform.position, collider.size);
+                Gizmos.DrawCube(collider.transform.position, collider.size);
             }
         }
     }
