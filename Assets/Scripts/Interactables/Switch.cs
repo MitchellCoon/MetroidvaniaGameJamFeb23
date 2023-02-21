@@ -6,6 +6,8 @@ using CyberneticStudios.SOFramework;
 public class Switch : MonoBehaviour, IInteractable
 {
     [SerializeField] BoolVariable didHitSwitch;
+    [Space]
+    [Space]
     [SerializeField] SpriteRenderer onSprite;
     [SerializeField] SpriteRenderer offSprite;
 

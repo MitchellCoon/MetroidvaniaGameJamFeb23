@@ -4,6 +4,8 @@ using CyberneticStudios.SOFramework;
 
 public class Key : BasePickup
 {
+    [Space]
+    [Space]
     [SerializeField] BoolVariable hasKey;
 
     void Start()

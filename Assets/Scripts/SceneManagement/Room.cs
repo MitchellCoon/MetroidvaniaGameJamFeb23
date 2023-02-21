@@ -20,7 +20,9 @@ namespace DTDEV.SceneManagement
     public class Room : MonoBehaviour
     {
         [SerializeField] GameObject playerPrefab;
-
+        [SerializeField][Range(0f, 5f)] float timeRespawnDelay;
+        [Space]
+        [Space]
         [Tooltip("Do not edit this directly - it gets automatically assigned by MapGenerator")]
         [SerializeField] MapRoomData mapRoomData;
 
@@ -37,6 +39,8 @@ namespace DTDEV.SceneManagement
         GameObject playerSpawnPointObj;
         Transform playerSpawnPoint;
         Transform currentRespawnPoint;
+        Coroutine spawning;
+        Coroutine respawning;
 
         bool initialSpawnEnabled = true;
 
@@ -62,6 +66,16 @@ namespace DTDEV.SceneManagement
             currentRespawnPoint = respawnPoint;
         }
 
+        void OnEnable()
+        {
+            GlobalEvent.OnPlayerDeath += OnPlayerDeath;
+        }
+
+        void OnDisable()
+        {
+            GlobalEvent.OnPlayerDeath -= OnPlayerDeath;
+        }
+
         void Awake()
         {
             _guidComponent = GetComponent<GuidComponent>();
@@ -70,7 +84,7 @@ namespace DTDEV.SceneManagement
         void Start()
         {
             SetPlayerSpawnPoint();
-            StartCoroutine(OnLevelStart());
+            spawning = StartCoroutine(OnLevelStart());
             Assert.IsNotNull(guidComponent, $"Please add a GuidComponent to Room \"{gameObject.name}\" in scene {SceneManager.GetActiveScene().name}");
         }
 
@@ -98,8 +112,21 @@ namespace DTDEV.SceneManagement
             // we can add SFX and VFX here as needed, hence the Coroutine
             Instantiate(playerPrefab, currentRespawnPoint.position, Quaternion.identity);
             yield return null;
+            spawning = null;
         }
 
-        // TODO: handle event OnPlayerDeath -> respawn player
+        IEnumerator RespawnPlayer()
+        {
+            yield return new WaitForSeconds(timeRespawnDelay);
+            yield return SpawnPlayer();
+            respawning = null;
+        }
+
+        void OnPlayerDeath()
+        {
+            if (spawning != null) StopCoroutine(spawning);
+            if (respawning != null) StopCoroutine(respawning);
+            respawning = StartCoroutine(RespawnPlayer());
+        }
     }
 }

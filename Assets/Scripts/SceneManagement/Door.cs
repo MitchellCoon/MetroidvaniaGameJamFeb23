@@ -88,18 +88,25 @@ namespace DTDEV.SceneManagement
             {
                 StartCoroutine(PlaySlideTransition());
             }
-            isTriggered = true;
         }
 
         void Validate()
         {
-            Assert.IsNotNull(spawnPoint);
-            Assert.IsFalse(targetSceneRef.IsEmpty, $"sceneRef missing on Door \"${gameObject.name}\" in scene ${SceneManager.GetActiveScene().name}");
-            Assert.IsTrue(outgoingSceneIndex > -1, $"Scene {SceneManager.GetActiveScene().name} needs to be added to Builds - found buildIndex {outgoingSceneIndex}");
+            try
+            {
+                Assert.IsNotNull(spawnPoint);
+                Assert.IsFalse(targetSceneRef.IsEmpty, $"sceneRef missing on Door \"{gameObject.name}\" in scene \"{SceneManager.GetActiveScene().name}\"");
+                Assert.IsTrue(outgoingSceneIndex > -1, $"Scene \"{SceneManager.GetActiveScene().name}\" needs to be added to Builds - found buildIndex {outgoingSceneIndex}");
+            }
+            catch (System.Exception e)
+            {
+                FailBadlyAndNoticeably(e.Message);
+            }
         }
 
         void PrepareRoomTransition()
         {
+            isTriggered = true;
             outgoingRoom = FindObjectOfType<Room>();
             outgoingSceneName = SceneManager.GetActiveScene().name;
             outgoingSceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -119,7 +126,9 @@ namespace DTDEV.SceneManagement
             Time.timeScale = 0.1f;
             yield return SceneManager.LoadSceneAsync(targetSceneName);
             Door otherDoor = GetOtherDoor();
+            if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
             GameObject player = GameObject.FindWithTag("Player");
+            if (player == null) FailBadlyAndNoticeably("No GameObject found tagged \"Player\"");
             MovePlayerToSpawnPoint(player, otherDoor);
             SetIncomingRoomSpawnPoint(otherDoor);
             OnFadeTick = (float t) => Time.timeScale = Easing.InOutQuad(0.9f * t + 0.1f);
@@ -191,7 +200,7 @@ namespace DTDEV.SceneManagement
             outgoingCamera.depth = 100;
             if (outgoingCamera.transform.parent) outgoingCamera.transform.parent.gameObject.name = "OutgoingCamera";
             // disable all camera bounds so that a smooth transition can occur
-            foreach (var bound in cameraBounds) if (bound != null) bound.SetActive(false);
+            if (cameraBounds != null) foreach (var bound in cameraBounds) if (bound != null) bound.SetActive(false);
             // Destroy current scene objects
             Destroy(outgoingRoom.gameObject);
             Destroy(outgoingCamera.GetComponent<AudioListener>());
@@ -199,17 +208,22 @@ namespace DTDEV.SceneManagement
             // Set outgoing variables
             Scene outgoingScene = SceneManager.GetActiveScene();
             GameObject[] outgoingSceneRootObjects = outgoingScene.GetRootGameObjects();
-            PlayerMain player = GameObject.FindWithTag("Player").GetComponent<PlayerMain>();
+            GameObject playerObj = GameObject.FindWithTag("Player");
+            if (playerObj == null) FailBadlyAndNoticeably("No GameObject found tagged \"Player\"");
+            PlayerMain player = playerObj.GetComponent<PlayerMain>();
+            if (player == null) FailBadlyAndNoticeably("Player has no PlayerMain component - add this to the Player prefab");
             player.SetKinematic();
             // Load incoming scene
             yield return SceneManager.LoadSceneAsync(targetSceneName, LoadSceneMode.Additive);
             DisableIncomingRoomSpawn();
             Scene incomingScene = SceneManager.GetSceneByName(targetSceneName);
+            if (!incomingScene.IsValid()) FailBadlyAndNoticeably($"Scene {targetSceneName} is not valid. Has it been added to Build Settings?");
             SceneManager.SetActiveScene(incomingScene);
             yield return null;
             // set incoming variables
             Door otherDoor = GetOtherDoor();
             Camera incomingCamera = Camera.main;
+            if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
             // Set incomingCamera position to the player position, but clamped inside its camerBounds.
             // Run physics for a single frame in order for CinemachineConfiner2D to do its job
             MoveOutgoingGameObjectsToScene(outgoingSceneRootObjects, incomingScene);
@@ -260,6 +274,7 @@ namespace DTDEV.SceneManagement
         void DisableIncomingRoomSpawn()
         {
             Room room = FindObjectOfType<Room>();
+            if (room == null) FailBadlyAndNoticeably("No Room component found in incoming scene");
             room.DisableInitialSpawn();
         }
 
@@ -307,6 +322,21 @@ namespace DTDEV.SceneManagement
                 if (!outgoingSceneRootObjects[i].activeSelf) continue;
                 Destroy(outgoingSceneRootObjects[i]);
             }
+        }
+
+        void FailBadlyAndNoticeably(string reason)
+        {
+            // This will only be called if something is not hooked up correctly.
+            // This follows the Fail Fast programming pattern. If something is not
+            // right, we want to know right away, and it should be easy to debug.
+            // See: https://www.martinfowler.com/ieeeSoftware/failFast.pdf
+            Debug.LogError(reason);
+            isTriggered = false;
+            Time.timeScale = 1f;
+            AudioListener.pause = false;
+            GlobalEvent.Invoke.OnEmergencyPlayerInstakillSomethingWentHorriblyWrong();
+            StopAllCoroutines();
+            throw new UnityException("HALTING DOOR TRANSITION ->> see previous error message");
         }
 
         void OnDrawGizmos()
