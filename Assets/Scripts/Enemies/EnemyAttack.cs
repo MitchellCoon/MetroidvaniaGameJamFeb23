@@ -5,13 +5,14 @@ using UnityEngine;
 public enum AimType
 {
     Player,
-    Direction
+    Direction,
+    Turret
 
 }
 
 public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
     float hitBoxActivetime = 0.1f;
     [SerializeField] AttackData defaultProjectileAttack;
     public float fireRate = 0.5f;
@@ -30,7 +31,7 @@ public class EnemyAttack : MonoBehaviour
 
     // Later write logic where we get signals to stop firing
     public bool canFire = true;
-   // Only enable if we have a melee attack
+    // Only enable if we have a melee attack
     public bool canMelee = false;
     [SerializeField]
     Hitbox hitbox;
@@ -53,10 +54,19 @@ public class EnemyAttack : MonoBehaviour
             case AimType.Direction:
                 aimInDirection();
                 break;
+            case AimType.Turret:
+                AimTurret();
+                //fireProjectile(transform.parent.right);
+                break;
             default:
                 break;
         }
         // aimAtPlayer();
+    }
+    void AimTurret()
+    {
+       
+        fireProjectile(new Vector2(0,0));
     }
     void aimInDirection()
     {
@@ -109,7 +119,7 @@ public class EnemyAttack : MonoBehaviour
     }
     private void MeleeAttack()
     {
-        if( canMelee == false)
+        if (canMelee == false)
         {
             return;
         }
@@ -117,7 +127,7 @@ public class EnemyAttack : MonoBehaviour
         hitbox.UpdateAttackData(defaultMeleeAttack);
         hitbox.gameObject.SetActive(true);
         StartCoroutine(DisableHitbox());
-//        hitbox.gameObject.SetActive(false);
+        //        hitbox.gameObject.SetActive(false);
 
     }
     IEnumerator DisableHitbox()
@@ -126,19 +136,38 @@ public class EnemyAttack : MonoBehaviour
         hitbox.gameObject.SetActive(false);
     }
 
-    private void fireProjectile(Vector2 fireDirection)
+    public void fireProjectile(Vector2 fireDirection)
     {
         if (canFire == false)
         {
             return;
         }
-        var rotation = Quaternion.Euler(rotationAsVector);
-        GameObject projectile = Instantiate(defaultProjectileAttack.projectilePrefab, transform.position, rotation);
-        projectile.transform.parent = transform;
-        projectile.GetComponent<Rigidbody2D>().velocity = (fireDirection).normalized * projectileSpeed;
-        projectile.GetComponent<EnemyProjectile>().projectileAttackData = defaultProjectileAttack;
+        Quaternion rotation = Quaternion.identity;
+        if (aimType == AimType.Turret)
+        {
+            rotation = transform.rotation;
+           // rotation = Quaternion.Euler(transform.right) ;
+
+        }
+        else
+        {
+            rotation = Quaternion.Euler(rotationAsVector);
+        }
+
+        GameObject projectile = Instantiate(defaultProjectileAttack.projectilePrefab, transform.position, defaultProjectileAttack.projectilePrefab.transform.rotation * rotation);
+
+        var enemyProjectile = projectile.GetComponent<EnemyProjectile>();
+        enemyProjectile.projectileAttackData = defaultProjectileAttack;
+
+        if( aimType == AimType.Turret)
+        {
+            enemyProjectile.turretProjectile = true ; 
+        }   else {
+                    projectile.GetComponent<Rigidbody2D>().velocity = (fireDirection).normalized * projectileSpeed;
+
+        }
+
     }
 
 
-    // Update is called once per frame
 }

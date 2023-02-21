@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6caa88c8e4eb5a046a58d73884644334, type: 3}
-  m_Name: EnemyProjectileData
+  m_Name: TurretProjectileData
   m_EditorClassIdentifier: 
   name: 
   description: 
@@ -21,7 +21,7 @@ MonoBehaviour:
   attackType: 1
   knockback: 0
   knockbackForce: 0
-  projectilePrefab: {fileID: 7520381118451425663, guid: 0955c152f31ff45da98cb8b068496c11, type: 3}
+  projectilePrefab: {fileID: 2234383059342071097, guid: 84d08850b21cc4c14873ce7ef00be846, type: 3}
   projectileSpeed: 10
   projectileRange: 0
   destroyProjectileOnHit: 0
