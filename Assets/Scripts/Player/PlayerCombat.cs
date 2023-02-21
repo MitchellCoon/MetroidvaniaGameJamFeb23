@@ -6,11 +6,11 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    [SerializeField] PlayerResources resources;
+    [SerializeField] ResourceManager resources;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float weightMultiplier = 1f;
 
-    PlayerResource health;
+    [SerializeField] Resource health;
 
     bool isAlive;
 
@@ -26,7 +26,6 @@ public class PlayerCombat : MonoBehaviour
 
     void Start()
     {
-        health = resources.Health;
         isAlive = true;
     }
 

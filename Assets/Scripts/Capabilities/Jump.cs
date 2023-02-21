@@ -6,10 +6,7 @@ public class Jump : MonoBehaviour
 {
     [SerializeField] InputManager inputManager;
     [SerializeField] private InputController inputController = null;
-    [SerializeField] private float jumpHeight = 3f; //Range(0f, 10f)
-    [SerializeField, Range(0, 5)] private int maxAirJumps = 0;
-    [SerializeField] private float downwardMovementMultiplier = 3f;//Range(0f, 5f)
-    [SerializeField] private float upwardMovementMultiplier = 1.7f;//Range(0f, 5f)
+    [SerializeField] MovementOverride movement;
 
     private Rigidbody2D body;
     private GroundCheck groundCheck;
@@ -72,6 +69,10 @@ public class Jump : MonoBehaviour
             coyoteTimeCounter = inputManager.GetInputBufferTime(InputManager.Input.CoyoteJump);
             inputManager.SetPreviousActionTime(InputManager.Action.Grounded, Time.time);
         }
+        else
+        {
+            coyoteTimeCounter -= Time.fixedDeltaTime;
+        }
 
         if(inputManager.GetInputRequested(InputManager.Input.Jump))
         {
@@ -79,11 +80,11 @@ public class Jump : MonoBehaviour
         }
         if (body.velocity.y > 0)
         {
-            body.gravityScale = upwardMovementMultiplier;
+            body.gravityScale = movement.upwardMovementMultiplier;
         }
         else if (body.velocity.y < 0)
         {
-            body.gravityScale = downwardMovementMultiplier;
+            body.gravityScale = movement.downwardMovementMultiplier;
         }
         else if (body.velocity.y == 0)
         {
@@ -97,7 +98,7 @@ public class Jump : MonoBehaviour
 
     private void JumpAction()
     {
-        if ((!(inputManager.GetPreviousActionTime(InputManager.Action.Grounded) == -1) && Time.time - inputManager.GetPreviousActionTime(InputManager.Action.Grounded) <= inputManager.GetInputBufferTime(InputManager.Input.Jump)) || jumpPhase < maxAirJumps)
+        if ((!(inputManager.GetPreviousActionTime(InputManager.Action.Grounded) == -1) && Time.time - inputManager.GetPreviousActionTime(InputManager.Action.Grounded) <= inputManager.GetInputBufferTime(InputManager.Input.Jump)) || jumpPhase < movement.maxAirJumps)
         {
             if ((coyoteTimeCounter < 0f || jumpBufferCounter < 0f))
             {
@@ -111,7 +112,7 @@ public class Jump : MonoBehaviour
             inputManager.SetPreviousPressedTime(InputManager.Input.Jump, -1);
             inputManager.RemoveInputRequestFromQueue(InputManager.Input.Jump);
             isGrounded = false;
-            float jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * jumpHeight);
+            float jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * movement.jumpHeight);
             if (velocity.y > 0f)
             {
                 jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);

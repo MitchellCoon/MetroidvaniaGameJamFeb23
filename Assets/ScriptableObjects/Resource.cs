@@ -6,7 +6,7 @@ using System;
 
 [CreateAssetMenu(fileName = "New Player Resource", menuName = "PlayerResource")]
 
-public class PlayerResource : ScriptableObject
+public class Resource : ScriptableObject
 {
     [SerializeField] new string name;
     [SerializeField] int maxValue;
@@ -17,11 +17,16 @@ public class PlayerResource : ScriptableObject
     private int currentValue;
     private Canvas canvas;
 
-    private void OnEnable()
+    public void Init()
     {
         currentValue = maxValue;
-        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
+
+    // private void OnEnable()
+    // {
+    //     currentValue = maxValue;
+    //     canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+    // }
 
     public int GetCurrentValue()
     {
@@ -30,7 +35,8 @@ public class PlayerResource : ScriptableObject
 
     public void UpdateUIElement()
     {
-        canvas.transform.GetChild(canvasChildNumber).GetComponent<TextMeshProUGUI>().text = staticText + currentValue;
+        Debug.Log("current value: " + currentValue);
+        //canvas.transform.GetChild(canvasChildNumber).GetComponent<TextMeshProUGUI>().text = staticText + currentValue;
     }
 
     public void AddResource(int amount)

@@ -23,6 +23,10 @@ public class Hitbox : DisableSpriteRender
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position, attackData.knockback);
+            if(attackData.willPossessTarget)
+            {
+                other.GetComponent<PossessionManager>().GetPossessed(transform.parent.gameObject);
+            }
         }
 
         if (isEnemyHitbox && other.CompareTag("Player"))

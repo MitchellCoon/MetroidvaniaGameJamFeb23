@@ -6,9 +6,8 @@ public class Move : MonoBehaviour
 {
     [SerializeField] InputController input = null;
     [SerializeField] PlayerMovementController controller;
-    [SerializeField, Range(0f, 100f)] private float maxSpeed = 4f;
-    [SerializeField, Range(0f, 100f)] private float maxAcceleration = 35f;
-    [SerializeField, Range(0f, 100f)] private float maxAirAcceleration = 20f;
+
+    [SerializeField] MovementOverride movement;
     
     private Vector2 direction;
     private Vector2 desiredVelocity;
@@ -30,7 +29,7 @@ public class Move : MonoBehaviour
     void Update()
     {
         direction.x = input.RetrieveMoveInput();
-        desiredVelocity = new Vector2(direction.x, 0f) * Mathf.Max(maxSpeed - groundCheck.GetFriction(), 0f);
+        desiredVelocity = new Vector2(direction.x, 0f) * Mathf.Max(movement.maxSpeed - groundCheck.GetFriction(), 0f);
     }
 
     private void FixedUpdate()
@@ -38,7 +37,7 @@ public class Move : MonoBehaviour
         
         velocity = body.velocity;
         isGrounded = groundCheck.IsGrounded();
-        acceleration = isGrounded ? maxAcceleration : maxAirAcceleration;
+        acceleration = isGrounded ? movement.maxAcceleration : movement.maxAirAcceleration;
         maxSpeedChange = acceleration * Time.fixedDeltaTime;
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
 
