@@ -25,4 +25,4 @@ MonoBehaviour:
   projectileSpeed: 0
   projectileRange: 0
   destroyProjectileOnHit: 0
-  possessTarget: 1
+  willPossessTarget: 1

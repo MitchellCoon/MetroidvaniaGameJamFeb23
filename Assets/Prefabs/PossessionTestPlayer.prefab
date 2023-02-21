@@ -46,8 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ea566673b88c74f925f458d07d7f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableInEditor: 0
   attackData: {fileID: 0}
   isEnemyHitbox: 0
+  hitOnce: 0
 --- !u!212 &7897570919658458532
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -255,9 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e05baaf04139d42b8f6794c8f98730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 800
-  crouchSpeed: 0.36
-  movementSmoothing: 0.05
+  movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
   isAirControlEnabled: 0
   groundLayer:
     serializedVersion: 2
@@ -337,9 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 771c146892f477244879b8dfa7bde516, type: 2}
   controller: {fileID: 7897570920410490816}
-  maxSpeed: 10
-  maxAcceleration: 100
-  maxAirAcceleration: 100
+  movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
 --- !u!114 &7897570920410490826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,10 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 7897570920410490820}
   inputController: {fileID: 11400000, guid: 771c146892f477244879b8dfa7bde516, type: 2}
-  jumpHeight: 30
-  maxAirJumps: 0
-  downwardMovementMultiplier: 10
-  upwardMovementMultiplier: 7
+  movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
 --- !u!114 &7897570920410490821
 MonoBehaviour:
   m_ObjectHideFlags: 0

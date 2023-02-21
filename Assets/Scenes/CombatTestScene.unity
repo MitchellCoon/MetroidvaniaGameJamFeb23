@@ -1704,8 +1704,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1313833967}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1726,7 +1725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e3e5ccbb2c05e946840ddb2a63720d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 1313833968}
+  healthText: {fileID: 0}
 --- !u!1001 &808372194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2047,10 +2046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e05baaf04139d42b8f6794c8f98730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {fileID: 0}
-  jumpForce: 800
-  crouchSpeed: 0.36
-  movementSmoothing: 0.05
+  movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
   isAirControlEnabled: 0
   groundLayer:
     serializedVersion: 2
@@ -2092,11 +2088,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 1099828559}
   inputController: {fileID: 11400000, guid: 771c146892f477244879b8dfa7bde516, type: 2}
-  jumpHeight: 30
-  maxAirJumps: 0
-  downwardMovementMultiplier: 10
-  upwardMovementMultiplier: 7
-  movement: {fileID: 0}
+  movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
 --- !u!114 &1099828556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2111,10 +2103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 771c146892f477244879b8dfa7bde516, type: 2}
   controller: {fileID: 1099828553}
-  movement: {fileID: 0}
-  maxSpeed: 10
-  maxAcceleration: 100
-  maxAirAcceleration: 100
+  movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
 --- !u!114 &1099828557
 MonoBehaviour:
   m_ObjectHideFlags: 0
