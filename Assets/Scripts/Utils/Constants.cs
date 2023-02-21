@@ -6,4 +6,5 @@ public static class Constants
 
     // tags
     public const string UNTAGGED = "Untagged";
+    public const string PLAYER_TAG = "Player";
 }
