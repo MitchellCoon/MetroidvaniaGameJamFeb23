@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8635323397311686612}
   - component: {fileID: 8635323397311686634}
   - component: {fileID: 8635323397311686613}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HiddenArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8635323397503162948}
   - component: {fileID: 8635323397503162971}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

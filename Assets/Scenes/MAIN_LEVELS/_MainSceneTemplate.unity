@@ -8775,6 +8775,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1018327845}
     m_Modifications:
+    - target: {fileID: 8617280516932952953, guid: 75cfd3d0c6d0845b0a11ebb06427e117, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8617280517585647796, guid: 75cfd3d0c6d0845b0a11ebb06427e117, type: 3}
       propertyPath: m_Name
       value: RespawnPoint
