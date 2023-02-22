@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8617280516932952954}
   - component: {fileID: 8617280516932952956}
   - component: {fileID: 8617280516932952955}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: DebugSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 8617280517585647798}
   - component: {fileID: 8617280517585647799}
   - component: {fileID: 8617280517585647688}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RespawnPoint
   m_TagString: PlayerRespawnPoint
   m_Icon: {fileID: 0}
