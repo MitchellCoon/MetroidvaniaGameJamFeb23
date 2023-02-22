@@ -160,9 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e05baaf04139d42b8f6794c8f98730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 800
-  crouchSpeed: 0.36
-  movementSmoothing: 0.05
+  movement: {fileID: 0}
   isAirControlEnabled: 0
   groundLayer:
     serializedVersion: 2
@@ -242,9 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 771c146892f477244879b8dfa7bde516, type: 2}
   controller: {fileID: 2806582366043827930}
-  maxSpeed: 10
-  maxAcceleration: 100
-  maxAirAcceleration: 100
+  movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
 --- !u!114 &2806582366043827920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,10 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 2806582366043827934}
   inputController: {fileID: 11400000, guid: 771c146892f477244879b8dfa7bde516, type: 2}
-  jumpHeight: 30
-  maxAirJumps: 0
-  downwardMovementMultiplier: 10
-  upwardMovementMultiplier: 7
+  movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
 --- !u!114 &2806582366043827935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc53d448bb375204dbc60f4300d69545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: {fileID: 11400000, guid: 91e5af3b792e07646901238e999c61d2, type: 2}
+  resources: []
 --- !u!114 &2806582366043827926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,6 +463,7 @@ MonoBehaviour:
   resources: {fileID: 2806582366043827925}
   rb: {fileID: 2806582366043827931}
   weightMultiplier: 1
+  health: {fileID: 11400000, guid: 91e5af3b792e07646901238e999c61d2, type: 2}
 --- !u!114 &4127488969785509700
 MonoBehaviour:
   m_ObjectHideFlags: 0
