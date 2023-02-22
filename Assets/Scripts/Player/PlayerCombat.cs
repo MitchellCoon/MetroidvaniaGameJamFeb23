@@ -26,7 +26,6 @@ public class PlayerCombat : MonoBehaviour
 
     void Start()
     {
-        health.Init();
         isAlive = true;
     }
 
