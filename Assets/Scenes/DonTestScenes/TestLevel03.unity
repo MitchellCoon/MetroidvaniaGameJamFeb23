@@ -5011,11 +5011,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2402688748301112501, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 60.686073
+      value: 57.257732
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748301112501, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0716599
+      value: 1.12597
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748420255459, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
@@ -14987,7 +14987,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2472206627158133234, guid: 96419cf82256e4b3d8efd451333779d4, type: 3}
       propertyPath: canUntrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2472206627158133234, guid: 96419cf82256e4b3d8efd451333779d4, type: 3}
       propertyPath: didMotionSensorTrigger
