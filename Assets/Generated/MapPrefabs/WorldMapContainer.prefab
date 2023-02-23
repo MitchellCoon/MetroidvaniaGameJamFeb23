@@ -45,6 +45,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 8487903792376274940, guid: 1f8e20841d9644d25af81b17e0de43b3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8487903792376274942, guid: 1f8e20841d9644d25af81b17e0de43b3, type: 3}
       propertyPath: m_RootOrder
       value: 2

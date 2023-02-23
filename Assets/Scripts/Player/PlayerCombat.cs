@@ -27,6 +27,7 @@ public class PlayerCombat : MonoBehaviour
     void Start()
     {
         isAlive = true;
+        GlobalEvent.Invoke.OnPlayerSpawn();
     }
 
     public void TakeDamage(AttackData attackData, Vector3 attackOrigin)

@@ -211,7 +211,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   delayBetweenRaycasts: 0.1
-  meshResolution: 0.6
+  meshResolution: 0.31
   edgeResolveIterations: 1
   edgeDstThreshold: 0.1
   visibleTargets: []
