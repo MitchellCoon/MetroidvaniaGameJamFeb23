@@ -15,6 +15,7 @@ using System.Collections.Generic;
 public class Gate : MonoBehaviour
 {
     [SerializeField] BoolCondition[] openConditions = new BoolCondition[0];
+    [SerializeField] bool canShutAfterOpened = false;
     [SerializeField] float openAnimationDuration = 0f;
 
     [Space]
@@ -74,7 +75,7 @@ public class Gate : MonoBehaviour
             if (closing != null) StopCoroutine(closing);
             if (opening == null) opening = StartCoroutine(OpenGate());
         }
-        else
+        else if (canShutAfterOpened)
         {
             if (opening != null) StopCoroutine(opening);
             if (closing == null) closing = StartCoroutine(CloseGate());

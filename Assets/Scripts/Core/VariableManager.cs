@@ -34,7 +34,7 @@ public class VariableManager : MonoBehaviour
     // This method grabs all of the Variable ScriptableObjects that exist anywhere in the Assets directory,
     // and populates `variables` above with the found results.
     [ContextMenu("Refresh Variables List")]
-    void RefreshVariablesList()
+    public void RefreshVariablesList()
     {
         Debug.Log("*** FINDING VARIABLES ***");
         string[] guids;
