@@ -24,6 +24,6 @@ public static class Layer
 
     public static int Parse(string layerName)
     {
-        return LayerMask.NameToLayer("Map");
+        return LayerMask.NameToLayer(layerName);
     }
 }

@@ -7,12 +7,15 @@ using CyberneticStudios.SOFramework;
 // NOTE - this component goes on the __enemy__, not the player.
 public class PossessionManager : MonoBehaviour
 {
+    const string LAYER_WHILE_POSSESSED = Constants.PLAYER_LAYER;
+
     [SerializeField] GameObject playerPrefab;
     [SerializeField] Transform unpossessionSpawnPoint;
     [SerializeField] BoolVariable isPlayerPossessing;
 
     GameObject possessionTarget;
     bool isPossessed = false;
+    int initialLayer;
 
     void OnEnable()
     {
@@ -29,6 +32,7 @@ public class PossessionManager : MonoBehaviour
     void Awake()
     {
         Assert.IsNotNull(isPlayerPossessing, "Please assign ref to `isPlayerPossessing` in `PossessionManager`");
+        initialLayer = gameObject.layer;
     }
 
     void Update()
@@ -67,7 +71,8 @@ public class PossessionManager : MonoBehaviour
         Destroy(player);
         isPossessed = true;
         isPlayerPossessing.value = true;
-        gameObject.tag = "Player";
+        gameObject.tag = Constants.PLAYER_TAG;
+        gameObject.layer = Layer.Parse(LAYER_WHILE_POSSESSED);
     }
 
     public void RevertPossession()
@@ -88,7 +93,8 @@ public class PossessionManager : MonoBehaviour
         StartCoroutine(SpawnPlayerCoroutine());
         isPossessed = false;
         isPlayerPossessing.value = false;
-        gameObject.tag = "Enemy";
+        gameObject.tag = Constants.ENEMY_TAG;
+        gameObject.layer = initialLayer;
     }
 
     // This method will be used to update the prefab created when respawning the player
