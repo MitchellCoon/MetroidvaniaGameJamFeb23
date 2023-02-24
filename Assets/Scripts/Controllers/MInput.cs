@@ -81,14 +81,14 @@ public static class MInput
     static Vector2 GetGamepadMove()
     {
         if (Gamepad.current == null) return Vector2.zero;
-        return Gamepad.current.leftStick.ReadValue();
+        return Gamepad.current.leftStick.ReadValue()
+            + Gamepad.current.dpad.ReadValue();
     }
 
     static Vector2 GetGamepadLook()
     {
         if (Gamepad.current == null) return Vector2.zero;
-        return Gamepad.current.rightStick.ReadValue()
-            + Gamepad.current.dpad.ReadValue();
+        return Gamepad.current.rightStick.ReadValue();
     }
 
     static UnityEngine.InputSystem.Controls.ButtonControl LookupButtonControl(GamepadCode code)
@@ -118,7 +118,6 @@ public static class MInput
         {
             case KeyCode.Mouse0: return Mouse.current.leftButton;
             case KeyCode.Mouse1: return Mouse.current.rightButton;
-
             case KeyCode.Escape: return Keyboard.current.escapeKey;
             case KeyCode.Tab: return Keyboard.current.tabKey;
             case KeyCode.Space: return Keyboard.current.spaceKey;
