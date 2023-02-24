@@ -11,6 +11,7 @@ namespace CyberneticStudios.SOFramework
         [SerializeField] bool invert;
 
         public bool value => GetValue();
+        public bool hasRef => boolValue != null;
 
         public event System.Action<bool> OnChanged
         {
