@@ -833,8 +833,8 @@ MonoBehaviour:
   spriteObject: {fileID: 1559307177}
   elapsed: 0
   duration: 2
-  magnitudeX: 0
-  magnitudeY: 0.045
+  shakeMagnitudeX: 0
+  shakeMagnitudeY: 0.1
   RestoreTime: 5
 --- !u!1 &475270968
 GameObject:

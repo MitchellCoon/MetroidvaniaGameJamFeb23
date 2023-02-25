@@ -15,10 +15,10 @@ public class FallingPlatform : MonoBehaviour
     float duration = 1.5f;
     [SerializeField]
 
-    float magnitudeX = 0.3f;
+    float shakeMagnitudeX = 0.0f;
     [SerializeField]
 
-    float magnitudeY = 0.0f;
+    float shakeMagnitudeY = 0.1f;
     [SerializeField]
 
     float RestoreTime = 5f;
@@ -63,8 +63,8 @@ public class FallingPlatform : MonoBehaviour
 
         while (elapsed < duration)
         {
-            float x = Random.Range(-1f, 1f) * magnitudeX;
-            float y = Random.Range(-1f, 1f) * magnitudeY;
+            float x = Random.Range(-1f, 1f) * shakeMagnitudeX;
+            float y = Random.Range(-1f, 1f) * shakeMagnitudeY;
             spriteObject.transform.position = new Vector3(spriteOriginalPos.x + x, spriteOriginalPos.y + y, spriteOriginalPos.z);
             elapsed += Time.deltaTime;
             yield return null;
