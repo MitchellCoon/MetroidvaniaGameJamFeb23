@@ -27,7 +27,7 @@ public class PlayerCombat : MonoBehaviour
     void Start()
     {
         isAlive = true;
-        GlobalEvent.Invoke.OnPlayerSpawn();
+        GlobalEvent.Invoke.OnPlayerSpawn(gameObject);
     }
 
     public void TakeDamage(AttackData attackData, Vector3 attackOrigin)
@@ -59,7 +59,7 @@ public class PlayerCombat : MonoBehaviour
         GetComponent<Move>().enabled = false;
         GetComponent<Jump>().enabled = false;
         GetComponent<Attack>().enabled = false;
-        GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
         GetComponent<Rigidbody2D>().gravityScale = 0;
         GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         GetComponent<PlayerMovementController>().enabled = false;

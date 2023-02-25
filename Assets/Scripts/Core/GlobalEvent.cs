@@ -10,14 +10,14 @@ using UnityEngine;
 public static class GlobalEvent
 {
     public static event Action<Vector2> OnRoomLoaded;
-    public static event Action OnPlayerSpawn;
+    public static event Action<GameObject> OnPlayerSpawn;
     public static event Action OnPlayerDeath;
     public static event Action OnEmergencyPlayerInstakillSomethingWentHorriblyWrong;
 
     public static class Invoke
     {
         public static void OnRoomLoaded(Vector2 roomPosition) { GlobalEvent.OnRoomLoaded?.Invoke(roomPosition); }
-        public static void OnPlayerSpawn() { GlobalEvent.OnPlayerSpawn?.Invoke(); }
+        public static void OnPlayerSpawn(GameObject playerObj) { GlobalEvent.OnPlayerSpawn?.Invoke(playerObj); }
         public static void OnPlayerDeath() { GlobalEvent.OnPlayerDeath?.Invoke(); }
         public static void OnEmergencyPlayerInstakillSomethingWentHorriblyWrong() { GlobalEvent.OnEmergencyPlayerInstakillSomethingWentHorriblyWrong?.Invoke(); }
     }
