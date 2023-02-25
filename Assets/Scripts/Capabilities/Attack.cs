@@ -13,7 +13,7 @@ public class Attack : MonoBehaviour
     [SerializeField] AttackData attackData;
     [SerializeField] AttackData defaultMeleeAttack;
     [SerializeField] AttackData defaultProjectileAttack;
-    
+
     [SerializeField] Transform projectileOrigin;
     [SerializeField] GameObject projectilePrefab;
 
@@ -23,12 +23,12 @@ public class Attack : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.K))
+        if (MInput.GetKeyDown(KeyCode.Mouse0) || MInput.GetKeyDown(KeyCode.K))
         {
             inputManager.AddInputRequestToQueue(InputManager.Input.Attack1, Time.time);
             inputManager.SetPreviousPressedTime(InputManager.Input.Attack1, Time.time);
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.O))
+        if (MInput.GetKeyDown(KeyCode.Mouse1) || MInput.GetKeyDown(KeyCode.O))
         {
             inputManager.AddInputRequestToQueue(InputManager.Input.Attack2, Time.time);
             inputManager.SetPreviousPressedTime(InputManager.Input.Attack2, Time.time);
@@ -39,7 +39,7 @@ public class Attack : MonoBehaviour
             hitbox.UpdateAttackData(attackData);
             currentInput = InputManager.Input.Attack1;
             ExecuteAttack();
-            
+
         }
         else if (Time.time >= nextAttackTime && inputManager.GetInputRequested(InputManager.Input.Attack2))
         {
@@ -66,7 +66,7 @@ public class Attack : MonoBehaviour
 
     public void SpawnProjectile()
     {
-        if(controller.IsFacingRight())
+        if (controller.IsFacingRight())
         {
             Instantiate(projectilePrefab, projectileOrigin.transform.position, transform.rotation);
         }

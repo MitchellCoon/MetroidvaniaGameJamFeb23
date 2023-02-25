@@ -64,11 +64,22 @@ namespace DTDEV.SceneManagement
 
 
         Room outgoingRoom;
+        PlayerMain player;
 
         string targetSceneName;
         string outgoingSceneName;
         int outgoingSceneIndex;
         bool isTriggered = false;
+
+        void OnEnable()
+        {
+            GlobalEvent.OnPlayerSpawn += OnPlayerSpawn;
+        }
+
+        void OnDisable()
+        {
+            GlobalEvent.OnPlayerSpawn -= OnPlayerSpawn;
+        }
 
         void Awake()
         {
@@ -88,6 +99,16 @@ namespace DTDEV.SceneManagement
             {
                 StartCoroutine(PlaySlideTransition());
             }
+        }
+
+        void OnPlayerSpawn(PlayerMain incoming)
+        {
+            player = incoming;
+        }
+
+        void OnPlayerDeath()
+        {
+            player = null;
         }
 
         void Validate()
@@ -125,11 +146,13 @@ namespace DTDEV.SceneManagement
             if (fader != null) yield return fader.FadeOut(OnFadeTick);
             Time.timeScale = 0.1f;
             yield return SceneManager.LoadSceneAsync(targetSceneName);
+            Scene incomingScene = SceneManager.GetSceneByName(targetSceneName);
+            SceneManager.SetActiveScene(incomingScene);
             Door otherDoor = GetOtherDoor();
+            yield return null;
             if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
-            GameObject player = GameObject.FindWithTag("Player");
-            if (player == null) FailBadlyAndNoticeably("No GameObject found tagged \"Player\"");
-            MovePlayerToSpawnPoint(player, otherDoor);
+            if (player == null) FailBadlyAndNoticeably("PlayerMain was null - did OnPlayerSpawn not get called?");
+            MovePlayerToSpawnPoint(player.gameObject, otherDoor);
             SetIncomingRoomSpawnPoint(otherDoor);
             OnFadeTick = (float t) => Time.timeScale = Easing.InOutQuad(0.9f * t + 0.1f);
             if (fader != null) yield return fader.FadeIn(OnFadeTick);
@@ -208,10 +231,7 @@ namespace DTDEV.SceneManagement
             // Set outgoing variables
             Scene outgoingScene = SceneManager.GetActiveScene();
             GameObject[] outgoingSceneRootObjects = outgoingScene.GetRootGameObjects();
-            GameObject playerObj = GameObject.FindWithTag("Player");
-            if (playerObj == null) FailBadlyAndNoticeably("No GameObject found tagged \"Player\"");
-            PlayerMain player = playerObj.GetComponent<PlayerMain>();
-            if (player == null) FailBadlyAndNoticeably("Player has no PlayerMain component - add this to the Player prefab");
+            if (player == null) FailBadlyAndNoticeably("PlayerMain was null - did OnPlayerSpawn not get called?");
             player.SetKinematic();
             // Load incoming scene
             yield return SceneManager.LoadSceneAsync(targetSceneName, LoadSceneMode.Additive);

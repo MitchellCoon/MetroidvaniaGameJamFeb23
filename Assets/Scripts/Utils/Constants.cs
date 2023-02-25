@@ -9,4 +9,8 @@ public static class Constants
     public const string PLAYER_TAG = "Player";
     public const string INVINCIBLE_TAG = "Invincible";
 
+    public const string ENEMY_TAG = "Enemy";
+
+    // layers
+    public const string PLAYER_LAYER = "Player";
 }

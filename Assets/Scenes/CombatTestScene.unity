@@ -2229,6 +2229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7897570920410490818, guid: a658cfb54edf871488fa26948c32ae90, type: 3}
   unpossessionSpawnPoint: {fileID: 2015183447}
+  isPlayerPossessing: {fileID: 11400000, guid: cf0648d02273744cca9a37866585f057, type: 2}
 --- !u!1 &1207695344
 GameObject:
   m_ObjectHideFlags: 0

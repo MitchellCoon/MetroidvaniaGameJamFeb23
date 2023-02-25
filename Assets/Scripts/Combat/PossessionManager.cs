@@ -1,20 +1,57 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
+using CyberneticStudios.SOFramework;
+
+// NOTE - this component goes on the __enemy__, not the player.
 public class PossessionManager : MonoBehaviour
 {
+    const string LAYER_WHILE_POSSESSED = Constants.PLAYER_LAYER;
+
     [SerializeField] GameObject playerPrefab;
     [SerializeField] Transform unpossessionSpawnPoint;
-    private GameObject possessionTarget;
-    private bool isPossessed = false;
+    [SerializeField] BoolVariable isPlayerPossessing;
+
+    GameObject possessionTarget;
+    bool isPossessed = false;
+    int initialLayer;
+
+    void OnEnable()
+    {
+        GlobalEvent.OnPlayerSpawn += OnPlayerSpawn;
+        GlobalEvent.OnPlayerDeath += OnPlayerDeath;
+    }
+
+    void OnDisable()
+    {
+        GlobalEvent.OnPlayerSpawn -= OnPlayerSpawn;
+        GlobalEvent.OnPlayerDeath -= OnPlayerDeath;
+    }
+
+    void Awake()
+    {
+        Assert.IsNotNull(isPlayerPossessing, "Please assign ref to `isPlayerPossessing` in `PossessionManager`");
+        initialLayer = gameObject.layer;
+    }
 
     void Update()
     {
-        if (isPossessed && Input.GetKeyDown(KeyCode.F))
+        if (isPossessed && MInput.GetKeyDown(KeyCode.F))
         {
             RevertPossession();
         }
+    }
+
+    void OnPlayerSpawn(PlayerMain player)
+    {
+        isPlayerPossessing.value = false;
+        if (isPossessed) FailBadlyAndNoticeably("An enemy was already possessed when a new player spawned - either the player got incorrectly spawned in or an enemy was not un-possessed correctly, or some other bug.");
+    }
+
+    void OnPlayerDeath()
+    {
+        isPlayerPossessing.value = false;
     }
 
     public void GetPossessed(GameObject player)
@@ -33,7 +70,9 @@ public class PossessionManager : MonoBehaviour
         GetComponent<Attack>().enabled = true;
         Destroy(player);
         isPossessed = true;
-        gameObject.tag = "Player";
+        isPlayerPossessing.value = true;
+        gameObject.tag = Constants.PLAYER_TAG;
+        gameObject.layer = Layer.Parse(LAYER_WHILE_POSSESSED);
     }
 
     public void RevertPossession()
@@ -53,7 +92,9 @@ public class PossessionManager : MonoBehaviour
         GetComponent<Attack>().enabled = false;
         StartCoroutine(SpawnPlayerCoroutine());
         isPossessed = false;
-        gameObject.tag = "Enemy";
+        isPlayerPossessing.value = false;
+        gameObject.tag = Constants.ENEMY_TAG;
+        gameObject.layer = initialLayer;
     }
 
     // This method will be used to update the prefab created when respawning the player
@@ -74,4 +115,9 @@ public class PossessionManager : MonoBehaviour
         yield return null;
     }
 
+    void FailBadlyAndNoticeably(string reason)
+    {
+        Destroy(gameObject);
+        throw new UnityException(reason);
+    }
 }
