@@ -25,7 +25,7 @@ public class Dash : MonoBehaviour
             {
                 dashDirection = -dashDirection;
             }
-            gameObject.layer = LayerMask.NameToLayer(Constants.INVINCIBLE_TAG);
+            gameObject.layer = LayerMask.NameToLayer(Constants.INVINCIBLE_LAYER);
             dashSpeed = movement.dashSpeed;
             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }
@@ -47,7 +47,7 @@ public class Dash : MonoBehaviour
         {
             isDashing = false;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            gameObject.layer = LayerMask.NameToLayer(Constants.PLAYER_TAG);
+            gameObject.layer = LayerMask.NameToLayer(Constants.PLAYER_LAYER);
         }
     }
 }
