@@ -20,12 +20,12 @@ public class Dash : MonoBehaviour
         if (input.RetrieveDashInput())
         {
             isDashing = true;
-            dashDirection = new Vector3(1,0,0);
+            dashDirection = Vector3.right;
             if(!controller.IsFacingRight())
             {
                 dashDirection = -dashDirection;
             }
-            gameObject.layer = LayerMask.NameToLayer("Invincible");
+            gameObject.layer = LayerMask.NameToLayer(Constants.INVINCIBLE_TAG);
             dashSpeed = movement.dashSpeed;
             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }
@@ -47,7 +47,7 @@ public class Dash : MonoBehaviour
         {
             isDashing = false;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            gameObject.layer = LayerMask.NameToLayer("Player");
+            gameObject.layer = LayerMask.NameToLayer(Constants.PLAYER_TAG);
         }
     }
 }
