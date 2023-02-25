@@ -149,6 +149,7 @@ namespace DTDEV.SceneManagement
             Scene incomingScene = SceneManager.GetSceneByName(targetSceneName);
             SceneManager.SetActiveScene(incomingScene);
             Door otherDoor = GetOtherDoor();
+            yield return null;
             if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
             if (playerObj == null) FailBadlyAndNoticeably("No GameObject found tagged \"Player\"");
             MovePlayerToSpawnPoint(playerObj, otherDoor);
