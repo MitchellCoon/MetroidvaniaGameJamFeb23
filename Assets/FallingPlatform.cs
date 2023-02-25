@@ -42,12 +42,15 @@ public class FallingPlatform : MonoBehaviour
         spriteObject.transform.position = spriteOriginalPos;
         elapsed = 0.0f;
     }
-    void OnCollisionEnter2D(Collision2D other)
+    IEnumerator OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             StartCoroutine(Shake());
-            Invoke("Fall", duration);
+            yield return new WaitForSeconds(duration);
+            Fall();
+            yield return new WaitForSeconds(RestoreTime);
+            Restore();
         }
     }
 
@@ -55,7 +58,6 @@ public class FallingPlatform : MonoBehaviour
     {
         localRB.isKinematic = false;
         localRB.constraints = RigidbodyConstraints2D.FreezeRotation;
-        Invoke("Restore", RestoreTime);
     }
 
     IEnumerator Shake()
