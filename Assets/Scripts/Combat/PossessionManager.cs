@@ -37,7 +37,7 @@ public class PossessionManager : MonoBehaviour
 
     void Update()
     {
-        if (isPossessed && Input.GetKeyDown(KeyCode.F))
+        if (isPossessed && MInput.GetKeyDown(KeyCode.F))
         {
             RevertPossession();
         }
