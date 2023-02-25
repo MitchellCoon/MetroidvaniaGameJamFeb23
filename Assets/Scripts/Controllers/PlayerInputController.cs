@@ -18,4 +18,9 @@ public class PlayerInputController : InputController
     {
         return MInput.GetKeyUp(KeyCode.Space) || MInput.GetPadUp(GamepadCode.ButtonSouth);
     }
+
+    public override bool RetrieveDashInput()
+    {
+        return MInput.GetKeyDown(KeyCode.LeftShift) || MInput.GetPadDown(GamepadCode.BumperLeft);;
+    }
 }

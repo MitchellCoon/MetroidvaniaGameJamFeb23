@@ -11,10 +11,15 @@ public class MovementOverride : ScriptableObject
     [Range(0f, 100f)] public float maxSpeed = 10f;
     [Range(0f, 100f)] public float maxAcceleration = 100f;
     [Range(0f, 100f)] public float maxAirAcceleration = 100f;
+    public float defaultGravityScale = 10f;
 
     public float jumpForce = 800f;
     public float jumpHeight = 30f;
     [Range(0, 5)] public int maxAirJumps = 0;
     public float downwardMovementMultiplier = 10f;
     public float upwardMovementMultiplier = 7f;
+
+    public float dashSpeed = 40f;       // initial dash speed
+    public float dashDecay = 5f;        // how fast the dash decelerates
+    public float dashCutoff = 5f; // the speed at which the dash will and and normal movement resumes
 }

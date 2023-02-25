@@ -11,4 +11,5 @@ public static class Constants
 
     // layers
     public const string PLAYER_LAYER = "Player";
+    public const string INVINCIBLE_LAYER = "Invincible";
 }

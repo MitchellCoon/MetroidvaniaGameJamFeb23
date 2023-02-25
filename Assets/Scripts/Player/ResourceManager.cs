@@ -7,7 +7,7 @@ public class ResourceManager : MonoBehaviour
     
     public List<Resource> resources;
     
-    void Start()
+    void Awake()
     {
         foreach(Resource resource in resources)
         {

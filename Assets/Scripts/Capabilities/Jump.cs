@@ -12,7 +12,6 @@ public class Jump : MonoBehaviour
     private GroundCheck groundCheck;
     private Vector2 velocity;
     private int jumpPhase;
-    private float defaultGravityScale;
     private bool desiredJump;
     private bool isGrounded;
     private bool jumpButtonReleased;
@@ -24,7 +23,6 @@ public class Jump : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         groundCheck = GetComponent<GroundCheck>();
-        defaultGravityScale = 1f;
     }
 
     void Update()
@@ -88,7 +86,7 @@ public class Jump : MonoBehaviour
         }
         else if (body.velocity.y == 0)
         {
-            body.gravityScale = defaultGravityScale;
+            body.gravityScale = movement.defaultGravityScale;
         }
 
         body.velocity = velocity;

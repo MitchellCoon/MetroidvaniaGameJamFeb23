@@ -17,8 +17,12 @@ MonoBehaviour:
   maxSpeed: 10
   maxAcceleration: 100
   maxAirAcceleration: 100
+  defaultGravityScale: 10
   jumpForce: 800
   jumpHeight: 30
   maxAirJumps: 0
   downwardMovementMultiplier: 10
   upwardMovementMultiplier: 7
+  dashSpeed: 60
+  dashDecay: 5
+  dashCutoff: 10
