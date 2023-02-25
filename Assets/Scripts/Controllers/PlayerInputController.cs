@@ -20,4 +20,9 @@ public class PlayerInputController : InputController
     {
         return Input.GetButtonUp("Jump");
     }
+
+    public override bool RetrieveDashInput()
+    {
+        return Input.GetButtonDown("Dash");
+    }
 }
