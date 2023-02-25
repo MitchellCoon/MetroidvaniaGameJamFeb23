@@ -47,17 +47,17 @@ public static class MInput
 
     public static bool GetKeyDown(KeyCode code)
     {
-        return LookupKeyControl(code).wasPressedThisFrame;
+        return LookupKeyControl(code)?.wasPressedThisFrame ?? false;
     }
 
     public static bool GetKeyUp(KeyCode code)
     {
-        return LookupKeyControl(code).wasReleasedThisFrame;
+        return LookupKeyControl(code)?.wasReleasedThisFrame ?? false;
     }
 
     public static bool GetKey(KeyCode code)
     {
-        return LookupKeyControl(code).isPressed;
+        return LookupKeyControl(code)?.isPressed ?? false;
     }
 
     public static bool GetPadDown(GamepadCode code)
@@ -116,8 +116,8 @@ public static class MInput
     {
         switch (code)
         {
-            case KeyCode.Mouse0: return Mouse.current.leftButton;
-            case KeyCode.Mouse1: return Mouse.current.rightButton;
+            case KeyCode.Mouse0: return Mouse.current != null ? Mouse.current.leftButton : null;
+            case KeyCode.Mouse1: return Mouse.current != null ? Mouse.current.rightButton : null;
             case KeyCode.Escape: return Keyboard.current.escapeKey;
             case KeyCode.Tab: return Keyboard.current.tabKey;
             case KeyCode.Space: return Keyboard.current.spaceKey;
