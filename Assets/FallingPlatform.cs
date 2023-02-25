@@ -5,16 +5,26 @@ using UnityEngine;
 public class FallingPlatform : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField]
+    GameObject spriteObject;
+    [SerializeField]
 
-    public GameObject spriteObject;
-    public float elapsed = 0.0f;
-    public float duration = 1.5f;
-    public float magnitudeX = 0.3f;
-    public float magnitudeY = 0.3f;
-    public float RestoreTime = 5f;
+    float elapsed = 0.0f;
+    [SerializeField]
+
+    float duration = 1.5f;
+    [SerializeField]
+
+    float magnitudeX = 0.3f;
+    [SerializeField]
+
+    float magnitudeY = 0.3f;
+    [SerializeField]
+
+    float RestoreTime = 5f;
     Vector3 spriteOriginalPos;
     Vector3 objectOriginalPos;
-    Rigidbody2D localRB ; 
+    Rigidbody2D localRB;
 
     void Start()
     {
@@ -30,7 +40,7 @@ public class FallingPlatform : MonoBehaviour
         localRB.constraints = RigidbodyConstraints2D.FreezeAll;
         transform.position = objectOriginalPos;
         spriteObject.transform.position = spriteOriginalPos;
-        elapsed = 0.0f; 
+        elapsed = 0.0f;
     }
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -44,7 +54,7 @@ public class FallingPlatform : MonoBehaviour
     void Fall()
     {
         localRB.isKinematic = false;
-        localRB.constraints = RigidbodyConstraints2D.FreezeRotation ; 
+        localRB.constraints = RigidbodyConstraints2D.FreezeRotation;
         Invoke("Restore", RestoreTime);
     }
 
