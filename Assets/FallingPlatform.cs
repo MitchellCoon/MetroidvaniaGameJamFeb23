@@ -22,6 +22,10 @@ public class FallingPlatform : MonoBehaviour
     [SerializeField]
 
     float RestoreTime = 5f;
+    
+    [SerializeField]
+
+    bool isShaking = false;
     Vector3 spriteOriginalPos;
     Vector3 objectOriginalPos;
     Rigidbody2D localRB;
@@ -41,11 +45,17 @@ public class FallingPlatform : MonoBehaviour
         transform.position = objectOriginalPos;
         spriteObject.transform.position = spriteOriginalPos;
         elapsed = 0.0f;
+        isShaking = false;
     }
     IEnumerator OnCollisionEnter2D(Collision2D other)
-    {
+    {   
+        if(isShaking)
+        {
+            yield break;
+        }
         if (other.gameObject.CompareTag("Player"))
         {
+            isShaking = true; 
             StartCoroutine(Shake());
             yield return new WaitForSeconds(duration);
             Fall();
