@@ -18,7 +18,7 @@ public class FallingPlatform : MonoBehaviour
     float magnitudeX = 0.3f;
     [SerializeField]
 
-    float magnitudeY = 0.3f;
+    float magnitudeY = 0.0f;
     [SerializeField]
 
     float RestoreTime = 5f;
