@@ -14452,6 +14452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LockedDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 5728060354239941085, guid: 1305048f833624b2faf769096f06a1e6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5728060354239941087, guid: 1305048f833624b2faf769096f06a1e6, type: 3}
       propertyPath: m_RootOrder
       value: 8

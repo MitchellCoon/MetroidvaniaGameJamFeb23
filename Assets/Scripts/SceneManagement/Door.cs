@@ -150,6 +150,7 @@ namespace DTDEV.SceneManagement
             SceneManager.SetActiveScene(incomingScene);
             Door otherDoor = GetOtherDoor();
             yield return null;
+            if (playerObj == null) playerObj = GameObject.FindWithTag(Constants.PLAYER_TAG);
             if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
             if (playerObj == null) FailBadlyAndNoticeably("No GameObject found tagged \"Player\"");
             MovePlayerToSpawnPoint(playerObj, otherDoor);
@@ -231,6 +232,7 @@ namespace DTDEV.SceneManagement
             // Set outgoing variables
             Scene outgoingScene = SceneManager.GetActiveScene();
             GameObject[] outgoingSceneRootObjects = outgoingScene.GetRootGameObjects();
+            if (playerObj == null) playerObj = GameObject.FindWithTag(Constants.PLAYER_TAG);
             if (playerObj == null) FailBadlyAndNoticeably("No GameObject found tagged \"Player\"");
             PlayerMain player = playerObj.GetComponent<PlayerMain>();
             if (player == null) FailBadlyAndNoticeably("Player has no PlayerMain component - add this to the Player prefab");

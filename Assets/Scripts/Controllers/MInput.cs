@@ -114,6 +114,7 @@ public static class MInput
 
     static UnityEngine.InputSystem.Controls.ButtonControl LookupKeyControl(KeyCode code)
     {
+        if (Keyboard.current == null) return null;
         switch (code)
         {
             case KeyCode.Mouse0: return Mouse.current != null ? Mouse.current.leftButton : null;
