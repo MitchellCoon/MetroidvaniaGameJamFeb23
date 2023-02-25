@@ -51,10 +51,10 @@ namespace DTDEV.SceneManagement
                 yield break;
             }
             float t = 0;
-            while (canvasGroup.alpha > 0 && t < fadeInDuration * 2f)
+            while (canvasGroup.alpha > 0 && t < fadeInDuration * 6f)
             {
                 t += Time.unscaledDeltaTime;
-                canvasGroup.alpha -= Time.unscaledDeltaTime / fadeInDuration;
+                canvasGroup.alpha -= Time.unscaledDeltaTime / (fadeInDuration*6);
                 ExecFadeTick(OnFadeTick);
                 yield return null;
             }
@@ -71,10 +71,10 @@ namespace DTDEV.SceneManagement
                 yield break;
             }
             float t = 0;
-            while (canvasGroup.alpha < 1 && t < fadeOutDuration)
+            while (canvasGroup.alpha < 1 && t < fadeOutDuration * 6f)
             {
                 t += Time.unscaledDeltaTime;
-                canvasGroup.alpha += Time.unscaledDeltaTime / fadeOutDuration;
+                canvasGroup.alpha += Time.unscaledDeltaTime / (fadeOutDuration*6);
                 ExecFadeTick(OnFadeTick);
                 yield return null;
             }

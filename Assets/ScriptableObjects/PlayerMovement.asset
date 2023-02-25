@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crouchSpeed: 0.36
   movementSmoothing: 0.05
-  maxSpeed: 10
+  maxSpeed: 6.4
   maxAcceleration: 100
   maxAirAcceleration: 100
   defaultGravityScale: 10
