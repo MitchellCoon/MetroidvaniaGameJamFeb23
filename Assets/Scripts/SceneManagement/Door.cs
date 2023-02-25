@@ -64,7 +64,7 @@ namespace DTDEV.SceneManagement
 
 
         Room outgoingRoom;
-        GameObject playerObj;
+        PlayerMain player;
 
         string targetSceneName;
         string outgoingSceneName;
@@ -101,14 +101,14 @@ namespace DTDEV.SceneManagement
             }
         }
 
-        void OnPlayerSpawn(GameObject incoming)
+        void OnPlayerSpawn(PlayerMain incoming)
         {
-            playerObj = incoming;
+            player = incoming;
         }
 
         void OnPlayerDeath()
         {
-            playerObj = null;
+            player = null;
         }
 
         void Validate()
@@ -150,10 +150,9 @@ namespace DTDEV.SceneManagement
             SceneManager.SetActiveScene(incomingScene);
             Door otherDoor = GetOtherDoor();
             yield return null;
-            if (playerObj == null) playerObj = GameObject.FindWithTag(Constants.PLAYER_TAG);
             if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
-            if (playerObj == null) FailBadlyAndNoticeably("No GameObject found tagged \"Player\"");
-            MovePlayerToSpawnPoint(playerObj, otherDoor);
+            if (player == null) FailBadlyAndNoticeably("PlayerMain was null - did OnPlayerSpawn not get called?");
+            MovePlayerToSpawnPoint(player.gameObject, otherDoor);
             SetIncomingRoomSpawnPoint(otherDoor);
             OnFadeTick = (float t) => Time.timeScale = Easing.InOutQuad(0.9f * t + 0.1f);
             if (fader != null) yield return fader.FadeIn(OnFadeTick);
@@ -232,10 +231,7 @@ namespace DTDEV.SceneManagement
             // Set outgoing variables
             Scene outgoingScene = SceneManager.GetActiveScene();
             GameObject[] outgoingSceneRootObjects = outgoingScene.GetRootGameObjects();
-            if (playerObj == null) playerObj = GameObject.FindWithTag(Constants.PLAYER_TAG);
-            if (playerObj == null) FailBadlyAndNoticeably("No GameObject found tagged \"Player\"");
-            PlayerMain player = playerObj.GetComponent<PlayerMain>();
-            if (player == null) FailBadlyAndNoticeably("Player has no PlayerMain component - add this to the Player prefab");
+            if (player == null) FailBadlyAndNoticeably("PlayerMain was null - did OnPlayerSpawn not get called?");
             player.SetKinematic();
             // Load incoming scene
             yield return SceneManager.LoadSceneAsync(targetSceneName, LoadSceneMode.Additive);

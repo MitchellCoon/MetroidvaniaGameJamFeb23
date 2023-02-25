@@ -43,7 +43,7 @@ public class PossessionManager : MonoBehaviour
         }
     }
 
-    void OnPlayerSpawn(GameObject player)
+    void OnPlayerSpawn(PlayerMain player)
     {
         isPlayerPossessing.value = false;
         if (isPossessed) FailBadlyAndNoticeably("An enemy was already possessed when a new player spawned - either the player got incorrectly spawned in or an enemy was not un-possessed correctly, or some other bug.");

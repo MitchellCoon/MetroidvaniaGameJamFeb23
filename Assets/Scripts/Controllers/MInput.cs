@@ -25,6 +25,7 @@ public static class MInput
 
     public static float GetAxisRaw(string axis)
     {
+        if (Keyboard.current == null) throw new UnityException("Cannot find Keyboard. Try restarting Unity.");
         switch (axis)
         {
             case "Horizontal":

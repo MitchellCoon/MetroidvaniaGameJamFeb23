@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
+    [SerializeField] bool isEnemy = false;
     [SerializeField] Animator animator;
     [SerializeField] ResourceManager resources;
     [SerializeField] Rigidbody2D rb;
@@ -12,22 +13,37 @@ public class PlayerCombat : MonoBehaviour
 
     [SerializeField] Resource health;
 
+    PlayerMain playerMain;
+
     bool isAlive;
 
     void OnEnable()
     {
+        GlobalEvent.OnRoomLoaded += OnRoomLoaded;
         GlobalEvent.OnEmergencyPlayerInstakillSomethingWentHorriblyWrong += OnEmergencyPlayerInstakillSomethingWentHorriblyWrong;
     }
 
     void OnDisable()
     {
+        GlobalEvent.OnRoomLoaded -= OnRoomLoaded;
         GlobalEvent.OnEmergencyPlayerInstakillSomethingWentHorriblyWrong -= OnEmergencyPlayerInstakillSomethingWentHorriblyWrong;
+    }
+
+    void Awake()
+    {
+        playerMain = GetComponent<PlayerMain>();
     }
 
     void Start()
     {
         isAlive = true;
-        GlobalEvent.Invoke.OnPlayerSpawn(gameObject);
+        if (!isEnemy) GlobalEvent.Invoke.OnPlayerSpawn(playerMain);
+    }
+
+    void OnRoomLoaded(Vector2 obj)
+    {
+        // we need to re-broadcast the player's existence to the world, since this is a brand-new room
+        if (!isEnemy) GlobalEvent.Invoke.OnPlayerSpawn(playerMain);
     }
 
     public void TakeDamage(AttackData attackData, Vector3 attackOrigin)
