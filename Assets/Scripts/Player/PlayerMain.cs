@@ -11,11 +11,8 @@ public class PlayerMain : MonoBehaviour
 
     PlayerCombat playerCombat;
 
-    bool IsPlayer => playerCombat != null && !playerCombat.IsEnemy;
-
     public void SetCameraTargetAsPlayer()
     {
-        if (!IsPlayer) return;
         if (vCam == null) vCam = FindObjectOfType<CinemachineVirtualCamera>();
         Assert.IsNotNull(vCam, "Unable to find CinemachineVirtualCamera in current scene");
         vCam.LookAt = transform;
@@ -40,17 +37,17 @@ public class PlayerMain : MonoBehaviour
 
     void Update()
     {
-        if (IsPlayer) GlobalMapState.playerPosition = transform.position;
+        GlobalMapState.playerPosition = transform.position;
     }
 
     void OnEnable()
     {
-        if (IsPlayer) SetCameraTargetAsPlayer();
-        if (IsPlayer) GlobalMapState.isPlayerActive = true;
+        SetCameraTargetAsPlayer();
+        GlobalMapState.isPlayerActive = true;
     }
 
     void OnDisable()
     {
-        if (IsPlayer) GlobalMapState.isPlayerActive = false;
+        GlobalMapState.isPlayerActive = false;
     }
 }
