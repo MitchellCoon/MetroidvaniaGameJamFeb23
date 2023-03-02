@@ -34,6 +34,10 @@ namespace DTDEV.SceneManagement
         {
             public Vector2 from;
             public Vector2 to;
+            public override string ToString()
+            {
+                return $"{from} -> {to}";
+            }
         }
 
         enum TransitionType
@@ -64,6 +68,7 @@ namespace DTDEV.SceneManagement
 
 
         Room outgoingRoom;
+        Door otherDoor;
         PlayerMain player;
 
         string targetSceneName;
@@ -148,7 +153,7 @@ namespace DTDEV.SceneManagement
             yield return SceneManager.LoadSceneAsync(targetSceneName);
             Scene incomingScene = SceneManager.GetSceneByName(targetSceneName);
             SceneManager.SetActiveScene(incomingScene);
-            Door otherDoor = GetOtherDoor();
+            otherDoor = GetOtherDoor();
             yield return null;
             if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
             if (player == null) FailBadlyAndNoticeably("PlayerMain was null - did OnPlayerSpawn not get called?");
@@ -241,7 +246,7 @@ namespace DTDEV.SceneManagement
             SceneManager.SetActiveScene(incomingScene);
             yield return null;
             // set incoming variables
-            Door otherDoor = GetOtherDoor();
+            otherDoor = GetOtherDoor();
             Camera incomingCamera = Camera.main;
             if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
             // Set incomingCamera position to the player position, but clamped inside its camerBounds.

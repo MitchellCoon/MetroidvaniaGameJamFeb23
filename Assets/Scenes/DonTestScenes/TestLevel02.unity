@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 2806582366043827928, guid: b81ceb76fe5494d449726a59c7cd6d4d, type: 3}
+  timeRespawnDelay: 0
   mapRoomData: {fileID: 11400000, guid: 3e3cddc8210844d44904d659c3509f77, type: 2}
 --- !u!4 &31672116
 Transform:
@@ -9116,7 +9117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
       propertyPath: targetSceneRef.m_ScenePath
-      value: Assets/Scenes/DonTestScenes/TestLevel03.unity
+      value: Assets/Scenes/DonTestScenes/TestLevel05.unity
       objectReference: {fileID: 0}
     - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
       propertyPath: targetSceneRef.m_BuildIndex
@@ -9125,7 +9126,7 @@ PrefabInstance:
     - target: {fileID: 3693175747619874651, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
       propertyPath: targetSceneRef.m_SceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: 750d6e3617ddc4347a646988e8f9e7d5, type: 3}
+      objectReference: {fileID: 102900000, guid: 8ac2cd57414e449e490f842b5aee923a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4f77109d3f564a2393c4813a6fc85cd, type: 3}
 --- !u!4 &1470230071 stripped
