@@ -14,6 +14,7 @@ TagManager:
   - CameraBounds
   - Interactable
   - Map
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,6 @@ TagManager:
   - Enemy
   - EnemyOnlyBarrier
   - Invincible
-  - 
   - 
   - 
   - 

@@ -33,5 +33,13 @@ public class ProjectileMotion : MonoBehaviour
             }
             other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position, attackData.knockback);
         }
+        else if(other.CompareTag("Boss"))
+        {
+            if(attackData.destroyProjectileOnHit)
+            {
+                Destroy(gameObject);
+            }
+            other.GetComponent<MechBossAI>().TakeDamage(attackData, transform.position);
+        }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using System;
 
-[CreateAssetMenu(fileName = "New Player Resource", menuName = "PlayerResource")]
+[CreateAssetMenu(fileName = "New Resource", menuName = "Resource")]
 
 public class Resource : ScriptableObject
 {
