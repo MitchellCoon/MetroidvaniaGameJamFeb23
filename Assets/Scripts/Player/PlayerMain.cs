@@ -9,8 +9,13 @@ public class PlayerMain : MonoBehaviour
     CinemachineVirtualCamera vCam;
     Rigidbody2D body;
 
+    PlayerCombat playerCombat;
+
+    bool IsPlayer => playerCombat != null && !playerCombat.IsEnemy;
+
     public void SetCameraTargetAsPlayer()
     {
+        if (!IsPlayer) return;
         if (vCam == null) vCam = FindObjectOfType<CinemachineVirtualCamera>();
         Assert.IsNotNull(vCam, "Unable to find CinemachineVirtualCamera in current scene");
         vCam.LookAt = transform;
@@ -30,21 +35,22 @@ public class PlayerMain : MonoBehaviour
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        playerCombat = GetComponent<PlayerCombat>();
     }
 
     void Update()
     {
-        GlobalMapState.playerPosition = transform.position;
+        if (IsPlayer) GlobalMapState.playerPosition = transform.position;
     }
 
     void OnEnable()
     {
-        SetCameraTargetAsPlayer();
-        GlobalMapState.isPlayerActive = true;
+        if (IsPlayer) SetCameraTargetAsPlayer();
+        if (IsPlayer) GlobalMapState.isPlayerActive = true;
     }
 
     void OnDisable()
     {
-        GlobalMapState.isPlayerActive = false;
+        if (IsPlayer) GlobalMapState.isPlayerActive = false;
     }
 }

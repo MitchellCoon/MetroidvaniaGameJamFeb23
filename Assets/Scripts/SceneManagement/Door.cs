@@ -34,6 +34,10 @@ namespace DTDEV.SceneManagement
         {
             public Vector2 from;
             public Vector2 to;
+            public override string ToString()
+            {
+                return $"{from} -> {to}";
+            }
         }
 
         enum TransitionType
@@ -53,6 +57,14 @@ namespace DTDEV.SceneManagement
             A, B, C, D, E, F, G,
         }
 
+        enum DoorType
+        {
+            Normal,
+            OneWayPortalSource,
+            OneWayPortalTarget,
+        }
+
+        [SerializeField] DoorType doorType;
         [SerializeField] DoorChannel doorChannel;
         [SerializeField] SceneReference targetSceneRef;
         [SerializeField] TransitionType transitionType;
@@ -64,12 +76,20 @@ namespace DTDEV.SceneManagement
 
 
         Room outgoingRoom;
+        Door otherDoor;
         PlayerMain player;
 
         string targetSceneName;
         string outgoingSceneName;
         int outgoingSceneIndex;
         bool isTriggered = false;
+
+        // this should be called via a UnityEvent
+        public void TriggerPortalTransition()
+        {
+            if (doorType != DoorType.OneWayPortalSource) throw new UnityException("TriggerPortalTransition only supports DoorType.OneWayPortalSource");
+            StartCoroutine(PlayFadeTransition());
+        }
 
         void OnEnable()
         {
@@ -87,10 +107,17 @@ namespace DTDEV.SceneManagement
             slideTransitionDuration.ResetVariable();
         }
 
+        void Start()
+        {
+            if (doorType == DoorType.OneWayPortalTarget) enabled = false;
+        }
+
         void OnTriggerEnter2D(Collider2D other)
         {
             if (isTriggered) return;
-            if (!other.CompareTag("Player")) return;
+            if (!other.CompareTag(Constants.PLAYER_TAG)) return;
+            if (doorType == DoorType.OneWayPortalSource) return;
+            if (doorType == DoorType.OneWayPortalTarget) return;
             if (transitionType == TransitionType.Fade)
             {
                 StartCoroutine(PlayFadeTransition());
@@ -148,7 +175,7 @@ namespace DTDEV.SceneManagement
             yield return SceneManager.LoadSceneAsync(targetSceneName);
             Scene incomingScene = SceneManager.GetSceneByName(targetSceneName);
             SceneManager.SetActiveScene(incomingScene);
-            Door otherDoor = GetOtherDoor();
+            otherDoor = GetOtherDoor();
             yield return null;
             if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
             if (player == null) FailBadlyAndNoticeably("PlayerMain was null - did OnPlayerSpawn not get called?");
@@ -241,7 +268,7 @@ namespace DTDEV.SceneManagement
             SceneManager.SetActiveScene(incomingScene);
             yield return null;
             // set incoming variables
-            Door otherDoor = GetOtherDoor();
+            otherDoor = GetOtherDoor();
             Camera incomingCamera = Camera.main;
             if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
             // Set incomingCamera position to the player position, but clamped inside its camerBounds.

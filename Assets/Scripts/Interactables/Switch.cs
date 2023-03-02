@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 using CyberneticStudios.SOFramework;
 
@@ -10,6 +11,9 @@ public class Switch : MonoBehaviour, IInteractable
     [Space]
     [SerializeField] SpriteRenderer onSprite;
     [SerializeField] SpriteRenderer offSprite;
+    [Space]
+    [Space]
+    [SerializeField] UnityEvent OnUse;
 
     void Awake()
     {
@@ -21,7 +25,7 @@ public class Switch : MonoBehaviour, IInteractable
 
     void Start()
     {
-        if (didHitSwitch.value)
+        if (didHitSwitch != null && didHitSwitch.value)
         {
             Activate();
         }
@@ -34,8 +38,9 @@ public class Switch : MonoBehaviour, IInteractable
     // This gets called by Combat/Hitbox
     public void Use()
     {
-        didHitSwitch.value = true;
+        if (didHitSwitch != null) didHitSwitch.value = true;
         Activate();
+        OnUse.Invoke();
     }
 
     void Activate()
