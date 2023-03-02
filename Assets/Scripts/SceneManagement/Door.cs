@@ -57,6 +57,14 @@ namespace DTDEV.SceneManagement
             A, B, C, D, E, F, G,
         }
 
+        enum DoorType
+        {
+            Normal,
+            OneWayPortalSource,
+            OneWayPortalTarget,
+        }
+
+        [SerializeField] DoorType doorType;
         [SerializeField] DoorChannel doorChannel;
         [SerializeField] SceneReference targetSceneRef;
         [SerializeField] TransitionType transitionType;
@@ -76,6 +84,13 @@ namespace DTDEV.SceneManagement
         int outgoingSceneIndex;
         bool isTriggered = false;
 
+        // this should be called via a UnityEvent
+        public void TriggerPortalTransition()
+        {
+            if (doorType != DoorType.OneWayPortalSource) throw new UnityException("TriggerPortalTransition only supports DoorType.OneWayPortalSource");
+            StartCoroutine(PlayFadeTransition());
+        }
+
         void OnEnable()
         {
             GlobalEvent.OnPlayerSpawn += OnPlayerSpawn;
@@ -92,10 +107,17 @@ namespace DTDEV.SceneManagement
             slideTransitionDuration.ResetVariable();
         }
 
+        void Start()
+        {
+            if (doorType == DoorType.OneWayPortalTarget) enabled = false;
+        }
+
         void OnTriggerEnter2D(Collider2D other)
         {
             if (isTriggered) return;
-            if (!other.CompareTag("Player")) return;
+            if (!other.CompareTag(Constants.PLAYER_TAG)) return;
+            if (doorType == DoorType.OneWayPortalSource) return;
+            if (doorType == DoorType.OneWayPortalTarget) return;
             if (transitionType == TransitionType.Fade)
             {
                 StartCoroutine(PlayFadeTransition());
