@@ -11648,7 +11648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 2806582366043827928, guid: b81ceb76fe5494d449726a59c7cd6d4d, type: 3}
   timeRespawnDelay: 0
-  mapRoomData: {fileID: 11400000, guid: 50f9bba9164ac463ba7f9eed41d148ed, type: 2}
+  mapRoomData: {fileID: 11400000, guid: fdb921efa2a8b4abdbe14858bdd17e62, type: 2}
 --- !u!114 &1137149863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14235,6 +14235,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748634867766, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3352019478220023454, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

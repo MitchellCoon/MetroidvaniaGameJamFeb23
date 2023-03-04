@@ -83,6 +83,7 @@ public class PossessionManager : MonoBehaviour
         Assert.IsNotNull(isPlayerPossessing, "Please assign ref to `isPlayerPossessing` in `PossessionManager`");
         // initial state
         initialLayer = gameObject.layer;
+        initialName = gameObject.name;
     }
 
     void Update()
