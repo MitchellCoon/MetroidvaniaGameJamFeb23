@@ -44,10 +44,17 @@ public class PlayerMain : MonoBehaviour
     {
         SetCameraTargetAsPlayer();
         GlobalMapState.isPlayerActive = true;
+        GlobalEvent.OnRoomLoaded += OnRoomLoaded;
     }
 
     void OnDisable()
     {
         GlobalMapState.isPlayerActive = false;
+        GlobalEvent.OnRoomLoaded -= OnRoomLoaded;
+    }
+
+    void OnRoomLoaded(Vector2 obj)
+    {
+        GlobalEvent.Invoke.OnPlayerEnteredRoom(this);
     }
 }

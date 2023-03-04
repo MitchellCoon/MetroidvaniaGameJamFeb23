@@ -5980,7 +5980,7 @@ MonoBehaviour:
     m_SceneAsset: {fileID: 102900000, guid: 871122d253d3b4284923be0bbda6f90c, type: 3}
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/DonTestScenes/TestLevel02.unity
-  transitionType: 0
+  transitionType: 1
   slideTransitionDuration: {fileID: 11400000, guid: f344c4a5a8f9d4b0fa9e71abc5b2f096, type: 2}
   spawnPoint: {fileID: 1807514867}
   collider: {fileID: 863817364}
