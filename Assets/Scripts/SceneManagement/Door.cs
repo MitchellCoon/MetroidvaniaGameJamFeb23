@@ -6,7 +6,6 @@ using Cinemachine;
 using DevLocker.Utils;
 using System.Collections;
 using CyberneticStudios.SOFramework;
-using System;
 
 namespace DTDEV.SceneManagement
 {
@@ -34,6 +33,10 @@ namespace DTDEV.SceneManagement
         {
             public Vector2 from;
             public Vector2 to;
+            public override string ToString()
+            {
+                return $"{from} -> {to}";
+            }
         }
 
         enum TransitionType
@@ -53,6 +56,14 @@ namespace DTDEV.SceneManagement
             A, B, C, D, E, F, G,
         }
 
+        enum DoorType
+        {
+            Normal,
+            OneWayPortalSource,
+            OneWayPortalTarget,
+        }
+
+        [SerializeField] DoorType doorType;
         [SerializeField] DoorChannel doorChannel;
         [SerializeField] SceneReference targetSceneRef;
         [SerializeField] TransitionType transitionType;
@@ -64,6 +75,7 @@ namespace DTDEV.SceneManagement
 
 
         Room outgoingRoom;
+        Door otherDoor;
         PlayerMain player;
 
         string targetSceneName;
@@ -71,14 +83,27 @@ namespace DTDEV.SceneManagement
         int outgoingSceneIndex;
         bool isTriggered = false;
 
+        // this should be called via a UnityEvent
+        public void TriggerPortalTransition()
+        {
+            if (doorType != DoorType.OneWayPortalSource) throw new UnityException("TriggerPortalTransition only supports DoorType.OneWayPortalSource");
+            StartCoroutine(PlayFadeTransition());
+        }
+
         void OnEnable()
         {
-            GlobalEvent.OnPlayerSpawn += OnPlayerSpawn;
+            GlobalEvent.OnPlayerSpawn += HandlePlayerChanged;
+            GlobalEvent.OnEnemyPossessed += HandlePlayerChanged;
+            GlobalEvent.OnPlayerEnteredRoom += HandlePlayerChanged;
+            GlobalEvent.OnPlayerDeath += OnPlayerDeath;
         }
 
         void OnDisable()
         {
-            GlobalEvent.OnPlayerSpawn -= OnPlayerSpawn;
+            GlobalEvent.OnPlayerSpawn -= HandlePlayerChanged;
+            GlobalEvent.OnEnemyPossessed -= HandlePlayerChanged;
+            GlobalEvent.OnPlayerEnteredRoom -= HandlePlayerChanged;
+            GlobalEvent.OnPlayerDeath -= OnPlayerDeath;
         }
 
         void Awake()
@@ -87,10 +112,17 @@ namespace DTDEV.SceneManagement
             slideTransitionDuration.ResetVariable();
         }
 
+        void Start()
+        {
+            if (doorType == DoorType.OneWayPortalTarget) enabled = false;
+        }
+
         void OnTriggerEnter2D(Collider2D other)
         {
             if (isTriggered) return;
-            if (!other.CompareTag("Player")) return;
+            if (!other.CompareTag(Constants.PLAYER_TAG)) return;
+            if (doorType == DoorType.OneWayPortalSource) return;
+            if (doorType == DoorType.OneWayPortalTarget) return;
             if (transitionType == TransitionType.Fade)
             {
                 StartCoroutine(PlayFadeTransition());
@@ -101,7 +133,7 @@ namespace DTDEV.SceneManagement
             }
         }
 
-        void OnPlayerSpawn(PlayerMain incoming)
+        void HandlePlayerChanged(PlayerMain incoming)
         {
             player = incoming;
         }
@@ -118,6 +150,7 @@ namespace DTDEV.SceneManagement
                 Assert.IsNotNull(spawnPoint);
                 Assert.IsFalse(targetSceneRef.IsEmpty, $"sceneRef missing on Door \"{gameObject.name}\" in scene \"{SceneManager.GetActiveScene().name}\"");
                 Assert.IsTrue(outgoingSceneIndex > -1, $"Scene \"{SceneManager.GetActiveScene().name}\" needs to be added to Builds - found buildIndex {outgoingSceneIndex}");
+                Assert.IsNotNull(player, "Player was null when room transition started - likely the OnPlayerSpawn or OnEnemyPossessed wasn't invoked as expected");
             }
             catch (System.Exception e)
             {
@@ -140,6 +173,7 @@ namespace DTDEV.SceneManagement
             // move to top of hierarchy so DontDestroyOnLoad works
             transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(player.gameObject);
             TransitionFader fader = FindObjectOfType<TransitionFader>();
             System.Action<float> OnFadeTick;
             OnFadeTick = (float t) => Time.timeScale = Easing.InQuad(0.9f * (1 - t) + 0.1f);
@@ -148,16 +182,18 @@ namespace DTDEV.SceneManagement
             yield return SceneManager.LoadSceneAsync(targetSceneName);
             Scene incomingScene = SceneManager.GetSceneByName(targetSceneName);
             SceneManager.SetActiveScene(incomingScene);
-            Door otherDoor = GetOtherDoor();
-            yield return null;
+            SceneManager.MoveGameObjectToScene(player.gameObject, incomingScene);
+            otherDoor = GetOtherDoor();
+            Room incomingRoom = FindObjectOfType<Room>();
+            DisableIncomingRoomSpawn(incomingRoom);
+            SetIncomingRoomSpawnPoint(incomingRoom, otherDoor);
             if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
-            if (player == null) FailBadlyAndNoticeably("PlayerMain was null - did OnPlayerSpawn not get called?");
             MovePlayerToSpawnPoint(player.gameObject, otherDoor);
-            SetIncomingRoomSpawnPoint(otherDoor);
+            player.SetCameraTargetAsPlayer();
             OnFadeTick = (float t) => Time.timeScale = Easing.InOutQuad(0.9f * t + 0.1f);
             if (fader != null) yield return fader.FadeIn(OnFadeTick);
             Time.timeScale = 1f;
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
 
         Door GetOtherDoor()
@@ -182,11 +218,10 @@ namespace DTDEV.SceneManagement
             player.transform.rotation = otherDoor.spawnPoint.rotation;
         }
 
-        void SetIncomingRoomSpawnPoint(Door otherDoor)
+        void SetIncomingRoomSpawnPoint(Room room, Door otherDoor)
         {
             if (otherDoor == null) return;
             if (otherDoor.spawnPoint == null) return;
-            Room room = FindObjectOfType<Room>();
             if (room == null) return;
             room.SetRespawnPoint(otherDoor.spawnPoint);
         }
@@ -212,6 +247,7 @@ namespace DTDEV.SceneManagement
             // move to top of hierarchy so DontDestroyOnLoad works
             transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(player.gameObject);
             Time.timeScale = 0;
             AudioListener.pause = true;
             // Turn off the virtual camera as we will be controlling the camera manually
@@ -235,18 +271,21 @@ namespace DTDEV.SceneManagement
             player.SetKinematic();
             // Load incoming scene
             yield return SceneManager.LoadSceneAsync(targetSceneName, LoadSceneMode.Additive);
-            DisableIncomingRoomSpawn();
+            Room room = FindObjectOfType<Room>();
+            DisableIncomingRoomSpawn(room);
             Scene incomingScene = SceneManager.GetSceneByName(targetSceneName);
             if (!incomingScene.IsValid()) FailBadlyAndNoticeably($"Scene {targetSceneName} is not valid. Has it been added to Build Settings?");
             SceneManager.SetActiveScene(incomingScene);
             yield return null;
             // set incoming variables
-            Door otherDoor = GetOtherDoor();
+            otherDoor = GetOtherDoor();
+            SetIncomingRoomSpawnPoint(room, otherDoor);
             Camera incomingCamera = Camera.main;
             if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
             // Set incomingCamera position to the player position, but clamped inside its camerBounds.
             // Run physics for a single frame in order for CinemachineConfiner2D to do its job
             MoveOutgoingGameObjectsToScene(outgoingSceneRootObjects, incomingScene);
+            SceneManager.MoveGameObjectToScene(player.gameObject, incomingScene);
             player.SetCameraTargetAsPlayer();
             Time.timeScale = 1;
             yield return new WaitForEndOfFrame();
@@ -291,9 +330,8 @@ namespace DTDEV.SceneManagement
             return TransitionDirection.Vertical;
         }
 
-        void DisableIncomingRoomSpawn()
+        void DisableIncomingRoomSpawn(Room room)
         {
-            Room room = FindObjectOfType<Room>();
             if (room == null) FailBadlyAndNoticeably("No Room component found in incoming scene");
             room.DisableInitialSpawn();
         }

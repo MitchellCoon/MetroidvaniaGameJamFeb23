@@ -17,6 +17,8 @@ public class PlayerCombat : MonoBehaviour
 
     bool isAlive;
 
+    public bool IsEnemy => isEnemy;
+
     void OnEnable()
     {
         GlobalEvent.OnRoomLoaded += OnRoomLoaded;

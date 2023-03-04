@@ -9,6 +9,8 @@ public class PlayerMain : MonoBehaviour
     CinemachineVirtualCamera vCam;
     Rigidbody2D body;
 
+    PlayerCombat playerCombat;
+
     public void SetCameraTargetAsPlayer()
     {
         if (vCam == null) vCam = FindObjectOfType<CinemachineVirtualCamera>();
@@ -30,6 +32,7 @@ public class PlayerMain : MonoBehaviour
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        playerCombat = GetComponent<PlayerCombat>();
     }
 
     void Update()
@@ -41,10 +44,17 @@ public class PlayerMain : MonoBehaviour
     {
         SetCameraTargetAsPlayer();
         GlobalMapState.isPlayerActive = true;
+        GlobalEvent.OnRoomLoaded += OnRoomLoaded;
     }
 
     void OnDisable()
     {
         GlobalMapState.isPlayerActive = false;
+        GlobalEvent.OnRoomLoaded -= OnRoomLoaded;
+    }
+
+    void OnRoomLoaded(Vector2 obj)
+    {
+        GlobalEvent.Invoke.OnPlayerEnteredRoom(this);
     }
 }
