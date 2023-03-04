@@ -261,7 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 2806582366043827928, guid: b81ceb76fe5494d449726a59c7cd6d4d, type: 3}
   timeRespawnDelay: 0
-  mapRoomData: {fileID: 11400000, guid: 3e3cddc8210844d44904d659c3509f77, type: 2}
+  mapRoomData: {fileID: 11400000, guid: 63beabf2cd1814508b8e3ec5deddf544, type: 2}
 --- !u!4 &31672116
 Transform:
   m_ObjectHideFlags: 0

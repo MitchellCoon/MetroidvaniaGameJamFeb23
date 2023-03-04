@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2e5324cb6c549b6a3d427c3f237f83, type: 3}
+  m_Name: map-data-a67a1f2a-a4dd-48cd-b771-1cf3fdc88b26
+  m_EditorClassIdentifier: 
+  roomGuid: a67a1f2a-a4dd-48cd-b771-1cf3fdc88b26
+  roomName: _MainSceneTemplate
+  _backgroundLayer:
+    valid: 1
+    name: _MainSceneTemplate_LayerBackground
+    type: 1
+    position: {x: 0, y: 3.5}
+    scale: 1
+    sortingOrder: 0
+    sprite: {fileID: 21300000, guid: 52f29d5b446864245827dd2b65f62b13, type: 3}
+    spriteOverride: {fileID: 0}
+  _borderLayer:
+    valid: 1
+    name: _MainSceneTemplate_LayerBorder
+    type: 2
+    position: {x: 0, y: 3.5}
+    scale: 1
+    sortingOrder: 2
+    sprite: {fileID: 21300000, guid: a6ee6a83701bf4f72a1abb24bcf7486b, type: 3}
+    spriteOverride: {fileID: 0}
+  _tileLayer:
+    valid: 1
+    name: _MainSceneTemplate_LayerTile
+    type: 0
+    position: {x: 0, y: 3.5}
+    scale: 1
+    sortingOrder: 1
+    sprite: {fileID: 21300000, guid: 2b43488d4aa6244dbad3ed93fdc8bc63, type: 3}
+    spriteOverride: {fileID: 0}
+  isVisited: 0
