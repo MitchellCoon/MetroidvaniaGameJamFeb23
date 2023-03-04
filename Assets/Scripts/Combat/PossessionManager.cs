@@ -8,14 +8,34 @@ using CyberneticStudios.SOFramework;
 public class PossessionManager : MonoBehaviour
 {
     const string LAYER_WHILE_POSSESSED = Constants.PLAYER_LAYER;
-
+    const string PREFIX_WHILE_POSSESSED = "POSSESSED_";
+    const string ERR_MSG_COMPONENT_MISSING = "component missing";
     [SerializeField] GameObject playerPrefab;
     [SerializeField] Transform unpossessionSpawnPoint;
     [SerializeField] BoolVariable isPlayerPossessing;
 
+    Rigidbody2D body;
+
+    // enemy components
+    Enemy enemy;
+    EnemyAttack enemyAttack;
+    AIMovement aIMovement;
+
+    // player components - enabled while the enemy is being possessed
+    PlayerMain playerMain;
+    PlayerMovementController playerMovementController;
+    PlayerCombat playerCombat;
+    InputManager inputManager;
+    Animator animator;
+    GroundCheck groundCheck;
+    Move move;
+    Jump jump;
+    Attack attack;
+
     GameObject possessionTarget;
     bool isPossessed = false;
     int initialLayer;
+    string initialName;
 
     void OnEnable()
     {
@@ -31,13 +51,44 @@ public class PossessionManager : MonoBehaviour
 
     void Awake()
     {
+        body = GetComponent<Rigidbody2D>();
+        // enemy components
+        enemy = GetComponent<Enemy>();
+        enemyAttack = GetComponent<EnemyAttack>();
+        aIMovement = GetComponent<AIMovement>();
+        // player components
+        playerMain = GetComponent<PlayerMain>();
+        playerMovementController = GetComponent<PlayerMovementController>();
+        playerCombat = GetComponent<PlayerCombat>();
+        inputManager = GetComponent<InputManager>();
+        animator = GetComponent<Animator>();
+        groundCheck = GetComponent<GroundCheck>();
+        move = GetComponent<Move>();
+        jump = GetComponent<Jump>();
+        attack = GetComponent<Attack>();
+        // validations
+        Assert.IsNotNull(body, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(enemy, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(enemyAttack, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(aIMovement, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(playerMain, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(playerMovementController, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(playerCombat, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(inputManager, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(animator, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(groundCheck, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(move, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(jump, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(attack, ERR_MSG_COMPONENT_MISSING);
         Assert.IsNotNull(isPlayerPossessing, "Please assign ref to `isPlayerPossessing` in `PossessionManager`");
+        // initial state
         initialLayer = gameObject.layer;
     }
 
     void Update()
     {
-        if (isPossessed && MInput.GetKeyDown(KeyCode.F))
+        bool isUnpossessButtonPressed = MInput.GetKeyDown(KeyCode.F) || MInput.GetPadDown(GamepadCode.ButtonNorth);
+        if (isPossessed && isUnpossessButtonPressed)
         {
             RevertPossession();
         }
@@ -54,51 +105,59 @@ public class PossessionManager : MonoBehaviour
         isPlayerPossessing.value = false;
     }
 
-    public void GetPossessed(GameObject player)
+    public void GetPossessed(GameObject playerObj)
     {
-        GetComponent<Enemy>().enabled = false;
-        GetComponent<EnemyAttack>().enabled = false;
-        GetComponent<AIMovement>().enabled = false;
-        GetComponent<PlayerMain>().enabled = true;
-        GetComponent<PlayerMovementController>().enabled = true;
-        GetComponent<PlayerCombat>().enabled = true;
-        GetComponent<InputManager>().enabled = true;
-        GetComponent<Animator>().enabled = true;
-        GetComponent<GroundCheck>().enabled = true;
-        GetComponent<Move>().enabled = true;
-        GetComponent<Jump>().enabled = true;
-        GetComponent<Attack>().enabled = true;
-        Destroy(player);
+        SetEnemyComponentsEnabled(false);
+        SetPlayerComponentsEnabled(true);
+        Destroy(playerObj);
         isPossessed = true;
         isPlayerPossessing.value = true;
+        gameObject.name = PREFIX_WHILE_POSSESSED + initialName;
         gameObject.tag = Constants.PLAYER_TAG;
         gameObject.layer = Layer.Parse(LAYER_WHILE_POSSESSED);
+        body.interpolation = RigidbodyInterpolation2D.Interpolate;
+        body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        GlobalEvent.Invoke.OnEnemyPossessed(playerMain);
     }
 
     public void RevertPossession()
     {
+        // prevent duplicate player spawns
+        if (!isPossessed) return;
         // enable AI scripts, disable player control scripts on enemy
-        GetComponent<Enemy>().enabled = true;
-        GetComponent<EnemyAttack>().enabled = true;
-        GetComponent<AIMovement>().enabled = true;
-        GetComponent<PlayerMain>().enabled = false;
-        GetComponent<PlayerMovementController>().enabled = false;
-        GetComponent<PlayerCombat>().enabled = false;
-        GetComponent<InputManager>().enabled = false;
-        GetComponent<Animator>().enabled = false;
-        GetComponent<GroundCheck>().enabled = false;
-        GetComponent<Move>().enabled = false;
-        GetComponent<Jump>().enabled = false;
-        GetComponent<Attack>().enabled = false;
+        SetEnemyComponentsEnabled(true);
+        SetPlayerComponentsEnabled(false);
         StartCoroutine(SpawnPlayerCoroutine());
         isPossessed = false;
         isPlayerPossessing.value = false;
+        gameObject.name = initialName;
         gameObject.tag = Constants.ENEMY_TAG;
+        body.interpolation = RigidbodyInterpolation2D.None;
+        body.collisionDetectionMode = CollisionDetectionMode2D.Discrete;
         gameObject.layer = initialLayer;
     }
 
-    // This method will be used to update the prefab created when respawning the player
+    void SetEnemyComponentsEnabled(bool value)
+    {
+        enemy.enabled = value;
+        enemyAttack.enabled = value;
+        aIMovement.enabled = value;
+    }
 
+    void SetPlayerComponentsEnabled(bool value)
+    {
+        playerMain.enabled = value;
+        playerMovementController.enabled = value;
+        playerCombat.enabled = value;
+        inputManager.enabled = value;
+        animator.enabled = value;
+        groundCheck.enabled = value;
+        move.enabled = value;
+        jump.enabled = value;
+        attack.enabled = value;
+    }
+
+    // This method will be used to update the prefab created when respawning the player
     public void UpdatePlayerPrefab(GameObject newPlayerPrefab)
     {
         playerPrefab = newPlayerPrefab;
