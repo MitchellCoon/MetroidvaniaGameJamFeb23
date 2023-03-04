@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage, Vector3 hitPosition, bool knockback)
     {
-        animator.SetTrigger("Hurt");
+        animator.SetTrigger(Constants.HURT_ANIMATION);
         currentHealth -= damage;
         if(knockback){
         Vector2 getX = knockbackForce* (hitPosition - transform.position).normalized; 

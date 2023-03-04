@@ -15,7 +15,7 @@ public class EnemyProjectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player"))
+        if(other.CompareTag(Constants.PLAYER_TAG))
         {
             if(projectileAttackData.destroyProjectileOnHit)
             {

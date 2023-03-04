@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class MechBossAI : MonoBehaviour
 {
@@ -8,8 +9,6 @@ public class MechBossAI : MonoBehaviour
 
     [SerializeField] Animator animator;
     [SerializeField] MovementOverride movement;
-    [SerializeField] PlayerMovementController player;
-    [SerializeField] PlayerCombat playerCombat;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Resource health;
     [SerializeField] AttackData stompData;
@@ -18,12 +17,14 @@ public class MechBossAI : MonoBehaviour
     [SerializeField] float detectionRadius;
     [SerializeField] float meleeRange;
 
+    PlayerMovementController player;
     Vector2 velocity;
     bool isFacingRight = true;
     float horizontalMove = 0.0f;
     float maxSpeedChange;
     float nextMeleeTime = 0f;
     float nextProjectileTime = 0f;
+    float pollInterval = 5f;
 
     // Values used for animations:
 
@@ -32,8 +33,22 @@ public class MechBossAI : MonoBehaviour
     [SerializeField] GameObject cannon0;
     [SerializeField] GameObject cannon1;
 
+    void Awake()
+    {
+        Assert.IsNotNull(animator);
+    }
+
+    void Start()
+    {
+        StartCoroutine(FindingPlayer(pollInterval));
+    }
+
     void Update()
     {
+        if (player == null)
+        {
+            return;
+        }
         float distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
         if (distanceToPlayer < detectionRadius && distanceToPlayer > meleeRange && !isStomping && !isFiringProjectile)
         {
@@ -49,7 +64,7 @@ public class MechBossAI : MonoBehaviour
             if (Time.time >= nextProjectileTime)
             {
                 nextProjectileTime = Time.time + missileData.duration;
-                animator.SetTrigger("ProjectileAttack");
+                animator.SetTrigger(Constants.PROJECTILE_ATTACK_ANIMATION);
             }
         }
         else
@@ -57,14 +72,14 @@ public class MechBossAI : MonoBehaviour
             if (distanceToPlayer < meleeRange && Time.time >= nextMeleeTime && !isFiringProjectile)
             {
                 nextMeleeTime = Time.time + stompData.duration;
-                animator.SetTrigger("MeleeAttack");
+                animator.SetTrigger(Constants.MELEE_ATTACK_ANIMATION);
             }
         }
     }
 
     void FixedUpdate()
     {
-        if (isStomping || isFiringProjectile)
+        if (isStomping || isFiringProjectile || player == null)
         {
             horizontalMove = 0f;
         }
@@ -120,6 +135,28 @@ public class MechBossAI : MonoBehaviour
         GetComponent<BoxCollider2D>().enabled = false;
         rb.velocity = Vector3.zero;
         this.enabled = false;
+    }
+
+    IEnumerator FindingPlayer(float pollInterval) {
+        while (true)
+        {
+            player = FindPlayer();
+            yield return new WaitForSeconds(pollInterval);
+        }
+    }
+
+    PlayerMovementController FindPlayer()
+    {
+        if (player != null)
+        {
+            return player;
+        }
+        GameObject playerObj = GameObject.FindWithTag(Constants.PLAYER_TAG);
+        if (playerObj == null)
+        {
+            return null;
+        }
+        return playerObj.GetComponent<PlayerMovementController>();
     }
 
 }

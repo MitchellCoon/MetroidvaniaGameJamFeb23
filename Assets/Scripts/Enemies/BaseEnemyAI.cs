@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class BaseEnemyAI : MonoBehaviour
 {
@@ -18,39 +19,38 @@ public class BaseEnemyAI : MonoBehaviour
     [SerializeField] Transform projectileSpawnPoint;
 
     PlayerMovementController player;
-    PlayerCombat playerCombat;
-
     Vector2 velocity;
     bool isFacingRight = true;
     float horizontalMove = 0.0f;
     float maxSpeedChange;
     float nextMeleeTime = 0f;
     float nextProjectileTime = 0f;
+    float pollInterval = 5f;
 
     // Values used for animations:
 
     [SerializeField] bool isFiringProjectile = false;
     [SerializeField] bool isAttacking = false;
 
-    void FindPlayer()
+    void Awake()
     {
-        if (player == null)
-        {
-            player = GameObject.FindWithTag(Constants.PLAYER_TAG).GetComponent<PlayerMovementController>();
-        }
-        if (playerCombat == null)
-        {
-            playerCombat = GameObject.FindWithTag(Constants.PLAYER_TAG).GetComponent<PlayerCombat>();
-        }
+        Assert.IsNotNull(animator);
+    }
+
+    void Start()
+    {
+        StartCoroutine(FindingPlayer(pollInterval));
     }
 
     void Update()
     {
-        FindPlayer();
+        if (player == null)
+        {
+            return;
+        }
         float distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
         if (distanceToPlayer < detectionRadius && distanceToPlayer > meleeRange && !isAttacking && !isFiringProjectile)
         {
-            Debug.Log("approaching player");
             horizontalMove = (player.transform.position - transform.position).normalized.x;
             if (horizontalMove > 0 && !isFacingRight)
             {
@@ -62,25 +62,23 @@ public class BaseEnemyAI : MonoBehaviour
             }
             if (Time.time >= nextProjectileTime)
             {
-                Debug.Log("fire");
                 nextProjectileTime = Time.time + projectileAttackData.duration;
-                animator.SetTrigger("ProjectileAttack");
+                animator.SetTrigger(Constants.PROJECTILE_ATTACK_ANIMATION);
             }
         }
         else
         {
             if (distanceToPlayer < meleeRange && Time.time >= nextMeleeTime && !isFiringProjectile)
             {
-                Debug.Log("attack");
                 nextMeleeTime = Time.time + meleeAttackData.duration;
-                animator.SetTrigger("MeleeAttack");
+                animator.SetTrigger(Constants.MELEE_ATTACK_ANIMATION);
             }
         }
     }
 
     void FixedUpdate()
     {
-        if (isAttacking || isFiringProjectile)
+        if (isAttacking || isFiringProjectile || player == null)
         {
             horizontalMove = 0f;
         }
@@ -131,6 +129,28 @@ public class BaseEnemyAI : MonoBehaviour
         GetComponent<BoxCollider2D>().enabled = false;
         rb.velocity = Vector3.zero;
         this.enabled = false;
+    }
+
+    IEnumerator FindingPlayer(float pollInterval) {
+        while (true)
+        {
+            player = FindPlayer();
+            yield return new WaitForSeconds(pollInterval);
+        }
+    }
+
+    PlayerMovementController FindPlayer()
+    {
+        if (player != null)
+        {
+            return player;
+        }
+        GameObject playerObj = GameObject.FindWithTag(Constants.PLAYER_TAG);
+        if (playerObj == null)
+        {
+            return null;
+        }
+        return playerObj.GetComponent<PlayerMovementController>();
     }
     
 }

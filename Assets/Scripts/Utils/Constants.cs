@@ -12,4 +12,10 @@ public static class Constants
     // layers
     public const string PLAYER_LAYER = "Player";
     public const string INVINCIBLE_LAYER = "Invincible";
+
+    // animations
+    public const string MELEE_ATTACK_ANIMATION = "MeleeAttack";
+    public const string PROJECTILE_ATTACK_ANIMATION = "ProjectileAttack";
+    public const string HURT_ANIMATION = "Hurt";
+
 }
