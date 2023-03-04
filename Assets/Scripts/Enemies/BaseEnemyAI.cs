@@ -8,15 +8,17 @@ public class BaseEnemyAI : MonoBehaviour
 
     [SerializeField] Animator animator;
     [SerializeField] MovementOverride movement;
-    [SerializeField] PlayerMovementController player;
-    [SerializeField] PlayerCombat playerCombat;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Resource health;
-    [SerializeField] AttackData stompData;
-    [SerializeField] AttackData missileData;
+    [SerializeField] AttackData meleeAttackData;
+    [SerializeField] AttackData projectileAttackData;
 
     [SerializeField] float detectionRadius;
     [SerializeField] float meleeRange;
+    [SerializeField] Transform projectileSpawnPoint;
+
+    PlayerMovementController player;
+    PlayerCombat playerCombat;
 
     Vector2 velocity;
     bool isFacingRight = true;
@@ -28,15 +30,27 @@ public class BaseEnemyAI : MonoBehaviour
     // Values used for animations:
 
     [SerializeField] bool isFiringProjectile = false;
-    [SerializeField] bool isStomping = false;
-    [SerializeField] GameObject cannon0;
-    [SerializeField] GameObject cannon1;
+    [SerializeField] bool isAttacking = false;
+
+    void FindPlayer()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindWithTag(Constants.PLAYER_TAG).GetComponent<PlayerMovementController>();
+        }
+        if (playerCombat == null)
+        {
+            playerCombat = GameObject.FindWithTag(Constants.PLAYER_TAG).GetComponent<PlayerCombat>();
+        }
+    }
 
     void Update()
     {
+        FindPlayer();
         float distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
-        if (distanceToPlayer < detectionRadius && distanceToPlayer > meleeRange && !isStomping && !isFiringProjectile)
+        if (distanceToPlayer < detectionRadius && distanceToPlayer > meleeRange && !isAttacking && !isFiringProjectile)
         {
+            Debug.Log("approaching player");
             horizontalMove = (player.transform.position - transform.position).normalized.x;
             if (horizontalMove > 0 && !isFacingRight)
             {
@@ -48,7 +62,8 @@ public class BaseEnemyAI : MonoBehaviour
             }
             if (Time.time >= nextProjectileTime)
             {
-                nextProjectileTime = Time.time + missileData.duration;
+                Debug.Log("fire");
+                nextProjectileTime = Time.time + projectileAttackData.duration;
                 animator.SetTrigger("ProjectileAttack");
             }
         }
@@ -56,7 +71,8 @@ public class BaseEnemyAI : MonoBehaviour
         {
             if (distanceToPlayer < meleeRange && Time.time >= nextMeleeTime && !isFiringProjectile)
             {
-                nextMeleeTime = Time.time + stompData.duration;
+                Debug.Log("attack");
+                nextMeleeTime = Time.time + meleeAttackData.duration;
                 animator.SetTrigger("MeleeAttack");
             }
         }
@@ -64,7 +80,7 @@ public class BaseEnemyAI : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isStomping || isFiringProjectile)
+        if (isAttacking || isFiringProjectile)
         {
             horizontalMove = 0f;
         }
@@ -98,20 +114,15 @@ public class BaseEnemyAI : MonoBehaviour
         }
     }
 
-    public void SpawnProjectile(int cannonIndex)
+    public void SpawnEnemyProjectile()
     {
-        Instantiate(missileData.projectilePrefab, GetCannonPosition(cannonIndex), transform.rotation);
-    }
-
-    public Vector3 GetCannonPosition(int cannonIndex)
-    {
-        if (cannonIndex == 0)
+        if (isFacingRight)
         {
-            return cannon0.transform.position;
+            Instantiate(projectileAttackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation);
         }
         else
         {
-            return cannon1.transform.position;
+            Instantiate(projectileAttackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation * Quaternion.Euler(0, 180, 0));
         }
     }
 

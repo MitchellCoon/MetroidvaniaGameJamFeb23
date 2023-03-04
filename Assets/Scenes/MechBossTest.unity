@@ -1692,6 +1692,7 @@ MonoBehaviour:
   knockbackForce: {x: -2, y: 5}
   inKnockback: 0
   damagedTime: 0.2
+  animator: {fileID: 0}
 --- !u!70 &740380414
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2335,6 +2336,7 @@ MonoBehaviour:
   knockbackForce: {x: -1, y: 1}
   inKnockback: 0
   damagedTime: 0.2
+  animator: {fileID: 0}
 --- !u!114 &1099828552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2361,6 +2363,7 @@ MonoBehaviour:
   canMelee: 1
   hitbox: {fileID: 8311324}
   defaultMeleeAttack: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
+  animator: {fileID: 0}
 --- !u!114 &1099828553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2894,7 +2897,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279261852}
-  m_LocalRotation: {x: -0, y: -0, z: -0.34144294, w: 0.9399025}
+  m_LocalRotation: {x: -0, y: -0, z: -0.34144297, w: 0.93990254}
   m_LocalPosition: {x: 1.1, y: 1.97, z: -4.647642}
   m_LocalScale: {x: 2, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3526,6 +3529,7 @@ MonoBehaviour:
   canMelee: 0
   hitbox: {fileID: 0}
   defaultMeleeAttack: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!212 &1460965561
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3741,11 +3745,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 1531921986}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 16f7cb35cd9db1140b8dedbdbfcc7614, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.13473392, y: -0.76501703}
+  m_Offset: {x: 0.13473392, y: -0.783206}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3756,7 +3760,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.263558, y: 5.5779095}
+  m_Size: {x: 4.263558, y: 5.5415316}
   m_EdgeRadius: 0
 --- !u!4 &1531921989
 Transform:
@@ -3814,12 +3818,10 @@ MonoBehaviour:
   playerCombat: {fileID: 2814348808649785562}
   rb: {fileID: 1531921987}
   health: {fileID: 11400000, guid: 4cf659f9f797b654aa35f3ba70bed727, type: 2}
-  projectilePrefab: {fileID: 8368949391819313113, guid: 5a45df94e54a28a48a256938c1832078, type: 3}
   stompData: {fileID: 11400000, guid: 9ec3d03c62ce21b43a5038e589dcab30, type: 2}
   missileData: {fileID: 11400000, guid: cd0cfc305e2e88f47b28f7c3edbebceb, type: 2}
   detectionRadius: 20
   meleeRange: 6
-  attackRate: 1
   isFiringProjectile: 0
   isStomping: 0
   cannon0: {fileID: 1976970487}
@@ -4108,7 +4110,7 @@ GameObject:
   - component: {fileID: 1682140618}
   m_Layer: 10
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4520,7 +4522,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843645967}
-  m_LocalRotation: {x: -0, y: -0, z: -0.34144294, w: 0.9399025}
+  m_LocalRotation: {x: -0, y: -0, z: -0.34144297, w: 0.93990254}
   m_LocalPosition: {x: -1.67, y: 2.03, z: -4.647642}
   m_LocalScale: {x: 2, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5035,6 +5037,10 @@ PrefabInstance:
     - target: {fileID: 7897570920410490818, guid: a658cfb54edf871488fa26948c32ae90, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897570920410490821, guid: a658cfb54edf871488fa26948c32ae90, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 1025
       objectReference: {fileID: 0}
     - target: {fileID: 7897570920410490823, guid: a658cfb54edf871488fa26948c32ae90, type: 3}
       propertyPath: m_RootOrder

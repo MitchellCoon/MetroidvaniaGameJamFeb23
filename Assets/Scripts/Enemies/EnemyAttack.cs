@@ -39,6 +39,8 @@ public class EnemyAttack : MonoBehaviour
     AttackData defaultMeleeAttack;
     // Start is called before the first frame update
 
+    [SerializeField] Animator animator;
+
     void Start()
     {
         InvokeRepeating("ShootLogic", 0f, fireRate);
@@ -124,6 +126,7 @@ public class EnemyAttack : MonoBehaviour
             return;
         }
 
+        animator.SetTrigger("MeleeAttack");
         hitbox.UpdateAttackData(defaultMeleeAttack);
         hitbox.gameObject.SetActive(true);
         StartCoroutine(DisableHitbox());
