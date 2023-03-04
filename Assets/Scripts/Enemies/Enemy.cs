@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
     public bool inKnockback = false;
     public float damagedTime = 0.2f;
 
+    [SerializeField] Animator animator;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -25,6 +27,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage, Vector3 hitPosition, bool knockback)
     {
+        animator.SetTrigger(Constants.HURT_ANIMATION);
         currentHealth -= damage;
         if(knockback){
         Vector2 getX = knockbackForce* (hitPosition - transform.position).normalized; 

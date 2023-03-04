@@ -20,6 +20,7 @@ public class PossessionManager : MonoBehaviour
     Enemy enemy;
     EnemyAttack enemyAttack;
     AIMovement aIMovement;
+    BaseEnemyAI enemyAI;
 
     // player components - enabled while the enemy is being possessed
     PlayerMain playerMain;
@@ -56,6 +57,7 @@ public class PossessionManager : MonoBehaviour
         enemy = GetComponent<Enemy>();
         enemyAttack = GetComponent<EnemyAttack>();
         aIMovement = GetComponent<AIMovement>();
+        enemyAI = GetComponent<BaseEnemyAI>();
         // player components
         playerMain = GetComponent<PlayerMain>();
         playerMovementController = GetComponent<PlayerMovementController>();
@@ -68,9 +70,10 @@ public class PossessionManager : MonoBehaviour
         attack = GetComponent<Attack>();
         // validations
         Assert.IsNotNull(body, ERR_MSG_COMPONENT_MISSING);
-        Assert.IsNotNull(enemy, ERR_MSG_COMPONENT_MISSING);
-        Assert.IsNotNull(enemyAttack, ERR_MSG_COMPONENT_MISSING);
-        Assert.IsNotNull(aIMovement, ERR_MSG_COMPONENT_MISSING);
+        // Assert.IsNotNull(enemy, ERR_MSG_COMPONENT_MISSING);
+        // Assert.IsNotNull(enemyAttack, ERR_MSG_COMPONENT_MISSING);
+        // Assert.IsNotNull(aIMovement, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(enemyAI, ERR_MSG_COMPONENT_MISSING);
         Assert.IsNotNull(playerMain, ERR_MSG_COMPONENT_MISSING);
         Assert.IsNotNull(playerMovementController, ERR_MSG_COMPONENT_MISSING);
         Assert.IsNotNull(playerCombat, ERR_MSG_COMPONENT_MISSING);
@@ -91,6 +94,7 @@ public class PossessionManager : MonoBehaviour
         bool isUnpossessButtonPressed = MInput.GetKeyDown(KeyCode.F) || MInput.GetPadDown(GamepadCode.ButtonNorth);
         if (isPossessed && isUnpossessButtonPressed)
         {
+            Debug.Log(isUnpossessButtonPressed);
             RevertPossession();
         }
     }
@@ -140,9 +144,10 @@ public class PossessionManager : MonoBehaviour
 
     void SetEnemyComponentsEnabled(bool value)
     {
-        enemy.enabled = value;
-        enemyAttack.enabled = value;
-        aIMovement.enabled = value;
+        // enemy.enabled = value;
+        // enemyAttack.enabled = value;
+        // aIMovement.enabled = value;
+        enemyAI.enabled = value;
     }
 
     void SetPlayerComponentsEnabled(bool value)
@@ -151,7 +156,7 @@ public class PossessionManager : MonoBehaviour
         playerMovementController.enabled = value;
         playerCombat.enabled = value;
         inputManager.enabled = value;
-        animator.enabled = value;
+        //animator.enabled = value;
         groundCheck.enabled = value;
         move.enabled = value;
         jump.enabled = value;

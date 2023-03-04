@@ -20,9 +20,9 @@ public class Hitbox : DisableSpriteRender
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (!isEnemyHitbox && other.CompareTag("Enemy"))
         {
-            other.GetComponent<Enemy>().TakeDamage(attackData.damage, transform.position, attackData.knockback);
+            other.GetComponent<BaseEnemyAI>().TakeDamage(attackData, transform.position);
             if(attackData.willPossessTarget)
             {
                 other.GetComponent<PossessionManager>().GetPossessed(transform.parent.gameObject);

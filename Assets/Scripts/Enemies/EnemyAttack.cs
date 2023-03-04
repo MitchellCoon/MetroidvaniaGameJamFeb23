@@ -39,6 +39,8 @@ public class EnemyAttack : MonoBehaviour
     AttackData defaultMeleeAttack;
     // Start is called before the first frame update
 
+    [SerializeField] Animator animator;
+
     void Start()
     {
         InvokeRepeating("ShootLogic", 0f, fireRate);
@@ -86,7 +88,7 @@ public class EnemyAttack : MonoBehaviour
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].CompareTag("Player"))
+            if (hitColliders[i].CompareTag(Constants.PLAYER_TAG))
             {
                 // get player distance from enemy
                 // prefer melee attack if player is close
@@ -124,6 +126,7 @@ public class EnemyAttack : MonoBehaviour
             return;
         }
 
+        animator.SetTrigger(Constants.MELEE_ATTACK_ANIMATION);
         hitbox.UpdateAttackData(defaultMeleeAttack);
         hitbox.gameObject.SetActive(true);
         StartCoroutine(DisableHitbox());

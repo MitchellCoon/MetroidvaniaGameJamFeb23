@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6caa88c8e4eb5a046a58d73884644334, type: 3}
-  m_Name: BasicProjectileAttack
+  m_Name: BaseEnemyProjectile
   m_EditorClassIdentifier: 
   name: 
   description: 
-  animationName: ProjectileAttack
+  animationName: 
   damage: 1
-  duration: 0.2
+  duration: 2
   attackSoundEffect: {fileID: 0}
-  attackType: 0
+  attackType: 1
   knockback: 0
   knockbackForce: 0
-  projectilePrefab: {fileID: 8368949391819313113, guid: be595745f84266e46acabe7256bd3ca4, type: 3}
-  projectileSpeed: 10
-  projectileRange: 10
+  projectilePrefab: {fileID: 8368949391819313113, guid: cd85771c63f3c5443b9335244ab4f2ef, type: 3}
+  projectileSpeed: 5
+  projectileRange: 5
   destroyProjectileOnHit: 1
   willPossessTarget: 0
