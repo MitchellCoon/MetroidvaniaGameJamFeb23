@@ -12,6 +12,7 @@ public class HiddenArea : MonoBehaviour
     // we will assume that all sibling and child sprites are overlay sprites
     SpriteRenderer[] sprites;
     Tilemap[] tilemaps;
+    CompositeCollider2D compositeCollider;
 
     Coroutine revealing;
     Coroutine hiding;
@@ -22,6 +23,7 @@ public class HiddenArea : MonoBehaviour
     {
         sprites = GetComponentsInChildren<SpriteRenderer>();
         tilemaps = GetComponentsInChildren<Tilemap>();
+        InitCompositeColliderIfExists();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -105,5 +107,12 @@ public class HiddenArea : MonoBehaviour
                 tilemaps[i].color = tilemaps[i].color.toAlpha(incoming);
             }
         }
+    }
+
+    void InitCompositeColliderIfExists()
+    {
+        compositeCollider = GetComponent<CompositeCollider2D>();
+        if (compositeCollider == null) return;
+        compositeCollider.geometryType = CompositeCollider2D.GeometryType.Polygons;
     }
 }
