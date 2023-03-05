@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class HiddenArea : MonoBehaviour
 {
     [SerializeField][Range(0, 2)] float revealDuration = 0.5f;
@@ -10,6 +11,7 @@ public class HiddenArea : MonoBehaviour
 
     // we will assume that all sibling and child sprites are overlay sprites
     SpriteRenderer[] sprites;
+    Tilemap[] tilemaps;
 
     Coroutine revealing;
     Coroutine hiding;
@@ -19,6 +21,7 @@ public class HiddenArea : MonoBehaviour
     void Awake()
     {
         sprites = GetComponentsInChildren<SpriteRenderer>();
+        tilemaps = GetComponentsInChildren<Tilemap>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -37,6 +40,7 @@ public class HiddenArea : MonoBehaviour
     {
         if (revealing != null) return;
         if (hiding != null) StopCoroutine(hiding);
+        hiding = null;
         revealing = StartCoroutine(Revealing());
     }
 
@@ -44,7 +48,8 @@ public class HiddenArea : MonoBehaviour
     {
         if (hiding != null) return;
         if (revealing != null) StopCoroutine(revealing);
-        StartCoroutine(Hiding());
+        revealing = null;
+        hiding = StartCoroutine(Hiding());
     }
 
     IEnumerator Revealing()
@@ -84,11 +89,21 @@ public class HiddenArea : MonoBehaviour
 
     void SetSpritesAlpha(float incoming)
     {
-        if (sprites == null) return;
-        for (int i = 0; i < sprites.Length; i++)
+        if (sprites != null)
         {
-            if (sprites[i] == null) continue;
-            sprites[i].color = sprites[i].color.toAlpha(incoming);
+            for (int i = 0; i < sprites.Length; i++)
+            {
+                if (sprites[i] == null) continue;
+                sprites[i].color = sprites[i].color.toAlpha(incoming);
+            }
+        }
+        if (tilemaps != null)
+        {
+            for (int i = 0; i < tilemaps.Length; i++)
+            {
+                if (tilemaps[i] == null) continue;
+                tilemaps[i].color = tilemaps[i].color.toAlpha(incoming);
+            }
         }
     }
 }

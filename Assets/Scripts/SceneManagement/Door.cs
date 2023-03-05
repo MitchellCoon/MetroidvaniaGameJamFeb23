@@ -67,7 +67,7 @@ namespace DTDEV.SceneManagement
         [SerializeField] DoorChannel doorChannel;
         [SerializeField] SceneReference targetSceneRef;
         [SerializeField] TransitionType transitionType;
-        [SerializeField] FloatVariable slideTransitionDuration;
+        [SerializeField][Range(0, 2)] float slideTransitionDuration = 0.7f;
         [Space]
         [Space]
         [SerializeField] Transform spawnPoint;
@@ -109,7 +109,6 @@ namespace DTDEV.SceneManagement
         void Awake()
         {
             targetSceneName = targetSceneRef.IsEmpty ? "" : targetSceneRef.SceneName;
-            slideTransitionDuration.ResetVariable();
         }
 
         void Start()
@@ -303,9 +302,9 @@ namespace DTDEV.SceneManagement
             };
             TransitionDirection direction = GetTransitionDirection(otherDoor);
             float t = 0;
-            while (t < 1)
+            while (t < 1 && slideTransitionDuration > 0)
             {
-                t += Time.unscaledDeltaTime / slideTransitionDuration.value;
+                t += Time.unscaledDeltaTime / slideTransitionDuration;
                 SetPlayerPosition(player, Vector3.Lerp(playerTransition.from, playerTransition.to, t), direction);
                 SetCameraPositionPreserveZ(outgoingCamera, Vector3.Lerp(cameraTransition.from, cameraTransition.to, t));
                 yield return null;
