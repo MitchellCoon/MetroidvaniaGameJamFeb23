@@ -527,7 +527,7 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/DonTestScenes/TestLevel02.unity
   transitionType: 1
-  slideTransitionDuration: {fileID: 11400000, guid: f344c4a5a8f9d4b0fa9e71abc5b2f096, type: 2}
+  slideTransitionDuration: 0.7
   spawnPoint: {fileID: 1116034723}
   collider: {fileID: 235550592}
 --- !u!61 &235550592
@@ -1409,7 +1409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &740380413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1428,6 +1428,7 @@ MonoBehaviour:
   knockbackForce: {x: -2, y: 5}
   inKnockback: 0
   damagedTime: 0.2
+  animator: {fileID: 0}
 --- !u!70 &740380414
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -5981,7 +5982,7 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/DonTestScenes/TestLevel02.unity
   transitionType: 1
-  slideTransitionDuration: {fileID: 11400000, guid: f344c4a5a8f9d4b0fa9e71abc5b2f096, type: 2}
+  slideTransitionDuration: 0.7
   spawnPoint: {fileID: 1807514867}
   collider: {fileID: 863817364}
 --- !u!50 &863817363
@@ -12317,7 +12318,7 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/DonTestScenes/TestLevel04.unity
   transitionType: 1
-  slideTransitionDuration: {fileID: 11400000, guid: f344c4a5a8f9d4b0fa9e71abc5b2f096, type: 2}
+  slideTransitionDuration: 0.7
   spawnPoint: {fileID: 1101439616}
   collider: {fileID: 1527816920}
 --- !u!50 &1527816919
@@ -14297,7 +14298,7 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/DonTestScenes/TestLevel04.unity
   transitionType: 1
-  slideTransitionDuration: {fileID: 11400000, guid: f344c4a5a8f9d4b0fa9e71abc5b2f096, type: 2}
+  slideTransitionDuration: 0.7
   spawnPoint: {fileID: 1115609409}
   collider: {fileID: 1976886595}
 --- !u!50 &1976886594
@@ -22199,7 +22200,7 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/DonTestScenes/TestLevel03.unity
   transitionType: 1
-  slideTransitionDuration: {fileID: 11400000, guid: f344c4a5a8f9d4b0fa9e71abc5b2f096, type: 2}
+  slideTransitionDuration: 0.7
   spawnPoint: {fileID: 3693175747274329870}
   collider: {fileID: 3693175746006658605}
 --- !u!4 &3693175746006658771

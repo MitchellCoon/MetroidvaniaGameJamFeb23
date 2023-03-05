@@ -10,9 +10,6 @@ public class Hitbox : DisableSpriteRender
     public bool isEnemyHitbox = false;
     public bool hitOnce = false;
 
-
-   
-
     public void UpdateAttackData(AttackData newAttackData)
     {
         attackData = newAttackData;
@@ -20,19 +17,20 @@ public class Hitbox : DisableSpriteRender
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!isEnemyHitbox && other.CompareTag("Enemy"))
+        if (!isEnemyHitbox && other.CompareTag(Constants.ENEMY_TAG))
         {
             other.GetComponent<BaseEnemyAI>().TakeDamage(attackData, transform.position);
-            if(attackData.willPossessTarget)
+            if (attackData.willPossessTarget)
             {
                 other.GetComponent<PossessionManager>().GetPossessed(transform.parent.gameObject);
             }
         }
 
-        if (isEnemyHitbox && other.CompareTag("Player"))
+        if (isEnemyHitbox && other.CompareTag(Constants.PLAYER_TAG))
         {
             other.GetComponent<PlayerCombat>().TakeDamage(attackData, transform.position);
-            if( hitOnce){
+            if (hitOnce)
+            {
                 gameObject.SetActive(false);
             }
         }
