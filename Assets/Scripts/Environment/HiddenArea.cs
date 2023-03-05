@@ -49,7 +49,7 @@ public class HiddenArea : MonoBehaviour
         if (hiding != null) return;
         if (revealing != null) StopCoroutine(revealing);
         revealing = null;
-        StartCoroutine(Hiding());
+        hiding = StartCoroutine(Hiding());
     }
 
     IEnumerator Revealing()
