@@ -17,5 +17,6 @@ public static class Constants
     public const string MELEE_ATTACK_ANIMATION = "MeleeAttack";
     public const string PROJECTILE_ATTACK_ANIMATION = "ProjectileAttack";
     public const string HURT_ANIMATION = "Hurt";
+    public const string BOUNCE_ANIMATION = "Bounce";
 
 }

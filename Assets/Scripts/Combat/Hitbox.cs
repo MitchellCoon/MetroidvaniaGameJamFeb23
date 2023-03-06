@@ -19,10 +19,18 @@ public class Hitbox : DisableSpriteRender
     {
         if (!isEnemyHitbox && other.CompareTag(Constants.ENEMY_TAG))
         {
-            other.GetComponent<BaseEnemyAI>().TakeDamage(attackData, transform.position);
-            if (attackData.willPossessTarget)
+            if (attackData.willPossessTarget && other.TryGetComponent<PossessionManager>(out var possessionManager))
             {
-                other.GetComponent<PossessionManager>().GetPossessed(transform.parent.gameObject);
+                possessionManager.GetPossessed(transform.parent.gameObject);
+                return;
+            }
+            if (other.TryGetComponent<BaseEnemyAI>(out var enemyAI))
+            {
+                enemyAI.TakeDamage(attackData, transform.position);
+            }
+            if (other.TryGetComponent<Enemy>(out var enemy))
+            {
+                enemy.TakeDamage(attackData.damage, transform.position, true);
             }
         }
 

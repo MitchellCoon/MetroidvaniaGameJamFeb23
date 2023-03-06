@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemy: 1
-  animator: {fileID: 0}
+  animator: {fileID: 6423778844265691398}
   resources: {fileID: 6423778844265691422}
   rb: {fileID: 6423778844265691414}
   weightMultiplier: 1
@@ -341,8 +341,6 @@ MonoBehaviour:
   currentHealth: 0
   animator: {fileID: 6423778844265691398}
   movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
-  player: {fileID: 0}
-  playerCombat: {fileID: 0}
   rb: {fileID: 6423778844265691414}
   health: {fileID: 11400000, guid: 91e5af3b792e07646901238e999c61d2, type: 2}
   meleeAttackData: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
