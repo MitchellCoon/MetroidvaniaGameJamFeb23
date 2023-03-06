@@ -23,6 +23,7 @@ MonoBehaviour:
   maxAirJumps: 0
   downwardMovementMultiplier: 10
   upwardMovementMultiplier: 7
+  terminalVelocity: 2
   dashSpeed: 60
   dashDecay: 5
   dashCutoff: 10

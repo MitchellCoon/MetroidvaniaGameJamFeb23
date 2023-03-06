@@ -30,7 +30,7 @@ public class Jump : MonoBehaviour
         desiredJump |= inputController.RetrieveJumpInput();
         if (desiredJump)
         {
-            if(!inputManager.GetInputRequested(InputManager.Input.Jump))
+            if (!inputManager.GetInputRequested(InputManager.Input.Jump))
             {
                 inputManager.AddInputRequestToQueue(InputManager.Input.Jump, Time.time);
             }
@@ -72,26 +72,36 @@ public class Jump : MonoBehaviour
             coyoteTimeCounter -= Time.fixedDeltaTime;
         }
 
-        if(inputManager.GetInputRequested(InputManager.Input.Jump))
+        bool isJumpButtonHeld = inputController.RetrieveJumpButtonHeld();
+
+        if (inputManager.GetInputRequested(InputManager.Input.Jump))
         {
             JumpAction();
         }
-        if (body.velocity.y > 0)
+        if (body.velocity.y > 0 && isJumpButtonHeld)
         {
             body.gravityScale = movement.upwardMovementMultiplier;
+        }
+        else if (body.velocity.y > 0 & !isJumpButtonHeld)
+        {
+            body.gravityScale = movement.upwardMovementShortJumpMultiplier;
         }
         else if (body.velocity.y < 0)
         {
             body.gravityScale = movement.downwardMovementMultiplier;
         }
-        else if (body.velocity.y == 0)
+        else
         {
             body.gravityScale = movement.defaultGravityScale;
         }
 
         body.velocity = velocity;
 
-
+        if (body.velocity.y < 0)
+        {
+            float clampedYSpeed = Mathf.Clamp(body.velocity.y, -Constants.GRAVITY * movement.terminalVelocity, 0);
+            body.velocity = new Vector2(body.velocity.x, clampedYSpeed);
+        }
     }
 
     private void JumpAction()
@@ -117,13 +127,10 @@ public class Jump : MonoBehaviour
             }
             if (!isGrounded && velocity.y < 0)
             {
-                velocity.y = jumpSpeed;
+                // first zero out y velocity
+                velocity.y = Mathf.Min(0, velocity.y);
             }
-            else
-            {
-                velocity.y += jumpSpeed;
-            }
-            
+            velocity.y += jumpSpeed;
         }
     }
 }

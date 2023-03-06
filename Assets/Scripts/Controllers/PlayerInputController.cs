@@ -14,6 +14,11 @@ public class PlayerInputController : InputController
         return MInput.GetKeyDown(KeyCode.Space) || MInput.GetPadDown(GamepadCode.ButtonSouth);
     }
 
+    public override bool RetrieveJumpButtonHeld()
+    {
+        return MInput.GetKey(KeyCode.Space) || MInput.GetPad(GamepadCode.ButtonSouth);
+    }
+
     public override bool RetrieveJumpButtonReleased()
     {
         return MInput.GetKeyUp(KeyCode.Space) || MInput.GetPadUp(GamepadCode.ButtonSouth);
@@ -21,6 +26,6 @@ public class PlayerInputController : InputController
 
     public override bool RetrieveDashInput()
     {
-        return MInput.GetKeyDown(KeyCode.LeftShift) || MInput.GetPadDown(GamepadCode.BumperLeft);;
+        return MInput.GetKeyDown(KeyCode.LeftShift) || MInput.GetPadDown(GamepadCode.BumperLeft);
     }
 }
