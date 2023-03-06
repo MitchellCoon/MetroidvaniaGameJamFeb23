@@ -97,6 +97,7 @@ public class Jump : MonoBehaviour
 
         body.velocity = velocity;
 
+        // clamp fall speed to terminal velocity
         if (body.velocity.y < 0)
         {
             float clampedYSpeed = Mathf.Clamp(body.velocity.y, -Constants.GRAVITY * movement.terminalVelocity, 0);
@@ -128,7 +129,7 @@ public class Jump : MonoBehaviour
             if (!isGrounded && velocity.y < 0)
             {
                 // first zero out y velocity
-                velocity.y = Mathf.Min(0, velocity.y);
+                velocity.y = 0;
             }
             velocity.y += jumpSpeed;
         }
