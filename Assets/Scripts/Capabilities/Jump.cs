@@ -78,15 +78,16 @@ public class Jump : MonoBehaviour
         {
             JumpAction();
         }
-        if (body.velocity.y > 0 && isJumpButtonHeld)
+
+        if (velocity.y > 0 && isJumpButtonHeld)
         {
             body.gravityScale = movement.upwardMovementMultiplier;
         }
-        else if (body.velocity.y > 0 & !isJumpButtonHeld)
+        else if (velocity.y > 0 & !isJumpButtonHeld)
         {
             body.gravityScale = movement.upwardMovementShortJumpMultiplier;
         }
-        else if (body.velocity.y < 0)
+        else if (velocity.y < 0)
         {
             body.gravityScale = movement.downwardMovementMultiplier;
         }
@@ -95,14 +96,14 @@ public class Jump : MonoBehaviour
             body.gravityScale = movement.defaultGravityScale;
         }
 
-        body.velocity = velocity;
-
         // clamp fall speed to terminal velocity
-        if (body.velocity.y < 0)
+        if (velocity.y < 0)
         {
-            float clampedYSpeed = Mathf.Clamp(body.velocity.y, -Constants.GRAVITY * movement.terminalVelocity, 0);
-            body.velocity = new Vector2(body.velocity.x, clampedYSpeed);
+            float clampedYSpeed = Mathf.Clamp(velocity.y, -Constants.GRAVITY * movement.terminalVelocity, 0);
+            velocity = new Vector2(velocity.x, clampedYSpeed);
         }
+
+        body.velocity = velocity;
     }
 
     private void JumpAction()
