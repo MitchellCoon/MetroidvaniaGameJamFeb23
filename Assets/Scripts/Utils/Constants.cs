@@ -19,4 +19,6 @@ public static class Constants
     public const string HURT_ANIMATION = "Hurt";
     public const string BOUNCE_ANIMATION = "Bounce";
 
+    // common
+    public const float GRAVITY = 9.8f;
 }

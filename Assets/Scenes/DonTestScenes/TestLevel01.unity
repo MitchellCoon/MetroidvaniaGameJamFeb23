@@ -485,7 +485,7 @@ GameObject:
   - component: {fileID: 235550592}
   - component: {fileID: 360085070182659282}
   - component: {fileID: 235550591}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DoorWest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6019,7 +6019,7 @@ GameObject:
   - component: {fileID: 863817364}
   - component: {fileID: 863817363}
   - component: {fileID: 863817362}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DoorPit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11398,7 +11398,7 @@ GameObject:
   - component: {fileID: 1101439616}
   - component: {fileID: 1101439618}
   - component: {fileID: 1101439617}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -11496,7 +11496,7 @@ GameObject:
   - component: {fileID: 1115609409}
   - component: {fileID: 1115609411}
   - component: {fileID: 1115609410}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -11594,7 +11594,7 @@ GameObject:
   - component: {fileID: 1116034723}
   - component: {fileID: 1116034724}
   - component: {fileID: 1116034725}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -12412,7 +12412,7 @@ GameObject:
   - component: {fileID: 1527816920}
   - component: {fileID: 1527816919}
   - component: {fileID: 1527816918}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DoorCeilingA (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14071,7 +14071,7 @@ GameObject:
   - component: {fileID: 1807514867}
   - component: {fileID: 1807514869}
   - component: {fileID: 1807514868}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -14413,7 +14413,7 @@ GameObject:
   - component: {fileID: 1976886595}
   - component: {fileID: 1976886594}
   - component: {fileID: 1976886593}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DoorCeilingA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22336,7 +22336,7 @@ GameObject:
   - component: {fileID: 3693175746006658605}
   - component: {fileID: 4017084083249229183}
   - component: {fileID: 3693175746006658770}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DoorEast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22472,7 +22472,7 @@ GameObject:
   - component: {fileID: 3693175747274329870}
   - component: {fileID: 3693175747274329865}
   - component: {fileID: 3693175747274329864}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}

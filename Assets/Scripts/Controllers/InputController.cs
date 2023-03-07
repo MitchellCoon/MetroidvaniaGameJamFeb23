@@ -8,6 +8,8 @@ public abstract class InputController : ScriptableObject
 
     public abstract bool RetrieveJumpInput();
 
+    public abstract bool RetrieveJumpButtonHeld();
+
     public abstract bool RetrieveJumpButtonReleased();
 
     public abstract bool RetrieveDashInput();

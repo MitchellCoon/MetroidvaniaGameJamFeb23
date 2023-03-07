@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7555581005455302320}
   - component: {fileID: 7555581005455302327}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7555581005897341830}
   - component: {fileID: 7555581005897341829}
   - component: {fileID: 7555581005897341828}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlatformTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 7555581006701837681}
   - component: {fileID: 7555581006701837687}
   - component: {fileID: 7555581006701837680}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BouncyPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
