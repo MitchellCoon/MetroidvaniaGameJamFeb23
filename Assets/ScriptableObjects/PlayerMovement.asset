@@ -24,7 +24,7 @@ MonoBehaviour:
   downwardMovementMultiplier: 10
   upwardMovementMultiplier: 7
   upwardMovementShortJumpMultiplier: 15
-  terminalVelocity: 2.2
+  terminalVelocity: 8
   dashSpeed: 60
   dashDecay: 5
   dashCutoff: 10
