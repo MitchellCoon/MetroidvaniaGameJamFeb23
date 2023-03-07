@@ -188,7 +188,6 @@ namespace DTDEV.SceneManagement
             SetIncomingRoomSpawnPoint(incomingRoom, otherDoor);
             if (otherDoor == null) FailBadlyAndNoticeably("otherDoor was null - likely a DoorChannel or TargetSceneRef is not correct. Make sure SceneA <-> SceneB match.");
             MovePlayerToSpawnPoint(player.gameObject, otherDoor);
-            player.SetCameraTargetAsPlayer();
             OnFadeTick = (float t) => Time.timeScale = Easing.InOutQuad(0.9f * t + 0.1f);
             if (fader != null) yield return fader.FadeIn(OnFadeTick);
             Time.timeScale = 1f;
@@ -285,7 +284,6 @@ namespace DTDEV.SceneManagement
             // Run physics for a single frame in order for CinemachineConfiner2D to do its job
             MoveOutgoingGameObjectsToScene(outgoingSceneRootObjects, incomingScene);
             SceneManager.MoveGameObjectToScene(player.gameObject, incomingScene);
-            player.SetCameraTargetAsPlayer();
             Time.timeScale = 1;
             yield return new WaitForEndOfFrame();
             Time.timeScale = 0;
