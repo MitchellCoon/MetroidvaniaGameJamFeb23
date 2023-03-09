@@ -22,8 +22,6 @@ public static class Constants
     public const string JUMP_LAND_ANIMATION = "Land";
     public const string BOUNCE_ANIMATION = "Bounce";
 
-    // animation controllers
-    // public const string PLAYER_HURT_ANIMATION_CONTROLLER_PATH = "Assets\Animations\Characters\Slime\Slime_Hurt_Animations\SlimeHurtAnimator";
-    // public const string PLAYER_PERIL_ANIMATION_CONTROLLER_PATH = "Assets\Animations\Characters\Slime\Slime_Peril_Animations\SlimePerilAnimator";
-
+    // common
+    public const float GRAVITY = 9.8f;
 }

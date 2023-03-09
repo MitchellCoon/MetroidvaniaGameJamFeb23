@@ -35,7 +35,7 @@ public class Jump : MonoBehaviour
         desiredJump |= inputController.RetrieveJumpInput();
         if (desiredJump)
         {
-            if(!inputManager.GetInputRequested(InputManager.Input.Jump))
+            if (!inputManager.GetInputRequested(InputManager.Input.Jump))
             {
                 inputManager.AddInputRequestToQueue(InputManager.Input.Jump, Time.time);
             }
@@ -83,11 +83,14 @@ public class Jump : MonoBehaviour
             coyoteTimeCounter -= Time.fixedDeltaTime;
         }
 
-        if(inputManager.GetInputRequested(InputManager.Input.Jump))
+        bool isJumpButtonHeld = inputController.RetrieveJumpButtonHeld();
+
+        if (inputManager.GetInputRequested(InputManager.Input.Jump))
         {
             JumpAction();
         }
-        if (body.velocity.y > 0 && !isGrounded)
+
+        if (velocity.y > 0 && isJumpButtonHeld && !isGrounded)
         {
             if (jumpState != JumpState.Rising)
             {
@@ -99,7 +102,18 @@ public class Jump : MonoBehaviour
             body.gravityScale = movement.upwardMovementMultiplier;
             
         }
-        else if (body.velocity.y < 0)
+        else if (velocity.y > 0 & !isJumpButtonHeld)
+        {
+            if (jumpState != JumpState.Rising)
+            {
+                animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
+                animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
+                animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
+            }
+            jumpState = JumpState.Rising;
+            body.gravityScale = movement.upwardMovementShortJumpMultiplier;
+        }
+        else if (velocity.y < 0)
         {
             if (jumpState != JumpState.Falling)
             {
@@ -110,14 +124,19 @@ public class Jump : MonoBehaviour
             body.gravityScale = movement.downwardMovementMultiplier;
             
         }
-        else if (body.velocity.y == 0)
+        else
         {
             body.gravityScale = movement.defaultGravityScale;
         }
 
+        // clamp fall speed to terminal velocity
+        if (velocity.y < 0)
+        {
+            float clampedYSpeed = Mathf.Clamp(velocity.y, -Constants.GRAVITY * movement.terminalVelocity, 0);
+            velocity = new Vector2(velocity.x, clampedYSpeed);
+        }
+
         body.velocity = velocity;
-
-
     }
 
     private void JumpAction()
@@ -143,13 +162,10 @@ public class Jump : MonoBehaviour
             }
             if (!isGrounded && velocity.y < 0)
             {
-                velocity.y = jumpSpeed;
+                // first zero out y velocity
+                velocity.y = 0;
             }
-            else
-            {
-                velocity.y += jumpSpeed;
-            }
-            
+            velocity.y += jumpSpeed;
         }
     }
 

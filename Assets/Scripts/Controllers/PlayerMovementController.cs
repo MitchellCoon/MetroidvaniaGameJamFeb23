@@ -50,7 +50,6 @@ public class PlayerMovementController : MonoBehaviour
 	{
 		bool wasGrounded = isGrounded;
 		isGrounded = groundCheck.IsGrounded();
-
 	}
 
 	void OnCollisionEnter2D(Collision2D other)

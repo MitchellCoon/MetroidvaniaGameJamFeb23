@@ -14,6 +14,11 @@ public class PlayerInputController : InputController
         return MInput.GetKeyDown(KeyCode.Space) || MInput.GetPadDown(GamepadCode.ButtonSouth);
     }
 
+    public override bool RetrieveJumpButtonHeld()
+    {
+        return MInput.GetKey(KeyCode.Space) || MInput.GetPad(GamepadCode.ButtonSouth);
+    }
+
     public override bool RetrieveJumpButtonReleased()
     {
         return MInput.GetKeyUp(KeyCode.Space) || MInput.GetPadUp(GamepadCode.ButtonSouth);
