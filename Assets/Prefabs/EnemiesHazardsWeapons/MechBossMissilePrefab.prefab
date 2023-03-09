@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8368949391819313124}
   - component: {fileID: 8368949391819313127}
-  - component: {fileID: 8368949391819313125}
   - component: {fileID: 4707098158153077338}
   - component: {fileID: 6624971411110971916}
   - component: {fileID: 4023514444861461206}
-  - component: {fileID: -4430034418515864594}
+  - component: {fileID: 3105574858480111830}
   m_Layer: 10
   m_Name: MechBossMissilePrefab
   m_TagString: Enemy
@@ -31,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8368949391819313113}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.86, y: 1.05, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,9 +76,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 0.44830537, b: 1, a: 1}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 8c4dc5c5309038443819dd15fc205968, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -89,22 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &8368949391819313125
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8368949391819313113}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &4707098158153077338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +114,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8368949391819313113}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -160,8 +143,9 @@ MonoBehaviour:
   attackData: {fileID: 11400000, guid: cd0cfc305e2e88f47b28f7c3edbebceb, type: 2}
   isEnemyHitbox: 1
   hitOnce: 1
---- !u!58 &-4430034418515864594
-CircleCollider2D:
+  possessionManager: {fileID: 0}
+--- !u!70 &3105574858480111830
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -174,5 +158,5 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1.5, y: 5}
+  m_Direction: 0

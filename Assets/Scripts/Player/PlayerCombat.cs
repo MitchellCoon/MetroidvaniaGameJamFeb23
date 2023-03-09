@@ -7,11 +7,16 @@ public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] bool isEnemy = false;
     [SerializeField] Animator animator;
+    [SerializeField] RuntimeAnimatorController defaultAnimator;
+    [SerializeField] RuntimeAnimatorController hurtAnimator;
+    [SerializeField] RuntimeAnimatorController perilAnimator;
     [SerializeField] ResourceManager resources;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float weightMultiplier = 1f;
 
     [SerializeField] Resource health;
+    [SerializeField] int perilThreshold = 3;
+    [SerializeField] int hurtThreshold = 7;
 
     PlayerMain playerMain;
 
@@ -52,7 +57,19 @@ public class PlayerCombat : MonoBehaviour
     {
         health.SubtractResource(attackData.damage);
 
-        animator.SetTrigger("Hurt");
+        //animator.SetTrigger("Hurt");
+
+        if(!isEnemy)
+        {
+            if (health.GetCurrentValue() <= perilThreshold)
+            {
+                animator.runtimeAnimatorController = perilAnimator;
+            }
+            else if (health.GetCurrentValue() <= hurtThreshold)
+            {
+                animator.runtimeAnimatorController = hurtAnimator;
+            }
+        }
 
         Vector2 adjustedForce = attackData.knockbackForce * weightMultiplier * (attackOrigin - transform.position).normalized;
 
@@ -62,6 +79,11 @@ public class PlayerCombat : MonoBehaviour
         {
             Die();
         }
+    }
+
+    public void ResetAnimator()
+    {
+        animator.runtimeAnimatorController = defaultAnimator;
     }
 
     void OnEmergencyPlayerInstakillSomethingWentHorriblyWrong()
