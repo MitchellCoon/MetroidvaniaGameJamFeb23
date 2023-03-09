@@ -251,7 +251,7 @@ MonoBehaviour:
   attackData: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
   isEnemyHitbox: 1
   hitOnce: 0
-  possessionManager: {fileID: 0}
+  sourcePossessionManager: {fileID: 0}
 --- !u!1 &137984560
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,7 +572,7 @@ MonoBehaviour:
   attackData: {fileID: 11400000, guid: 9ec3d03c62ce21b43a5038e589dcab30, type: 2}
   isEnemyHitbox: 1
   hitOnce: 0
-  possessionManager: {fileID: 0}
+  sourcePossessionManager: {fileID: 0}
 --- !u!61 &174460514
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1535,7 +1535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6423778844265691409, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.7396159
+      value: 2.86
       objectReference: {fileID: 0}
     - target: {fileID: 6423778844265691409, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1576,10 +1576,6 @@ PrefabInstance:
     - target: {fileID: 6423778844265691413, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: m_Name
       value: BaseEnemyPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 6423778844265691413, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
@@ -3560,7 +3556,7 @@ MonoBehaviour:
   attackData: {fileID: 11400000, guid: 9ec3d03c62ce21b43a5038e589dcab30, type: 2}
   isEnemyHitbox: 1
   hitOnce: 0
-  possessionManager: {fileID: 0}
+  sourcePossessionManager: {fileID: 0}
 --- !u!61 &1443241883
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3816,7 +3812,7 @@ GameObject:
   - component: {fileID: 1531921993}
   m_Layer: 10
   m_Name: MechBoss
-  m_TagString: Boss
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14731,7 +14727,7 @@ MonoBehaviour:
   attackData: {fileID: 11400000, guid: 9ec3d03c62ce21b43a5038e589dcab30, type: 2}
   isEnemyHitbox: 1
   hitOnce: 0
-  possessionManager: {fileID: 0}
+  sourcePossessionManager: {fileID: 0}
 --- !u!61 &2106823950
 BoxCollider2D:
   m_ObjectHideFlags: 0

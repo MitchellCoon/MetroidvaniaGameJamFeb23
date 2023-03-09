@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum JumpState {Rising, Falling, Grounded};
+public enum JumpState {Grounded, Rising, Falling};
 
 public class Jump : MonoBehaviour
 {
@@ -17,7 +17,6 @@ public class Jump : MonoBehaviour
     private Vector2 velocity;
     private int jumpPhase;
     private bool desiredJump;
-    private bool isGrounded;
     private bool jumpButtonReleased;
     private float jumpBufferCounter;
     private bool jumpBufferTimeStarted = false;
@@ -65,8 +64,7 @@ public class Jump : MonoBehaviour
     private void FixedUpdate()
     {
         velocity = body.velocity;
-        isGrounded = groundCheck.IsGrounded();
-        if (isGrounded)
+        if (groundCheck.IsGrounded())
         {
             jumpPhase = 0;
             if (jumpState != JumpState.Grounded)
@@ -90,7 +88,7 @@ public class Jump : MonoBehaviour
             JumpAction();
         }
 
-        if (velocity.y > 0 && isJumpButtonHeld && !isGrounded)
+        if (velocity.y > 0 && isJumpButtonHeld && !groundCheck.IsGrounded())
         {
             if (jumpState != JumpState.Rising)
             {
@@ -154,13 +152,12 @@ public class Jump : MonoBehaviour
             inputManager.SetPreviousActionTime(InputManager.Action.Grounded, -1);
             inputManager.SetPreviousPressedTime(InputManager.Input.Jump, -1);
             inputManager.RemoveInputRequestFromQueue(InputManager.Input.Jump);
-            isGrounded = false;
             float jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * movement.jumpHeight);
             if (velocity.y > 0f)
             {
                 jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
             }
-            if (!isGrounded && velocity.y < 0)
+            if (!groundCheck.IsGrounded() && velocity.y < 0)
             {
                 // first zero out y velocity
                 velocity.y = 0;

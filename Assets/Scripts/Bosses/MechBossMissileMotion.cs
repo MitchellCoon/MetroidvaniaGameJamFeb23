@@ -22,7 +22,7 @@ public class MechBossMissileMotion : MonoBehaviour
     {
         rb.velocity = new Vector3(0, riseVelocity , 0);
         spawnTime = Time.time;
-        player = GameObject.Find("Player");
+        player = GameObject.FindWithTag(Constants.PLAYER_TAG);
         playerLocationAtSpawn = player.transform.position;
 
     }

@@ -45,7 +45,7 @@ public class Move : MonoBehaviour
 
         body.velocity = velocity;
 
-        isMoving = Mathf.Abs(velocity.x) > 0 ? true : false;
+        isMoving = Mathf.Abs(velocity.x) > Mathf.Epsilon ? true : false;
         animator.SetBool("isMoving", isMoving);
 
         // If the input is moving the player right and the player is facing left...

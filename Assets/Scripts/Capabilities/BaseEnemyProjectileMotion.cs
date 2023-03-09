@@ -5,9 +5,9 @@ using UnityEngine;
 public class BaseEnemyProjectileMotion : MonoBehaviour
 {
     [SerializeField] AttackData attackData;
+    [SerializeField] Hitbox hitbox;
     
     private Vector3 startPosition;
-    PossessionManager possessionManager;
 
     void Start()
     {
@@ -23,8 +23,4 @@ public class BaseEnemyProjectileMotion : MonoBehaviour
         }
     }
 
-    public void SetPossessionManager(PossessionManager sourcePossessionManager)
-    {
-        possessionManager = sourcePossessionManager;
-    }
 }

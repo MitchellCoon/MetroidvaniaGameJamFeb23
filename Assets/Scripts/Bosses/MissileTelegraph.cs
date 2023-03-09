@@ -5,16 +5,12 @@ using UnityEngine;
 public class MissileTelegraph : MonoBehaviour
 {
     [SerializeField] float duration;
-    float spawnTime;
-
-    void Start()
-    {
-        spawnTime = Time.time;
-    }
+    float timeElapsed = 0f;
 
     void Update()
     {
-        if (Time.time - spawnTime > duration)
+        timeElapsed += Time.deltaTime;
+        if (timeElapsed > duration)
         {
             Destroy(gameObject);
         }

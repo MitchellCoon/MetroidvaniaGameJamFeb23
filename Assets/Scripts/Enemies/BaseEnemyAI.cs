@@ -122,11 +122,11 @@ public class BaseEnemyAI : MonoBehaviour
         }
         if (isFacingRight)
         {
-            Instantiate(projectileAttackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation).GetComponent<BaseEnemyProjectileMotion>().SetPossessionManager(possessionManager);
+            Instantiate(projectileAttackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation).GetComponent<Hitbox>().SetPossessionManager(possessionManager);
         }
         else
         {
-            Instantiate(projectileAttackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation * Quaternion.Euler(0, 180, 0)).GetComponent<BaseEnemyProjectileMotion>().SetPossessionManager(possessionManager);
+            Instantiate(projectileAttackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation * Quaternion.Euler(0, 180, 0)).GetComponent<Hitbox>().SetPossessionManager(possessionManager);
         }
     }
 

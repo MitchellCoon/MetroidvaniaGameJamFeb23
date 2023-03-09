@@ -15,12 +15,12 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] float weightMultiplier = 1f;
 
     [SerializeField] Resource health;
+    [SerializeField] int perilThreshold = 3;
+    [SerializeField] int hurtThreshold = 7;
 
     PlayerMain playerMain;
 
     bool isAlive;
-    int hurtThreshold = 7;
-    int perilThreshold = 3;
 
     public bool IsEnemy => isEnemy;
 
