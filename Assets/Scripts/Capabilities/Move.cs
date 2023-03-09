@@ -6,7 +6,8 @@ public class Move : MonoBehaviour
 {
     [SerializeField] InputController input = null;
     [SerializeField] PlayerMovementController controller;
-
+    [SerializeField] Animator animator;
+    [SerializeField] RuntimeAnimatorController defaultAnimator;
     [SerializeField] MovementOverride movement;
     
     private Vector2 direction;
@@ -18,6 +19,7 @@ public class Move : MonoBehaviour
     private float maxSpeedChange;
     private float acceleration;
     private bool isGrounded;
+    private bool isMoving;
 
     void Awake()
     {
@@ -43,6 +45,9 @@ public class Move : MonoBehaviour
 
         body.velocity = velocity;
 
+        isMoving = Mathf.Abs(velocity.x) > 0 ? true : false;
+        animator.SetBool("isMoving", isMoving);
+
         // If the input is moving the player right and the player is facing left...
 			if (velocity.x > 0 && !controller.IsFacingRight())
 			{
@@ -56,6 +61,11 @@ public class Move : MonoBehaviour
 				controller.Flip();
 			}
 
+    }
+
+    public void ResetAnimator()
+    {
+        animator.runtimeAnimatorController = defaultAnimator;
     }
 
 }

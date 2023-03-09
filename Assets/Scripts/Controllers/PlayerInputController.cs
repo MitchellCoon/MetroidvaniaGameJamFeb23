@@ -21,6 +21,6 @@ public class PlayerInputController : InputController
 
     public override bool RetrieveDashInput()
     {
-        return MInput.GetKeyDown(KeyCode.LeftShift) || MInput.GetPadDown(GamepadCode.BumperLeft);;
+        return MInput.GetKeyDown(KeyCode.LeftShift) || MInput.GetPadDown(GamepadCode.BumperLeft);
     }
 }

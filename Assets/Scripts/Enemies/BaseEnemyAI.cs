@@ -13,6 +13,8 @@ public class BaseEnemyAI : MonoBehaviour
     [SerializeField] Resource health;
     [SerializeField] AttackData meleeAttackData;
     [SerializeField] AttackData projectileAttackData;
+    [SerializeField] PossessionManager possessionManager;
+    [SerializeField] PlayerMovementController possessedMovementController;
 
     [SerializeField] float detectionRadius;
     [SerializeField] float meleeRange;
@@ -114,13 +116,17 @@ public class BaseEnemyAI : MonoBehaviour
 
     public void SpawnEnemyProjectile()
     {
+        if (possessionManager.IsPossessed())
+        {
+            isFacingRight = possessedMovementController.IsFacingRight();
+        }
         if (isFacingRight)
         {
-            Instantiate(projectileAttackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation);
+            Instantiate(projectileAttackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation).GetComponent<BaseEnemyProjectileMotion>().SetPossessionManager(possessionManager);
         }
         else
         {
-            Instantiate(projectileAttackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation * Quaternion.Euler(0, 180, 0));
+            Instantiate(projectileAttackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation * Quaternion.Euler(0, 180, 0)).GetComponent<BaseEnemyProjectileMotion>().SetPossessionManager(possessionManager);
         }
     }
 

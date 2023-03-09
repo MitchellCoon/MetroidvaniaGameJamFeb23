@@ -10,6 +10,9 @@ public class Hitbox : DisableSpriteRender
     public bool isEnemyHitbox = false;
     public bool hitOnce = false;
 
+    [SerializeField] PossessionManager possessionManager;
+    PossessionManager targetPossessionManager;
+
     public void UpdateAttackData(AttackData newAttackData)
     {
         attackData = newAttackData;
@@ -17,7 +20,7 @@ public class Hitbox : DisableSpriteRender
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!isEnemyHitbox && other.CompareTag(Constants.ENEMY_TAG))
+        if ((!isEnemyHitbox && other.CompareTag(Constants.ENEMY_TAG)) || (isEnemyHitbox && possessionManager != null && possessionManager.IsPossessed()))
         {
             if (attackData.willPossessTarget && other.TryGetComponent<PossessionManager>(out var possessionManager))
             {
@@ -33,8 +36,8 @@ public class Hitbox : DisableSpriteRender
                 enemy.TakeDamage(attackData.damage, transform.position, true);
             }
         }
-
-        if (isEnemyHitbox && other.CompareTag(Constants.PLAYER_TAG))
+        targetPossessionManager = other.GetComponent<PossessionManager>();
+        if (isEnemyHitbox && other.CompareTag(Constants.PLAYER_TAG) && targetPossessionManager == null)
         {
             other.GetComponent<PlayerCombat>().TakeDamage(attackData, transform.position);
             if (hitOnce)

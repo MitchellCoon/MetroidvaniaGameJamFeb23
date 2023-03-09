@@ -7,6 +7,7 @@ public class BaseEnemyProjectileMotion : MonoBehaviour
     [SerializeField] AttackData attackData;
     
     private Vector3 startPosition;
+    PossessionManager possessionManager;
 
     void Start()
     {
@@ -20,5 +21,10 @@ public class BaseEnemyProjectileMotion : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetPossessionManager(PossessionManager sourcePossessionManager)
+    {
+        possessionManager = sourcePossessionManager;
     }
 }

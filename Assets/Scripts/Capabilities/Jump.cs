@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum JumpState {Rising, Falling, Grounded};
+
 public class Jump : MonoBehaviour
 {
     [SerializeField] InputManager inputManager;
     [SerializeField] private InputController inputController = null;
     [SerializeField] MovementOverride movement;
+    [SerializeField] Animator animator;
+    [SerializeField] RuntimeAnimatorController defaultAnimator;
 
     private Rigidbody2D body;
     private GroundCheck groundCheck;
@@ -18,6 +22,7 @@ public class Jump : MonoBehaviour
     private float jumpBufferCounter;
     private bool jumpBufferTimeStarted = false;
     private float coyoteTimeCounter;
+    private JumpState jumpState;
 
     void Awake()
     {
@@ -64,6 +69,12 @@ public class Jump : MonoBehaviour
         if (isGrounded)
         {
             jumpPhase = 0;
+            if (jumpState != JumpState.Grounded)
+            {
+                animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
+                animator.SetBool(Constants.JUMP_LAND_ANIMATION, true);
+            }
+            jumpState = JumpState.Grounded;
             coyoteTimeCounter = inputManager.GetInputBufferTime(InputManager.Input.CoyoteJump);
             inputManager.SetPreviousActionTime(InputManager.Action.Grounded, Time.time);
         }
@@ -76,13 +87,28 @@ public class Jump : MonoBehaviour
         {
             JumpAction();
         }
-        if (body.velocity.y > 0)
+        if (body.velocity.y > 0 && !isGrounded)
         {
+            if (jumpState != JumpState.Rising)
+            {
+                animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
+                animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
+                animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
+            }
+            jumpState = JumpState.Rising;
             body.gravityScale = movement.upwardMovementMultiplier;
+            
         }
         else if (body.velocity.y < 0)
         {
+            if (jumpState != JumpState.Falling)
+            {
+                animator.SetBool(Constants.JUMP_FALL_ANIMATION, true);
+                animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
+            }
+            jumpState = JumpState.Falling;
             body.gravityScale = movement.downwardMovementMultiplier;
+            
         }
         else if (body.velocity.y == 0)
         {
@@ -125,5 +151,10 @@ public class Jump : MonoBehaviour
             }
             
         }
+    }
+
+    public void ResetAnimator()
+    {
+        animator.runtimeAnimatorController = defaultAnimator;
     }
 }

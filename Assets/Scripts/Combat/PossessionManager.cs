@@ -94,7 +94,6 @@ public class PossessionManager : MonoBehaviour
         bool isUnpossessButtonPressed = MInput.GetKeyDown(KeyCode.F) || MInput.GetPadDown(GamepadCode.ButtonNorth);
         if (isPossessed && isUnpossessButtonPressed)
         {
-            Debug.Log(isUnpossessButtonPressed);
             RevertPossession();
         }
     }
@@ -161,6 +160,13 @@ public class PossessionManager : MonoBehaviour
         move.enabled = value;
         jump.enabled = value;
         attack.enabled = value;
+        // if(value)
+        // {
+        //     playerCombat.ResetAnimator();
+        //     move.ResetAnimator();
+        //     jump.ResetAnimator();
+        //     attack.ResetAnimator();
+        // }
     }
 
     // This method will be used to update the prefab created when respawning the player
@@ -184,5 +190,10 @@ public class PossessionManager : MonoBehaviour
     {
         Destroy(gameObject);
         throw new UnityException(reason);
+    }
+
+    public bool IsPossessed()
+    {
+        return isPossessed;
     }
 }
