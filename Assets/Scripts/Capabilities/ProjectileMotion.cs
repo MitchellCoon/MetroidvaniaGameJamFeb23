@@ -31,15 +31,14 @@ public class ProjectileMotion : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            other.GetComponent<BaseEnemyAI>().TakeDamage(attackData, transform.position);
-        }
-        else if(other.CompareTag("Boss"))
-        {
-            if(attackData.destroyProjectileOnHit)
+            if (other.TryGetComponent<BaseEnemyAI>(out var enemyAI))
             {
-                Destroy(gameObject);
+                enemyAI.TakeDamage(attackData, transform.position);
             }
-            other.GetComponent<MechBossAI>().TakeDamage(attackData, transform.position);
+            else if (other.TryGetComponent<MechBossAI>(out var boss))
+            {
+                boss.TakeDamage(attackData, transform.position);
+            }
         }
     }
 }
