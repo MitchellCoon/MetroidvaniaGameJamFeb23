@@ -18,6 +18,9 @@ public static class Constants
     public const string MELEE_ATTACK_ANIMATION = "MeleeAttack";
     public const string PROJECTILE_ATTACK_ANIMATION = "ProjectileAttack";
     public const string HURT_ANIMATION = "Hurt";
+    public const string JUMP_RISE_ANIMATION = "Jump";
+    public const string JUMP_FALL_ANIMATION = "Fall";
+    public const string JUMP_LAND_ANIMATION = "Land";
     public const string BOUNCE_ANIMATION = "Bounce";
 
     // common

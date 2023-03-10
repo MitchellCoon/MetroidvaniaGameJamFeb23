@@ -10,6 +10,9 @@ public class Hitbox : DisableSpriteRender
     public bool isEnemyHitbox = false;
     public bool hitOnce = false;
 
+    [SerializeField] PossessionManager sourcePossessionManager;
+    PossessionManager targetPossessionManager;
+
     public void UpdateAttackData(AttackData newAttackData)
     {
         attackData = newAttackData;
@@ -17,24 +20,33 @@ public class Hitbox : DisableSpriteRender
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!isEnemyHitbox && other.CompareTag(Constants.ENEMY_TAG))
+        if (other.CompareTag(Constants.ENEMY_TAG) && (!isEnemyHitbox || (isEnemyHitbox && sourcePossessionManager != null && sourcePossessionManager.IsPossessed())))
         {
-            if (attackData.willPossessTarget && other.TryGetComponent<PossessionManager>(out var possessionManager))
+            if (attackData.willPossessTarget && other.TryGetComponent<PossessionManager>(out var targetPossessionManager))
             {
-                possessionManager.GetPossessed(transform.parent.gameObject);
+                targetPossessionManager.GetPossessed(transform.parent.gameObject);
                 return;
             }
             if (other.TryGetComponent<BaseEnemyAI>(out var enemyAI))
             {
                 enemyAI.TakeDamage(attackData, transform.position);
             }
-            if (other.TryGetComponent<Enemy>(out var enemy))
+            else if (other.TryGetComponent<Enemy>(out var enemy))
             {
                 enemy.TakeDamage(attackData.damage, transform.position, true);
             }
+            else if (other.TryGetComponent<MechBossAI>(out var boss))
+            {
+                boss.TakeDamage(attackData, transform.position);
+            }
+            if (hitOnce)
+            {
+                gameObject.SetActive(false);
+            }
         }
-
-        if (isEnemyHitbox && other.CompareTag(Constants.PLAYER_TAG))
+        targetPossessionManager = other.GetComponent<PossessionManager>();
+        if (isEnemyHitbox && (other.CompareTag(Constants.PLAYER_TAG) && targetPossessionManager == null) ||
+            (targetPossessionManager != null && targetPossessionManager.IsPossessed() && (sourcePossessionManager == null || !sourcePossessionManager.IsPossessed())))
         {
             other.GetComponent<PlayerCombat>().TakeDamage(attackData, transform.position);
             if (hitOnce)
@@ -53,5 +65,10 @@ public class Hitbox : DisableSpriteRender
                 Debug.LogError($"{gameObject.name} has \"Interactable\" tag but needs a component that implements the Interactable interface");
             }
         }
+    }
+
+    public void SetPossessionManager(PossessionManager possessionManager)
+    {
+        sourcePossessionManager = possessionManager;
     }
 }

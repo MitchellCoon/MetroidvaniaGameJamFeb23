@@ -5,6 +5,7 @@ using UnityEngine;
 public class BaseEnemyProjectileMotion : MonoBehaviour
 {
     [SerializeField] AttackData attackData;
+    [SerializeField] Hitbox hitbox;
     
     private Vector3 startPosition;
 
@@ -21,4 +22,5 @@ public class BaseEnemyProjectileMotion : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }

@@ -25,6 +25,8 @@ public class MechBossAI : MonoBehaviour
     float nextMeleeTime = 0f;
     float nextProjectileTime = 0f;
     float pollInterval = 5f;
+    int phase2Threshold = 70;
+    int phase3Threshold = 40;
 
     // Values used for animations:
 
@@ -32,6 +34,31 @@ public class MechBossAI : MonoBehaviour
     [SerializeField] bool isStomping = false;
     [SerializeField] GameObject cannon0;
     [SerializeField] GameObject cannon1;
+    [SerializeField] float telegraphVerticalOffset;
+    float missileOffset;
+    Vector3 playerLocation;
+    public enum Missile {firstMissile, secondMissile, thirdMissile, fourthMissile};
+    [SerializeField] GameObject missileTelegraph;
+
+    // phase change sprites/particles:
+
+    [SerializeField] SpriteRenderer bodySpriteRenderer;
+    [SerializeField] SpriteRenderer leg1SpriteRenderer;
+    [SerializeField] SpriteRenderer leg2SpriteRenderer;
+    [SerializeField] SpriteRenderer cannon1SpriteRenderer;
+    [SerializeField] SpriteRenderer cannon2SpriteRenderer;
+    [SerializeField] SpriteRenderer fishBowlSpriteRenderer;
+    
+    [SerializeField] Sprite phase2bodySprite;
+    [SerializeField] Sprite phase2leg1Sprite;
+    [SerializeField] Sprite phase2leg2Sprite;
+    [SerializeField] Sprite phase2cannon1Sprite;
+    [SerializeField] Sprite phase2cannon2Sprite;
+    [SerializeField] Sprite phase2fishBowlSprite;
+    [SerializeField] Sprite phase3bodySprite;
+    [SerializeField] Sprite phase3fishBowlSprite;
+    [SerializeField] ParticleSystem smokeParticle;
+    [SerializeField] ParticleSystem sparkParticle;
 
     void Awake()
     {
@@ -107,15 +134,83 @@ public class MechBossAI : MonoBehaviour
     {
         health.SubtractResource(attackData.damage);
 
+        if (health.GetCurrentValue() <= phase3Threshold)
+        {
+            bodySpriteRenderer.sprite = phase3bodySprite;
+            fishBowlSpriteRenderer.sprite = phase3fishBowlSprite;
+            smokeParticle.Play();
+            sparkParticle.Play();
+        }
+        else if (health.GetCurrentValue() <= phase2Threshold)
+        {
+            //switch to phase 2 sprites
+            bodySpriteRenderer.sprite = phase2bodySprite;
+            fishBowlSpriteRenderer.sprite = phase2fishBowlSprite;
+            leg1SpriteRenderer.sprite = phase2leg1Sprite;
+            leg2SpriteRenderer.sprite = phase2leg2Sprite;
+            cannon1SpriteRenderer.sprite = phase2cannon1Sprite;
+            cannon2SpriteRenderer.sprite = phase2cannon2Sprite;
+        }
+
         if (health.GetCurrentValue() <= 0)
         {
             Die();
         }
     }
 
-    public void SpawnProjectile(int cannonIndex)
+    public void SpawnProjectile(Missile missile)
     {
-        Instantiate(missileData.projectilePrefab, GetCannonPosition(cannonIndex), transform.rotation);
+        switch (missile)
+        {
+        case Missile.firstMissile:
+            if (isFacingRight)
+            {
+                missileOffset = -3f;
+            }
+            else
+            {
+                missileOffset = 3f;
+            }
+            Instantiate(missileData.projectilePrefab, GetCannonPosition(0), transform.rotation).GetComponent<MechBossMissileMotion>().SetHorizontalOffset(missileOffset);
+            break;
+        case Missile.secondMissile:
+            if (isFacingRight)
+            {
+                missileOffset = -1f;
+            }
+            else
+            {
+                missileOffset = 1f;
+            }
+            Instantiate(missileData.projectilePrefab, GetCannonPosition(1), transform.rotation).GetComponent<MechBossMissileMotion>().SetHorizontalOffset(missileOffset);
+            break;
+        case Missile.thirdMissile:
+            if (isFacingRight)
+            {
+                missileOffset = 1f;
+            }
+            else
+            {
+                missileOffset = -1f;
+            }
+            Instantiate(missileData.projectilePrefab, GetCannonPosition(0), transform.rotation).GetComponent<MechBossMissileMotion>().SetHorizontalOffset(missileOffset);
+            break;
+        case Missile.fourthMissile:
+            if (isFacingRight)
+            {
+                missileOffset = 3f;
+            }
+            else
+            {
+                missileOffset = -3f;
+            }
+            Instantiate(missileData.projectilePrefab, GetCannonPosition(1), transform.rotation).GetComponent<MechBossMissileMotion>().SetHorizontalOffset(missileOffset);
+            break;
+        default:
+            break;
+        }
+        playerLocation = player.transform.position;
+        Instantiate(missileTelegraph, new Vector3(playerLocation.x + missileOffset, transform.position.y - telegraphVerticalOffset, 0), transform.rotation);
     }
 
     public Vector3 GetCannonPosition(int cannonIndex)

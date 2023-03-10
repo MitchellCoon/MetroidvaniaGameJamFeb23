@@ -16,12 +16,13 @@ public class MechBossMissileMotion : MonoBehaviour
     float spawnTime;
     Vector3 playerLocationAtSpawn;
     bool isFalling = false;
+    float horizontalOffset;
 
     void Start()
     {
         rb.velocity = new Vector3(0, riseVelocity , 0);
         spawnTime = Time.time;
-        player = GameObject.Find("Player");
+        player = GameObject.FindWithTag(Constants.PLAYER_TAG);
         playerLocationAtSpawn = player.transform.position;
 
     }
@@ -30,13 +31,18 @@ public class MechBossMissileMotion : MonoBehaviour
     {
         if (!isFalling && Time.time - spawnTime >= riseTime)
         {
-            transform.position = new Vector3(playerLocationAtSpawn.x, fallHeight, transform.position.z);
+            transform.position = new Vector3(playerLocationAtSpawn.x + horizontalOffset, fallHeight, transform.position.z);
             Vector3 localScale = transform.localScale;
 		    localScale.y *= -1;
 		    transform.localScale = localScale;
             rb.velocity = new Vector3(0, -fallVelocity , 0);
             isFalling = true;
         }
+    }
+
+    public void SetHorizontalOffset(float offset)
+    {
+        horizontalOffset = offset;
     }
 
 }

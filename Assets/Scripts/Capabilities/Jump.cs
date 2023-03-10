@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum JumpState {Grounded, Rising, Falling};
+
 public class Jump : MonoBehaviour
 {
     [SerializeField] InputManager inputManager;
@@ -9,7 +11,9 @@ public class Jump : MonoBehaviour
     [SerializeField] MovementOverride movement;
     [SerializeField] Sound jumpSound;
     [SerializeField] Sound jumpSoundPossessed;
-
+    [SerializeField] Animator animator;
+    [SerializeField] RuntimeAnimatorController defaultAnimator;
+    
     PossessionManager possessionManager;
 
     private Rigidbody2D body;
@@ -17,11 +21,11 @@ public class Jump : MonoBehaviour
     private Vector2 velocity;
     private int jumpPhase;
     private bool desiredJump;
-    private bool isGrounded;
     private bool jumpButtonReleased;
     private float jumpBufferCounter;
     private bool jumpBufferTimeStarted = false;
     private float coyoteTimeCounter;
+    private JumpState jumpState;
 
     void Awake()
     {
@@ -65,10 +69,15 @@ public class Jump : MonoBehaviour
     private void FixedUpdate()
     {
         velocity = body.velocity;
-        isGrounded = groundCheck.IsGrounded();
-        if (isGrounded)
+        if (groundCheck.IsGrounded())
         {
             jumpPhase = 0;
+            if (jumpState != JumpState.Grounded)
+            {
+                animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
+                animator.SetBool(Constants.JUMP_LAND_ANIMATION, true);
+            }
+            jumpState = JumpState.Grounded;
             coyoteTimeCounter = inputManager.GetInputBufferTime(InputManager.Input.CoyoteJump);
             inputManager.SetPreviousActionTime(InputManager.Action.Grounded, Time.time);
         }
@@ -84,17 +93,39 @@ public class Jump : MonoBehaviour
             JumpAction();
         }
 
-        if (velocity.y > 0 && isJumpButtonHeld)
+        if (velocity.y > 0 && isJumpButtonHeld && !groundCheck.IsGrounded())
         {
+            if (jumpState != JumpState.Rising)
+            {
+                animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
+                animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
+                animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
+            }
+            jumpState = JumpState.Rising;
             body.gravityScale = movement.upwardMovementMultiplier;
+            
         }
         else if (velocity.y > 0 & !isJumpButtonHeld)
         {
+            if (jumpState != JumpState.Rising)
+            {
+                animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
+                animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
+                animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
+            }
+            jumpState = JumpState.Rising;
             body.gravityScale = movement.upwardMovementShortJumpMultiplier;
         }
         else if (velocity.y < 0)
         {
+            if (jumpState != JumpState.Falling)
+            {
+                animator.SetBool(Constants.JUMP_FALL_ANIMATION, true);
+                animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
+            }
+            jumpState = JumpState.Falling;
             body.gravityScale = movement.downwardMovementMultiplier;
+            
         }
         else
         {
@@ -126,13 +157,12 @@ public class Jump : MonoBehaviour
             inputManager.SetPreviousActionTime(InputManager.Action.Grounded, -1);
             inputManager.SetPreviousPressedTime(InputManager.Input.Jump, -1);
             inputManager.RemoveInputRequestFromQueue(InputManager.Input.Jump);
-            isGrounded = false;
             float jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * movement.jumpHeight);
             if (velocity.y > 0f)
             {
                 jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
             }
-            if (!isGrounded && velocity.y < 0)
+            if (!groundCheck.IsGrounded() && velocity.y < 0)
             {
                 // first zero out y velocity
                 velocity.y = 0;
@@ -152,5 +182,10 @@ public class Jump : MonoBehaviour
         {
             jumpSound.Play();
         }
+    }
+
+    public void ResetAnimator()
+    {
+        animator.runtimeAnimatorController = defaultAnimator;
     }
 }

@@ -6,6 +6,7 @@ public class Attack : MonoBehaviour
 {
     [SerializeField] PlayerMovementController controller;
     [SerializeField] Animator animator;
+    [SerializeField] RuntimeAnimatorController defaultAnimator;
     [SerializeField] InputManager inputManager;
     // [SerializeField] AudioSource playerAudio;
     [SerializeField] Hitbox hitbox;
@@ -74,5 +75,10 @@ public class Attack : MonoBehaviour
         {
             Instantiate(projectilePrefab, projectileOrigin.transform.position, transform.rotation * Quaternion.Euler(0, 180, 0));
         }
+    }
+
+    public void ResetAnimator()
+    {
+        animator.runtimeAnimatorController = defaultAnimator;
     }
 }
