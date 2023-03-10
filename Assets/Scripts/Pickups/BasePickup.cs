@@ -39,7 +39,7 @@ public abstract class BasePickup : MonoBehaviour
 
     protected abstract void HandlePickup(Collider2D other);
 
-    protected void DisabledSprite()
+    protected void DisableSprite()
     {
         if (mainSprite != null) mainSprite.enabled = false;
     }

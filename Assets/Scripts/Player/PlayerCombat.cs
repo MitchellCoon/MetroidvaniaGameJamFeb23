@@ -10,8 +10,13 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] ResourceManager resources;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float weightMultiplier = 1f;
-
+    [Space]
+    [Space]
     [SerializeField] Resource health;
+    [Space]
+    [Space]
+    [SerializeField] Sound hurtSound;
+    [SerializeField] Sound deathSound;
 
     PlayerMain playerMain;
 
@@ -58,6 +63,8 @@ public class PlayerCombat : MonoBehaviour
 
         rb.AddForce(adjustedForce, ForceMode2D.Impulse);
 
+        hurtSound.Play();
+
         if (health.GetCurrentValue() <= 0)
         {
             Die();
@@ -73,6 +80,7 @@ public class PlayerCombat : MonoBehaviour
     {
         if (!isAlive) return;
         isAlive = false;
+        deathSound.Play();
         GlobalEvent.Invoke.OnPlayerDeath();
         GetComponent<Move>().enabled = false;
         GetComponent<Jump>().enabled = false;
@@ -84,11 +92,18 @@ public class PlayerCombat : MonoBehaviour
         this.enabled = false;
         // remove player tag so that FindWithTag will find the next player that gets spawned in, not the dead one.
         gameObject.tag = Constants.UNTAGGED;
-        DeathFX();
+        gameObject.layer = Layer.Parse(Constants.DEFAULT_LAYER);
+        StartCoroutine(DeathFX());
     }
 
-    void DeathFX()
+    void Cleanup()
     {
         Destroy(gameObject);
+    }
+
+    IEnumerator DeathFX()
+    {
+        while (deathSound.isPlaying) yield return null;
+        Cleanup();
     }
 }

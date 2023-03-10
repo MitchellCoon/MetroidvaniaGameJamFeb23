@@ -11,6 +11,7 @@ public static class GlobalEvent
 {
     public static event Action OnPause;
     public static event Action OnUnpause;
+    public static event Action OnWinGame;
     public static event Action<Vector2> OnRoomLoaded;
     public static event Action<PlayerMain> OnPlayerSpawn;
     public static event Action<PlayerMain> OnPlayerEnteredRoom;
@@ -22,6 +23,7 @@ public static class GlobalEvent
     {
         public static void OnPause() { GlobalEvent.OnPause?.Invoke(); }
         public static void OnUnpause() { GlobalEvent.OnUnpause?.Invoke(); }
+        public static void OnWinGame() { GlobalEvent.OnWinGame?.Invoke(); }
         public static void OnRoomLoaded(Vector2 roomPosition) { GlobalEvent.OnRoomLoaded?.Invoke(roomPosition); }
         public static void OnPlayerSpawn(PlayerMain player) { GlobalEvent.OnPlayerSpawn?.Invoke(player); }
         public static void OnPlayerEnteredRoom(PlayerMain player) { GlobalEvent.OnPlayerEnteredRoom?.Invoke(player); }

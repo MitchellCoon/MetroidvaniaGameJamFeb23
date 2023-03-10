@@ -283,6 +283,7 @@ namespace DTDEV.SceneManagement
             // Set incomingCamera position to the player position, but clamped inside its camerBounds.
             // Run physics for a single frame in order for CinemachineConfiner2D to do its job
             MoveOutgoingGameObjectsToScene(outgoingSceneRootObjects, incomingScene);
+            player.transform.SetParent(null);
             SceneManager.MoveGameObjectToScene(player.gameObject, incomingScene);
             Time.timeScale = 1;
             yield return new WaitForEndOfFrame();

@@ -7,6 +7,10 @@ public class Jump : MonoBehaviour
     [SerializeField] InputManager inputManager;
     [SerializeField] private InputController inputController = null;
     [SerializeField] MovementOverride movement;
+    [SerializeField] Sound jumpSound;
+    [SerializeField] Sound jumpSoundPossessed;
+
+    PossessionManager possessionManager;
 
     private Rigidbody2D body;
     private GroundCheck groundCheck;
@@ -23,6 +27,7 @@ public class Jump : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         groundCheck = GetComponent<GroundCheck>();
+        possessionManager = GetComponent<PossessionManager>();
     }
 
     void Update()
@@ -133,6 +138,19 @@ public class Jump : MonoBehaviour
                 velocity.y = 0;
             }
             velocity.y += jumpSpeed;
+            PlayJumpSound();
+        }
+    }
+
+    void PlayJumpSound()
+    {
+        if (possessionManager != null)
+        {
+            jumpSoundPossessed.Play();
+        }
+        else
+        {
+            jumpSound.Play();
         }
     }
 }
