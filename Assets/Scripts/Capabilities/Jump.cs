@@ -9,8 +9,12 @@ public class Jump : MonoBehaviour
     [SerializeField] InputManager inputManager;
     [SerializeField] private InputController inputController = null;
     [SerializeField] MovementOverride movement;
+    [SerializeField] Sound jumpSound;
+    [SerializeField] Sound jumpSoundPossessed;
     [SerializeField] Animator animator;
     [SerializeField] RuntimeAnimatorController defaultAnimator;
+    
+    PossessionManager possessionManager;
 
     private Rigidbody2D body;
     private GroundCheck groundCheck;
@@ -27,6 +31,7 @@ public class Jump : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         groundCheck = GetComponent<GroundCheck>();
+        possessionManager = GetComponent<PossessionManager>();
     }
 
     void Update()
@@ -100,7 +105,7 @@ public class Jump : MonoBehaviour
             body.gravityScale = movement.upwardMovementMultiplier;
             
         }
-        else if (velocity.y > 0 & !isJumpButtonHeld)
+        else if (velocity.y > 0 & !isJumpButtonHeld && !groundCheck.IsGrounded())
         {
             if (jumpState != JumpState.Rising)
             {
@@ -111,7 +116,7 @@ public class Jump : MonoBehaviour
             jumpState = JumpState.Rising;
             body.gravityScale = movement.upwardMovementShortJumpMultiplier;
         }
-        else if (velocity.y < 0)
+        else if (velocity.y < 0 && !groundCheck.IsGrounded())
         {
             if (jumpState != JumpState.Falling)
             {
@@ -163,6 +168,19 @@ public class Jump : MonoBehaviour
                 velocity.y = 0;
             }
             velocity.y += jumpSpeed;
+            PlayJumpSound();
+        }
+    }
+
+    void PlayJumpSound()
+    {
+        if (possessionManager != null)
+        {
+            jumpSoundPossessed.Play();
+        }
+        else
+        {
+            jumpSound.Play();
         }
     }
 

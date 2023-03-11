@@ -22,7 +22,7 @@ public class Key : BasePickup
 
     void Hide()
     {
-        DisabledSprite();
+        DisableSprite();
         DisableCollider();
     }
 }

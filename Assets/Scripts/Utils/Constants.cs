@@ -10,6 +10,7 @@ public static class Constants
     public const string ENEMY_TAG = "Enemy";
 
     // layers
+    public const string DEFAULT_LAYER = "Default";
     public const string PLAYER_LAYER = "Player";
     public const string INVINCIBLE_LAYER = "Invincible";
 

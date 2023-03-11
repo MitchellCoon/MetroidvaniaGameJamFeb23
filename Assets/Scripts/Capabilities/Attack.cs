@@ -8,7 +8,7 @@ public class Attack : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] RuntimeAnimatorController defaultAnimator;
     [SerializeField] InputManager inputManager;
-    [SerializeField] AudioSource playerAudio;
+    // [SerializeField] AudioSource playerAudio;
     [SerializeField] Hitbox hitbox;
 
     [SerializeField] AttackData attackData;

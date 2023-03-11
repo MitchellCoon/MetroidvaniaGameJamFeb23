@@ -1,23 +1,12 @@
 using UnityEngine;
-using UnityEngine.Assertions;
-using Cinemachine;
 
 using MapGen;
 
 public class PlayerMain : MonoBehaviour
 {
-    CinemachineVirtualCamera vCam;
     Rigidbody2D body;
 
     PlayerCombat playerCombat;
-
-    public void SetCameraTargetAsPlayer()
-    {
-        if (vCam == null) vCam = FindObjectOfType<CinemachineVirtualCamera>();
-        Assert.IsNotNull(vCam, "Unable to find CinemachineVirtualCamera in current scene");
-        vCam.LookAt = transform;
-        vCam.Follow = transform;
-    }
 
     public void SetKinematic()
     {
@@ -42,7 +31,6 @@ public class PlayerMain : MonoBehaviour
 
     void OnEnable()
     {
-        SetCameraTargetAsPlayer();
         GlobalMapState.isPlayerActive = true;
         GlobalEvent.OnRoomLoaded += OnRoomLoaded;
     }

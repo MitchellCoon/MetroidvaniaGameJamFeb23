@@ -24,14 +24,14 @@ namespace CyberneticStudios.SOFramework
             {
                 this._prevValue = this._value;
                 this._value = value;
-                if (!this._prevValue.Equals(this._value)) OnChanged?.Invoke(value);
+                if (!this._prevValue.Equals(this._value)) OnChanged?.Invoke(_value);
             }
         }
 
         public override void ResetVariable()
         {
             // _value = default(T);
-            value = _initialValue;
+            _value = _initialValue;
         }
 
         public void InvokeCallbacks()
