@@ -74,6 +74,7 @@ public class Jump : MonoBehaviour
             jumpPhase = 0;
             if (jumpState != JumpState.Grounded)
             {
+                if (animator != null) animator.SetBool(Constants.JUMP_RISE_ANIMATION, false);
                 if (animator != null) animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
                 if (animator != null) animator.SetBool(Constants.JUMP_LAND_ANIMATION, true);
             }
@@ -97,7 +98,6 @@ public class Jump : MonoBehaviour
         {
             if (jumpState != JumpState.Rising)
             {
-                if (animator != null) animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
                 if (animator != null) animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
                 if (animator != null) animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
             }
@@ -109,7 +109,6 @@ public class Jump : MonoBehaviour
         {
             if (jumpState != JumpState.Rising)
             {
-                if (animator != null) animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
                 if (animator != null) animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
                 if (animator != null) animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
             }
@@ -120,6 +119,7 @@ public class Jump : MonoBehaviour
         {
             if (jumpState != JumpState.Falling)
             {
+                if (animator != null) animator.SetBool(Constants.JUMP_RISE_ANIMATION, false);
                 if (animator != null) animator.SetBool(Constants.JUMP_FALL_ANIMATION, true);
                 if (animator != null) animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
             }
@@ -169,6 +169,7 @@ public class Jump : MonoBehaviour
             }
             velocity.y += jumpSpeed;
             PlayJumpSound();
+            if (animator != null) animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
         }
     }
 
