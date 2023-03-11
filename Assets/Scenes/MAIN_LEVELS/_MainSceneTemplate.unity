@@ -549,6 +549,7 @@ MonoBehaviour:
   knockbackForce: {x: -2, y: 5}
   inKnockback: 0
   damagedTime: 0.2
+  animator: {fileID: 0}
 --- !u!70 &515295935
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -706,6 +707,7 @@ MonoBehaviour:
   knockbackForce: {x: -2, y: 5}
   inKnockback: 0
   damagedTime: 0.2
+  animator: {fileID: 0}
 --- !u!70 &521306441
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -978,6 +980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 817596807}
   animator: {fileID: 817596803}
+  defaultAnimator: {fileID: 0}
   inputManager: {fileID: 817596805}
   playerAudio: {fileID: 0}
   hitbox: {fileID: 1113856167}
@@ -1081,6 +1084,8 @@ MonoBehaviour:
   inputManager: {fileID: 817596805}
   inputController: {fileID: 11400000, guid: 771c146892f477244879b8dfa7bde516, type: 2}
   movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
+  animator: {fileID: 0}
+  defaultAnimator: {fileID: 0}
 --- !u!114 &817596810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1095,6 +1100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 771c146892f477244879b8dfa7bde516, type: 2}
   controller: {fileID: 817596807}
+  animator: {fileID: 0}
+  defaultAnimator: {fileID: 0}
   movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
 --- !u!114 &817596811
 MonoBehaviour:
@@ -1110,10 +1117,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 0
   animator: {fileID: 0}
+  defaultAnimator: {fileID: 0}
+  hurtAnimator: {fileID: 0}
+  perilAnimator: {fileID: 0}
   resources: {fileID: 817596808}
   rb: {fileID: 817596815}
   weightMultiplier: 1
   health: {fileID: 11400000, guid: 91e5af3b792e07646901238e999c61d2, type: 2}
+  perilThreshold: 3
+  hurtThreshold: 7
 --- !u!114 &817596812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1140,6 +1152,7 @@ MonoBehaviour:
   canMelee: 1
   hitbox: {fileID: 1113856167}
   defaultMeleeAttack: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
+  animator: {fileID: 0}
 --- !u!114 &817596813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1158,6 +1171,7 @@ MonoBehaviour:
   knockbackForce: {x: -1, y: 1}
   inKnockback: 0
   damagedTime: 0.2
+  animator: {fileID: 0}
 --- !u!61 &817596814
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1589,6 +1603,7 @@ MonoBehaviour:
   attackData: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
   isEnemyHitbox: 1
   hitOnce: 0
+  sourcePossessionManager: {fileID: 0}
 --- !u!61 &1113856168
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2007,6 +2022,7 @@ MonoBehaviour:
   knockbackForce: {x: -2, y: 5}
   inKnockback: 0
   damagedTime: 0.2
+  animator: {fileID: 0}
 --- !u!70 &1501131322
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -9880,6 +9896,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2018458779}
     m_Modifications:
+    - target: {fileID: 4741865713739185248, guid: f2becbe75ce064b7fbb84756848c8837, type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 8522799911517438549, guid: dc402664f42d55b49ba4b3a5418930b5, type: 3}
     - target: {fileID: 4741865713739185249, guid: f2becbe75ce064b7fbb84756848c8837, type: 3}
       propertyPath: uniqueIdentifier
       value: a67a1f2a-a4dd-48cd-b771-1cf3fdc88b26
