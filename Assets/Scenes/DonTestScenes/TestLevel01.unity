@@ -23682,7 +23682,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7208382578680608312, guid: f0c40d9a3124d4db1bb572e5367d3354, type: 3}
       propertyPath: m_Name
-      value: Box
+      value: Crate
       objectReference: {fileID: 0}
     - target: {fileID: 7208382578680608316, guid: f0c40d9a3124d4db1bb572e5367d3354, type: 3}
       propertyPath: m_RootOrder
