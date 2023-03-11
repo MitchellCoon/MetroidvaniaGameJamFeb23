@@ -50,4 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MAIN_LEVELS/Lab5_PipeExitWest.unity
     guid: e12638af0dd015e99819d75b49f38244
+  - enabled: 1
+    path: Assets/Scenes/DonTestScenes/TestLevel06.unity
+    guid: 66a96d58cdf784a34aa77f87d95e78a2
   m_configObjects: {}
