@@ -6173,7 +6173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c96970ebf484ed1ac4e41deb8611bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 7811224134406372418, guid: 06879a873111340f6aa299cc556f1989, type: 3}
+  playerPrefab: {fileID: 8522799911517438549, guid: dc402664f42d55b49ba4b3a5418930b5, type: 3}
   timeRespawnDelay: 0
   mapRoomData: {fileID: 11400000, guid: fa26d41a78a4d4818810d16e22d11e57, type: 2}
 --- !u!114 &1137149863
@@ -7006,6 +7006,7 @@ MonoBehaviour:
   debugColorActive: {r: 1, g: 0, b: 0, a: 0.6}
   debugColorInactive: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.6}
   boolVariable: {fileID: 11400000, guid: 11b8b94ed6fbc41f1a134981478e13fe, type: 2}
+  setToFalse: 0
   canDeactivate: 0
 --- !u!61 &1885861598
 BoxCollider2D:
@@ -8720,6 +8721,7 @@ MonoBehaviour:
   debugColorActive: {r: 1, g: 0, b: 0, a: 0.6}
   debugColorInactive: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.6}
   boolVariable: {fileID: 11400000, guid: bcd5de387c5584a48abe14c51765314e, type: 2}
+  setToFalse: 0
   canDeactivate: 0
 --- !u!61 &2003207024
 BoxCollider2D:

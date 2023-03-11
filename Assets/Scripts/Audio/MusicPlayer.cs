@@ -14,7 +14,7 @@ public class MusicPlayer : MonoBehaviour
     [SerializeField] BoolVariable hasStartedBossFight;
     [SerializeField] BoolVariable hasDefeatedBoss;
 
-    const Track TRACK_MAIN_MENU = Track.Dangerman;
+    const Track TRACK_MAIN_MENU = Track.Megacreep;
     const Track TRACK_GAME_START = Track.Dangerman;
     const Track TRACK_SECURITY_DISABLED = Track.Megacreep;
     const Track TRACK_BOSS_FIGHT = Track.Monsterdance;
@@ -50,6 +50,7 @@ public class MusicPlayer : MonoBehaviour
 
     void OnEnable()
     {
+        GlobalEvent.OnGameInit += OnGameInit;
         GlobalEvent.OnRoomLoaded += OnRoomLoaded;
         hasDisabledSecurity.OnChanged += OnHasDisabledSecurityChanged;
         hasStartedBossFight.OnChanged += OnHasEnteredBossArenaChanged;
@@ -59,11 +60,19 @@ public class MusicPlayer : MonoBehaviour
 
     void OnDisable()
     {
+        GlobalEvent.OnGameInit -= OnGameInit;
         GlobalEvent.OnRoomLoaded -= OnRoomLoaded;
         hasDisabledSecurity.OnChanged -= OnHasDisabledSecurityChanged;
         hasStartedBossFight.OnChanged -= OnHasEnteredBossArenaChanged;
         hasDefeatedBoss.OnChanged -= OnHasDefeatedBossChanged;
         GlobalEvent.OnWinGame -= OnWinGame;
+    }
+
+    void OnGameInit()
+    {
+        StopCurrentTrack(exclude: TRACK_MAIN_MENU);
+        PlayTrack(TRACK_MAIN_MENU);
+        hasFirstRoomLoaded = false;
     }
 
     void OnRoomLoaded(Vector2 obj)

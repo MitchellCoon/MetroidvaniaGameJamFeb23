@@ -111,6 +111,7 @@ public class PossessionManager : MonoBehaviour
 
     public void GetPossessed(GameObject playerObj)
     {
+        if (isPlayerPossessing.value) return;
         SetEnemyComponentsEnabled(false);
         SetPlayerComponentsEnabled(true);
         Destroy(playerObj);

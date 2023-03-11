@@ -28,8 +28,7 @@ namespace MapGen
 
         void Update()
         {
-            // TODO: REMOVE THIS IN FAVOR OF PLAYER CONTROLLER + GLOBAL EVENT
-            if (Input.GetButtonDown("Submit"))
+            if (Time.timeScale > 0 && MInput.GetKeyDown(KeyCode.Tab) || MInput.GetPadDown(GamepadCode.Select))
             {
                 camera.enabled = !camera.enabled;
             }

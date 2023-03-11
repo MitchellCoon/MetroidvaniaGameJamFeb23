@@ -23,6 +23,21 @@ public class VariableManager : MonoBehaviour
 
     void Awake()
     {
+        Init();
+    }
+
+    void OnEnable()
+    {
+        GlobalEvent.OnGameInit += Init;
+    }
+
+    void OnDisable()
+    {
+        GlobalEvent.OnGameInit -= Init;
+    }
+
+    void Init()
+    {
         for (int i = 0; i < variables.Count; i++)
         {
             variables[i].ResetVariable();
