@@ -33,9 +33,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MAIN_LEVELS/Lab-1_BrokenTanks.unity
     guid: 303cae76844ec02a9a4c1c53893232e4
   - enabled: 1
-    path: Assets/Scenes/MAIN_LEVELS/Lab2_ComputerRoom.unity
-    guid: b8901d91017549dd3b5d7daff1c09d02
-  - enabled: 1
     path: Assets/Scenes/MAIN_LEVELS/Lab4_PipesBattle.unity
     guid: e41cd5ca55b3592349a747fdd47d0eac
   - enabled: 1
@@ -47,4 +44,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MAIN_LEVELS/Lab-2_BOSS.unity
     guid: 23939473b67c841e191b79b9c837b8f6
+  - enabled: 1
+    path: Assets/Scenes/MAIN_LEVELS/Lab2_ComputerRoom.unity
+    guid: b8901d91017549dd3b5d7daff1c09d02
+  - enabled: 1
+    path: Assets/Scenes/MAIN_LEVELS/Lab5_PipeExitWest.unity
+    guid: e12638af0dd015e99819d75b49f38244
   m_configObjects: {}

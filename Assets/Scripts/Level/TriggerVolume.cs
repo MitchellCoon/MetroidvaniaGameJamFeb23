@@ -13,6 +13,7 @@ public class TriggerVolume : MonoBehaviour
     [Space]
     [Space]
     [SerializeField] BoolVariable boolVariable;
+    [SerializeField] bool setToFalse = false; 
     [SerializeField] bool canDeactivate = false;
 
     BoxCollider2D box;
@@ -45,13 +46,13 @@ public class TriggerVolume : MonoBehaviour
 
     void Activate()
     {
-        boolVariable.value = true;
+        boolVariable.value = !setToFalse;
         if (debugSprite != null) debugSprite.color = debugColorActive;
     }
 
     void Deactivate()
     {
-        boolVariable.value = false;
+        boolVariable.value = setToFalse;
         if (debugSprite != null) debugSprite.color = debugColorInactive;
     }
 
