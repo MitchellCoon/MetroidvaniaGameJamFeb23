@@ -17,6 +17,7 @@ public class LockedDoor : MonoBehaviour
 {
     enum DoorState
     {
+        Init,
         Locked,
         Unlocked,
         Open,
@@ -33,6 +34,8 @@ public class LockedDoor : MonoBehaviour
     [SerializeField] SpriteRenderer unlockedDoorSprite;
     [FormerlySerializedAs("hiddenGateSprite")]
     [SerializeField] SpriteRenderer openDoorSprite;
+    [SerializeField] SpriteRenderer lockedSignSprite;
+    [SerializeField] SpriteRenderer unlockedSignSprite;
     [Space]
     [Space]
     [SerializeField] Sound openDoorSound;
@@ -127,7 +130,9 @@ public class LockedDoor : MonoBehaviour
     {
         if (doorState == DoorState.Locked) return;
         doorState = DoorState.Locked;
+        if (lockedSignSprite != null) lockedSignSprite.enabled = true;
         if (lockedDoorSprite != null) lockedDoorSprite.enabled = true;
+        if (unlockedSignSprite != null) unlockedSignSprite.enabled = false;
         if (unlockedDoorSprite != null) unlockedDoorSprite.enabled = false;
         if (openDoorSprite != null) openDoorSprite.enabled = false;
         foreach (var collider in colliders) if (collider != null) collider.enabled = true;
@@ -137,7 +142,9 @@ public class LockedDoor : MonoBehaviour
     {
         if (doorState == DoorState.Unlocked) return;
         doorState = DoorState.Unlocked;
+        if (lockedSignSprite != null) lockedSignSprite.enabled = false;
         if (lockedDoorSprite != null) lockedDoorSprite.enabled = false;
+        if (unlockedSignSprite != null) unlockedSignSprite.enabled = true;
         if (unlockedDoorSprite != null) unlockedDoorSprite.enabled = true;
         if (openDoorSprite != null) openDoorSprite.enabled = false;
         foreach (var collider in colliders) if (collider != null && collider.isTrigger) collider.enabled = true;
@@ -148,7 +155,9 @@ public class LockedDoor : MonoBehaviour
         if (doorState == DoorState.Open) return;
         doorState = DoorState.Open;
         if (openDoorSound != null) openDoorSound.Play();
+        if (lockedSignSprite != null) lockedSignSprite.enabled = false;
         if (lockedDoorSprite != null) lockedDoorSprite.enabled = false;
+        if (unlockedSignSprite != null) unlockedSignSprite.enabled = true;
         if (unlockedDoorSprite != null) unlockedDoorSprite.enabled = false;
         if (openDoorSprite != null) openDoorSprite.enabled = true;
         foreach (var collider in colliders) if (collider != null) collider.enabled = false;
