@@ -105,7 +105,7 @@ public class Jump : MonoBehaviour
             body.gravityScale = movement.upwardMovementMultiplier;
             
         }
-        else if (velocity.y > 0 & !isJumpButtonHeld)
+        else if (velocity.y > 0 & !isJumpButtonHeld && !groundCheck.IsGrounded())
         {
             if (jumpState != JumpState.Rising)
             {
@@ -116,7 +116,7 @@ public class Jump : MonoBehaviour
             jumpState = JumpState.Rising;
             body.gravityScale = movement.upwardMovementShortJumpMultiplier;
         }
-        else if (velocity.y < 0)
+        else if (velocity.y < 0 && !groundCheck.IsGrounded())
         {
             if (jumpState != JumpState.Falling)
             {
