@@ -53,4 +53,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DonTestScenes/TestLevel06.unity
     guid: 66a96d58cdf784a34aa77f87d95e78a2
+  - enabled: 1
+    path: Assets/Scenes/MENU_SCREENS/MainMenu.unity
+    guid: edee04e176755494fbcb0c1fbae635b1
   m_configObjects: {}

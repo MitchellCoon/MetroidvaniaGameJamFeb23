@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 284156818}
   - component: {fileID: 284156819}
+  - component: {fileID: 284156820}
   m_Layer: 5
   m_Name: ButtonContainer
   m_TagString: Untagged
@@ -189,6 +190,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &284156820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284156817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e314402f87349e99f6f7ed95b8c955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navDirection: 0
 --- !u!1 &379522737
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +442,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1606759989986628073, guid: 1e2e59a37b15f4adb92e4f81c716ad1f, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1606759989986628079, guid: 1e2e59a37b15f4adb92e4f81c716ad1f, type: 3}
       propertyPath: m_Name
       value: ButtonSettings
@@ -658,18 +676,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5059870410755462397, guid: a431915a6eb114cacaec3c25865ef0e2, type: 3}
   m_PrefabInstance: {fileID: 5059870411074345840}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1155863094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1155863090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c858ae9a8f6a423b8791c4001e73518, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1155863095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1046,6 +1052,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1606759989986628073, guid: 1e2e59a37b15f4adb92e4f81c716ad1f, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606759989986628073, guid: 1e2e59a37b15f4adb92e4f81c716ad1f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1247,6 +1257,18 @@ PrefabInstance:
     - target: {fileID: 1606759989986628072, guid: 1e2e59a37b15f4adb92e4f81c716ad1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606759989986628073, guid: 1e2e59a37b15f4adb92e4f81c716ad1f, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606759989986628073, guid: 1e2e59a37b15f4adb92e4f81c716ad1f, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606759989986628073, guid: 1e2e59a37b15f4adb92e4f81c716ad1f, type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1606759989986628073, guid: 1e2e59a37b15f4adb92e4f81c716ad1f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

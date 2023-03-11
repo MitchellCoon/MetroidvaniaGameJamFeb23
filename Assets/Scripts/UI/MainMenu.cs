@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 using DevLocker.Utils;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : Menu
 {
     [SerializeField] SceneReference firstLevel;
 
@@ -17,8 +17,14 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+    void Awake()
+    {
+        Init();
+    }
+
     void Start()
     {
+        FocusOnFirstButton();
         GlobalEvent.Invoke.OnGameInit();
     }
 }
