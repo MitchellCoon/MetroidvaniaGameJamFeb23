@@ -46,7 +46,7 @@ public class Move : MonoBehaviour
         body.velocity = velocity;
 
         isMoving = Mathf.Abs(velocity.x) > Mathf.Epsilon ? true : false;
-        animator.SetBool("isMoving", isMoving);
+        if (animator != null) animator.SetBool("isMoving", isMoving);
 
         // If the input is moving the player right and the player is facing left...
 			if (velocity.x > 0 && !controller.IsFacingRight())
@@ -65,7 +65,7 @@ public class Move : MonoBehaviour
 
     public void ResetAnimator()
     {
-        animator.runtimeAnimatorController = defaultAnimator;
+        if (animator != null) animator.runtimeAnimatorController = defaultAnimator;
     }
 
 }
