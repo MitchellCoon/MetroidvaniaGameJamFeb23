@@ -10,6 +10,12 @@ public static class GlobalLight
     static MonoBehaviour currentScript;
     static Coroutine currentAction;
 
+    public static void Init()
+    {
+        StopCurrentAction();
+        value = 1;
+    }
+
     public static void FadeTo(float targetValue, float duration, MonoBehaviour script)
     {
         StopCurrentAction();

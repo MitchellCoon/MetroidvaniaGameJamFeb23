@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using CyberneticStudios.SOFramework;
+using System;
 
 public class LightManager : MonoBehaviour
 {
@@ -11,16 +12,28 @@ public class LightManager : MonoBehaviour
     [SerializeField] BoolVariable isSecurityDisabled;
     [SerializeField] BoolVariable isBossDefeated;
 
+    void Awake()
+    {
+        GlobalLight.Init();
+    }
+
     void OnEnable()
     {
+        GlobalEvent.OnGameInit += OnGameInit;
         isSecurityDisabled.OnChanged += OnSecurityDisabledChange;
         isBossDefeated.OnChanged += OnBossDefeatedChange;
     }
 
     void OnDisable()
     {
+        GlobalEvent.OnGameInit -= OnGameInit;
         isSecurityDisabled.OnChanged -= OnSecurityDisabledChange;
         isBossDefeated.OnChanged -= OnBossDefeatedChange;
+    }
+
+    void OnGameInit()
+    {
+        GlobalLight.Init();
     }
 
     void OnSecurityDisabledChange(bool didDisable)

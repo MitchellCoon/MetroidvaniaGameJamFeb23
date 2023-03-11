@@ -28,7 +28,7 @@ namespace MapGen
 
         void Update()
         {
-            if (MInput.GetKeyDown(KeyCode.Tab) || MInput.GetPadDown(GamepadCode.Select))
+            if (Time.timeScale > 0 && MInput.GetKeyDown(KeyCode.Tab) || MInput.GetPadDown(GamepadCode.Select))
             {
                 camera.enabled = !camera.enabled;
             }
