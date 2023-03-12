@@ -14,7 +14,7 @@ public class PossessionManager : MonoBehaviour
     [SerializeField] Transform unpossessionSpawnPoint;
     [SerializeField] BoolVariable isPlayerPossessing;
     [SerializeField] SpriteRenderer slimePossessionSpriteRenderer;
-    [SerializeField] GameObject slimePossessPrefab;
+    [SerializeField] SlimePossessMotion slimePossessPrefab;
     [SerializeField] Transform slimeAttachPoint;
     [SerializeField] bool canGetPossessed;
 
@@ -116,23 +116,20 @@ public class PossessionManager : MonoBehaviour
 
     public void GetPossessed(GameObject playerObj)
     {
-        if (isPlayerPossessing.value) return;
-        if (canGetPossessed)
-        {
-            SetEnemyComponentsEnabled(false);
-            SetPlayerComponentsEnabled(true);
-            SpawnPlayerPossessObject(playerObj.GetComponent<PlayerMovementController>());
-            Destroy(playerObj);
-            isPossessed = true;
-            enemyAI.GetComponent<Animator>().SetBool("isPossessed", true);
-            isPlayerPossessing.value = true;
-            gameObject.name = PREFIX_WHILE_POSSESSED + initialName;
-            gameObject.tag = Constants.PLAYER_TAG;
-            gameObject.layer = Layer.Parse(LAYER_WHILE_POSSESSED);
-            body.interpolation = RigidbodyInterpolation2D.Interpolate;
-            body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-            GlobalEvent.Invoke.OnEnemyPossessed(playerMain);
-        }
+        if (isPlayerPossessing.value || !canGetPossessed) return;
+        SetEnemyComponentsEnabled(false);
+        SetPlayerComponentsEnabled(true);
+        SpawnPlayerPossessObject(playerObj.GetComponent<PlayerMovementController>());
+        Destroy(playerObj);
+        isPossessed = true;
+        enemyAI.GetComponent<Animator>().SetBool("isPossessed", true);
+        isPlayerPossessing.value = true;
+        gameObject.name = PREFIX_WHILE_POSSESSED + initialName;
+        gameObject.tag = Constants.PLAYER_TAG;
+        gameObject.layer = Layer.Parse(LAYER_WHILE_POSSESSED);
+        body.interpolation = RigidbodyInterpolation2D.Interpolate;
+        body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        GlobalEvent.Invoke.OnEnemyPossessed(playerMain);
     }
 
     public void RevertPossession()
@@ -201,7 +198,7 @@ public class PossessionManager : MonoBehaviour
 
     void SpawnPlayerPossessObject(PlayerMovementController player)
     {
-        Instantiate(slimePossessPrefab, player.transform.position, player.transform.rotation).GetComponent<SlimePossessMotion>().SetTarget(slimePossessionSpriteRenderer, slimeAttachPoint.position, playerMovementController.IsFacingRight());
+        Instantiate(slimePossessPrefab, player.transform.position, player.transform.rotation).SetTarget(slimePossessionSpriteRenderer, slimeAttachPoint.position, playerMovementController.IsFacingRight());
     }
 
     void FailBadlyAndNoticeably(string reason)
