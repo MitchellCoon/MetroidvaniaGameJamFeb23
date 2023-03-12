@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65c87f4b0249140fb9b41f12827a94a2, type: 3}
-  m_Name: Lab5_ActivateLasers
+  m_Name: DidOpenDoorsLab7
   m_EditorClassIdentifier: 
-  DeveloperDescription: Trigger Event for activating lasers
+  DeveloperDescription: 
   _initialValue: 0
   _value: 0

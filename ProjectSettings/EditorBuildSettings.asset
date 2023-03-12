@@ -56,4 +56,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DonTestScenes/TestLevel06.unity
     guid: 66a96d58cdf784a34aa77f87d95e78a2
+  - enabled: 1
+    path: Assets/Scenes/MAIN_LEVELS/Lab6_VentArena.unity
+    guid: 9539361deaf924eaabe7a51d894d28cf
+  - enabled: 1
+    path: Assets/Scenes/MAIN_LEVELS/Lab7_ConstructionRooms.unity
+    guid: 1fe177761253244f49491381f7ac53a5
   m_configObjects: {}
