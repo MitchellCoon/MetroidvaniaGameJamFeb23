@@ -1,12 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using CyberneticStudios.SOFramework;
 
 public class MechBossAI : MonoBehaviour
 {
     public int currentHealth;
 
+    [SerializeField] BoolVariable hasDefeatedBoss;
     [SerializeField] Animator animator;
     [SerializeField] MovementOverride movement;
     [SerializeField] Rigidbody2D rb;
@@ -230,6 +231,7 @@ public class MechBossAI : MonoBehaviour
         GetComponent<BoxCollider2D>().enabled = false;
         rb.velocity = Vector3.zero;
         this.enabled = false;
+        hasDefeatedBoss.value = true;
     }
 
     IEnumerator FindingPlayer(float pollInterval) {

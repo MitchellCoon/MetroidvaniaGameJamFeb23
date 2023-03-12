@@ -40,6 +40,13 @@ public class FallingPlatform : MonoBehaviour
     }
     void Restore()
     {
+        foreach (Transform child in transform)
+        {
+            if(!child.CompareTag(Constants.MOVING_PLATFORM_TAG)){
+                child.transform.parent = null;
+            }
+        }
+
         localRB.isKinematic = true;
         localRB.constraints = RigidbodyConstraints2D.FreezeAll;
         transform.position = objectOriginalPos;
@@ -47,6 +54,7 @@ public class FallingPlatform : MonoBehaviour
         elapsed = 0.0f;
         isShaking = false;
     }
+
     IEnumerator OnCollisionEnter2D(Collision2D other)
     {   
         if(isShaking)

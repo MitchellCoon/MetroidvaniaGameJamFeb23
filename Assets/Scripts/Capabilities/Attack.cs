@@ -8,7 +8,7 @@ public class Attack : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] RuntimeAnimatorController defaultAnimator;
     [SerializeField] InputManager inputManager;
-    [SerializeField] AudioSource playerAudio;
+    // [SerializeField] AudioSource playerAudio;
     [SerializeField] Hitbox hitbox;
 
     [SerializeField] AttackData attackData;
@@ -24,12 +24,12 @@ public class Attack : MonoBehaviour
 
     public void Update()
     {
-        if (MInput.GetKeyDown(KeyCode.Mouse0) || MInput.GetKeyDown(KeyCode.K))
+        if (MInput.GetKeyDown(KeyCode.Mouse0) || MInput.GetKeyDown(KeyCode.K) || MInput.GetPadDown(GamepadCode.ButtonWest))
         {
             inputManager.AddInputRequestToQueue(InputManager.Input.Attack1, Time.time);
             inputManager.SetPreviousPressedTime(InputManager.Input.Attack1, Time.time);
         }
-        if (MInput.GetKeyDown(KeyCode.Mouse1) || MInput.GetKeyDown(KeyCode.O))
+        if (MInput.GetKeyDown(KeyCode.Mouse1) || MInput.GetKeyDown(KeyCode.O) || MInput.GetPadDown(GamepadCode.ButtonEast) || MInput.GetPadDown(GamepadCode.BumperRight))
         {
             inputManager.AddInputRequestToQueue(InputManager.Input.Attack2, Time.time);
             inputManager.SetPreviousPressedTime(InputManager.Input.Attack2, Time.time);

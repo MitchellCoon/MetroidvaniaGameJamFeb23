@@ -121,7 +121,7 @@ public class FieldOfView : MonoBehaviour
             if (Vector3.Angle(transform.up, dirToTarget) < viewAngle / 2)
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
-                int numHits = Physics2D.RaycastNonAlloc(transform.position, dirToTarget, targetRaycastHits, dstToTarget, obstacleMask);
+                int numHits = Physics2D.RaycastNonAlloc(transform.position, dirToTarget, targetRaycastHits, dstToTarget, targetMask);
                 isTriggered = numHits > 0;
                 if (numHits > 0)
                 {

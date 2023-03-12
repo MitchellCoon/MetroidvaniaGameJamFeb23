@@ -17,7 +17,6 @@ public class Switch : MonoBehaviour, IInteractable
 
     void Awake()
     {
-        Assert.IsNotNull(didHitSwitch);
         Assert.IsNotNull(onSprite);
         Assert.IsNotNull(offSprite);
         Deactivate();

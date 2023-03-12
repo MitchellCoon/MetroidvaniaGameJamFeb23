@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,9 +20,42 @@ public enum GamepadCode
     StickRight,
 }
 
+public enum ControlScheme
+{
+    Keyboard,
+    Gamepad,
+}
+
 // M IS FOR METROIDVANIA :{
 public static class MInput
 {
+    static ControlScheme _controlScheme;
+
+    public static ControlScheme controlScheme => _controlScheme;
+
+    public static bool UsingKeyboard(bool value)
+    {
+        if (value) _controlScheme = ControlScheme.Keyboard;
+        return value;
+    }
+
+    public static Vector2 UsingKeyboard(Vector2 value)
+    {
+        if (value != Vector2.zero) _controlScheme = ControlScheme.Keyboard;
+        return value;
+    }
+
+    public static bool UsingGamepad(bool value)
+    {
+        if (value) _controlScheme = ControlScheme.Gamepad;
+        return value;
+    }
+
+    public static Vector2 UsingGamepad(Vector2 value)
+    {
+        if (value != Vector2.zero) _controlScheme = ControlScheme.Gamepad;
+        return value;
+    }
 
     public static float GetAxisRaw(string axis)
     {
@@ -29,13 +63,9 @@ public static class MInput
         switch (axis)
         {
             case "Horizontal":
-                float keyboardLeft = Keyboard.current.aKey.isPressed ? -1 : 0;
-                float keyboardRight = Keyboard.current.dKey.isPressed ? 1 : 0;
-                return Mathf.Clamp(GetGamepadMove().x + keyboardLeft + keyboardRight, -1, 1);
+                return Mathf.Clamp(GetGamepadMove().x + GetKeyboardMove().x, -1, 1);
             case "Vertical":
-                float keyboardUp = Keyboard.current.wKey.isPressed ? -1 : 0;
-                float keyboardDown = Keyboard.current.sKey.isPressed ? -1 : 0;
-                return Mathf.Clamp(GetGamepadMove().y + keyboardUp + keyboardDown, -1, 1);
+                return Mathf.Clamp(GetGamepadMove().y + GetKeyboardMove().y, -1, 1);
             default:
                 throw new UnityException("axis must be \"Horizontal\" or \"Vertical\"");
         }
@@ -48,48 +78,62 @@ public static class MInput
 
     public static bool GetKeyDown(KeyCode code)
     {
-        return LookupKeyControl(code)?.wasPressedThisFrame ?? false;
+        return UsingKeyboard(LookupKeyControl(code)?.wasPressedThisFrame ?? false);
     }
 
     public static bool GetKeyUp(KeyCode code)
     {
-        return LookupKeyControl(code)?.wasReleasedThisFrame ?? false;
+        return UsingKeyboard(LookupKeyControl(code)?.wasReleasedThisFrame ?? false);
     }
 
     public static bool GetKey(KeyCode code)
     {
-        return LookupKeyControl(code)?.isPressed ?? false;
+        return UsingKeyboard(LookupKeyControl(code)?.isPressed ?? false);
     }
 
     public static bool GetPadDown(GamepadCode code)
     {
         if (Gamepad.current == null) return false;
-        return LookupButtonControl(code).wasPressedThisFrame;
+        return UsingGamepad(LookupButtonControl(code).wasPressedThisFrame);
     }
 
     public static bool GetPadUp(GamepadCode code)
     {
         if (Gamepad.current == null) return false;
-        return LookupButtonControl(code).wasReleasedThisFrame;
+        return UsingGamepad(LookupButtonControl(code).wasReleasedThisFrame);
     }
 
     public static bool GetPad(GamepadCode code)
     {
         if (Gamepad.current == null) return false;
-        return LookupButtonControl(code).isPressed;
+        return UsingGamepad(LookupButtonControl(code).isPressed);
+    }
+
+    static Vector2 GetKeyboardMove()
+    {
+        float keyboardLeft = Keyboard.current.aKey.isPressed ? -1 : 0;
+        float keyboardRight = Keyboard.current.dKey.isPressed ? 1 : 0;
+        float keyboardUp = Keyboard.current.wKey.isPressed ? 1 : 0;
+        float keyboardDown = Keyboard.current.sKey.isPressed ? -1 : 0;
+        return UsingKeyboard(new Vector2(
+            keyboardLeft + keyboardRight,
+            keyboardUp + keyboardDown
+        ));
     }
 
     static Vector2 GetGamepadMove()
     {
         if (Gamepad.current == null) return Vector2.zero;
-        return Gamepad.current.leftStick.ReadValue()
-            + Gamepad.current.dpad.ReadValue();
+        return UsingGamepad(
+            Gamepad.current.leftStick.ReadValue()
+            + Gamepad.current.dpad.ReadValue()
+        );
     }
 
     static Vector2 GetGamepadLook()
     {
         if (Gamepad.current == null) return Vector2.zero;
-        return Gamepad.current.rightStick.ReadValue();
+        return UsingGamepad(Gamepad.current.rightStick.ReadValue());
     }
 
     static UnityEngine.InputSystem.Controls.ButtonControl LookupButtonControl(GamepadCode code)

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{3e6a8f81-6e20-485e-8cee-be6c28ae33e5}">
+		<property name="assetPath">
+			<value>sfx/laser-impact-04.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.4684807256235828</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{14d40b6b-7f9f-48d4-98e9-de9cbb422a5b}</destination>
+		</relationship>
+	</object>
+</objects>

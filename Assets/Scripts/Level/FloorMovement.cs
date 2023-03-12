@@ -9,12 +9,15 @@ public class FloorMovement : MonoBehaviour
     public float timeToTween = 5;
     [Tooltip("The object to move to")]
     public Transform targetObject;
- 
-    void Start()
-    {
-    this.gameObject.TweenPosition (targetObject.position, timeToTween).SetFrom (transform.position).SetPingPong ().SetInfinite();//.SetLoopCount(-1);//.SetOnComplete (SomeMethod);
 
-        
+    private Vector3 startPosition; 
+
+    void OnEnable() {
+      this.startPosition = transform.position; 
+      this.gameObject.TweenPosition (targetObject.position, timeToTween).SetFrom (transform.position).SetPingPong ().SetInfinite();//.SetLoopCount(-1);//.SetOnComplete (SomeMethod);
     }
 
+    void OnDisable() {
+      transform.position = this.startPosition; 
+    }
 }

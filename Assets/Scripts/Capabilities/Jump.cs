@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum JumpState {Grounded, Rising, Falling};
+public enum JumpState { Grounded, Rising, Falling };
 
 public class Jump : MonoBehaviour
 {
     [SerializeField] InputManager inputManager;
     [SerializeField] private InputController inputController = null;
     [SerializeField] MovementOverride movement;
+    [SerializeField] Sound jumpSound;
+    [SerializeField] Sound jumpSoundPossessed;
     [SerializeField] Animator animator;
     [SerializeField] RuntimeAnimatorController defaultAnimator;
+
+    PossessionManager possessionManager;
 
     private Rigidbody2D body;
     private GroundCheck groundCheck;
@@ -27,6 +31,7 @@ public class Jump : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         groundCheck = GetComponent<GroundCheck>();
+        possessionManager = GetComponent<PossessionManager>();
     }
 
     void Update()
@@ -69,8 +74,8 @@ public class Jump : MonoBehaviour
             jumpPhase = 0;
             if (jumpState != JumpState.Grounded)
             {
-                animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
-                animator.SetBool(Constants.JUMP_LAND_ANIMATION, true);
+                if (animator != null) animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
+                if (animator != null) animator.SetBool(Constants.JUMP_LAND_ANIMATION, true);
             }
             jumpState = JumpState.Grounded;
             coyoteTimeCounter = inputManager.GetInputBufferTime(InputManager.Input.CoyoteJump);
@@ -92,21 +97,21 @@ public class Jump : MonoBehaviour
         {
             if (jumpState != JumpState.Rising)
             {
-                animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
-                animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
-                animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
+                if (animator != null) animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
+                if (animator != null) animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
+                if (animator != null) animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
             }
             jumpState = JumpState.Rising;
             body.gravityScale = movement.upwardMovementMultiplier;
-            
+
         }
         else if (velocity.y > 0 & !isJumpButtonHeld && !groundCheck.IsGrounded())
         {
             if (jumpState != JumpState.Rising)
             {
-                animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
-                animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
-                animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
+                if (animator != null) animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
+                if (animator != null) animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
+                if (animator != null) animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
             }
             jumpState = JumpState.Rising;
             body.gravityScale = movement.upwardMovementShortJumpMultiplier;
@@ -115,12 +120,12 @@ public class Jump : MonoBehaviour
         {
             if (jumpState != JumpState.Falling)
             {
-                animator.SetBool(Constants.JUMP_FALL_ANIMATION, true);
-                animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
+                if (animator != null) animator.SetBool(Constants.JUMP_FALL_ANIMATION, true);
+                if (animator != null) animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
             }
             jumpState = JumpState.Falling;
             body.gravityScale = movement.downwardMovementMultiplier;
-            
+
         }
         else
         {
@@ -163,11 +168,24 @@ public class Jump : MonoBehaviour
                 velocity.y = 0;
             }
             velocity.y += jumpSpeed;
+            PlayJumpSound();
+        }
+    }
+
+    void PlayJumpSound()
+    {
+        if (possessionManager != null)
+        {
+            jumpSoundPossessed.Play();
+        }
+        else
+        {
+            jumpSound.Play();
         }
     }
 
     public void ResetAnimator()
     {
-        animator.runtimeAnimatorController = defaultAnimator;
+        if (animator != null) animator.runtimeAnimatorController = defaultAnimator;
     }
 }
