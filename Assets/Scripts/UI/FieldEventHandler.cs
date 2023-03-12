@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class FieldEventHandler : MonoBehaviour, ISelectHandler, IDeselectHandler, ISubmitHandler
 {
@@ -9,9 +10,11 @@ public class FieldEventHandler : MonoBehaviour, ISelectHandler, IDeselectHandler
     public event Action OnDeselected;
     public event Action OnSubmitted;
 
+    Selectable selectable;
     bool _isSelected = false;
 
     public bool isSelected => _isSelected;
+    public bool interactable => selectable != null && selectable.interactable && selectable.enabled && isActiveAndEnabled;
 
     public void OnSelect(BaseEventData eventData)
     {
@@ -29,7 +32,13 @@ public class FieldEventHandler : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public void OnSubmit(BaseEventData eventData)
     {
+        if (!interactable) return;
         if (debug) Debug.Log($"{gameObject.name} submitted");
         OnSubmitted?.Invoke();
+    }
+
+    void Awake()
+    {
+        selectable = GetComponent<Selectable>();
     }
 }

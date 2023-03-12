@@ -7,6 +7,7 @@ namespace MapGen
     [RequireComponent(typeof(Camera))]
     public class WorldMapCamera : MonoBehaviour
     {
+        [SerializeField] Canvas renderOutputCanvas;
 
         new Camera camera;
 
@@ -24,13 +25,14 @@ namespace MapGen
         {
             camera = GetComponent<Camera>();
             camera.enabled = false;
+            SetMapActive(false);
         }
 
         void Update()
         {
             if (Time.timeScale > 0 && MInput.GetKeyDown(KeyCode.Tab) || MInput.GetPadDown(GamepadCode.Select))
             {
-                camera.enabled = !camera.enabled;
+                SetMapActive(!camera.enabled);
             }
         }
 
@@ -44,6 +46,16 @@ namespace MapGen
         void OnRoomLoaded(Vector2 roomPosition)
         {
             SetCameraPosition(roomPosition * 0.5f);
+        }
+
+        void SetMapActive(bool isActive)
+        {
+            camera.enabled = isActive;
+            if (renderOutputCanvas != null)
+            {
+                renderOutputCanvas.enabled = isActive;
+                renderOutputCanvas.gameObject.SetActive(isActive);
+            }
         }
     }
 }

@@ -735,6 +735,7 @@ MonoBehaviour:
     m_SceneAsset: {fileID: 102900000, guid: edee04e176755494fbcb0c1fbae635b1, type: 3}
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/MENU_SCREENS/MainMenu.unity
+  panel: {fileID: 558303394}
   pauseSound: {fileID: 635854226}
 --- !u!1001 &6791578539719057100
 PrefabInstance:
