@@ -161,7 +161,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -87.194984}
+  m_AnchoredPosition: {x: 0, y: -87.19498}
   m_SizeDelta: {x: 0, y: -174.39003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &284156819
@@ -492,7 +492,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -5.150177, y: 51}
+  m_AnchoredPosition: {x: -5.1501465, y: 51}
   m_SizeDelta: {x: 10.299623, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &799011857
@@ -689,9 +689,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstLevel:
-    m_SceneAsset: {fileID: 102900000, guid: 3a4442381a82742bb94393e1cf58751e, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: 74bf42922d35e02c58bd88e17b147ef3, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/DonTestScenes/TestLevel01.unity
+    m_ScenePath: Assets/Scenes/MAIN_LEVELS/Lab0_InsideTank.unity
 --- !u!1 &1439611198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,7 +1397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5059870410755462397, guid: a431915a6eb114cacaec3c25865ef0e2, type: 3}
       propertyPath: m_Name
-      value: CanvasMain
+      value: MainMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a431915a6eb114cacaec3c25865ef0e2, type: 3}

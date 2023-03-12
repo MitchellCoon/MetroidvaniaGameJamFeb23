@@ -6,6 +6,7 @@ using DevLocker.Utils;
 public class PauseMenu : Menu
 {
     [SerializeField] SceneReference mainMenuScene;
+    [SerializeField] GameObject panel;
     [SerializeField] Sound pauseSound;
 
     Canvas canvas;
@@ -108,8 +109,7 @@ public class PauseMenu : Menu
     void HandlePause()
     {
         if (isPaused) return;
-        isPaused = true;
-        canvas.enabled = true;
+        SetActiveElements(true);
         Time.timeScale = 0f;
         GlobalEvent.Invoke.OnPause();
         if (pauseSound != null) pauseSound.Play();
@@ -119,9 +119,15 @@ public class PauseMenu : Menu
     void HandleUnpause()
     {
         if (!isPaused) return;
-        isPaused = false;
-        canvas.enabled = false;
+        SetActiveElements(false);
         Time.timeScale = 1f;
         GlobalEvent.Invoke.OnUnpause();
+    }
+
+    void SetActiveElements(bool value)
+    {
+        isPaused = value;
+        panel.SetActive(value);
+        canvas.enabled = value;
     }
 }
