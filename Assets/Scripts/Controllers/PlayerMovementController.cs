@@ -150,4 +150,13 @@ public class PlayerMovementController : MonoBehaviour
 		localScale.x *= -1;
 		transform.localScale = localScale;
 	}
+
+	public void ResetDirection()
+	{
+		if ((isFacingRight && transform.localScale.x < 0) || (!isFacingRight && transform.localScale.x > 0))
+		{
+			Flip();
+			isFacingRight = !isFacingRight;
+		} 
+	}
 }

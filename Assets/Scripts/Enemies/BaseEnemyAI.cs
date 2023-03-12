@@ -23,6 +23,7 @@ public class BaseEnemyAI : MonoBehaviour
     PlayerMovementController player;
     Vector2 velocity;
     bool isFacingRight = true;
+    bool isMoving;
     float horizontalMove = 0.0f;
     float maxSpeedChange;
     float nextMeleeTime = 0f;
@@ -94,6 +95,8 @@ public class BaseEnemyAI : MonoBehaviour
 		Vector3 desiredVelocity = new Vector2(move * 10f, rb.velocity.y);
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
         rb.velocity = velocity;
+        isMoving = Mathf.Abs(velocity.x) > Mathf.Epsilon ? true : false;
+        animator.SetBool("isMoving", isMoving);
     }
 
     private void Flip()
@@ -102,6 +105,15 @@ public class BaseEnemyAI : MonoBehaviour
 		Vector3 localScale = transform.localScale;
 		localScale.x *= -1;
 		transform.localScale = localScale;
+	}
+
+    public void ResetDirection()
+	{
+		if ((isFacingRight && transform.localScale.x < 0) || (!isFacingRight && transform.localScale.x > 0))
+		{
+			Flip();
+            isFacingRight = !isFacingRight;
+		} 
 	}
 
     public void TakeDamage(AttackData attackData, Vector3 attackOrigin)
