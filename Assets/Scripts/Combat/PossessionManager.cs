@@ -13,6 +13,10 @@ public class PossessionManager : MonoBehaviour
     [SerializeField] GameObject playerPrefab;
     [SerializeField] Transform unpossessionSpawnPoint;
     [SerializeField] BoolVariable isPlayerPossessing;
+    [SerializeField] SpriteRenderer slimePossessionSpriteRenderer;
+    [SerializeField] SlimePossessMotion slimePossessPrefab;
+    [SerializeField] Transform slimeAttachPoint;
+    [SerializeField] bool canGetPossessed;
 
     Rigidbody2D body;
 
@@ -83,6 +87,7 @@ public class PossessionManager : MonoBehaviour
         Assert.IsNotNull(move, ERR_MSG_COMPONENT_MISSING);
         Assert.IsNotNull(jump, ERR_MSG_COMPONENT_MISSING);
         Assert.IsNotNull(attack, ERR_MSG_COMPONENT_MISSING);
+        Assert.IsNotNull(slimePossessionSpriteRenderer, ERR_MSG_COMPONENT_MISSING);
         Assert.IsNotNull(isPlayerPossessing, "Please assign ref to `isPlayerPossessing` in `PossessionManager`");
         // initial state
         initialLayer = gameObject.layer;
@@ -111,11 +116,13 @@ public class PossessionManager : MonoBehaviour
 
     public void GetPossessed(GameObject playerObj)
     {
-        if (isPlayerPossessing.value) return;
+        if (isPlayerPossessing.value || !canGetPossessed) return;
         SetEnemyComponentsEnabled(false);
         SetPlayerComponentsEnabled(true);
+        SpawnPlayerPossessObject(playerObj.GetComponent<PlayerMovementController>());
         Destroy(playerObj);
         isPossessed = true;
+        enemyAI.GetComponent<Animator>().SetBool("isPossessed", true);
         isPlayerPossessing.value = true;
         gameObject.name = PREFIX_WHILE_POSSESSED + initialName;
         gameObject.tag = Constants.PLAYER_TAG;
@@ -134,7 +141,9 @@ public class PossessionManager : MonoBehaviour
         SetPlayerComponentsEnabled(false);
         StartCoroutine(SpawnPlayerCoroutine());
         isPossessed = false;
+        enemyAI.GetComponent<Animator>().SetBool("isPossessed", false);
         isPlayerPossessing.value = false;
+        slimePossessionSpriteRenderer.enabled = false;
         gameObject.name = initialName;
         gameObject.tag = Constants.ENEMY_TAG;
         body.interpolation = RigidbodyInterpolation2D.None;
@@ -148,26 +157,26 @@ public class PossessionManager : MonoBehaviour
         // enemyAttack.enabled = value;
         // aIMovement.enabled = value;
         enemyAI.enabled = value;
+        if(value)
+        {
+            enemyAI.ResetDirection();
+        }
     }
 
     void SetPlayerComponentsEnabled(bool value)
     {
         playerMain.enabled = value;
         playerMovementController.enabled = value;
+        if(value)
+        {
+            playerMovementController.ResetDirection();
+        }
         playerCombat.enabled = value;
         inputManager.enabled = value;
-        //animator.enabled = value;
         groundCheck.enabled = value;
         move.enabled = value;
         jump.enabled = value;
         attack.enabled = value;
-        // if(value)
-        // {
-        //     playerCombat.ResetAnimator();
-        //     move.ResetAnimator();
-        //     jump.ResetAnimator();
-        //     attack.ResetAnimator();
-        // }
     }
 
     // This method will be used to update the prefab created when respawning the player
@@ -185,6 +194,11 @@ public class PossessionManager : MonoBehaviour
     {
         Instantiate(playerPrefab, unpossessionSpawnPoint.position, Quaternion.identity);
         yield return null;
+    }
+
+    void SpawnPlayerPossessObject(PlayerMovementController player)
+    {
+        Instantiate(slimePossessPrefab, player.transform.position, player.transform.rotation).SetTarget(slimePossessionSpriteRenderer, slimeAttachPoint.position, playerMovementController.IsFacingRight());
     }
 
     void FailBadlyAndNoticeably(string reason)
