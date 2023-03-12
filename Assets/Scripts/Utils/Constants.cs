@@ -8,6 +8,7 @@ public static class Constants
     public const string UNTAGGED = "Untagged";
     public const string PLAYER_TAG = "Player";
     public const string ENEMY_TAG = "Enemy";
+    public const string MOVING_PLATFORM_TAG = "MovingPlatform";
 
     // layers
     public const string DEFAULT_LAYER = "Default";
