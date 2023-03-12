@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7397ce4d32fbc4bf7ac01e659fa62e0b
+guid: e21d5cae528c64096b13e8e77d4c3487
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 12
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ComputerMainframe0
+      name: TestComputerMainframe0
       rect:
         serializedVersion: 2
         x: 1
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5a335e6eb95bf9740800000000000000
-      internalID: 5161043379188216741
+      spriteID: 10c60190d87bcde90800000000000000
+      internalID: -6999517904470250495
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ComputerMainframe1
+      name: TestComputerMainframe1
       rect:
         serializedVersion: 2
         x: 171
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 37d20d5d678f1bd30800000000000000
-      internalID: 4445607496468409715
+      spriteID: 3f88925c0bb0925f0800000000000000
+      internalID: -781080206522087181
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ComputerMainframe2
+      name: TestComputerMainframe2
       rect:
         serializedVersion: 2
         x: 1
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fd6b9e2a5b9e76950800000000000000
-      internalID: 6442374758308361951
+      spriteID: 053db6d39566b8bd0800000000000000
+      internalID: -2626893424171953328
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ComputerMainframe3
+      name: TestComputerMainframe3
       rect:
         serializedVersion: 2
         x: 171
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 15b2c537ad7580450800000000000000
-      internalID: 6055186294749539153
+      spriteID: d1472102dc0a34180800000000000000
+      internalID: -9132278816510413795
       vertices: []
       indices: 
       edges: []
@@ -199,10 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ComputerMainframe2: 6442374758308361951
-      ComputerMainframe1: 4445607496468409715
-      ComputerMainframe0: 5161043379188216741
-      ComputerMainframe3: 6055186294749539153
+      TestComputerMainframe0: -6999517904470250495
+      TestComputerMainframe2: -2626893424171953328
+      TestComputerMainframe3: -9132278816510413795
+      TestComputerMainframe1: -781080206522087181
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
