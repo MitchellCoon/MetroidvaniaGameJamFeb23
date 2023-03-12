@@ -17,38 +17,38 @@ public class Resource : ScriptableObject
     private int currentValue;
     private Canvas canvas;
 
+    public event Action OnResourceUpdated;
+
     public void Init()
     {
         currentValue = maxValue;
     }
-
-    // private void OnEnable()
-    // {
-    //     currentValue = maxValue;
-    //     canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-    // }
 
     public int GetCurrentValue()
     {
         return currentValue;
     }
 
-    public void UpdateUIElement()
+    public float GetCurrentPercentage()
     {
-        Debug.Log("current value: " + currentValue);
-        //canvas.transform.GetChild(canvasChildNumber).GetComponent<TextMeshProUGUI>().text = staticText + currentValue;
+        return (float)(Mathf.Max(currentValue - minValue, minValue)) / Mathf.Clamp(maxValue - minValue, minValue, maxValue);
     }
 
     public void AddResource(int amount)
     {
         currentValue = Mathf.Min(maxValue, currentValue + amount);
-        UpdateUIElement();
+        OnResourceUpdated?.Invoke();
     }
 
     public void SubtractResource(int amount)
     {
         currentValue = Mathf.Max(minValue, currentValue - amount);
-        UpdateUIElement();
+        OnResourceUpdated?.Invoke();
     }
 
+    void OnValidate()
+    {
+        if (minValue < 0) minValue = 0;
+        if (maxValue < minValue) maxValue = minValue;
+    }
 }
