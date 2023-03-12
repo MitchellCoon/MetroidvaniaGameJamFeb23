@@ -40,12 +40,20 @@ public class FallingPlatform : MonoBehaviour
     }
     void Restore()
     {
+        var tempPlayerObject =  GameObject.FindGameObjectWithTag("Player"); 
+        if(tempPlayerObject != null)
+        {
+            if(tempPlayerObject.transform.parent == this.transform){
+                tempPlayerObject.transform.parent = null;
+            }
+        }
         localRB.isKinematic = true;
         localRB.constraints = RigidbodyConstraints2D.FreezeAll;
         transform.position = objectOriginalPos;
         spriteObject.transform.position = spriteOriginalPos;
         elapsed = 0.0f;
         isShaking = false;
+       
     }
     IEnumerator OnCollisionEnter2D(Collision2D other)
     {   
