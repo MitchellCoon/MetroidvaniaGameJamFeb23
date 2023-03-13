@@ -39,6 +39,8 @@ public class LockedDoor : MonoBehaviour
     [Space]
     [Space]
     [SerializeField] Sound openDoorSound;
+    [SerializeField] Sound closeDoorSound;
+    [SerializeField] Sound lockedDoorErrorSound;
 
     Collider2D[] colliders;
 
@@ -73,7 +75,11 @@ public class LockedDoor : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag(Constants.PLAYER_TAG)) return;
-        if (!hasKey.value) return;
+        if (!hasKey.value)
+        {
+            IndicateLocked();
+            return;
+        }
         hasOpenedDoor.value = true;
         StopCoroutineAndReset(ref openingDoor);
         StopCoroutineAndReset(ref closingDoor);
@@ -138,10 +144,16 @@ public class LockedDoor : MonoBehaviour
         foreach (var collider in colliders) if (collider != null) collider.enabled = true;
     }
 
+    void IndicateLocked()
+    {
+        if (lockedDoorErrorSound != null) lockedDoorErrorSound.Play();
+    }
+
     void UnlockDoor()
     {
         if (doorState == DoorState.Unlocked) return;
         doorState = DoorState.Unlocked;
+        if (closeDoorSound != null) closeDoorSound.Play();
         if (lockedSignSprite != null) lockedSignSprite.enabled = false;
         if (lockedDoorSprite != null) lockedDoorSprite.enabled = false;
         if (unlockedSignSprite != null) unlockedSignSprite.enabled = true;
