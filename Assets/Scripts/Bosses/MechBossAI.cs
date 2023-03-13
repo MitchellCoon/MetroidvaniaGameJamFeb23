@@ -14,9 +14,17 @@ public class MechBossAI : MonoBehaviour
     [SerializeField] Resource health;
     [SerializeField] AttackData stompData;
     [SerializeField] AttackData missileData;
-
+    [Space]
+    [Space]
     [SerializeField] float detectionRadius;
     [SerializeField] float meleeRange;
+    [Space]
+    [Space]
+    [SerializeField] Sound stompSound;
+    [SerializeField] Sound stompTelegraphSound;
+    [SerializeField] Sound missileLaunchSound;
+    [SerializeField] Sound hurtSound;
+    [SerializeField] Sound deathSound;
 
     PlayerMovementController player;
     Vector2 velocity;
@@ -60,6 +68,14 @@ public class MechBossAI : MonoBehaviour
     [SerializeField] Sprite phase3fishBowlSprite;
     [SerializeField] ParticleSystem smokeParticle;
     [SerializeField] ParticleSystem sparkParticle;
+
+    public void AnimStompTelegraphEvent() {
+        if (stompTelegraphSound != null) stompTelegraphSound.Play();
+    }
+
+    public void AnimStompEvent() {
+        if (stompSound != null) stompSound.Play();
+    }
 
     void Awake()
     {
@@ -156,11 +172,15 @@ public class MechBossAI : MonoBehaviour
         if (health.GetCurrentValue() <= 0)
         {
             Die();
+        } else {
+            if (hurtSound != null) hurtSound.Play();
         }
     }
 
     public void SpawnProjectile(Missile missile)
     {
+        if (missileLaunchSound != null) missileLaunchSound.Play();
+        
         switch (missile)
         {
         case Missile.firstMissile:
@@ -228,6 +248,8 @@ public class MechBossAI : MonoBehaviour
 
     void Die()
     {
+        if (deathSound != null) deathSound.Play();
+
         GetComponent<BoxCollider2D>().enabled = false;
         rb.velocity = Vector3.zero;
         this.enabled = false;

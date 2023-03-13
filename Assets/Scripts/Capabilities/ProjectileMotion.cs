@@ -6,6 +6,7 @@ public class ProjectileMotion : MonoBehaviour
 {
 
     [SerializeField] AttackData attackData;
+    [SerializeField] Sound impactSound;
     
     private Vector3 startPosition;
 
@@ -27,6 +28,7 @@ public class ProjectileMotion : MonoBehaviour
     {
         if(other.CompareTag("Enemy") )
         {
+            if (impactSound != null) impactSound.Play();
             if(attackData.destroyProjectileOnHit)
             {
                 Destroy(gameObject);

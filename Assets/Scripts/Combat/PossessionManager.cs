@@ -17,6 +17,11 @@ public class PossessionManager : MonoBehaviour
     [SerializeField] SlimePossessMotion slimePossessPrefab;
     [SerializeField] Transform slimeAttachPoint;
     [SerializeField] bool canGetPossessed;
+    [Space]
+    [Space]
+    [SerializeField] Sound possessSound;
+    [SerializeField] Sound unpossessSound;
+
 
     Rigidbody2D body;
 
@@ -117,6 +122,7 @@ public class PossessionManager : MonoBehaviour
     public void GetPossessed(GameObject playerObj)
     {
         if (isPlayerPossessing.value || !canGetPossessed) return;
+        if (possessSound != null) possessSound.Play();
         SetEnemyComponentsEnabled(false);
         SetPlayerComponentsEnabled(true);
         SpawnPlayerPossessObject(playerObj.GetComponent<PlayerMovementController>());
@@ -136,6 +142,7 @@ public class PossessionManager : MonoBehaviour
     {
         // prevent duplicate player spawns
         if (!isPossessed) return;
+        if (unpossessSound != null) unpossessSound.Play();
         // enable AI scripts, disable player control scripts on enemy
         SetEnemyComponentsEnabled(true);
         SetPlayerComponentsEnabled(false);

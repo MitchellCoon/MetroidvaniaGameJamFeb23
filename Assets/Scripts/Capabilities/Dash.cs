@@ -8,6 +8,9 @@ public class Dash : MonoBehaviour
     [SerializeField] MovementOverride movement;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] PlayerMovementController controller;
+    [Space]
+    [Space]
+    [SerializeField] Sound dashSound;
     
     private bool isDashing = false;
     private Vector3 dashDirection;
@@ -19,6 +22,7 @@ public class Dash : MonoBehaviour
     {
         if (input.RetrieveDashInput())
         {
+            if (dashSound != null) dashSound.Play();
             isDashing = true;
             dashDirection = Vector3.right;
             if(!controller.IsFacingRight())

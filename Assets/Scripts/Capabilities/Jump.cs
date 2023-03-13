@@ -176,11 +176,11 @@ public class Jump : MonoBehaviour
     {
         if (possessionManager != null)
         {
-            jumpSoundPossessed.Play();
+            if (jumpSoundPossessed != null) jumpSoundPossessed.Play();
         }
         else
         {
-            jumpSound.Play();
+            if (jumpSound != null) jumpSound.Play();
         }
     }
 

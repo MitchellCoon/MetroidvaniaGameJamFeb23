@@ -32,7 +32,8 @@ Transform:
   m_LocalPosition: {x: -11.918357, y: 7.1388655, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 4751002597386638462}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
@@ -138,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileAttackData: {fileID: 11400000, guid: bf54fb62e11806342b1fb295eb2ac1a9, type: 2}
+  impactSound: {fileID: 4751002597836968071}
   turretProjectile: 0
 --- !u!114 &3067255956164295743
 MonoBehaviour:
@@ -155,3 +157,76 @@ MonoBehaviour:
   fadeOnCollide: 0
   fadeStarted: 0
   fadeDelay: 3
+--- !u!1001 &9168871262308764571
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7520381118451425659}
+    m_Modifications:
+    - target: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526307176725340134, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+      propertyPath: m_Name
+      value: ProjectileSounds
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+--- !u!4 &4751002597386638462 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+  m_PrefabInstance: {fileID: 9168871262308764571}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4751002597836968071 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4526307176611076892, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
+  m_PrefabInstance: {fileID: 9168871262308764571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe822f54c4bb48a1b6c55dd0534636e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

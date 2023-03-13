@@ -12,22 +12,20 @@ public enum AimType
 
 public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField]
-    float hitBoxActivetime = 0.1f;
+    [SerializeField] float hitBoxActivetime = 0.1f;
     [SerializeField] AttackData defaultProjectileAttack;
     public float fireRate = 0.5f;
     public float checkRadiusProjectile = 10f;
     public float checkRadiusMelee = 1f;
-    [SerializeField]
-    public Vector3 rotationAsVector;
-    [SerializeField]
-    AimType aimType;
-    [SerializeField]
-    Vector2 aimAtPlayerDirection = new Vector2(1, 1);
-    [SerializeField]
-    List<Vector2> directionsToFire;
-    [SerializeField]
-    float projectileSpeed = 10f;
+    [SerializeField] public Vector3 rotationAsVector;
+    [SerializeField] AimType aimType;
+    [SerializeField] Vector2 aimAtPlayerDirection = new Vector2(1, 1);
+    [SerializeField] List<Vector2> directionsToFire;
+    [SerializeField] float projectileSpeed = 10f;
+    [Space]
+    [Space]
+    [SerializeField] Sound shootSound;
+    [SerializeField] Sound meleeSound;
 
     // Later write logic where we get signals to stop firing
     public bool canFire = true;
@@ -126,6 +124,8 @@ public class EnemyAttack : MonoBehaviour
             return;
         }
 
+        if (meleeSound != null) meleeSound.Play();
+
         animator.SetTrigger(Constants.MELEE_ATTACK_ANIMATION);
         hitbox.UpdateAttackData(defaultMeleeAttack);
         hitbox.gameObject.SetActive(true);
@@ -145,6 +145,9 @@ public class EnemyAttack : MonoBehaviour
         {
             return;
         }
+
+        if (shootSound != null) shootSound.Play();
+
         Quaternion rotation = Quaternion.identity;
         if (aimType == AimType.Turret)
         {
