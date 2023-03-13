@@ -109,6 +109,10 @@ MonoBehaviour:
   fallHeight: 15
   missileFallSound: {fileID: 2013066647839653474}
   explosionSound: {fileID: 2013066647379828295}
+  explosionPrefab: {fileID: 2489834823405233076, guid: 9498151a21c22403f9b4fa876fbcc0e0, type: 3}
+  detonationLayerMask:
+    serializedVersion: 2
+    m_Bits: 137
 --- !u!50 &6624971411110971916
 Rigidbody2D:
   serializedVersion: 4
@@ -143,6 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableInEditor: 0
+  doNotDisableSpriteRenderer: 0
   attackData: {fileID: 11400000, guid: cd0cfc305e2e88f47b28f7c3edbebceb, type: 2}
   isEnemyHitbox: 1
   hitOnce: 1
