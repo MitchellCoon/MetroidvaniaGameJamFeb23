@@ -47,24 +47,17 @@ public class Hitbox : DisableSpriteRender
                 PlayHitSound();
                 boss.TakeDamage(attackData, transform.position);
             }
-            if (hitOnce)
-            {
-                gameObject.SetActive(false);
-            }
-            if (attackData.destroyProjectileOnHit) {
-                Destroy(gameObject);
-            }
+            if (hitOnce) enabled = false;
+            if (attackData.destroyProjectileOnHit) Destroy(gameObject);
         }
         targetPossessionManager = other.GetComponent<PossessionManager>();
         if (isEnemyHitbox && (other.CompareTag(Constants.PLAYER_TAG) && targetPossessionManager == null) ||
             (targetPossessionManager != null && targetPossessionManager.IsPossessed() && (sourcePossessionManager == null || !sourcePossessionManager.IsPossessed())))
         {
             other.GetComponent<PlayerCombat>().TakeDamage(attackData, transform.position);
-            if (hitOnce)
-            {
-                PlayHitSound();
-                gameObject.SetActive(false);
-            }
+            PlayHitSound();
+            if (hitOnce) enabled = false;
+            if (attackData.destroyProjectileOnHit) Destroy(gameObject);
         }
         if (other.CompareTag("Interactable"))
         {
