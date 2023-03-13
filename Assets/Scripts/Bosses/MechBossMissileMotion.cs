@@ -14,7 +14,6 @@ public class MechBossMissileMotion : MonoBehaviour
     [Space]
     [Space]
     [SerializeField] Sound missileFallSound;
-    [SerializeField] Sound explosionSound;
     [Space]
     [Space]
     [SerializeField] GameObject explosionPrefab;
@@ -32,12 +31,6 @@ public class MechBossMissileMotion : MonoBehaviour
         spawnTime = Time.time;
         player = GameObject.FindWithTag(Constants.PLAYER_TAG);
         playerLocationAtSpawn = player.transform.position;
-    }
-
-    void OnDestroy() {
-        if (explosionPrefab != null) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        if (missileFallSound != null) missileFallSound.Stop();
-        if (explosionSound != null) explosionSound.Play();
     }
 
     void OnTriggerEnter2D(Collider2D other) {
@@ -72,7 +65,6 @@ public class MechBossMissileMotion : MonoBehaviour
     void Explode() {
         if (explosionPrefab != null) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         if (missileFallSound != null) missileFallSound.Stop();
-        if (explosionSound != null) explosionSound.Play();
         Destroy(gameObject);
     }
 
