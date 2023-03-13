@@ -15,7 +15,11 @@ public class MechBossMissileMotion : MonoBehaviour
     [Space]
     [SerializeField] Sound missileFallSound;
     [SerializeField] Sound explosionSound;
-   
+    [Space]
+    [Space]
+    [SerializeField] GameObject explosionPrefab;
+    [SerializeField] LayerMask detonationLayerMask;
+
     GameObject player;
     float spawnTime;
     Vector3 playerLocationAtSpawn;
@@ -31,8 +35,24 @@ public class MechBossMissileMotion : MonoBehaviour
     }
 
     void OnDestroy() {
+        if (explosionPrefab != null) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         if (missileFallSound != null) missileFallSound.Stop();
         if (explosionSound != null) explosionSound.Play();
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        HandleCollision(other);
+    }
+
+    void OnCollisionEnter2D(Collision2D other) {
+        HandleCollision(other.collider);
+    }
+
+    void HandleCollision(Collider2D other) {
+        if (other == null) return;
+        if (Time.time - spawnTime < 1f) return;
+        if (!Layer.LayerMaskContainsLayer(detonationLayerMask, other.gameObject.layer)) return;
+        Explode();
     }
 
     void Update()
@@ -47,6 +67,13 @@ public class MechBossMissileMotion : MonoBehaviour
             isFalling = true;
             if (missileFallSound != null && !missileFallSound.isPlaying) missileFallSound.Play();
         }
+    }
+
+    void Explode() {
+        if (explosionPrefab != null) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        if (missileFallSound != null) missileFallSound.Stop();
+        if (explosionSound != null) explosionSound.Play();
+        Destroy(gameObject);
     }
 
     public void SetHorizontalOffset(float offset)
