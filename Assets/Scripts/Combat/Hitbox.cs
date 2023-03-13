@@ -7,10 +7,15 @@ using UnityEngine;
 public class Hitbox : DisableSpriteRender
 {
     [SerializeField] AttackData attackData;
-    public bool isEnemyHitbox = false;
-    public bool hitOnce = false;
-
+    [SerializeField] bool isEnemyHitbox = false;
+    [SerializeField] bool hitOnce = false;
+    [Space]
+    [Space]
     [SerializeField] PossessionManager sourcePossessionManager;
+    [Space]
+    [Space]
+    [SerializeField] Sound hitSound;
+
     PossessionManager targetPossessionManager;
 
     public void UpdateAttackData(AttackData newAttackData)
@@ -29,19 +34,25 @@ public class Hitbox : DisableSpriteRender
             }
             if (other.TryGetComponent<BaseEnemyAI>(out var enemyAI))
             {
+                PlayHitSound();
                 enemyAI.TakeDamage(attackData, transform.position);
             }
             else if (other.TryGetComponent<Enemy>(out var enemy))
             {
+                PlayHitSound();
                 enemy.TakeDamage(attackData.damage, transform.position, true);
             }
             else if (other.TryGetComponent<MechBossAI>(out var boss))
             {
+                PlayHitSound();
                 boss.TakeDamage(attackData, transform.position);
             }
             if (hitOnce)
             {
                 gameObject.SetActive(false);
+            }
+            if (attackData.destroyProjectileOnHit) {
+                Destroy(gameObject);
             }
         }
         targetPossessionManager = other.GetComponent<PossessionManager>();
@@ -51,6 +62,7 @@ public class Hitbox : DisableSpriteRender
             other.GetComponent<PlayerCombat>().TakeDamage(attackData, transform.position);
             if (hitOnce)
             {
+                PlayHitSound();
                 gameObject.SetActive(false);
             }
         }
@@ -65,6 +77,10 @@ public class Hitbox : DisableSpriteRender
                 Debug.LogError($"{gameObject.name} has \"Interactable\" tag but needs a component that implements the Interactable interface");
             }
         }
+    }
+
+    void PlayHitSound() {
+        if (hitSound != null) hitSound.Play();
     }
 
     public void SetPossessionManager(PossessionManager possessionManager)

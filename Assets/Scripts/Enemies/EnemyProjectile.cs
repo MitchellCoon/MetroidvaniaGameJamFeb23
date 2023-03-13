@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    public  AttackData projectileAttackData;
+    public AttackData projectileAttackData;
+    public Sound impactSound;
     public bool turretProjectile = false;
     void Update()
     {
@@ -17,6 +18,7 @@ public class EnemyProjectile : MonoBehaviour
     {
         if(other.CompareTag(Constants.PLAYER_TAG))
         {
+            if (impactSound != null) impactSound.Play();
             if(projectileAttackData.destroyProjectileOnHit)
             {
                 Destroy(gameObject);

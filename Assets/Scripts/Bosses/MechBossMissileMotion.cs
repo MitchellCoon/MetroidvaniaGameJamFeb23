@@ -11,6 +11,10 @@ public class MechBossMissileMotion : MonoBehaviour
     [SerializeField] float riseVelocity;
     [SerializeField] float fallVelocity;
     [SerializeField] float fallHeight;
+    [Space]
+    [Space]
+    [SerializeField] Sound missileFallSound;
+    [SerializeField] Sound explosionSound;
    
     GameObject player;
     float spawnTime;
@@ -24,7 +28,11 @@ public class MechBossMissileMotion : MonoBehaviour
         spawnTime = Time.time;
         player = GameObject.FindWithTag(Constants.PLAYER_TAG);
         playerLocationAtSpawn = player.transform.position;
+    }
 
+    void OnDestroy() {
+        if (missileFallSound != null) missileFallSound.Stop();
+        if (explosionSound != null) explosionSound.Play();
     }
 
     void Update()
@@ -37,6 +45,7 @@ public class MechBossMissileMotion : MonoBehaviour
 		    transform.localScale = localScale;
             rb.velocity = new Vector3(0, -fallVelocity , 0);
             isFalling = true;
+            if (missileFallSound != null && !missileFallSound.isPlaying) missileFallSound.Play();
         }
     }
 

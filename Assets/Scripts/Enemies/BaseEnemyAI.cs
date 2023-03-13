@@ -15,10 +15,16 @@ public class BaseEnemyAI : MonoBehaviour
     [SerializeField] AttackData projectileAttackData;
     [SerializeField] PossessionManager possessionManager;
     [SerializeField] PlayerMovementController possessedMovementController;
-
+    [Space]
+    [Space]
     [SerializeField] float detectionRadius;
     [SerializeField] float meleeRange;
     [SerializeField] Transform projectileSpawnPoint;
+    [Space]
+    [Space]
+    [SerializeField] Sound shootSound;
+    [SerializeField] Sound hurtSound;
+    [SerializeField] Sound deathSound;
 
     PlayerMovementController player;
     Vector2 velocity;
@@ -123,11 +129,15 @@ public class BaseEnemyAI : MonoBehaviour
         if (health.GetCurrentValue() <= 0)
         {
             Die();
+        } else {
+            if (hurtSound != null) hurtSound.Play();
         }
     }
 
     public void SpawnEnemyProjectile()
     {
+        if (shootSound != null) shootSound.Play();
+
         if (possessionManager.IsPossessed())
         {
             isFacingRight = possessedMovementController.IsFacingRight();
@@ -144,6 +154,7 @@ public class BaseEnemyAI : MonoBehaviour
 
     void Die()
     {
+        if (deathSound != null) deathSound.Play();
         GetComponent<BoxCollider2D>().enabled = false;
         rb.velocity = Vector3.zero;
         this.enabled = false;

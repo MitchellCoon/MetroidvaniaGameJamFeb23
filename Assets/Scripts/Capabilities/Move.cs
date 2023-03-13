@@ -9,6 +9,9 @@ public class Move : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] RuntimeAnimatorController defaultAnimator;
     [SerializeField] MovementOverride movement;
+    [Space]
+    [Space]
+    [SerializeField] Sound moveSound;
     
     private Vector2 direction;
     private Vector2 desiredVelocity;
@@ -20,6 +23,10 @@ public class Move : MonoBehaviour
     private float acceleration;
     private bool isGrounded;
     private bool isMoving;
+
+    public void AnimMoveEvent() {
+        if (moveSound != null) moveSound.Play();
+    }
 
     void Awake()
     {
