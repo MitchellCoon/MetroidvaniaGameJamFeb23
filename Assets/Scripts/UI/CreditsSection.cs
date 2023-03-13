@@ -53,9 +53,6 @@ public class CreditsSection : MonoBehaviour
 
     void Start()
     {
-        // Canvas must be manually calculated as RectTransforms are not calculated until after the first frame.
-        // see: https://docs.unity3d.com/ScriptReference/Canvas.ForceUpdateCanvases.html
-        Canvas.ForceUpdateCanvases();
         if (sectionType == SectionType.Fade) InitFadeItem();
     }
 
@@ -68,6 +65,10 @@ public class CreditsSection : MonoBehaviour
         clone.enabled = false;
         clone.GetComponent<CanvasGroup>().alpha = 0f;
         triggerRect = clone.transform.GetChild(0).GetComponent<RectTransform>();
+
+        // Canvas must be manually calculated as RectTransforms are not calculated until after the first Update frame.
+        // see: https://docs.unity3d.com/ScriptReference/Canvas.ForceUpdateCanvases.html
+        Canvas.ForceUpdateCanvases();
 
         // Re-parent this GameObject outside of the CreditsRoll & center it on the screen
         CalcContentPosition();
