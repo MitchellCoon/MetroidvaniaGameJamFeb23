@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class DisableSpriteRender : MonoBehaviour
 {
-    public bool disableInEditor = false ; 
+    public bool disableInEditor = false;
+    public bool doNotDisableSpriteRenderer = false;
     void Start()
     {
-
+        if (doNotDisableSpriteRenderer) return;
         if (disableInEditor)
         {
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            
         }
         else
         {
@@ -24,8 +24,6 @@ public class DisableSpriteRender : MonoBehaviour
                 this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             }
         }
-
-        
     }
 
 }
