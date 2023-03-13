@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6423778844265691413, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: m_Name
-      value: BaseEnemyPrefab
+      value: RatEnemyPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 6423778844265691413, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: m_IsActive
