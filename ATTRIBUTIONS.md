@@ -4,7 +4,9 @@ Art
 - [OpenGameArt - Sci Fi Door](https://opengameart.org/content/scifi-door)
 - [Kenney - Pixel Platformer Industrial Expansion](https://www.kenney.nl/assets/pixel-platformer-industrial-expansion)
 - [Kenney - Particle Pack](https://www.kenney.nl/assets/particle-pack)
-- [FREE SCI-FI PLATFORMER TILESET](https://www.gameart2d.com/free-sci-fi-platformer-tileset.html)
+- [GameArt2D - FREE SCI-FI PLATFORMER TILESET](https://www.gameart2d.com/free-sci-fi-platformer-tileset.html)
+- [Abdulla Almheiri - Pixel VFX: Basic explosion 1](https://abdulla-almheiri.itch.io/pixel-art-vfx-simple-explosion-1)
+- [Abdulla Almheiri - Pixel VFX: Scifi Explosion 1](https://abdulla-almheiri.itch.io/pixel-art-vfx-scifi-explosion-1)
 
 Music
 
