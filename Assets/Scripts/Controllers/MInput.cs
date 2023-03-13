@@ -109,6 +109,17 @@ public static class MInput
         return UsingGamepad(LookupButtonControl(code).isPressed);
     }
 
+    public static bool GetAnyKeyDown()
+    {
+        if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame) return true;
+        // these buttons seem like good intentional choices for a "Press any Key" prompt...
+        return GetPadDown(GamepadCode.Start)
+            || GetPadDown(GamepadCode.ButtonSouth)
+            || GetPadDown(GamepadCode.ButtonWest)
+            || GetPadDown(GamepadCode.ButtonNorth)
+            || GetPadDown(GamepadCode.ButtonEast);
+    }
+
     static Vector2 GetKeyboardMove()
     {
         float keyboardLeft = Keyboard.current.aKey.isPressed ? -1 : 0;

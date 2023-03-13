@@ -18,7 +18,6 @@ public class TextSequence : MonoBehaviour
     }
 
     TextMeshProUGUI textNode;
-    int messageIndex = 0;
 
     void Awake()
     {
