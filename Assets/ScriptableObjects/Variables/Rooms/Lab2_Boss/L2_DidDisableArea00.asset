@@ -10,12 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65c87f4b0249140fb9b41f12827a94a2, type: 3}
-  m_Name: HasEnteredBossArena
+  m_Name: L2_DidDisableArea00
   m_EditorClassIdentifier: 
-  DeveloperDescription: 'This is the variable we will use to keep track of whether
-    the player
-
-    has entered the boss arena or not. This is used to trigger the
-    Boss music.'
+  DeveloperDescription: 
   _initialValue: 0
-  _value: 1
+  _value: 0
