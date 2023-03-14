@@ -26,6 +26,18 @@ public class Hitbox : DisableSpriteRender
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.CompareTag("Interactable"))
+        {
+            if (other.TryGetComponent<IInteractable>(out var interactable))
+            {
+                interactable.Use();
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} has \"Interactable\" tag but needs a component that implements the Interactable interface");
+            }
+        }
+
         if (!Layer.LayerMaskContainsLayer(targetLayers, other.gameObject.layer)) return;
         
         if (other.CompareTag(Constants.ENEMY_TAG) && (!isEnemyHitbox || (isEnemyHitbox && sourcePossessionManager != null && sourcePossessionManager.IsPossessed())))
@@ -61,17 +73,6 @@ public class Hitbox : DisableSpriteRender
             PlayHitSound();
             if (hitOnce) enabled = false;
             if (attackData.destroyProjectileOnHit) Destroy(gameObject);
-        }
-        if (other.CompareTag("Interactable"))
-        {
-            if (other.TryGetComponent<IInteractable>(out var interactable))
-            {
-                interactable.Use();
-            }
-            else
-            {
-                Debug.LogError($"{gameObject.name} has \"Interactable\" tag but needs a component that implements the Interactable interface");
-            }
         }
     }
 
