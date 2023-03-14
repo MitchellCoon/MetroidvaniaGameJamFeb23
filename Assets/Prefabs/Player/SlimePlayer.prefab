@@ -167,6 +167,9 @@ MonoBehaviour:
   attackData: {fileID: 0}
   isEnemyHitbox: 0
   hitOnce: 0
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 1024
   sourcePossessionManager: {fileID: 0}
   hitSound: {fileID: 0}
 --- !u!212 &8522799911296395315
@@ -383,7 +386,7 @@ MonoBehaviour:
   isAirControlEnabled: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
   groundCheck: {fileID: 8522799911517438546}
   ceilingCheck: {fileID: 8522799911392429879}
   crouchCollider: {fileID: 0}
@@ -444,7 +447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
   groundCheckTransform: {fileID: 8522799912452560046}
   isGrounded: 0
 --- !u!114 &8522799911517438547
@@ -607,7 +610,7 @@ MonoBehaviour:
   defaultMeleeAttack: {fileID: 11400000, guid: e1d19feb4711f4d4ebde7d1bb8164620, type: 2}
   defaultProjectileAttack: {fileID: 11400000, guid: bf54fb62e11806342b1fb295eb2ac1a9, type: 2}
   projectileOrigin: {fileID: 8522799912691234325}
-  projectilePrefab: {fileID: 8368949391819313113, guid: be595745f84266e46acabe7256bd3ca4, type: 3}
+  projectilePrefab: {fileID: 8368949391819313113, guid: 6238d71e6dc1f064e97b538d41a24940, type: 3}
 --- !u!114 &8418083463088891543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -676,6 +679,7 @@ MonoBehaviour:
   rb: {fileID: 8522799911517438550}
   controller: {fileID: 8522799911517438551}
   dashSound: {fileID: 4983342361971278345}
+  dashCooldown: 1
 --- !u!1 &8522799912452560047
 GameObject:
   m_ObjectHideFlags: 0

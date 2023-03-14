@@ -346,6 +346,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3960840469428454059, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423778844265691398, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 95f92aaa00b566f4a9a439dc45fbee6c, type: 2}
     - target: {fileID: 6423778844265691409, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -406,6 +414,10 @@ PrefabInstance:
       propertyPath: deathSound
       value: 
       objectReference: {fileID: 7617262759156446086}
+    - target: {fileID: 6423778844265691418, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: defaultMeleeAttack
+      value: 
+      objectReference: {fileID: 11400000, guid: cf21cde720766e34ea46d66506a4c9f4, type: 2}
     - target: {fileID: 6423778844265691423, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: jumpSound
       value: 
@@ -414,6 +426,22 @@ PrefabInstance:
       propertyPath: jumpSoundPossessed
       value: 
       objectReference: {fileID: 2990204178239583839}
+    - target: {fileID: 6423778845367789128, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: attackData
+      value: 
+      objectReference: {fileID: 11400000, guid: cf21cde720766e34ea46d66506a4c9f4, type: 2}
+    - target: {fileID: 6423778845367789133, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423778845367789133, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423778845367789133, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.28
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
 --- !u!4 &4441797537648031106 stripped
