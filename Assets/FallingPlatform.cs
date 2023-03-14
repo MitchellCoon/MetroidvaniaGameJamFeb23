@@ -7,75 +7,78 @@ public class FallingPlatform : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]
     GameObject spriteObject;
-    [SerializeField]
 
+    [SerializeField]
     float elapsed = 0.0f;
-    [SerializeField]
 
+    [SerializeField]
     float duration = 1.5f;
-    [SerializeField]
 
+    [SerializeField]
     float shakeMagnitudeX = 0.0f;
-    [SerializeField]
 
+    [SerializeField]
     float shakeMagnitudeY = 0.1f;
-    [SerializeField]
 
+    [SerializeField]
     float RestoreTime = 5f;
-    
-    [SerializeField]
 
+    [SerializeField]
     bool isShaking = false;
+
+    [SerializeField]
+    bool disableCollidersWhileFalling = false;
+
     Vector3 spriteOriginalPos;
     Vector3 objectOriginalPos;
+    RigidbodyConstraints2D originalConstraints;
     Rigidbody2D localRB;
+    new Collider2D collider;
 
     void Start()
     {
-
         spriteOriginalPos = spriteObject.transform.position;
         objectOriginalPos = transform.position;
         localRB = GetComponent<Rigidbody2D>();
-
+        collider = GetComponent<Collider2D>();
+        originalConstraints = localRB.constraints;
     }
     void Restore()
     {
-        foreach (Transform child in transform)
-        {
-            if(!child.CompareTag(Constants.MOVING_PLATFORM_TAG)){
-                child.transform.parent = null;
-            }
-        }
-
         localRB.isKinematic = true;
-        localRB.constraints = RigidbodyConstraints2D.FreezeAll;
+        localRB.velocity = Vector2.zero;
+        localRB.constraints = originalConstraints;
         transform.position = objectOriginalPos;
         spriteObject.transform.position = spriteOriginalPos;
         elapsed = 0.0f;
         isShaking = false;
+        if (collider != null) collider.enabled = true;
     }
 
-    IEnumerator OnCollisionEnter2D(Collision2D other)
-    {   
-        if(isShaking)
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (isShaking) return;
+        if (!IsOnTopOfPlatform(other.transform)) return;
+        if (other.gameObject.CompareTag(Constants.PLAYER_TAG))
         {
-            yield break;
+            isShaking = true;
+            StartCoroutine(CFallSequence());
         }
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isShaking = true; 
-            StartCoroutine(Shake());
-            yield return new WaitForSeconds(duration);
-            Fall();
-            yield return new WaitForSeconds(RestoreTime);
-            Restore();
-        }
+    }
+
+    IEnumerator CFallSequence()
+    {
+        yield return Shake();
+        Fall();
+        yield return new WaitForSeconds(RestoreTime);
+        Restore();
     }
 
     void Fall()
     {
         localRB.isKinematic = false;
         localRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+        if (disableCollidersWhileFalling && collider != null) collider.enabled = false;
     }
 
     IEnumerator Shake()
@@ -92,4 +95,9 @@ public class FallingPlatform : MonoBehaviour
         transform.position = spriteOriginalPos;
     }
 
+    bool IsOnTopOfPlatform(Transform other)
+    {
+        Vector2 headingToPlayer = ((Vector2)other.transform.position - (Vector2)transform.position).normalized;
+        return Vector2.Dot(Vector2.up, headingToPlayer) > 0.3f;
+    }
 }

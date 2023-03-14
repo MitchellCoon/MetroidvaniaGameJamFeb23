@@ -7,6 +7,7 @@ public class Key : BasePickup
     [Space]
     [Space]
     [SerializeField] BoolVariable hasKey;
+    [SerializeField] Sound pickupSound;
 
     void Start()
     {
@@ -16,6 +17,7 @@ public class Key : BasePickup
     protected override void HandlePickup(Collider2D other)
     {
         if (hasKey.value) return;
+        if (pickupSound != null) pickupSound.Play();
         hasKey.value = true;
         Hide();
     }

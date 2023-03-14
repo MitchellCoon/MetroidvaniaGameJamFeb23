@@ -1,29 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DisableSpriteRender : MonoBehaviour
 {
-    public bool disableInEditor = false;
-    public bool doNotDisableSpriteRenderer = false;
+    [FormerlySerializedAs("disableInEditor")][SerializeField] bool disableInProdBuild = false;
+    [SerializeField] bool debugInPlayMode = false;
+
     void Start()
     {
-        if (doNotDisableSpriteRenderer) return;
-        if (disableInEditor)
+        if (Application.isEditor && debugInPlayMode)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else if (disableInProdBuild)
         {
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         }
-        else
-        {
-            if (Application.isEditor)
-            {
-                this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-            }
-            else
-            {
-                this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            }
-        }
     }
-
 }

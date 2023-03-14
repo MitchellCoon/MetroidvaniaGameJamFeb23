@@ -18,4 +18,4 @@ MonoBehaviour:
     has entered the boss arena or not. This is used to trigger the
     Boss music.'
   _initialValue: 0
-  _value: 0
+  _value: 1

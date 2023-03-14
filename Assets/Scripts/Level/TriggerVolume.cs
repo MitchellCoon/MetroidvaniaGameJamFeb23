@@ -13,7 +13,7 @@ public class TriggerVolume : MonoBehaviour
     [Space]
     [Space]
     [SerializeField] BoolVariable boolVariable;
-    [SerializeField] bool setToFalse = false; 
+    [SerializeField] bool setToFalse = false;
     [SerializeField] bool canDeactivate = false;
 
     BoxCollider2D box;

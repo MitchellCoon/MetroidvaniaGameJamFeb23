@@ -101,6 +101,7 @@ MonoBehaviour:
   pulseInterval: 1
   isSecurityDisabled: {fileID: 11400000, guid: 57c5f0edd75e24fe48b533c8b1bf6264, type: 2}
   isBossDefeated: {fileID: 11400000, guid: bf6b486f033ef4d49a2bc2160c0adb8e, type: 2}
+  hasStartedBossFight: {fileID: 11400000, guid: bcd5de387c5584a48abe14c51765314e, type: 2}
 --- !u!1 &8378785657797425268
 GameObject:
   m_ObjectHideFlags: 0

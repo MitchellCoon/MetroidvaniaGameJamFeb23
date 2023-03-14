@@ -76,7 +76,8 @@ public class Hitbox : DisableSpriteRender
         }
     }
 
-    void PlayHitSound() {
+    void PlayHitSound()
+    {
         if (hitSound != null) hitSound.Play();
     }
 

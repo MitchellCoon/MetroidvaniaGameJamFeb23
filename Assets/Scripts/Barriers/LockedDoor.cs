@@ -50,30 +50,29 @@ public class LockedDoor : MonoBehaviour
 
     void Awake()
     {
-        Assert.IsNotNull(hasKey);
-        Assert.IsNotNull(hasOpenedDoor);
         colliders = GetComponentsInChildren<Collider2D>();
     }
 
     void OnEnable()
     {
-        hasKey.OnChanged += OnHasKeyChanged;
+        if (hasKey != null) hasKey.OnChanged += OnHasKeyChanged;
     }
 
     void OnDisable()
     {
-        hasKey.OnChanged -= OnHasKeyChanged;
+        if (hasKey != null) hasKey.OnChanged -= OnHasKeyChanged;
     }
 
     void Start()
     {
         LockDoor();
-        if (hasKey.value) UnlockDoor();
-        if (keepDoorOpen && hasOpenedDoor.value) OpenDoor();
+        if (hasKey != null && hasKey.value) UnlockDoor();
+        if (hasOpenedDoor != null && keepDoorOpen && hasOpenedDoor.value) OpenDoor();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (hasKey == null) return;
         if (!other.CompareTag(Constants.PLAYER_TAG)) return;
         if (!hasKey.value)
         {
@@ -88,6 +87,7 @@ public class LockedDoor : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
+        if (hasKey == null) return;
         if (!other.CompareTag(Constants.PLAYER_TAG)) return;
         StopCoroutineAndReset(ref openingDoor);
         StopCoroutineAndReset(ref closingDoor);

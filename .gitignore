@@ -91,5 +91,7 @@ crashlytics-build.properties
 # Log files can be ignored.
 fmod_editor.log
 
+DeployScripts/webgl
+
 # ignore OSX index files
 .DS_Store
