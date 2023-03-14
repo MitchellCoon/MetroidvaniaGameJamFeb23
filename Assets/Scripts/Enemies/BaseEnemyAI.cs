@@ -28,7 +28,7 @@ public class BaseEnemyAI : MonoBehaviour
 
     PlayerMovementController player;
     Vector2 velocity;
-    bool isFacingRight = true;
+    [SerializeField] bool isFacingRight = true;
     bool isMoving;
     float horizontalMove = 0.0f;
     float maxSpeedChange;
@@ -53,8 +53,9 @@ public class BaseEnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (player == null)
+        if (player == null || player == GetComponent<PlayerMovementController>())
         {
+            player = null;
             return;
         }
         float distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
@@ -105,12 +106,26 @@ public class BaseEnemyAI : MonoBehaviour
         animator.SetBool("isMoving", isMoving);
     }
 
-    private void Flip()
+    public bool IsFacingRight()
+	{
+		return isFacingRight;
+	}
+
+    public void SetIsFacingRight(bool sourceIsFacingRight)
+	{
+		isFacingRight = sourceIsFacingRight;
+	}
+
+    public void Flip()
 	{
 		isFacingRight = !isFacingRight;
 		Vector3 localScale = transform.localScale;
 		localScale.x *= -1;
 		transform.localScale = localScale;
+        if(possessedMovementController != null)
+        {
+            possessedMovementController.SetIsFacingRight(isFacingRight);
+        }
 	}
 
     public void ResetDirection()
@@ -119,6 +134,10 @@ public class BaseEnemyAI : MonoBehaviour
 		{
 			Flip();
             isFacingRight = !isFacingRight;
+            if(possessedMovementController != null)
+            {
+                possessedMovementController.SetIsFacingRight(isFacingRight);
+            }
 		} 
 	}
 

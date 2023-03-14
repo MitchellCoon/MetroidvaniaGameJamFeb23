@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6624971411110971916}
   - component: {fileID: 1678638503480523690}
   - component: {fileID: 2169187703280787640}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BaseEnemyProjectile
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -156,6 +156,9 @@ MonoBehaviour:
   attackData: {fileID: 11400000, guid: 0406c15c3bd2f0b4ca1727de104efbf0, type: 2}
   isEnemyHitbox: 1
   hitOnce: 1
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 1152
   sourcePossessionManager: {fileID: 0}
   hitSound: {fileID: 985127869259959668}
 --- !u!1001 &3709643340462397032

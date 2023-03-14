@@ -26,21 +26,21 @@ public class ProjectileMotion : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Enemy") )
-        {
-            if (impactSound != null) impactSound.Play();
-            if(attackData.destroyProjectileOnHit)
-            {
-                Destroy(gameObject);
-            }
-            if (other.TryGetComponent<BaseEnemyAI>(out var enemyAI))
-            {
-                enemyAI.TakeDamage(attackData, transform.position);
-            }
-            else if (other.TryGetComponent<MechBossAI>(out var boss))
-            {
-                boss.TakeDamage(attackData, transform.position);
-            }
-        }
+        // if(other.CompareTag("Enemy") )
+        // {
+        //     if (impactSound != null) impactSound.Play();
+        //     if(attackData.destroyProjectileOnHit)
+        //     {
+        //         Destroy(gameObject);
+        //     }
+        //     if (other.TryGetComponent<BaseEnemyAI>(out var enemyAI))
+        //     {
+        //         enemyAI.TakeDamage(attackData, transform.position);
+        //     }
+        //     else if (other.TryGetComponent<MechBossAI>(out var boss))
+        //     {
+        //         boss.TakeDamage(attackData, transform.position);
+        //     }
+        // }
     }
 }

@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 54668828, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 333294330, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: projectileAttackData
+      value: 
+      objectReference: {fileID: 11400000, guid: ce8532044b9b6f044822c919c2136b45, type: 2}
     - target: {fileID: 2045206609, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.1
@@ -103,6 +111,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6423778844265691418, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: defaultProjectileAttack
+      value: 
+      objectReference: {fileID: 11400000, guid: ce8532044b9b6f044822c919c2136b45, type: 2}
     - target: {fileID: 6423778845231642115, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.4

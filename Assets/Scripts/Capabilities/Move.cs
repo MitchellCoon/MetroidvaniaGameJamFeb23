@@ -24,6 +24,9 @@ public class Move : MonoBehaviour
     private bool isGrounded;
     private bool isMoving;
 
+    private float possessionTimer = 0.5f;
+	private float possessionCooldown = 0.5f;
+
     public void AnimMoveEvent() {
         if (moveSound != null) moveSound.Play();
     }
@@ -37,6 +40,12 @@ public class Move : MonoBehaviour
 
     void Update()
     {
+        possessionTimer += Time.deltaTime;
+        if (possessionTimer <= possessionCooldown)
+        {
+            desiredVelocity = Vector2.zero;
+            return;   
+        }
         direction.x = input.RetrieveMoveInput();
         desiredVelocity = new Vector2(direction.x, 0f) * Mathf.Max(movement.maxSpeed - groundCheck.GetFriction(), 0f);
     }
@@ -74,5 +83,10 @@ public class Move : MonoBehaviour
     {
         if (animator != null) animator.runtimeAnimatorController = defaultAnimator;
     }
+
+    public void ResetPossessionTimer()
+	{
+		possessionTimer = 0f;
+	}
 
 }

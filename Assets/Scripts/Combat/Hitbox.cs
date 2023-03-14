@@ -9,6 +9,7 @@ public class Hitbox : DisableSpriteRender
     [SerializeField] AttackData attackData;
     [SerializeField] bool isEnemyHitbox = false;
     [SerializeField] bool hitOnce = false;
+    [SerializeField] LayerMask targetLayers;
     [Space]
     [Space]
     [SerializeField] PossessionManager sourcePossessionManager;
@@ -25,6 +26,8 @@ public class Hitbox : DisableSpriteRender
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (!Layer.LayerMaskContainsLayer(targetLayers, other.gameObject.layer)) return;
+        
         if (other.CompareTag(Constants.ENEMY_TAG) && (!isEnemyHitbox || (isEnemyHitbox && sourcePossessionManager != null && sourcePossessionManager.IsPossessed())))
         {
             if (attackData.willPossessTarget && other.TryGetComponent<PossessionManager>(out var targetPossessionManager))
