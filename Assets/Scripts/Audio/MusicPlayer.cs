@@ -12,6 +12,7 @@ public class MusicPlayer : MonoBehaviour
     [Space]
     [SerializeField] BoolVariable hasDisabledSecurity;
     [SerializeField] BoolVariable hasStartedBossFight;
+    [SerializeField] BoolVariable hasStartedBossFight2;
     [SerializeField] BoolVariable hasDefeatedBoss;
 
     const Track TRACK_MAIN_MENU = Track.Megacreep;
@@ -38,6 +39,7 @@ public class MusicPlayer : MonoBehaviour
         hasFirstRoomLoaded = false;
         hasDisabledSecurity.value = false;
         hasStartedBossFight.value = false;
+        hasStartedBossFight2.value = false;
         hasDefeatedBoss.value = false;
     }
 
@@ -45,6 +47,7 @@ public class MusicPlayer : MonoBehaviour
     {
         Assert.IsNotNull(hasDisabledSecurity, "hasDisabledSecurity {BoolVariable} required in MusicPlayer");
         Assert.IsNotNull(hasStartedBossFight, "hasStartedBossFight {BoolVariable} required in MusicPlayer");
+        Assert.IsNotNull(hasStartedBossFight, "hasStartedBossFight2 {BoolVariable} required in MusicPlayer");
         Assert.IsNotNull(hasDefeatedBoss, "hasDefeatedBoss {BoolVariable} required in MusicPlayer");
     }
 
@@ -54,6 +57,7 @@ public class MusicPlayer : MonoBehaviour
         GlobalEvent.OnRoomLoaded += OnRoomLoaded;
         hasDisabledSecurity.OnChanged += OnHasDisabledSecurityChanged;
         hasStartedBossFight.OnChanged += OnHasEnteredBossArenaChanged;
+        hasStartedBossFight2.OnChanged += OnHasEnteredBossArena02Changed;
         hasDefeatedBoss.OnChanged += OnHasDefeatedBossChanged;
         GlobalEvent.OnStopMusic += OnStopMusic;
         GlobalEvent.OnWinGame += OnWinGame;
@@ -65,6 +69,7 @@ public class MusicPlayer : MonoBehaviour
         GlobalEvent.OnRoomLoaded -= OnRoomLoaded;
         hasDisabledSecurity.OnChanged -= OnHasDisabledSecurityChanged;
         hasStartedBossFight.OnChanged -= OnHasEnteredBossArenaChanged;
+        hasStartedBossFight2.OnChanged -= OnHasEnteredBossArena02Changed;
         hasDefeatedBoss.OnChanged -= OnHasDefeatedBossChanged;
         GlobalEvent.OnStopMusic -= OnStopMusic;
         GlobalEvent.OnWinGame -= OnWinGame;
@@ -97,6 +102,20 @@ public class MusicPlayer : MonoBehaviour
         if (!value) return;
         StopCurrentTrack(exclude: TRACK_BOSS_FIGHT);
         PlayTrack(TRACK_BOSS_FIGHT);
+    }
+
+    void OnHasEnteredBossArena02Changed(bool value)
+    {
+        if (value)
+        {
+            StopCurrentTrack(exclude: TRACK_BOSS_FIGHT);
+            PlayTrack(TRACK_BOSS_FIGHT);
+        }
+        else
+        {
+            StopCurrentTrack(exclude: TRACK_ESCAPE);
+            PlayTrack(TRACK_ESCAPE);
+        }
     }
 
     void OnHasDefeatedBossChanged(bool value)

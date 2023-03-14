@@ -17,6 +17,7 @@ public class FinalRoomExit : MonoBehaviour
     void Start()
     {
         GlobalEvent.Invoke.OnStopMusic();
+        GlobalEvent.Invoke.OnHidePlayerUI();
     }
 
     void OnTriggerEnter2D(Collider2D other)

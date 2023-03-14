@@ -19,6 +19,7 @@ public static class GlobalEvent
     public static event Action<PlayerMain> OnEnemyPossessed;
     public static event Action OnPlayerDeath;
     public static event Action OnStopMusic;
+    public static event Action OnHidePlayerUI;
     public static event Action OnEmergencyPlayerInstakillSomethingWentHorriblyWrong;
 
     public static class Invoke
@@ -33,6 +34,7 @@ public static class GlobalEvent
         public static void OnEnemyPossessed(PlayerMain player) { GlobalEvent.OnEnemyPossessed?.Invoke(player); }
         public static void OnPlayerDeath() { GlobalEvent.OnPlayerDeath?.Invoke(); }
         public static void OnStopMusic() { GlobalEvent.OnStopMusic?.Invoke(); }
+        public static void OnHidePlayerUI() { GlobalEvent.OnHidePlayerUI?.Invoke(); }
         public static void OnEmergencyPlayerInstakillSomethingWentHorriblyWrong() { GlobalEvent.OnEmergencyPlayerInstakillSomethingWentHorriblyWrong?.Invoke(); }
     }
 }
