@@ -11,6 +11,7 @@ public class LightManager : MonoBehaviour
     [Space]
     [SerializeField] BoolVariable isSecurityDisabled;
     [SerializeField] BoolVariable isBossDefeated;
+    [SerializeField] BoolVariable hasStartedBossFight;
 
     void Awake()
     {
@@ -21,6 +22,7 @@ public class LightManager : MonoBehaviour
     {
         GlobalEvent.OnGameInit += OnGameInit;
         isSecurityDisabled.OnChanged += OnSecurityDisabledChange;
+        hasStartedBossFight.OnChanged += OnHasEnteredBossArenaChanged;
         isBossDefeated.OnChanged += OnBossDefeatedChange;
     }
 
@@ -28,6 +30,7 @@ public class LightManager : MonoBehaviour
     {
         GlobalEvent.OnGameInit -= OnGameInit;
         isSecurityDisabled.OnChanged -= OnSecurityDisabledChange;
+        hasStartedBossFight.OnChanged += OnHasEnteredBossArenaChanged;
         isBossDefeated.OnChanged -= OnBossDefeatedChange;
     }
 
@@ -48,11 +51,24 @@ public class LightManager : MonoBehaviour
         }
     }
 
+    void OnHasEnteredBossArenaChanged(bool didEnter)
+    {
+        if (didEnter)
+        {
+            GlobalLight.FadeTo(1f, fadeDuration, this);
+        }
+        else
+        {
+            OnSecurityDisabledChange(isSecurityDisabled.value);
+        }
+    }
+
     void OnBossDefeatedChange(bool didDefeat)
     {
         if (didDefeat)
         {
-            GlobalLight.PulseLights(min: 0f, max: 0.7f, pulseInterval, this);
+            // GlobalLight.PulseLights(min: 0f, max: 0.7f, pulseInterval, this);
+            GlobalLight.FadeTo(1f, fadeDuration, this);
         }
         else
         {

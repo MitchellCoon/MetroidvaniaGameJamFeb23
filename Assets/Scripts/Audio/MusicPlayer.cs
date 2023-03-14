@@ -55,6 +55,7 @@ public class MusicPlayer : MonoBehaviour
         hasDisabledSecurity.OnChanged += OnHasDisabledSecurityChanged;
         hasStartedBossFight.OnChanged += OnHasEnteredBossArenaChanged;
         hasDefeatedBoss.OnChanged += OnHasDefeatedBossChanged;
+        GlobalEvent.OnStopMusic += OnStopMusic;
         GlobalEvent.OnWinGame += OnWinGame;
     }
 
@@ -65,6 +66,7 @@ public class MusicPlayer : MonoBehaviour
         hasDisabledSecurity.OnChanged -= OnHasDisabledSecurityChanged;
         hasStartedBossFight.OnChanged -= OnHasEnteredBossArenaChanged;
         hasDefeatedBoss.OnChanged -= OnHasDefeatedBossChanged;
+        GlobalEvent.OnStopMusic -= OnStopMusic;
         GlobalEvent.OnWinGame -= OnWinGame;
     }
 
@@ -104,6 +106,11 @@ public class MusicPlayer : MonoBehaviour
         PlayTrack(TRACK_ESCAPE);
     }
 
+    void OnStopMusic()
+    {
+        FadeOutCurrentTrack();
+    }
+
     void OnWinGame()
     {
         StopCurrentTrack(exclude: TRACK_WIN_SCREEN);
@@ -136,6 +143,12 @@ public class MusicPlayer : MonoBehaviour
     {
         if (currentTrack == null) return;
         if (currentTrack.track == exclude) return;
+        FadeOutCurrentTrack();
+    }
+
+    void FadeOutCurrentTrack()
+    {
+        if (currentTrack == null) return;
         if (!currentTrack.isPlaying) return;
         currentTrack.FadeOut(fadeoutDuration);
     }

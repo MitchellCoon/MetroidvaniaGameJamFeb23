@@ -11,13 +11,13 @@ public class LightingElement : MonoBehaviour
     {
         sprite = GetComponent<SpriteRenderer>();
         initialAlpha = sprite.color.a;
-        sprite.color = sprite.color.toAlpha(0);
+        if (enabled) sprite.color = sprite.color.toAlpha(0);
     }
 
     void Start()
     {
         sprite.enabled = true;
-        RenderLight();
+        if (enabled) RenderLight();
     }
 
     void Update()

@@ -59,7 +59,7 @@ public class Hitbox : DisableSpriteRender
             if (hitOnce) enabled = false;
             if (attackData.destroyProjectileOnHit) Destroy(gameObject);
         }
-        if (other.CompareTag("Interactable"))
+        if (other.CompareTag("Interactable") && !isEnemyHitbox)
         {
             if (other.TryGetComponent<IInteractable>(out var interactable))
             {
@@ -72,7 +72,8 @@ public class Hitbox : DisableSpriteRender
         }
     }
 
-    void PlayHitSound() {
+    void PlayHitSound()
+    {
         if (hitSound != null) hitSound.Play();
     }
 

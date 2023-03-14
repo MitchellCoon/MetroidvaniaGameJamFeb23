@@ -1,8 +1,9 @@
 using UnityEngine;
-
-using DevLocker.Utils;
 using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
+
+using DevLocker.Utils;
+using DTDEV.SceneManagement;
 
 public class Credits : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class Credits : MonoBehaviour
     void Start()
     {
         if (showItemsOnStopped != null) showItemsOnStopped.SetActive(false);
+        TransitionFader fader = FindObjectOfType<TransitionFader>();
+        if (fader != null) fader.SetTransparent();
         GlobalEvent.Invoke.OnWinGame();
     }
 
