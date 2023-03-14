@@ -420,7 +420,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4441797537648031106, guid: 374f0f11b8bcc934e9e5cac63b762892, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4441797537648031106, guid: 374f0f11b8bcc934e9e5cac63b762892, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2828,6 +2828,68 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5660c755699654c0a98aca081b864e13, type: 3}
+--- !u!1001 &1369574733
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1621263258}
+    m_Modifications:
+    - target: {fileID: 1861752783986225155, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+      propertyPath: m_Name
+      value: RobotEnemyPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861752783986225159, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861752783986225159, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861752783986225159, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861752783986225159, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861752783986225159, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861752783986225159, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861752783986225159, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861752783986225159, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861752783986225159, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861752783986225159, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861752783986225159, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+--- !u!4 &1369574734 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1861752783986225159, guid: 7639bdaf4fcd52948aa889bfa98e1f2f, type: 3}
+  m_PrefabInstance: {fileID: 1369574733}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1409216172
 GameObject:
   m_ObjectHideFlags: 0
@@ -2868,6 +2930,77 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8617280517585647797, guid: 75cfd3d0c6d0845b0a11ebb06427e117, type: 3}
   m_PrefabInstance: {fileID: 8617280516173719496}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1621263257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621263258}
+  - component: {fileID: 1621263260}
+  - component: {fileID: 1621263259}
+  m_Layer: 0
+  m_Name: EnemiesToSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1621263258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621263257}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1369574734}
+  m_Father: {fileID: 2114021780}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1621263259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621263257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07081423bb38740cfa69df0577041784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  developerNotes: 'INSTRUCTIONS
+
+    This is a super basic example of how we can
+    spawn in enemies.
+
+    You can add enemies inside of here, or add EnemySpawners.
+
+    The
+    ObjectEnablerDisabler script takes care of turning these on/off based on the
+    state of the connected BoolVariable.'
+--- !u!114 &1621263260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621263257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d8a3b733e0ab42048dff83c6dca6aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditionToEnable:
+    boolValue: {fileID: 11400000, guid: 57c5f0edd75e24fe48b533c8b1bf6264, type: 2}
+    invert: 0
 --- !u!1 &1632956538
 GameObject:
   m_ObjectHideFlags: 0
@@ -7639,6 +7772,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1621263258}
   - {fileID: 240159235}
   m_Father: {fileID: 0}
   m_RootOrder: 4

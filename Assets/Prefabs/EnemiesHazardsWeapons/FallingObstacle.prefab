@@ -103,7 +103,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 10
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -202,10 +202,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ea566673b88c74f925f458d07d7f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableInEditor: 0
+  disableInProdBuild: 0
+  debugInPlayMode: 0
   attackData: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
   isEnemyHitbox: 1
   hitOnce: 1
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  sourcePossessionManager: {fileID: 0}
+  hitSound: {fileID: 0}
 --- !u!212 &2378863033860754755
 SpriteRenderer:
   m_ObjectHideFlags: 0

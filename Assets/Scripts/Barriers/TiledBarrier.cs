@@ -5,12 +5,12 @@ using UnityEngine.Tilemaps;
 using CyberneticStudios.SOFramework;
 using System;
 
-[RequireComponent(typeof(TilemapCollider2D))]
+[RequireComponent(typeof(Collider2D))]
 public class TiledBarrier : MonoBehaviour
 {
     [SerializeField] BoolCondition canPlayerPassThrough;
 
-    new TilemapCollider2D collider;
+    new Collider2D collider;
 
     void OnEnable()
     {
@@ -24,7 +24,7 @@ public class TiledBarrier : MonoBehaviour
 
     void Awake()
     {
-        collider = GetComponent<TilemapCollider2D>();
+        collider = GetComponent<Collider2D>();
         Assert.IsNotNull(canPlayerPassThrough);
         Assert.IsTrue(canPlayerPassThrough.hasRef);
     }

@@ -69,7 +69,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MAIN_LEVELS/Lab9_GuardTable.unity
     guid: fb8f6b790e468f9c3add433220688982
   - enabled: 1
-    path: Assets/Scenes/MAIN_LEVELS/LabU_Top.unity
+    path: Assets/Scenes/MAIN_LEVELS/LabU1_SpiderEntrance.unity
     guid: 717c5628ff4c79106bd7dc44d17167b6
   - enabled: 1
     path: Assets/Scenes/MAIN_LEVELS/Lab-2_BOSS_ClimbSectionA.unity
@@ -83,5 +83,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MAIN_LEVELS/Subt2_WinLevel.unity
     guid: 41b6696c137944b0fa144e48c42ac822
+  - enabled: 1
+    path: Assets/Scenes/MAIN_LEVELS/LabUU_SpiderBoss.unity
+    guid: 15ff8b500be231edc8c8dd2b13ce85e6
+  - enabled: 1
+    path: Assets/Scenes/MAIN_LEVELS/LabU2_SpiderSanctum.unity
+    guid: 838aa79f0492f9f7c844f6bc0b1fca33
+  - enabled: 1
+    path: Assets/Scenes/MAIN_LEVELS/LabU3_JumpDown.unity
+    guid: fa5f98182a62dfd2cb48c3a99927b6d0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: e25c19a2da81c41858238b2e6db6451d, type: 2}
