@@ -36316,6 +36316,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -2.57
       objectReference: {fileID: 0}
+    - target: {fileID: 5728060353708899473, guid: 1305048f833624b2faf769096f06a1e6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.61
+      objectReference: {fileID: 0}
     - target: {fileID: 5728060354239941085, guid: 1305048f833624b2faf769096f06a1e6, type: 3}
       propertyPath: m_Name
       value: LockedDoor
