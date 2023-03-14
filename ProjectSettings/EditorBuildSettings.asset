@@ -71,5 +71,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MAIN_LEVELS/LabU_Top.unity
     guid: 717c5628ff4c79106bd7dc44d17167b6
+  - enabled: 1
+    path: Assets/Scenes/MAIN_LEVELS/Lab-2_BOSS_ClimbSectionA.unity
+    guid: e4ad401229314463fa61f642364648d0
+  - enabled: 1
+    path: Assets/Scenes/MAIN_LEVELS/Lab-2_BOSS_OutsideSectionB.unity
+    guid: a5066c36be9e045208ffaac9b8c29ff4
+  - enabled: 1
+    path: Assets/Scenes/MENU_SCREENS/WinScreen.unity
+    guid: 54f1e5aa797b6483cb6a3a6f501a78b6
+  - enabled: 1
+    path: Assets/Scenes/MAIN_LEVELS/Subt2_WinLevel.unity
+    guid: 41b6696c137944b0fa144e48c42ac822
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: e25c19a2da81c41858238b2e6db6451d, type: 2}
