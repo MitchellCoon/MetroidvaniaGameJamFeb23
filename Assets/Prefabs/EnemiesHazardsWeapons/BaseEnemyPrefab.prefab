@@ -352,7 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
   groundCheckTransform: {fileID: 6423778845505899072}
   isGrounded: 0
 --- !u!114 &6423778844265691419
@@ -478,7 +478,6 @@ MonoBehaviour:
   meleeRange: 1.1
   projectileSpawnPoint: {fileID: 54668828}
   shootSound: {fileID: 792901319093521066}
-  meleeSound: {fileID: 0}
   hurtSound: {fileID: 0}
   deathSound: {fileID: 0}
   isFiringProjectile: 0
@@ -561,9 +560,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableInEditor: 0
+  doNotDisableSpriteRenderer: 0
   attackData: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
   isEnemyHitbox: 1
   hitOnce: 0
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 1152
   sourcePossessionManager: {fileID: 6423778844265691399}
   hitSound: {fileID: 8228039006035820776}
 --- !u!212 &6423778845367789135

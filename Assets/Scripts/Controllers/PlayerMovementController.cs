@@ -12,11 +12,13 @@ public class PlayerMovementController : MonoBehaviour
 	[SerializeField] private Transform ceilingCheck;							// A position marking where to check for ceilings
 	[SerializeField] private Collider2D crouchCollider;				            // A collider that will be disabled when crouching
 
+	[SerializeField] BaseEnemyAI enemyAI;
+
 	const float groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool isGrounded;          // Whether or not the player is grounded
 	const float ceilingRadius = .2f;  // Radius of the overlap circle to determine if the player can stand up
 	private new Rigidbody2D rigidbody2D;
-	private bool isFacingRight = true;  // For determining which way the player is currently facing
+	[SerializeField] bool isFacingRight = true;  // For determining which way the player is currently facing
 	private Vector3 velocity = Vector3.zero;
 
 	[Header("Events")]
@@ -33,6 +35,11 @@ public class PlayerMovementController : MonoBehaviour
 	public bool IsFacingRight()
 	{
 		return isFacingRight;
+	}
+
+	public void SetIsFacingRight(bool sourceIsFacingRight)
+	{
+		isFacingRight = sourceIsFacingRight;
 	}
 
 	private void Awake()
@@ -149,6 +156,10 @@ public class PlayerMovementController : MonoBehaviour
 		Vector3 localScale = transform.localScale;
 		localScale.x *= -1;
 		transform.localScale = localScale;
+		if(enemyAI != null)
+        {
+            enemyAI.SetIsFacingRight(isFacingRight);
+        }
 	}
 
 	public void ResetDirection()
@@ -157,6 +168,11 @@ public class PlayerMovementController : MonoBehaviour
 		{
 			Flip();
 			isFacingRight = !isFacingRight;
+			if(enemyAI != null)
+			{
+				enemyAI.SetIsFacingRight(isFacingRight);
+			}
 		} 
 	}
+
 }

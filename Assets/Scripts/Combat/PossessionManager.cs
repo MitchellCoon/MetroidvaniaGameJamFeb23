@@ -21,6 +21,8 @@ public class PossessionManager : MonoBehaviour
     [Space]
     [SerializeField] Sound possessSound;
     [SerializeField] Sound unpossessSound;
+    private float possessionTimer = 0.5f;
+	private float possessionCooldown = 0.5f;
 
 
     Rigidbody2D body;
@@ -101,8 +103,9 @@ public class PossessionManager : MonoBehaviour
 
     void Update()
     {
+        possessionTimer += Time.deltaTime;
         bool isUnpossessButtonPressed = MInput.GetKeyDown(KeyCode.F) || MInput.GetPadDown(GamepadCode.ButtonNorth);
-        if (isPossessed && isUnpossessButtonPressed)
+        if (isPossessed && isUnpossessButtonPressed && possessionTimer >= possessionCooldown)
         {
             RevertPossession();
         }
@@ -124,7 +127,14 @@ public class PossessionManager : MonoBehaviour
         if (isPlayerPossessing.value || !canGetPossessed) return;
         if (possessSound != null) possessSound.Play();
         SetEnemyComponentsEnabled(false);
+        if(playerObj.GetComponent<PlayerMovementController>().IsFacingRight() != enemyAI.IsFacingRight())
+        {
+            playerMovementController.Flip();
+        }
+        possessionTimer = 0f;
+        move.ResetPossessionTimer();
         SetPlayerComponentsEnabled(true);
+        //playerObj.GetComponent<Move>().ResetPossessionTimer();
         SpawnPlayerPossessObject(playerObj.GetComponent<PlayerMovementController>());
         Destroy(playerObj);
         isPossessed = true;

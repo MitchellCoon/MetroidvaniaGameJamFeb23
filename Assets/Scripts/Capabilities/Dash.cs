@@ -11,19 +11,22 @@ public class Dash : MonoBehaviour
     [Space]
     [Space]
     [SerializeField] Sound dashSound;
+    [SerializeField] float dashCooldown = 1f;
     
     private bool isDashing = false;
     private Vector3 dashDirection;
     private float dashSpeed;
+    private float dashTimer = 0f;
 
 
 
     void Update()
     {
-        if (input.RetrieveDashInput())
+        if (dashTimer >= dashCooldown && input.RetrieveDashInput())
         {
             if (dashSound != null) dashSound.Play();
             isDashing = true;
+            dashTimer = 0f;
             dashDirection = Vector3.right;
             if(!controller.IsFacingRight())
             {
@@ -33,6 +36,7 @@ public class Dash : MonoBehaviour
             dashSpeed = movement.dashSpeed;
             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }
+        dashTimer += Time.deltaTime;
     }
 
     void FixedUpdate()
