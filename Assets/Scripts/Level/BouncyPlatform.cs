@@ -4,8 +4,7 @@ using UnityEngine;
 public class BouncyPlatform : MonoBehaviour
 {
     [SerializeField][Range(0f, 100f)] float bounceForce = 20f;
-
-    Animator animator;
+    [SerializeField] Animator animator;
 
     void OnCollisionEnter2D(Collision2D other)
     {

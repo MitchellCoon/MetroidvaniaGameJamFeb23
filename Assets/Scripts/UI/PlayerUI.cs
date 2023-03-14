@@ -17,6 +17,7 @@ public class PlayerUI : MonoBehaviour
         GlobalEvent.OnPlayerSpawn += OnPlayerSpawn;
         GlobalEvent.OnPlayerDeath += OnPlayerDeath;
         GlobalEvent.OnWinGame += OnWinGame;
+        GlobalEvent.OnHidePlayerUI += OnHidePlayerUI;
         health.OnResourceUpdated += OnHealthUpdated;
         // init
         Hide();
@@ -27,6 +28,7 @@ public class PlayerUI : MonoBehaviour
         GlobalEvent.OnPlayerSpawn -= OnPlayerSpawn;
         GlobalEvent.OnPlayerDeath -= OnPlayerDeath;
         GlobalEvent.OnWinGame -= OnWinGame;
+        GlobalEvent.OnHidePlayerUI -= OnHidePlayerUI;
         health.OnResourceUpdated -= OnHealthUpdated;
     }
 
@@ -41,6 +43,11 @@ public class PlayerUI : MonoBehaviour
     }
 
     void OnWinGame()
+    {
+        Hide();
+    }
+
+    void OnHidePlayerUI()
     {
         Hide();
     }
