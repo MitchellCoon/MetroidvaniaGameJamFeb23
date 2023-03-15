@@ -25,6 +25,9 @@ public class MechBossAI : MonoBehaviour
     [SerializeField] Sound missileLaunchSound;
     [SerializeField] Sound hurtSound;
     [SerializeField] Sound deathSound;
+    [Space]
+    [Space]
+    [SerializeField] BoolVariable isBossDefeated;
 
     PlayerMovementController player;
     Vector2 velocity;
@@ -253,6 +256,7 @@ public class MechBossAI : MonoBehaviour
     void Die()
     {
         if (deathSound != null) deathSound.Play();
+        if (isBossDefeated != null) isBossDefeated.value = true;
 
         GetComponent<BoxCollider2D>().enabled = false;
         rb.velocity = Vector3.zero;
