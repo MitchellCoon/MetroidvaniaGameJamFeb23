@@ -92,6 +92,8 @@ crashlytics-build.properties
 fmod_editor.log
 
 DeployScripts/webgl
+Archives
+.env
 
 # ignore OSX index files
 .DS_Store

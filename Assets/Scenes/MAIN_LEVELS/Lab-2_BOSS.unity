@@ -176,7 +176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1157533389595486091, guid: 96f8e0877585c448aa56777225017796, type: 3}
       propertyPath: m_Size.x
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1157533389595486091, guid: 96f8e0877585c448aa56777225017796, type: 3}
       propertyPath: m_Size.y
@@ -126623,6 +126623,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: bf6b486f033ef4d49a2bc2160c0adb8e, type: 2}
     - target: {fileID: 3419721505473412376, guid: 92d3b31a358827e45ad65d646d73a8e8, type: 3}
+      propertyPath: hasDefeatedBoss
+      value: 
+      objectReference: {fileID: 11400000, guid: bf6b486f033ef4d49a2bc2160c0adb8e, type: 2}
+    - target: {fileID: 3419721505473412376, guid: 92d3b31a358827e45ad65d646d73a8e8, type: 3}
       propertyPath: missileLaunchSound
       value: 
       objectReference: {fileID: 1854632202}
@@ -145548,8 +145552,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2114021780}
+  - component: {fileID: 2114021781}
   m_Layer: 0
-  m_Name: Enemies
+  m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145571,6 +145576,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2114021781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114021779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d8a3b733e0ab42048dff83c6dca6aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditionToEnable:
+    boolValue: {fileID: 11400000, guid: bcd5de387c5584a48abe14c51765314e, type: 2}
+    invert: 0
 --- !u!1001 &2144421617
 PrefabInstance:
   m_ObjectHideFlags: 0
