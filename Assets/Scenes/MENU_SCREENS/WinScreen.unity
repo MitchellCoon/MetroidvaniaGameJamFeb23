@@ -850,7 +850,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SteamPumpkin
+  m_text: Jack Stratus
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: decd92ff4379d407eac9622bdb8d856d, type: 2}
   m_sharedMaterial: {fileID: 4145914290992708168, guid: decd92ff4379d407eac9622bdb8d856d, type: 2}
@@ -1381,7 +1381,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: JaegerMax
+  m_text: JaegerPilotMax
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: decd92ff4379d407eac9622bdb8d856d, type: 2}
   m_sharedMaterial: {fileID: 4145914290992708168, guid: decd92ff4379d407eac9622bdb8d856d, type: 2}
