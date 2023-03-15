@@ -11,6 +11,7 @@ public class PossessionManager : MonoBehaviour
     const string PREFIX_WHILE_POSSESSED = "POSSESSED_";
     const string ERR_MSG_COMPONENT_MISSING = "component missing";
     [SerializeField] GameObject playerPrefab;
+    [SerializeField] GameObject enableOnPossessionContainer;
     [SerializeField] Transform unpossessionSpawnPoint;
     [SerializeField] BoolVariable isPlayerPossessing;
     [SerializeField] SpriteRenderer slimePossessionSpriteRenderer;
@@ -103,6 +104,7 @@ public class PossessionManager : MonoBehaviour
         // initial state
         initialLayer = gameObject.layer;
         initialName = gameObject.name;
+        if (enableOnPossessionContainer != null) enableOnPossessionContainer.SetActive(false);
     }
 
     void Update()
@@ -131,6 +133,7 @@ public class PossessionManager : MonoBehaviour
     {
         if (isPlayerPossessing.value || !canGetPossessed) return;
         if (possessSound != null) possessSound.Play();
+        if (enableOnPossessionContainer != null) enableOnPossessionContainer.SetActive(true);
         SetEnemyComponentsEnabled(false);
         if(playerObj.GetComponent<PlayerMovementController>().IsFacingRight() != enemyAI.IsFacingRight())
         {
@@ -157,6 +160,7 @@ public class PossessionManager : MonoBehaviour
         // prevent duplicate player spawns
         if (!isPossessed) return;
         if (unpossessSound != null) unpossessSound.Play();
+        if (enableOnPossessionContainer != null) enableOnPossessionContainer.SetActive(false);
         // enable AI scripts, disable player control scripts on enemy
         SetEnemyComponentsEnabled(true);
         SetPlayerComponentsEnabled(false);
