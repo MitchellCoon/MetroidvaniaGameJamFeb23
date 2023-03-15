@@ -31503,8 +31503,8 @@ Tilemap:
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -42, y: -19, z: 0}
-  m_Size: {x: 102, y: 35, z: 1}
+  m_Origin: {x: -22, y: -3, z: 0}
+  m_Size: {x: 43, y: 19, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -33349,8 +33349,8 @@ Tilemap:
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -24, y: -5, z: 0}
-  m_Size: {x: 48, y: 21, z: 1}
+  m_Origin: {x: -22, y: -3, z: 0}
+  m_Size: {x: 43, y: 19, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -34381,7 +34381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748301112501, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.000018119812
+      value: -0.000015735626
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748301112501, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalPosition.y
@@ -34520,6 +34520,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2018458779}
     m_Modifications:
+    - target: {fileID: 4741865713739185248, guid: f2becbe75ce064b7fbb84756848c8837, type: 3}
+      propertyPath: mapRoomData
+      value: 
+      objectReference: {fileID: 11400000, guid: bf12233e241ae4015a730deadab60a82, type: 2}
     - target: {fileID: 4741865713739185248, guid: f2becbe75ce064b7fbb84756848c8837, type: 3}
       propertyPath: playerPrefab
       value: 

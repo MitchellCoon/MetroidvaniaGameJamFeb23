@@ -171,9 +171,12 @@ MonoBehaviour:
   colorVoid: {r: 0.10760058, g: 0.51095694, b: 0.5849056, a: 1}
   colorBorder: {r: 1, g: 1, b: 1, a: 1}
   scenesToBuild:
-  - m_SceneAsset: {fileID: 102900000, guid: 23939473b67c841e191b79b9c837b8f6, type: 3}
+  - m_SceneAsset: {fileID: 102900000, guid: 15ff8b500be231edc8c8dd2b13ce85e6, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/MAIN_LEVELS/Lab-2_BOSS.unity
+    m_ScenePath: Assets/Scenes/MAIN_LEVELS/LabUU_SpiderBoss.unity
+  - m_SceneAsset: {fileID: 102900000, guid: 6e3bb85e544d6ba1f86ade31e3223d01, type: 3}
+    m_IsDirty: 0
+    m_ScenePath: Assets/Scenes/MAIN_LEVELS/Subt1_BeneathComputer.unity
 --- !u!1 &1710579058
 GameObject:
   m_ObjectHideFlags: 0

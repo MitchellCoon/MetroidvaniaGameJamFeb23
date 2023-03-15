@@ -8508,11 +8508,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748301112501, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.9885864
+      value: 1.9245911
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748301112501, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.002
+      value: 1.00195
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748420255459, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
@@ -8636,6 +8636,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2018458779}
     m_Modifications:
+    - target: {fileID: 4741865713739185248, guid: f2becbe75ce064b7fbb84756848c8837, type: 3}
+      propertyPath: mapRoomData
+      value: 
+      objectReference: {fileID: 11400000, guid: 847b62e99a7484d3d88fa8c194cac12b, type: 2}
     - target: {fileID: 4741865713739185248, guid: f2becbe75ce064b7fbb84756848c8837, type: 3}
       propertyPath: playerPrefab
       value: 

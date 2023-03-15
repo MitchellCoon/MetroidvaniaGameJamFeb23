@@ -13108,6 +13108,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2018458779}
     m_Modifications:
     - target: {fileID: 4741865713739185248, guid: f2becbe75ce064b7fbb84756848c8837, type: 3}
+      propertyPath: mapRoomData
+      value: 
+      objectReference: {fileID: 11400000, guid: 911b7a6e018c9455b836633e7ca7920e, type: 2}
+    - target: {fileID: 4741865713739185248, guid: f2becbe75ce064b7fbb84756848c8837, type: 3}
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 8522799911517438549, guid: dc402664f42d55b49ba4b3a5418930b5, type: 3}
