@@ -13,32 +13,32 @@ MonoBehaviour:
   m_Name: map-data-a67a1f2a-a4dd-48cd-b771-1cf3fdc88b26
   m_EditorClassIdentifier: 
   roomGuid: a67a1f2a-a4dd-48cd-b771-1cf3fdc88b26
-  roomName: _MainSceneTemplate
+  roomName: Subt2_WinLevel
   _backgroundLayer:
     valid: 1
-    name: _MainSceneTemplate_LayerBackground
+    name: Subt2_WinLevel_LayerBackground
     type: 1
-    position: {x: 0, y: 3.5}
+    position: {x: 86, y: -153.5}
     scale: 1
     sortingOrder: 0
-    sprite: {fileID: 21300000, guid: 52f29d5b446864245827dd2b65f62b13, type: 3}
+    sprite: {fileID: 0}
     spriteOverride: {fileID: 0}
   _borderLayer:
     valid: 1
-    name: _MainSceneTemplate_LayerBorder
+    name: Lab3_PipeMaze_LayerBorder
     type: 2
-    position: {x: 0, y: 3.5}
+    position: {x: 53, y: 21}
     scale: 1
     sortingOrder: 2
-    sprite: {fileID: 21300000, guid: a6ee6a83701bf4f72a1abb24bcf7486b, type: 3}
+    sprite: {fileID: 21300000, guid: 7ea2a02cb4bef4096a3f44205dfd1e13, type: 3}
     spriteOverride: {fileID: 0}
   _tileLayer:
     valid: 1
-    name: _MainSceneTemplate_LayerTile
+    name: Subt2_WinLevel_LayerTile
     type: 0
-    position: {x: 0, y: 3.5}
+    position: {x: 86, y: -153.5}
     scale: 1
     sortingOrder: 1
-    sprite: {fileID: 21300000, guid: 2b43488d4aa6244dbad3ed93fdc8bc63, type: 3}
+    sprite: {fileID: 0}
     spriteOverride: {fileID: 0}
   isVisited: 0

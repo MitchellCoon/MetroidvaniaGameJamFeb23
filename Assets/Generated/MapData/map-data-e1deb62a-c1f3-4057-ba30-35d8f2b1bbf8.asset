@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2e5324cb6c549b6a3d427c3f237f83, type: 3}
+  m_Name: map-data-e1deb62a-c1f3-4057-ba30-35d8f2b1bbf8
+  m_EditorClassIdentifier: 
+  roomGuid: e1deb62a-c1f3-4057-ba30-35d8f2b1bbf8
+  roomName: Lab6_VentArena
+  _backgroundLayer:
+    valid: 1
+    name: Lab6_VentArena_LayerBackground
+    type: 1
+    position: {x: 2.5, y: 37.5}
+    scale: 1
+    sortingOrder: 0
+    sprite: {fileID: 21300000, guid: 6665d878525ba46b6931888052c9e4f9, type: 3}
+    spriteOverride: {fileID: 0}
+  _borderLayer:
+    valid: 1
+    name: Lab6_VentArena_LayerBorder
+    type: 2
+    position: {x: 2.5, y: 37.5}
+    scale: 1
+    sortingOrder: 2
+    sprite: {fileID: 21300000, guid: 35857822597884f42a05b55d7457dc05, type: 3}
+    spriteOverride: {fileID: 0}
+  _tileLayer:
+    valid: 1
+    name: Lab6_VentArena_LayerTile
+    type: 0
+    position: {x: 2.5, y: 37.5}
+    scale: 1
+    sortingOrder: 1
+    sprite: {fileID: 21300000, guid: cf914189537e241dcae8c879a0262e84, type: 3}
+    spriteOverride: {fileID: 0}
+  isVisited: 0

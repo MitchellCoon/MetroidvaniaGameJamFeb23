@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2e5324cb6c549b6a3d427c3f237f83, type: 3}
+  m_Name: map-data-b929ad7e-dfae-4e3a-ae59-9e9f397ffedd
+  m_EditorClassIdentifier: 
+  roomGuid: b929ad7e-dfae-4e3a-ae59-9e9f397ffedd
+  roomName: LabU3_JumpDown
+  _backgroundLayer:
+    valid: 1
+    name: LabU3_JumpDown_LayerBackground
+    type: 1
+    position: {x: 39, y: 54.5}
+    scale: 1
+    sortingOrder: 0
+    sprite: {fileID: 21300000, guid: dc23bbe22864e4209a43edba8f8f5161, type: 3}
+    spriteOverride: {fileID: 0}
+  _borderLayer:
+    valid: 1
+    name: LabU3_JumpDown_LayerBorder
+    type: 2
+    position: {x: 39, y: 54.5}
+    scale: 1
+    sortingOrder: 2
+    sprite: {fileID: 21300000, guid: c0662dc6ac8454fa69521fb20415fa2f, type: 3}
+    spriteOverride: {fileID: 0}
+  _tileLayer:
+    valid: 1
+    name: LabU3_JumpDown_LayerTile
+    type: 0
+    position: {x: 39, y: 54.5}
+    scale: 1
+    sortingOrder: 1
+    sprite: {fileID: 21300000, guid: e78f553991d29435c9e42704afc7f9a3, type: 3}
+    spriteOverride: {fileID: 0}
+  isVisited: 0

@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2e5324cb6c549b6a3d427c3f237f83, type: 3}
+  m_Name: map-data-f2214011-07a4-4f05-879b-982fafad0fea
+  m_EditorClassIdentifier: 
+  roomGuid: f2214011-07a4-4f05-879b-982fafad0fea
+  roomName: Lab2_ComputerRoom
+  _backgroundLayer:
+    valid: 1
+    name: Lab2_ComputerRoom_LayerBackground
+    type: 1
+    position: {x: 34.5, y: 4.5}
+    scale: 1
+    sortingOrder: 0
+    sprite: {fileID: 21300000, guid: 67f958aa5f024444ba01486c5030d465, type: 3}
+    spriteOverride: {fileID: 0}
+  _borderLayer:
+    valid: 1
+    name: Lab2_ComputerRoom_LayerBorder
+    type: 2
+    position: {x: 34, y: 4.5}
+    scale: 1
+    sortingOrder: 2
+    sprite: {fileID: 21300000, guid: 4dc571988aa824ef0ab7cdccb9b98d28, type: 3}
+    spriteOverride: {fileID: 0}
+  _tileLayer:
+    valid: 1
+    name: Lab2_ComputerRoom_LayerTile
+    type: 0
+    position: {x: 34.5, y: 4.5}
+    scale: 1
+    sortingOrder: 1
+    sprite: {fileID: 21300000, guid: 4a2e922d3585e4db0ac3ea664013c4de, type: 3}
+    spriteOverride: {fileID: 0}
+  isVisited: 0
