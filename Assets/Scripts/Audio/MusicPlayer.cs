@@ -19,8 +19,8 @@ public class MusicPlayer : MonoBehaviour
     const Track TRACK_GAME_START = Track.Dangerman;
     const Track TRACK_SECURITY_DISABLED = Track.Megacreep;
     const Track TRACK_BOSS_FIGHT = Track.Monsterdance;
-    const Track TRACK_ESCAPE = Track.Dangerman;
-    const Track TRACK_WIN_SCREEN = Track.Dangerman;
+    const Track TRACK_ESCAPE = Track.ExitMusic;
+    const Track TRACK_WIN_SCREEN = Track.RollCredits;
 
     List<MusicTrack> musicTracks = new List<MusicTrack>();
 

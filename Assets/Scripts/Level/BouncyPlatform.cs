@@ -6,11 +6,14 @@ public class BouncyPlatform : MonoBehaviour
     [SerializeField][Range(0f, 100f)] float bounceForce = 20f;
     [SerializeField] Animator animator;
 
+    [SerializeField] Sound bounceSound;
+
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.collider.attachedRigidbody == null) return;
         if (!IsOnTopOfPlatform(other.transform)) return;
         other.collider.attachedRigidbody.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
+        if (bounceSound != null) bounceSound.Play();
         if (animator != null) animator.SetTrigger(Constants.BOUNCE_ANIMATION);
     }
 

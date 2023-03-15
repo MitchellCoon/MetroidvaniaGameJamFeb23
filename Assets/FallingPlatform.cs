@@ -29,6 +29,9 @@ public class FallingPlatform : MonoBehaviour
     [SerializeField]
     bool disableCollidersWhileFalling = false;
 
+    [SerializeField] Sound rumbleSound;
+    [SerializeField] Sound fallSound;
+
     Vector3 spriteOriginalPos;
     Vector3 objectOriginalPos;
     RigidbodyConstraints2D originalConstraints;
@@ -76,6 +79,7 @@ public class FallingPlatform : MonoBehaviour
 
     void Fall()
     {
+        if (fallSound != null) fallSound.Play();
         localRB.isKinematic = false;
         localRB.constraints = RigidbodyConstraints2D.FreezeRotation;
         if (disableCollidersWhileFalling && collider != null) collider.enabled = false;
@@ -83,7 +87,7 @@ public class FallingPlatform : MonoBehaviour
 
     IEnumerator Shake()
     {
-
+        if (rumbleSound != null) rumbleSound.Play();
         while (elapsed < duration)
         {
             float x = Random.Range(-1f, 1f) * shakeMagnitudeX;
@@ -93,6 +97,7 @@ public class FallingPlatform : MonoBehaviour
             yield return null;
         }
         transform.position = spriteOriginalPos;
+        if (rumbleSound != null) rumbleSound.Stop();
     }
 
     bool IsOnTopOfPlatform(Transform other)
