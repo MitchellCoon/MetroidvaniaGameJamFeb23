@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ea566673b88c74f925f458d07d7f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableInProdBuild: 0
+  disableInProdBuild: 1
   debugInPlayMode: 0
   attackData: {fileID: 11400000, guid: e1d19feb4711f4d4ebde7d1bb8164620, type: 2}
   isEnemyHitbox: 0

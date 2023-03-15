@@ -20,7 +20,6 @@ namespace DTDEV.SceneManagement
         void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Player")) return;
-            Debug.Log("SETTING RESPAWN POINT");
             room.SetRespawnPoint(gameObject.transform);
         }
     }

@@ -32,14 +32,10 @@ public class Hitbox : DisableSpriteRender
             {
                 interactable.Use();
             }
-            else
-            {
-                Debug.LogError($"{gameObject.name} has \"Interactable\" tag but needs a component that implements the Interactable interface");
-            }
         }
 
         if (!Layer.LayerMaskContainsLayer(targetLayers, other.gameObject.layer)) return;
-        
+
         if (other.CompareTag(Constants.ENEMY_TAG) && (!isEnemyHitbox || (isEnemyHitbox && sourcePossessionManager != null && sourcePossessionManager.IsPossessed())))
         {
             if (attackData.willPossessTarget && other.TryGetComponent<PossessionManager>(out var targetPossessionManager))

@@ -25,9 +25,6 @@ public class MechBossAI : MonoBehaviour
     [SerializeField] Sound missileLaunchSound;
     [SerializeField] Sound hurtSound;
     [SerializeField] Sound deathSound;
-    [Space]
-    [Space]
-    [SerializeField] BoolVariable isBossDefeated;
 
     PlayerMovementController player;
     Vector2 velocity;
@@ -49,7 +46,7 @@ public class MechBossAI : MonoBehaviour
     [SerializeField] float telegraphVerticalOffset;
     float missileOffset;
     Vector3 playerLocation;
-    public enum Missile {firstMissile, secondMissile, thirdMissile, fourthMissile};
+    public enum Missile { firstMissile, secondMissile, thirdMissile, fourthMissile };
     [SerializeField] GameObject missileTelegraph;
 
     // phase change sprites/particles:
@@ -60,7 +57,7 @@ public class MechBossAI : MonoBehaviour
     [SerializeField] SpriteRenderer cannon1SpriteRenderer;
     [SerializeField] SpriteRenderer cannon2SpriteRenderer;
     [SerializeField] SpriteRenderer fishBowlSpriteRenderer;
-    
+
     [SerializeField] Sprite phase2bodySprite;
     [SerializeField] Sprite phase2leg1Sprite;
     [SerializeField] Sprite phase2leg2Sprite;
@@ -72,11 +69,13 @@ public class MechBossAI : MonoBehaviour
     [SerializeField] ParticleSystem smokeParticle;
     [SerializeField] ParticleSystem sparkParticle;
 
-    public void AnimStompTelegraphEvent() {
+    public void AnimStompTelegraphEvent()
+    {
         if (stompTelegraphSound != null) stompTelegraphSound.Play();
     }
 
-    public void AnimStompEvent() {
+    public void AnimStompEvent()
+    {
         if (stompSound != null) stompSound.Play();
     }
 
@@ -141,18 +140,18 @@ public class MechBossAI : MonoBehaviour
     {
         velocity = rb.velocity;
         maxSpeedChange = movement.maxAcceleration * Time.fixedDeltaTime;
-		Vector3 desiredVelocity = new Vector2(move * 10f, rb.velocity.y);
+        Vector3 desiredVelocity = new Vector2(move * 10f, rb.velocity.y);
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
         rb.velocity = velocity;
     }
 
     private void Flip()
-	{
-		isFacingRight = !isFacingRight;
-		Vector3 localScale = transform.localScale;
-		localScale.x *= -1;
-		transform.localScale = localScale;
-	}
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1;
+        transform.localScale = localScale;
+    }
 
     public void TakeDamage(AttackData attackData, Vector3 attackOrigin)
     {
@@ -179,7 +178,9 @@ public class MechBossAI : MonoBehaviour
         if (health.GetCurrentValue() <= 0)
         {
             Die();
-        } else {
+        }
+        else
+        {
             if (hurtSound != null) hurtSound.Play();
         }
     }
@@ -187,55 +188,55 @@ public class MechBossAI : MonoBehaviour
     public void SpawnProjectile(Missile missile)
     {
         if (missileLaunchSound != null) missileLaunchSound.Play();
-        
+
         switch (missile)
         {
-        case Missile.firstMissile:
-            if (isFacingRight)
-            {
-                missileOffset = -3f;
-            }
-            else
-            {
-                missileOffset = 3f;
-            }
-            Instantiate(missileData.projectilePrefab, GetCannonPosition(0), transform.rotation).GetComponent<MechBossMissileMotion>().SetHorizontalOffset(missileOffset);
-            break;
-        case Missile.secondMissile:
-            if (isFacingRight)
-            {
-                missileOffset = -1f;
-            }
-            else
-            {
-                missileOffset = 1f;
-            }
-            Instantiate(missileData.projectilePrefab, GetCannonPosition(1), transform.rotation).GetComponent<MechBossMissileMotion>().SetHorizontalOffset(missileOffset);
-            break;
-        case Missile.thirdMissile:
-            if (isFacingRight)
-            {
-                missileOffset = 1f;
-            }
-            else
-            {
-                missileOffset = -1f;
-            }
-            Instantiate(missileData.projectilePrefab, GetCannonPosition(0), transform.rotation).GetComponent<MechBossMissileMotion>().SetHorizontalOffset(missileOffset);
-            break;
-        case Missile.fourthMissile:
-            if (isFacingRight)
-            {
-                missileOffset = 3f;
-            }
-            else
-            {
-                missileOffset = -3f;
-            }
-            Instantiate(missileData.projectilePrefab, GetCannonPosition(1), transform.rotation).GetComponent<MechBossMissileMotion>().SetHorizontalOffset(missileOffset);
-            break;
-        default:
-            break;
+            case Missile.firstMissile:
+                if (isFacingRight)
+                {
+                    missileOffset = -3f;
+                }
+                else
+                {
+                    missileOffset = 3f;
+                }
+                Instantiate(missileData.projectilePrefab, GetCannonPosition(0), transform.rotation).GetComponent<MechBossMissileMotion>().SetHorizontalOffset(missileOffset);
+                break;
+            case Missile.secondMissile:
+                if (isFacingRight)
+                {
+                    missileOffset = -1f;
+                }
+                else
+                {
+                    missileOffset = 1f;
+                }
+                Instantiate(missileData.projectilePrefab, GetCannonPosition(1), transform.rotation).GetComponent<MechBossMissileMotion>().SetHorizontalOffset(missileOffset);
+                break;
+            case Missile.thirdMissile:
+                if (isFacingRight)
+                {
+                    missileOffset = 1f;
+                }
+                else
+                {
+                    missileOffset = -1f;
+                }
+                Instantiate(missileData.projectilePrefab, GetCannonPosition(0), transform.rotation).GetComponent<MechBossMissileMotion>().SetHorizontalOffset(missileOffset);
+                break;
+            case Missile.fourthMissile:
+                if (isFacingRight)
+                {
+                    missileOffset = 3f;
+                }
+                else
+                {
+                    missileOffset = -3f;
+                }
+                Instantiate(missileData.projectilePrefab, GetCannonPosition(1), transform.rotation).GetComponent<MechBossMissileMotion>().SetHorizontalOffset(missileOffset);
+                break;
+            default:
+                break;
         }
         playerLocation = player.transform.position;
         Instantiate(missileTelegraph, new Vector3(playerLocation.x + missileOffset, transform.position.y - telegraphVerticalOffset, 0), transform.rotation);
@@ -256,15 +257,15 @@ public class MechBossAI : MonoBehaviour
     void Die()
     {
         if (deathSound != null) deathSound.Play();
-        if (isBossDefeated != null) isBossDefeated.value = true;
+        if (hasDefeatedBoss != null) hasDefeatedBoss.value = true;
 
         GetComponent<BoxCollider2D>().enabled = false;
         rb.velocity = Vector3.zero;
         this.enabled = false;
-        hasDefeatedBoss.value = true;
     }
 
-    IEnumerator FindingPlayer(float pollInterval) {
+    IEnumerator FindingPlayer(float pollInterval)
+    {
         while (true)
         {
             player = FindPlayer();
