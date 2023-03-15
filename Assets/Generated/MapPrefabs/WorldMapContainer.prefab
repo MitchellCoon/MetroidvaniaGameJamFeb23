@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 7459542497165803153}
   - component: {fileID: 3413953580917935598}
   m_Layer: 0
-  m_Name: RanderCanvas
+  m_Name: RenderCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
