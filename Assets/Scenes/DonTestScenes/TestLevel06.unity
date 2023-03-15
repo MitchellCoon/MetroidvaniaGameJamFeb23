@@ -407,6 +407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   depth: 0.25
+  localizeCamera: 0
 --- !u!1001 &207444463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -523,6 +524,10 @@ PrefabInstance:
     - target: {fileID: 8948414842600775490, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
       propertyPath: m_Name
       value: WorldMapContainer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948414842600775490, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2a0bce6308b34e70922d7758f1642c1, type: 3}
@@ -2474,7 +2479,6 @@ GameObject:
   - component: {fileID: 838910598}
   - component: {fileID: 838910597}
   - component: {fileID: 838910596}
-  - component: {fileID: 838910599}
   m_Layer: 0
   m_Name: MainTilemap
   m_TagString: Untagged
@@ -7500,19 +7504,6 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
---- !u!114 &838910599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838910592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b857bd4807d2443d932b071b4e1c1d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isMapBorder: 0
 --- !u!1 &863888701
 GameObject:
   m_ObjectHideFlags: 0
@@ -8039,7 +8030,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbfaa6555951442cf966dcd03e28b75d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableInEditor: 1
+  disableInProdBuild: 1
+  debugInPlayMode: 0
 --- !u!1 &1137149860
 GameObject:
   m_ObjectHideFlags: 0
@@ -9448,11 +9440,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748301112501, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.300034
+      value: -21.300041
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748301112501, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.189421
+      value: -8.18943
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748420255459, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
@@ -9629,7 +9621,6 @@ GameObject:
   - component: {fileID: 1918620388}
   - component: {fileID: 1918620391}
   - component: {fileID: 1918620390}
-  - component: {fileID: 1918620389}
   m_Layer: 0
   m_Name: BorderTilemap
   m_TagString: Untagged
@@ -9652,19 +9643,6 @@ Transform:
   m_Father: {fileID: 1246657494}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1918620389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918620387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b857bd4807d2443d932b071b4e1c1d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isMapBorder: 1
 --- !u!483693784 &1918620390
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -10359,6 +10337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   depth: 0.035
+  localizeCamera: 0
 --- !u!1001 &2069910065
 PrefabInstance:
   m_ObjectHideFlags: 0

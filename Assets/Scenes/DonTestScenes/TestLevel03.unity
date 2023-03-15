@@ -283,6 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   depth: 0.25
+  localizeCamera: 0
 --- !u!1001 &220950107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -589,7 +590,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbfaa6555951442cf966dcd03e28b75d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableInEditor: 1
+  disableInProdBuild: 1
+  debugInPlayMode: 0
 --- !u!212 &451154587
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -886,7 +888,6 @@ GameObject:
   - component: {fileID: 838910598}
   - component: {fileID: 838910597}
   - component: {fileID: 838910596}
-  - component: {fileID: 838910599}
   m_Layer: 0
   m_Name: MainTilemap
   m_TagString: Untagged
@@ -4895,19 +4896,6 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
---- !u!114 &838910599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838910592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b857bd4807d2443d932b071b4e1c1d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isMapBorder: 0
 --- !u!1 &863888701
 GameObject:
   m_ObjectHideFlags: 0
@@ -5990,7 +5978,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbfaa6555951442cf966dcd03e28b75d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableInEditor: 1
+  disableInProdBuild: 1
+  debugInPlayMode: 0
 --- !u!1 &1137149860
 GameObject:
   m_ObjectHideFlags: 0
@@ -6083,11 +6072,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ea566673b88c74f925f458d07d7f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableInEditor: 0
+  disableInProdBuild: 0
+  debugInPlayMode: 0
   attackData: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
   isEnemyHitbox: 1
   hitOnce: 0
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 0
   sourcePossessionManager: {fileID: 0}
+  hitSound: {fileID: 0}
 --- !u!61 &1140419853
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6714,6 +6708,16 @@ MonoBehaviour:
   playerPrefab: {fileID: 2806582366043827928, guid: b81ceb76fe5494d449726a59c7cd6d4d, type: 3}
   unpossessionSpawnPoint: {fileID: 1174393232}
   isPlayerPossessing: {fileID: 11400000, guid: cf0648d02273744cca9a37866585f057, type: 2}
+  slimePossessionSpriteRenderer: {fileID: 0}
+  slimePossessionAnimator: {fileID: 0}
+  slimePossessHealthyPrefab: {fileID: 0}
+  slimePossessHurtPrefab: {fileID: 0}
+  slimePossessPerilPrefab: {fileID: 0}
+  slimeAttachPoint: {fileID: 0}
+  canGetPossessed: 0
+  possessSound: {fileID: 0}
+  unpossessSound: {fileID: 0}
+  reflexJump: {fileID: 0}
 --- !u!114 &1900738170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6764,6 +6768,8 @@ MonoBehaviour:
   inputManager: {fileID: 1900738173}
   hitbox: {fileID: 1140419852}
   attackData: {fileID: 0}
+  defaultAttack: {fileID: 0}
+  possessAttack: {fileID: 0}
   defaultMeleeAttack: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
   defaultProjectileAttack: {fileID: 11400000, guid: bf54fb62e11806342b1fb295eb2ac1a9, type: 2}
   projectileOrigin: {fileID: 1900738186}
@@ -6828,6 +6834,8 @@ MonoBehaviour:
   groundCheck: {fileID: 1900738174}
   ceilingCheck: {fileID: 1901008640}
   crouchCollider: {fileID: 0}
+  enemyAI: {fileID: 0}
+  isFacingRight: 1
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -6884,6 +6892,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   defaultAnimator: {fileID: 0}
   movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
+  moveSound: {fileID: 0}
 --- !u!114 &1900738179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6898,7 +6907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 1
   animator: {fileID: 1900738171}
-  defaultAnimator: {fileID: 0}
+  healthyAnimator: {fileID: 0}
   hurtAnimator: {fileID: 0}
   perilAnimator: {fileID: 0}
   resources: {fileID: 1900738176}
@@ -6909,6 +6918,15 @@ MonoBehaviour:
   hurtThreshold: 7
   hurtSound: {fileID: 0}
   deathSound: {fileID: 0}
+  possessionManager: {fileID: 0}
+  enemySlimePossessionAnimator: {fileID: 0}
+  healthySlimePossessionAnimator: {fileID: 0}
+  hurtSlimePossessionAnimator: {fileID: 0}
+  perilSlimePossessionAnimator: {fileID: 0}
+  attack: {fileID: 0}
+  healthySlimeProjectileAttackData: {fileID: 0}
+  hurtSlimeProjectileAttackData: {fileID: 0}
+  perilSlimeProjectileAttackData: {fileID: 0}
 --- !u!114 &1900738180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6931,6 +6949,8 @@ MonoBehaviour:
   aimAtPlayerDirection: {x: 1, y: 1}
   directionsToFire: []
   projectileSpeed: 10
+  shootSound: {fileID: 0}
+  meleeSound: {fileID: 0}
   canFire: 1
   canMelee: 1
   hitbox: {fileID: 1140419852}
@@ -7140,7 +7160,6 @@ GameObject:
   - component: {fileID: 1918620388}
   - component: {fileID: 1918620391}
   - component: {fileID: 1918620390}
-  - component: {fileID: 1918620389}
   m_Layer: 0
   m_Name: BorderTilemap
   m_TagString: Untagged
@@ -7163,19 +7182,6 @@ Transform:
   m_Father: {fileID: 1246657494}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1918620389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918620387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b857bd4807d2443d932b071b4e1c1d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isMapBorder: 1
 --- !u!483693784 &1918620390
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -17459,7 +17465,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbfaa6555951442cf966dcd03e28b75d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableInEditor: 1
+  disableInProdBuild: 1
+  debugInPlayMode: 0
 --- !u!212 &3693175747274329865
 SpriteRenderer:
   m_ObjectHideFlags: 0
