@@ -9,6 +9,7 @@ Art
 - [Abdulla Almheiri - Pixel VFX: Scifi Explosion 1](https://abdulla-almheiri.itch.io/pixel-art-vfx-scifi-explosion-1)
 - [Rock Tileset](https://opengameart.org/content/rock-tileset)
 - [Fireball Sprites](https://opengameart.org/content/high-res-fire-ball)
+- [Christina Lee (https://electronsandsuch.com)](https://opengameart.org/content/2d-spider-webs)
 
 Music
 
