@@ -92,5 +92,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MAIN_LEVELS/LabU3_JumpDown.unity
     guid: fa5f98182a62dfd2cb48c3a99927b6d0
+  - enabled: 1
+    path: Assets/Scenes/MAIN_LEVELS/Lab1A_TanksUnderground.unity
+    guid: d4a79eca18c1b0e5dbf21427809e01b5
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: e25c19a2da81c41858238b2e6db6451d, type: 2}

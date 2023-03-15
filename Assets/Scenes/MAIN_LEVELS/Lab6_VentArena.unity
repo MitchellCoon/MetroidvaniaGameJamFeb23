@@ -523,7 +523,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156584959}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 23.6, z: 0}
+  m_LocalPosition: {x: 33, y: 23.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -542,8 +542,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0523e171db044394938e8c8fb25470d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 2
-  prefab: {fileID: 6817959757001638112, guid: a28078fe140ee4d0ba2a39a7e97e6ac4, type: 3}
+  spawnRate: 0.673
+  prefab: {fileID: 3981880465600085217, guid: 49331aa72b93f0e9c97315e265f321df, type: 3}
 --- !u!212 &156584962
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -32330,7 +32330,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955833473}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33, y: 23.599997, z: 0}
+  m_LocalPosition: {x: 1, y: 23.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -32349,8 +32349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0523e171db044394938e8c8fb25470d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 2
-  prefab: {fileID: 6817959757001638112, guid: a28078fe140ee4d0ba2a39a7e97e6ac4, type: 3}
+  spawnRate: 1
+  prefab: {fileID: 3981880465600085217, guid: 49331aa72b93f0e9c97315e265f321df, type: 3}
 --- !u!212 &1955833476
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33130,7 +33130,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2092016347}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17, y: 23.599997, z: 0}
+  m_LocalPosition: {x: 17, y: 23.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33149,8 +33149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0523e171db044394938e8c8fb25470d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 2
-  prefab: {fileID: 6817959757001638112, guid: a28078fe140ee4d0ba2a39a7e97e6ac4, type: 3}
+  spawnRate: 0.91
+  prefab: {fileID: 3981880465600085217, guid: 49331aa72b93f0e9c97315e265f321df, type: 3}
 --- !u!212 &2092016350
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33315,7 +33315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748301112501, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.000008583069
+      value: -0.00001335144
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748301112501, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalPosition.y
