@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class BaseEnemyProjectileMotion : MonoBehaviour
 {
-    [SerializeField] AttackData attackData;
-    [SerializeField] Hitbox hitbox;
+    [SerializeField] protected AttackData attackData;
     
-    private Vector3 startPosition;
+    protected Vector3 startPosition;
 
     void Start()
     {

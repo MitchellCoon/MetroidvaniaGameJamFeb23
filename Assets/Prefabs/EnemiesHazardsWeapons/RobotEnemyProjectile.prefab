@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8368949391819313127}
   - component: {fileID: 8368949391819313125}
   - component: {fileID: 6624971411110971916}
-  - component: {fileID: 1678638503480523690}
   - component: {fileID: 2169187703280787640}
+  - component: {fileID: 1925779893}
+  - component: {fileID: 1925779900}
   m_Layer: 0
   m_Name: RobotEnemyProjectile
   m_TagString: Enemy
@@ -104,7 +105,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!50 &6624971411110971916
 Rigidbody2D:
   serializedVersion: 4
@@ -126,20 +127,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1678638503480523690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8368949391819313113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e8f94baa35441348ba366552e25cb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackData: {fileID: 11400000, guid: 15109c0d51406854485cd46e77187994, type: 2}
-  hitbox: {fileID: 2169187703280787640}
 --- !u!114 &2169187703280787640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,8 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ea566673b88c74f925f458d07d7f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableInEditor: 0
-  doNotDisableSpriteRenderer: 0
+  disableInProdBuild: 0
+  debugInPlayMode: 0
   attackData: {fileID: 11400000, guid: 15109c0d51406854485cd46e77187994, type: 2}
   isEnemyHitbox: 1
   hitOnce: 1
@@ -162,6 +149,42 @@ MonoBehaviour:
     m_Bits: 1152
   sourcePossessionManager: {fileID: 0}
   hitSound: {fileID: 985127869259959668}
+--- !u!95 &1925779893
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8368949391819313113}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: efabe6a9974faa34aaa5cd06bbf1ffdc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1925779900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8368949391819313113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9113220e8728f946ac79f9e0d516d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackData: {fileID: 11400000, guid: 15109c0d51406854485cd46e77187994, type: 2}
+  acceleration: -10
+  extraProjectileCooldown: 0.3
+  extraProjectilePrefab: {fileID: 8368949391819313113, guid: 640963a8d3c49bf4a9f8ad949652fd0a, type: 3}
 --- !u!1001 &3709643340462397032
 PrefabInstance:
   m_ObjectHideFlags: 0

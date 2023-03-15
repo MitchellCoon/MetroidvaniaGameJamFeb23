@@ -6,18 +6,18 @@ using UnityEngine;
 // This is useful for hitboxes, or other objects that you don't want to see in the game, but you do want to see in the editor.
 public class Hitbox : DisableSpriteRender
 {
-    [SerializeField] AttackData attackData;
-    [SerializeField] bool isEnemyHitbox = false;
-    [SerializeField] bool hitOnce = false;
-    [SerializeField] LayerMask targetLayers;
+    [SerializeField] protected AttackData attackData;
+    [SerializeField] protected bool isEnemyHitbox = false;
+    [SerializeField] protected bool hitOnce = false;
+    [SerializeField] protected LayerMask targetLayers;
     [Space]
     [Space]
-    [SerializeField] PossessionManager sourcePossessionManager;
+    [SerializeField] protected PossessionManager sourcePossessionManager;
     [Space]
     [Space]
-    [SerializeField] Sound hitSound;
+    [SerializeField] protected Sound hitSound;
 
-    PossessionManager targetPossessionManager;
+    protected PossessionManager targetPossessionManager;
 
     public void UpdateAttackData(AttackData newAttackData)
     {
@@ -28,7 +28,7 @@ public class Hitbox : DisableSpriteRender
     {
         if (other.CompareTag("Interactable"))
         {
-            if (other.TryGetComponent<IInteractable>(out var interactable))
+            if (other.TryGetComponent<IInteractable>(out var interactable) && (!isEnemyHitbox || (isEnemyHitbox && sourcePossessionManager != null && sourcePossessionManager.IsPossessed())))
             {
                 interactable.Use();
             }
@@ -76,7 +76,7 @@ public class Hitbox : DisableSpriteRender
         }
     }
 
-    void PlayHitSound()
+    protected void PlayHitSound()
     {
         if (hitSound != null) hitSound.Play();
     }
@@ -84,5 +84,10 @@ public class Hitbox : DisableSpriteRender
     public void SetPossessionManager(PossessionManager possessionManager)
     {
         sourcePossessionManager = possessionManager;
+    }
+
+    public PossessionManager GetSourcePossessionManager()
+    {
+        return sourcePossessionManager;
     }
 }

@@ -94,30 +94,33 @@ public class MechBossAI : MonoBehaviour
             return;
         }
         float distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
+        horizontalMove = (player.transform.position - transform.position).normalized.x;
         if (distanceToPlayer < detectionRadius && distanceToPlayer > meleeRange && !isStomping && !isFiringProjectile)
         {
-            horizontalMove = (player.transform.position - transform.position).normalized.x;
-            if (horizontalMove > 0 && !isFacingRight)
-            {
-                Flip();
-            }
-            else if (horizontalMove < 0 && isFacingRight)
-            {
-                Flip();
-            }
+            FacePlayer();
             if (Time.time >= nextProjectileTime)
             {
                 nextProjectileTime = Time.time + missileData.duration;
                 animator.SetTrigger(Constants.PROJECTILE_ATTACK_ANIMATION);
             }
         }
-        else
+        else if (distanceToPlayer < meleeRange && Time.time >= nextMeleeTime && !isFiringProjectile)
         {
-            if (distanceToPlayer < meleeRange && Time.time >= nextMeleeTime && !isFiringProjectile)
-            {
-                nextMeleeTime = Time.time + stompData.duration;
-                animator.SetTrigger(Constants.MELEE_ATTACK_ANIMATION);
-            }
+            FacePlayer();
+            nextMeleeTime = Time.time + stompData.duration;
+            animator.SetTrigger(Constants.MELEE_ATTACK_ANIMATION);
+        }
+    }
+
+    void FacePlayer()
+    {
+        if (horizontalMove > 0 && !isFacingRight)
+        {
+            Flip();
+        }
+        else if (horizontalMove < 0 && isFacingRight)
+        {
+            Flip();
         }
     }
 
@@ -127,6 +130,7 @@ public class MechBossAI : MonoBehaviour
         {
             horizontalMove = 0f;
         }
+        FacePlayer();
         Move(horizontalMove * movement.maxSpeed * Time.fixedDeltaTime);
     }
 

@@ -23,6 +23,9 @@ public static class Constants
     public const string JUMP_FALL_ANIMATION = "Fall";
     public const string JUMP_LAND_ANIMATION = "Land";
     public const string BOUNCE_ANIMATION = "Bounce";
+    public const string IDLE_TRANSITION_ANIMATION = "IdleTransition";
+    public const string IS_MOVING_BOOL = "isMoving";
+    public const string IS_GROUNDED_BOOL = "isGrounded";
 
     // common
     public const float GRAVITY = 9.8f;

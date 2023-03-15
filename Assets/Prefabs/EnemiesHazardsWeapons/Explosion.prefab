@@ -5057,11 +5057,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ea566673b88c74f925f458d07d7f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableInEditor: 0
-  doNotDisableSpriteRenderer: 1
+  disableInProdBuild: 0
+  debugInPlayMode: 0
   attackData: {fileID: 11400000, guid: ea6ccd7fb85e647c5b0bf629e2540cdf, type: 2}
   isEnemyHitbox: 1
   hitOnce: 1
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 1152
   sourcePossessionManager: {fileID: 0}
   hitSound: {fileID: 0}
 --- !u!114 &1623250924
