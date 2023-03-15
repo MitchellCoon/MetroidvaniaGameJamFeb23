@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerInputController", menuName = "InputController/PlayerController")]
@@ -8,17 +6,26 @@ public class PlayerInputController : InputController
 {
     public override float RetrieveMoveInput()
     {
-        return Input.GetAxisRaw("Horizontal");
+        return MInput.GetAxisRaw("Horizontal");
     }
 
     public override bool RetrieveJumpInput()
     {
-        return Input.GetButtonDown("Jump");
+        return MInput.GetKeyDown(KeyCode.Space) || MInput.GetPadDown(GamepadCode.ButtonSouth);
+    }
+
+    public override bool RetrieveJumpButtonHeld()
+    {
+        return MInput.GetKey(KeyCode.Space) || MInput.GetPad(GamepadCode.ButtonSouth);
     }
 
     public override bool RetrieveJumpButtonReleased()
     {
-        return Input.GetButtonUp("Jump");
+        return MInput.GetKeyUp(KeyCode.Space) || MInput.GetPadUp(GamepadCode.ButtonSouth);
     }
 
+    public override bool RetrieveDashInput()
+    {
+        return MInput.GetKeyDown(KeyCode.LeftShift) || MInput.GetPadDown(GamepadCode.TriggerRight);
+    }
 }

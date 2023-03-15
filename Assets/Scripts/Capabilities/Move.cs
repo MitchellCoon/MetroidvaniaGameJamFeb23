@@ -6,9 +6,12 @@ public class Move : MonoBehaviour
 {
     [SerializeField] InputController input = null;
     [SerializeField] PlayerMovementController controller;
-    [SerializeField, Range(0f, 100f)] private float maxSpeed = 4f;
-    [SerializeField, Range(0f, 100f)] private float maxAcceleration = 35f;
-    [SerializeField, Range(0f, 100f)] private float maxAirAcceleration = 20f;
+    [SerializeField] Animator animator;
+    [SerializeField] RuntimeAnimatorController defaultAnimator;
+    [SerializeField] MovementOverride movement;
+    [Space]
+    [Space]
+    [SerializeField] Sound moveSound;
     
     private Vector2 direction;
     private Vector2 desiredVelocity;
@@ -19,6 +22,14 @@ public class Move : MonoBehaviour
     private float maxSpeedChange;
     private float acceleration;
     private bool isGrounded;
+    private bool isMoving;
+
+    private float possessionTimer = 0.5f;
+	private float possessionCooldown = 0.5f;
+
+    public void AnimMoveEvent() {
+        if (moveSound != null) moveSound.Play();
+    }
 
     void Awake()
     {
@@ -29,8 +40,14 @@ public class Move : MonoBehaviour
 
     void Update()
     {
+        possessionTimer += Time.deltaTime;
+        if (possessionTimer <= possessionCooldown)
+        {
+            desiredVelocity = Vector2.zero;
+            return;   
+        }
         direction.x = input.RetrieveMoveInput();
-        desiredVelocity = new Vector2(direction.x, 0f) * Mathf.Max(maxSpeed - groundCheck.GetFriction(), 0f);
+        desiredVelocity = new Vector2(direction.x, 0f) * Mathf.Max(movement.maxSpeed - groundCheck.GetFriction(), 0f);
     }
 
     private void FixedUpdate()
@@ -38,11 +55,14 @@ public class Move : MonoBehaviour
         
         velocity = body.velocity;
         isGrounded = groundCheck.IsGrounded();
-        acceleration = isGrounded ? maxAcceleration : maxAirAcceleration;
+        acceleration = isGrounded ? movement.maxAcceleration : movement.maxAirAcceleration;
         maxSpeedChange = acceleration * Time.fixedDeltaTime;
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
 
         body.velocity = velocity;
+
+        isMoving = Mathf.Abs(velocity.x) > Mathf.Epsilon ? true : false;
+        if (animator != null) animator.SetBool("isMoving", isMoving);
 
         // If the input is moving the player right and the player is facing left...
 			if (velocity.x > 0 && !controller.IsFacingRight())
@@ -58,5 +78,15 @@ public class Move : MonoBehaviour
 			}
 
     }
+
+    public void ResetAnimator()
+    {
+        if (animator != null) animator.runtimeAnimatorController = defaultAnimator;
+    }
+
+    public void ResetPossessionTimer()
+	{
+		possessionTimer = 0f;
+	}
 
 }

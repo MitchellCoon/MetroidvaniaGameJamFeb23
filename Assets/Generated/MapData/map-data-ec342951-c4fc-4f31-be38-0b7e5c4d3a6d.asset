@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2e5324cb6c549b6a3d427c3f237f83, type: 3}
+  m_Name: map-data-ec342951-c4fc-4f31-be38-0b7e5c4d3a6d
+  m_EditorClassIdentifier: 
+  roomGuid: ec342951-c4fc-4f31-be38-0b7e5c4d3a6d
+  roomName: Lab4_PipesBattle
+  _backgroundLayer:
+    valid: 1
+    name: Lab4_PipesBattle_LayerBackground
+    type: 1
+    position: {x: 1.5, y: 19.5}
+    scale: 1
+    sortingOrder: 0
+    sprite: {fileID: 21300000, guid: 0bb33573196cd4ee8aa6537bacbcac9f, type: 3}
+    spriteOverride: {fileID: 0}
+  _borderLayer:
+    valid: 1
+    name: Lab4_PipesBattle_LayerBorder
+    type: 2
+    position: {x: 1.5, y: 19.5}
+    scale: 1
+    sortingOrder: 2
+    sprite: {fileID: 21300000, guid: a7ee71c2a198f4d1ca9a961f4782b5c9, type: 3}
+    spriteOverride: {fileID: 0}
+  _tileLayer:
+    valid: 1
+    name: Lab4_PipesBattle_LayerTile
+    type: 0
+    position: {x: 1.5, y: 19.5}
+    scale: 1
+    sortingOrder: 1
+    sprite: {fileID: 21300000, guid: d3b998dde81a04a5fa394f812dbea5b6, type: 3}
+    spriteOverride: {fileID: 0}
+  isVisited: 0

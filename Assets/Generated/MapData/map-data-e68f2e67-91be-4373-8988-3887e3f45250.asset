@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2e5324cb6c549b6a3d427c3f237f83, type: 3}
+  m_Name: map-data-e68f2e67-91be-4373-8988-3887e3f45250
+  m_EditorClassIdentifier: 
+  roomGuid: e68f2e67-91be-4373-8988-3887e3f45250
+  roomName: LabUU_SpiderBoss
+  _backgroundLayer:
+    valid: 1
+    name: LabUU_SpiderBoss_LayerBackground
+    type: 1
+    position: {x: -46, y: 73.5}
+    scale: 1
+    sortingOrder: 0
+    sprite: {fileID: 21300000, guid: a1063f49b5d7a41f39f029c9cefd9cf5, type: 3}
+    spriteOverride: {fileID: 0}
+  _borderLayer:
+    valid: 1
+    name: LabUU_SpiderBoss_LayerBorder
+    type: 2
+    position: {x: -46, y: 73.5}
+    scale: 1
+    sortingOrder: 2
+    sprite: {fileID: 21300000, guid: 3de604803fa904254ae9fa2fd9ed3021, type: 3}
+    spriteOverride: {fileID: 0}
+  _tileLayer:
+    valid: 1
+    name: LabUU_SpiderBoss_LayerTile
+    type: 0
+    position: {x: -46, y: 73.5}
+    scale: 1
+    sortingOrder: 1
+    sprite: {fileID: 21300000, guid: 43d66c596ff4d4b98a73377cad130f9b, type: 3}
+    spriteOverride: {fileID: 0}
+  isVisited: 0

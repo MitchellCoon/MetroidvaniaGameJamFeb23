@@ -5,20 +5,20 @@ using UnityEngine.Events;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    [SerializeField] private float jumpForce = 400f;							// Amount of force added when the player jumps.
-	[Range(0, 1)] [SerializeField] private float crouchSpeed = .36f;			// Amount of maxSpeed applied to crouching movement. 1 = 100%
-	[Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;	// How much to smooth out the movement
+	[SerializeField] MovementOverride movement;
 	[SerializeField] private bool isAirControlEnabled = false;					// Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask groundLayer;						    	// A mask determining what is ground to the character
-	[SerializeField] private GroundCheck groundCheck;				    			// A position marking where to check if the player is grounded
+	[SerializeField] private GroundCheck groundCheck;				    		// A position marking where to check if the player is grounded
 	[SerializeField] private Transform ceilingCheck;							// A position marking where to check for ceilings
 	[SerializeField] private Collider2D crouchCollider;				            // A collider that will be disabled when crouching
+
+	[SerializeField] BaseEnemyAI enemyAI;
 
 	const float groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool isGrounded;          // Whether or not the player is grounded
 	const float ceilingRadius = .2f;  // Radius of the overlap circle to determine if the player can stand up
 	private new Rigidbody2D rigidbody2D;
-	private bool isFacingRight = true;  // For determining which way the player is currently facing
+	[SerializeField] bool isFacingRight = true;  // For determining which way the player is currently facing
 	private Vector3 velocity = Vector3.zero;
 
 	[Header("Events")]
@@ -35,6 +35,11 @@ public class PlayerMovementController : MonoBehaviour
 	public bool IsFacingRight()
 	{
 		return isFacingRight;
+	}
+
+	public void SetIsFacingRight(bool sourceIsFacingRight)
+	{
+		isFacingRight = sourceIsFacingRight;
 	}
 
 	private void Awake()
@@ -54,7 +59,23 @@ public class PlayerMovementController : MonoBehaviour
 		isGrounded = groundCheck.IsGrounded();
 	}
 
-
+	void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag.Equals ("MovingPlatform") || other.gameObject.tag.Equals ("Floor"))
+        {
+            transform.parent = other.transform;
+			rigidbody2D.interpolation = RigidbodyInterpolation2D.None;
+        }
+    }
+ 
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag.Equals ("MovingPlatform")|| other.gameObject.tag.Equals ("Floor")) 
+        {
+            transform.parent = null;
+			rigidbody2D.interpolation = RigidbodyInterpolation2D.Interpolate;
+        }
+    }
 	public void Move(float move, bool isCrouching, bool jump)
 	{
 		// If crouching, check to see if the character can stand up
@@ -81,7 +102,7 @@ public class PlayerMovementController : MonoBehaviour
 				}
 
 				// Reduce the speed by the crouchSpeed multiplier
-				move *= crouchSpeed;
+				move *= movement.crouchSpeed;
 
 				// Disable one of the colliders when crouching
 				if (crouchCollider != null)
@@ -102,7 +123,7 @@ public class PlayerMovementController : MonoBehaviour
 			// Move the character by finding the target velocity
 			Vector3 targetVelocity = new Vector2(move * 10f, rigidbody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
-			rigidbody2D.velocity = Vector3.SmoothDamp(rigidbody2D.velocity, targetVelocity, ref velocity, movementSmoothing);
+			rigidbody2D.velocity = Vector3.SmoothDamp(rigidbody2D.velocity, targetVelocity, ref velocity, movement.movementSmoothing);
 
 			// If the input is moving the player right and the player is facing left...
 			if (move > 0 && !isFacingRight)
@@ -122,7 +143,7 @@ public class PlayerMovementController : MonoBehaviour
 		{
 			// Add a vertical force to the player.
 			isGrounded = false;
-			rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+			rigidbody2D.AddForce(new Vector2(0f, movement.jumpForce));
 		}
 	}
 
@@ -135,5 +156,23 @@ public class PlayerMovementController : MonoBehaviour
 		Vector3 localScale = transform.localScale;
 		localScale.x *= -1;
 		transform.localScale = localScale;
+		if(enemyAI != null)
+        {
+            enemyAI.SetIsFacingRight(isFacingRight);
+        }
 	}
+
+	public void ResetDirection()
+	{
+		if ((isFacingRight && transform.localScale.x < 0) || (!isFacingRight && transform.localScale.x > 0))
+		{
+			Flip();
+			isFacingRight = !isFacingRight;
+			if(enemyAI != null)
+			{
+				enemyAI.SetIsFacingRight(isFacingRight);
+			}
+		} 
+	}
+
 }

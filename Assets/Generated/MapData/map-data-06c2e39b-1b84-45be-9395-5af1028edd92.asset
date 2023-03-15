@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2e5324cb6c549b6a3d427c3f237f83, type: 3}
+  m_Name: map-data-06c2e39b-1b84-45be-9395-5af1028edd92
+  m_EditorClassIdentifier: 
+  roomGuid: 06c2e39b-1b84-45be-9395-5af1028edd92
+  roomName: LabU1_SpiderEntrance
+  _backgroundLayer:
+    valid: 1
+    name: LabU1_SpiderEntrance_LayerBackground
+    type: 1
+    position: {x: 2.5, y: 54.5}
+    scale: 1
+    sortingOrder: 0
+    sprite: {fileID: 21300000, guid: 2e93f45c3c63b4ae281cf2ddeb932866, type: 3}
+    spriteOverride: {fileID: 0}
+  _borderLayer:
+    valid: 1
+    name: LabU1_SpiderEntrance_LayerBorder
+    type: 2
+    position: {x: 2.5, y: 54.5}
+    scale: 1
+    sortingOrder: 2
+    sprite: {fileID: 21300000, guid: bf368941a0fb44159a9ad96e186f1af5, type: 3}
+    spriteOverride: {fileID: 0}
+  _tileLayer:
+    valid: 1
+    name: LabU1_SpiderEntrance_LayerTile
+    type: 0
+    position: {x: 2.5, y: 54.5}
+    scale: 1
+    sortingOrder: 1
+    sprite: {fileID: 21300000, guid: c10a72853282d411187d361d219ae125, type: 3}
+    spriteOverride: {fileID: 0}
+  isVisited: 0

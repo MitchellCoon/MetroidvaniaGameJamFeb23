@@ -2,32 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum JumpState { Grounded, Rising, Falling };
+
 public class Jump : MonoBehaviour
 {
     [SerializeField] InputManager inputManager;
     [SerializeField] private InputController inputController = null;
-    [SerializeField] private float jumpHeight = 3f; //Range(0f, 10f)
-    [SerializeField, Range(0, 5)] private int maxAirJumps = 0;
-    [SerializeField] private float downwardMovementMultiplier = 3f;//Range(0f, 5f)
-    [SerializeField] private float upwardMovementMultiplier = 1.7f;//Range(0f, 5f)
+    [SerializeField] MovementOverride movement;
+    [SerializeField] Sound jumpSound;
+    [SerializeField] Sound jumpSoundPossessed;
+    [SerializeField] Animator animator;
+    [SerializeField] RuntimeAnimatorController defaultAnimator;
+
+    PossessionManager possessionManager;
 
     private Rigidbody2D body;
     private GroundCheck groundCheck;
     private Vector2 velocity;
     private int jumpPhase;
-    private float defaultGravityScale;
     private bool desiredJump;
-    private bool isGrounded;
     private bool jumpButtonReleased;
     private float jumpBufferCounter;
     private bool jumpBufferTimeStarted = false;
     private float coyoteTimeCounter;
+    private JumpState jumpState;
 
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         groundCheck = GetComponent<GroundCheck>();
-        defaultGravityScale = 1f;
+        possessionManager = GetComponent<PossessionManager>();
     }
 
     void Update()
@@ -35,7 +39,7 @@ public class Jump : MonoBehaviour
         desiredJump |= inputController.RetrieveJumpInput();
         if (desiredJump)
         {
-            if(!inputManager.GetInputRequested(InputManager.Input.Jump))
+            if (!inputManager.GetInputRequested(InputManager.Input.Jump))
             {
                 inputManager.AddInputRequestToQueue(InputManager.Input.Jump, Time.time);
             }
@@ -65,39 +69,84 @@ public class Jump : MonoBehaviour
     private void FixedUpdate()
     {
         velocity = body.velocity;
-        isGrounded = groundCheck.IsGrounded();
-        if (isGrounded)
+        if (groundCheck.IsGrounded())
         {
+            animator.SetBool(Constants.IS_GROUNDED_BOOL, true);
             jumpPhase = 0;
+            if (jumpState != JumpState.Grounded)
+            {
+                if (animator != null) animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
+                if (animator != null) animator.SetBool(Constants.JUMP_LAND_ANIMATION, true);
+            }
+            jumpState = JumpState.Grounded;
             coyoteTimeCounter = inputManager.GetInputBufferTime(InputManager.Input.CoyoteJump);
             inputManager.SetPreviousActionTime(InputManager.Action.Grounded, Time.time);
         }
+        else
+        {
+            animator.SetBool(Constants.IS_GROUNDED_BOOL, false);
+            coyoteTimeCounter -= Time.fixedDeltaTime;
+        }
 
-        if(inputManager.GetInputRequested(InputManager.Input.Jump))
+        bool isJumpButtonHeld = inputController.RetrieveJumpButtonHeld();
+
+        if (inputManager.GetInputRequested(InputManager.Input.Jump))
         {
             JumpAction();
         }
-        if (body.velocity.y > 0)
+
+        if (velocity.y > 0 && isJumpButtonHeld && !groundCheck.IsGrounded())
         {
-            body.gravityScale = upwardMovementMultiplier;
+            if (jumpState != JumpState.Rising)
+            {
+                if (animator != null) animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
+                if (animator != null) animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
+                if (animator != null) animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
+            }
+            jumpState = JumpState.Rising;
+            body.gravityScale = movement.upwardMovementMultiplier;
+
         }
-        else if (body.velocity.y < 0)
+        else if (velocity.y > 0 && !isJumpButtonHeld && !groundCheck.IsGrounded())
         {
-            body.gravityScale = downwardMovementMultiplier;
+            if (jumpState != JumpState.Rising)
+            {
+                if (animator != null) animator.SetTrigger(Constants.JUMP_RISE_ANIMATION);
+                if (animator != null) animator.SetBool(Constants.JUMP_FALL_ANIMATION, false);
+                if (animator != null) animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
+            }
+            jumpState = JumpState.Rising;
+            body.gravityScale = movement.upwardMovementShortJumpMultiplier;
         }
-        else if (body.velocity.y == 0)
+        else if (velocity.y < 0 && !groundCheck.IsGrounded())
         {
-            body.gravityScale = defaultGravityScale;
+            if (jumpState != JumpState.Falling)
+            {
+                if (animator != null) animator.SetBool(Constants.JUMP_FALL_ANIMATION, true);
+                if (animator != null) animator.SetBool(Constants.JUMP_LAND_ANIMATION, false);
+            }
+            jumpState = JumpState.Falling;
+            body.gravityScale = movement.downwardMovementMultiplier;
+
+        }
+        else
+        {
+            body.gravityScale = movement.defaultGravityScale;
+        }
+
+        // clamp fall speed to terminal velocity
+        if (velocity.y < 0)
+        {
+            float clampedYSpeed = Mathf.Clamp(velocity.y, -Constants.GRAVITY * movement.terminalVelocity, 0);
+            velocity = new Vector2(velocity.x, clampedYSpeed);
         }
 
         body.velocity = velocity;
-
-
     }
 
     private void JumpAction()
     {
-        if ((!(inputManager.GetPreviousActionTime(InputManager.Action.Grounded) == -1) && Time.time - inputManager.GetPreviousActionTime(InputManager.Action.Grounded) <= inputManager.GetInputBufferTime(InputManager.Input.Jump)) || jumpPhase < maxAirJumps)
+        if ((!(inputManager.GetPreviousActionTime(InputManager.Action.Grounded) == -1) && Time.time - inputManager.GetPreviousActionTime(InputManager.Action.Grounded) <= inputManager.GetInputBufferTime(InputManager.Input.Jump)) || jumpPhase < movement.maxAirJumps)
         {
             if ((coyoteTimeCounter < 0f || jumpBufferCounter < 0f))
             {
@@ -110,21 +159,35 @@ public class Jump : MonoBehaviour
             inputManager.SetPreviousActionTime(InputManager.Action.Grounded, -1);
             inputManager.SetPreviousPressedTime(InputManager.Input.Jump, -1);
             inputManager.RemoveInputRequestFromQueue(InputManager.Input.Jump);
-            isGrounded = false;
-            float jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * jumpHeight);
+            float jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * movement.jumpHeight);
             if (velocity.y > 0f)
             {
                 jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
             }
-            if (!isGrounded && velocity.y < 0)
+            if (!groundCheck.IsGrounded() && velocity.y < 0)
             {
-                velocity.y = jumpSpeed;
+                // first zero out y velocity
+                velocity.y = 0;
             }
-            else
-            {
-                velocity.y += jumpSpeed;
-            }
-            
+            velocity.y += jumpSpeed;
+            PlayJumpSound();
         }
+    }
+
+    void PlayJumpSound()
+    {
+        if (possessionManager != null)
+        {
+            if (jumpSoundPossessed != null) jumpSoundPossessed.Play();
+        }
+        else
+        {
+            if (jumpSound != null) jumpSound.Play();
+        }
+    }
+
+    public void ResetAnimator()
+    {
+        if (animator != null) animator.runtimeAnimatorController = defaultAnimator;
     }
 }
