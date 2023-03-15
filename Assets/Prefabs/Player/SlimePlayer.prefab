@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disableInProdBuild: 0
   debugInPlayMode: 0
-  attackData: {fileID: 0}
+  attackData: {fileID: 11400000, guid: e1d19feb4711f4d4ebde7d1bb8164620, type: 2}
   isEnemyHitbox: 0
   hitOnce: 0
   targetLayers:
@@ -390,6 +390,8 @@ MonoBehaviour:
   groundCheck: {fileID: 8522799911517438546}
   ceilingCheck: {fileID: 8522799911392429879}
   crouchCollider: {fileID: 0}
+  enemyAI: {fileID: 0}
+  isFacingRight: 1
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -607,8 +609,10 @@ MonoBehaviour:
   inputManager: {fileID: 8522799911517438547}
   hitbox: {fileID: 8522799911296395313}
   attackData: {fileID: 0}
+  defaultAttack: {fileID: 11400000, guid: bd82550a656624248a036b45c48c5b70, type: 2}
+  possessAttack: {fileID: 11400000, guid: e1d19feb4711f4d4ebde7d1bb8164620, type: 2}
   defaultMeleeAttack: {fileID: 11400000, guid: e1d19feb4711f4d4ebde7d1bb8164620, type: 2}
-  defaultProjectileAttack: {fileID: 11400000, guid: bf54fb62e11806342b1fb295eb2ac1a9, type: 2}
+  defaultProjectileAttack: {fileID: 11400000, guid: bd82550a656624248a036b45c48c5b70, type: 2}
   projectileOrigin: {fileID: 8522799912691234325}
   projectilePrefab: {fileID: 8368949391819313113, guid: 6238d71e6dc1f064e97b538d41a24940, type: 3}
 --- !u!114 &8418083463088891543
@@ -637,7 +641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 0
   animator: {fileID: 8522799911517438558}
-  defaultAnimator: {fileID: 0}
+  healthyAnimator: {fileID: 9100000, guid: b15055c35ea427e4996b988747492a2f, type: 2}
   hurtAnimator: {fileID: 9100000, guid: d6a410519e646fc4c905715b02d1b8d0, type: 2}
   perilAnimator: {fileID: 9100000, guid: f91a80fc31a4aab40bc9454307e483dd, type: 2}
   resources: {fileID: 1485358225990305883}
@@ -648,6 +652,15 @@ MonoBehaviour:
   hurtThreshold: 7
   hurtSound: {fileID: 3805058434636850278}
   deathSound: {fileID: 3577112334705500536}
+  possessionManager: {fileID: 0}
+  enemySlimePossessionAnimator: {fileID: 0}
+  healthySlimePossessionAnimator: {fileID: 9100000, guid: c6dd8688e5ddf7e43bf2202169c8b8a0, type: 2}
+  hurtSlimePossessionAnimator: {fileID: 9100000, guid: 1c861b74f994a7d45b7a6b376e51140d, type: 2}
+  perilSlimePossessionAnimator: {fileID: 9100000, guid: 4c43eebfdf3817f4d886dc94afb31793, type: 2}
+  attack: {fileID: 8522799911517438553}
+  healthySlimeProjectileAttackData: {fileID: 11400000, guid: bd82550a656624248a036b45c48c5b70, type: 2}
+  hurtSlimeProjectileAttackData: {fileID: 11400000, guid: 9deba3b80f00e2341b9c0dee2b06c9ea, type: 2}
+  perilSlimeProjectileAttackData: {fileID: 11400000, guid: 4741770768b8a8c41a876b2e5a662f0b, type: 2}
 --- !u!114 &1485358225990305883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -678,8 +691,9 @@ MonoBehaviour:
   movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
   rb: {fileID: 8522799911517438550}
   controller: {fileID: 8522799911517438551}
+  groundCheck: {fileID: 8522799911517438546}
   dashSound: {fileID: 4983342361971278345}
-  dashCooldown: 1
+  dashCooldown: 0.75
 --- !u!1 &8522799912452560047
 GameObject:
   m_ObjectHideFlags: 0

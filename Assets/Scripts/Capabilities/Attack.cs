@@ -8,10 +8,11 @@ public class Attack : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] RuntimeAnimatorController defaultAnimator;
     [SerializeField] InputManager inputManager;
-    // [SerializeField] AudioSource playerAudio;
     [SerializeField] Hitbox hitbox;
 
     [SerializeField] AttackData attackData;
+    [SerializeField] AttackData defaultAttack;
+    [SerializeField] AttackData possessAttack;
     [SerializeField] AttackData defaultMeleeAttack;
     [SerializeField] AttackData defaultProjectileAttack;
 
@@ -36,18 +37,39 @@ public class Attack : MonoBehaviour
         }
         if (Time.time >= nextAttackTime && inputManager.GetInputRequested(InputManager.Input.Attack1))
         {
-            SetAttackData(defaultMeleeAttack);
-            hitbox.UpdateAttackData(attackData);
+            SetAttackData(defaultAttack);
+            if(defaultAttack.attackType == AttackType.Melee)
+            {
+                hitbox.UpdateAttackData(attackData);
+            }
             currentInput = InputManager.Input.Attack1;
             ExecuteAttack();
 
         }
-        else if (Time.time >= nextAttackTime && inputManager.GetInputRequested(InputManager.Input.Attack2))
+        else if (possessAttack != null && Time.time >= nextAttackTime && inputManager.GetInputRequested(InputManager.Input.Attack2))
         {
-            SetAttackData(defaultProjectileAttack);
+            SetAttackData(possessAttack);
+            if(defaultAttack.attackType == AttackType.Melee)
+            {
+                hitbox.UpdateAttackData(attackData);
+            }
             currentInput = InputManager.Input.Attack2;
             ExecuteAttack();
+
         }
+
+        // else if (Time.time >= nextAttackTime && inputManager.GetInputRequested(InputManager.Input.Attack2))
+        // {
+        //     SetAttackData(defaultProjectileAttack);
+        //     currentInput = InputManager.Input.Attack2;
+        //     ExecuteAttack();
+        // }
+    }
+
+    public void SetDefaultAttackData(AttackData newAttackData)
+    {
+        defaultAttack = newAttackData;
+        projectilePrefab = newAttackData.projectilePrefab;
     }
 
     public void SetAttackData(AttackData newAttackData)
@@ -62,7 +84,6 @@ public class Attack : MonoBehaviour
         inputManager.RemoveInputRequestFromQueue(currentInput);
         nextAttackTime = Time.time + attackData.duration;
         animator.SetTrigger(attackData.animationName);
-        //playerAudio.PlayOneShot(attackData.attackSoundEffect, 1.0f);
     }
 
     public void SpawnProjectile()

@@ -7,7 +7,9 @@ public class SlimePossessMotion : MonoBehaviour
 
     [SerializeField] float speed = 10f;
     [SerializeField] float minimumDistance = 0.001f;
+    [SerializeField] RuntimeAnimatorController slimeAnimator;
     SpriteRenderer spriteRenderer;
+    Animator animator;
     Vector3 target;
 
 
@@ -18,14 +20,16 @@ public class SlimePossessMotion : MonoBehaviour
         if (Vector3.Distance(transform.position, target) < minimumDistance)
         {
             spriteRenderer.enabled = true;
+            animator.runtimeAnimatorController = slimeAnimator;
             Destroy(gameObject);
         }
     }
 
-    public void SetTarget(SpriteRenderer slimePossessionSpriteRenderer, Vector3 enemyAttachPoint, bool isFacingRight)
+    public void SetTarget(SpriteRenderer slimePossessionSpriteRenderer, Animator slimePossessionAnimator, Vector3 enemyAttachPoint, bool isFacingRight)
     {
         target = enemyAttachPoint;
         spriteRenderer = slimePossessionSpriteRenderer;
+        animator = slimePossessionAnimator;
         if (!isFacingRight)
         {
             Flip();

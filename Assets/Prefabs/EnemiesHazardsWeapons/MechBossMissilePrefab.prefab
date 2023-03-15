@@ -112,6 +112,7 @@ MonoBehaviour:
   detonationLayerMask:
     serializedVersion: 2
     m_Bits: 137
+  explosionOffset: {x: 0, y: -1, z: 0}
 --- !u!50 &6624971411110971916
 Rigidbody2D:
   serializedVersion: 4
@@ -145,8 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ea566673b88c74f925f458d07d7f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableInEditor: 0
-  doNotDisableSpriteRenderer: 0
+  disableInProdBuild: 0
+  debugInPlayMode: 0
   attackData: {fileID: 11400000, guid: cd0cfc305e2e88f47b28f7c3edbebceb, type: 2}
   isEnemyHitbox: 1
   hitOnce: 1

@@ -22,7 +22,7 @@ MonoBehaviour:
   knockback: 0
   knockbackForce: 0
   projectilePrefab: {fileID: 8368949391819313113, guid: b3e0d811d71399d41838587b03eea0f6, type: 3}
-  projectileSpeed: 5
-  projectileRange: 5
-  destroyProjectileOnHit: 1
+  projectileSpeed: 15
+  projectileRange: 20
+  destroyProjectileOnHit: 0
   willPossessTarget: 0

@@ -29,6 +29,11 @@ public class Resource : ScriptableObject
         return currentValue;
     }
 
+    public void SetCurrentValue(int newValue)
+    {
+        currentValue = newValue;
+    }
+
     public float GetCurrentPercentage()
     {
         return (float)(Mathf.Max(currentValue - minValue, minValue)) / Mathf.Clamp(maxValue - minValue, minValue, maxValue);

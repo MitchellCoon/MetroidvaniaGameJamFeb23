@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum HealthStatus {Healthy, Hurt, Peril};
+
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] bool isEnemy = false;
     [SerializeField] Animator animator;
-    [SerializeField] RuntimeAnimatorController defaultAnimator;
+    [SerializeField] RuntimeAnimatorController healthyAnimator;
     [SerializeField] RuntimeAnimatorController hurtAnimator;
     [SerializeField] RuntimeAnimatorController perilAnimator;
     [SerializeField] ResourceManager resources;
@@ -22,6 +24,16 @@ public class PlayerCombat : MonoBehaviour
     [Space]
     [SerializeField] Sound hurtSound;
     [SerializeField] Sound deathSound;
+
+    [SerializeField] PossessionManager possessionManager;
+    [SerializeField] Animator enemySlimePossessionAnimator;
+    [SerializeField] RuntimeAnimatorController healthySlimePossessionAnimator;
+    [SerializeField] RuntimeAnimatorController hurtSlimePossessionAnimator;
+    [SerializeField] RuntimeAnimatorController perilSlimePossessionAnimator;
+    [SerializeField] Attack attack;
+    [SerializeField] AttackData healthySlimeProjectileAttackData;
+    [SerializeField] AttackData hurtSlimeProjectileAttackData;
+    [SerializeField] AttackData perilSlimeProjectileAttackData;
 
     PlayerMain playerMain;
 
@@ -64,19 +76,9 @@ public class PlayerCombat : MonoBehaviour
 
         //animator.SetTrigger("Hurt");
 
-        if(!isEnemy)
-        {
-            if (health.GetCurrentValue() <= perilThreshold)
-            {
-                animator.runtimeAnimatorController = perilAnimator;
-            }
-            else if (health.GetCurrentValue() <= hurtThreshold)
-            {
-                animator.runtimeAnimatorController = hurtAnimator;
-            }
-        }
+        UpdateSlimeAnimatorAndAttack();
 
-        Vector2 adjustedForce = attackData.knockbackForce * weightMultiplier * (attackOrigin - transform.position).normalized;
+        Vector2 adjustedForce = attackData.knockbackForce * weightMultiplier * (transform.position - attackOrigin).normalized;
 
         rb.AddForce(adjustedForce, ForceMode2D.Impulse);
 
@@ -88,9 +90,69 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    public void ResetAnimator()
+    public int GetHealthValue()
     {
-        animator.runtimeAnimatorController = defaultAnimator;
+        return health.GetCurrentValue();
+    }
+
+    public void SetHealthValue(int newValue)
+    {
+        health.SetCurrentValue(newValue);
+        UpdateSlimeAnimatorAndAttack();
+    }
+
+    public HealthStatus GetHealthStatus()
+    {
+        if (health.GetCurrentValue() > hurtThreshold)
+        {
+            return HealthStatus.Healthy;
+        }
+        else if (health.GetCurrentValue() > perilThreshold)
+        {
+            return HealthStatus.Hurt;
+        }
+        else
+        {
+            return HealthStatus.Peril;
+        }
+    }
+
+    public void UpdateSlimeAnimatorAndAttack()
+    {
+        if(!isEnemy)
+        {
+            if (health.GetCurrentValue() <= perilThreshold)
+            {
+                animator.runtimeAnimatorController = perilAnimator;
+                attack.SetDefaultAttackData(perilSlimeProjectileAttackData);
+            }
+            else if (health.GetCurrentValue() <= hurtThreshold)
+            {
+                animator.runtimeAnimatorController = hurtAnimator;
+                attack.SetDefaultAttackData(hurtSlimeProjectileAttackData);
+            }
+            else
+            {
+                animator.runtimeAnimatorController = healthyAnimator;
+                attack.SetDefaultAttackData(healthySlimeProjectileAttackData);
+            }
+        }
+        else
+        {
+            if (possessionManager == null || !possessionManager.IsPossessed()) return;
+            if (health.GetCurrentValue() <= perilThreshold)
+            {
+                enemySlimePossessionAnimator.runtimeAnimatorController = perilSlimePossessionAnimator;
+            }
+            else if (health.GetCurrentValue() <= hurtThreshold)
+            {
+                enemySlimePossessionAnimator.runtimeAnimatorController = hurtSlimePossessionAnimator;
+            }
+            else
+            {
+                enemySlimePossessionAnimator.runtimeAnimatorController = healthySlimePossessionAnimator;
+            }
+        }
     }
 
     void OnEmergencyPlayerInstakillSomethingWentHorriblyWrong()
@@ -107,6 +169,7 @@ public class PlayerCombat : MonoBehaviour
         GetComponent<Move>().enabled = false;
         GetComponent<Jump>().enabled = false;
         GetComponent<Attack>().enabled = false;
+        GetComponent<Dash>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
         GetComponent<Rigidbody2D>().gravityScale = 0;
         GetComponent<Rigidbody2D>().velocity = Vector3.zero;

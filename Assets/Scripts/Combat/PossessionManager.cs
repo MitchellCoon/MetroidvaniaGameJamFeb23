@@ -14,7 +14,10 @@ public class PossessionManager : MonoBehaviour
     [SerializeField] Transform unpossessionSpawnPoint;
     [SerializeField] BoolVariable isPlayerPossessing;
     [SerializeField] SpriteRenderer slimePossessionSpriteRenderer;
-    [SerializeField] SlimePossessMotion slimePossessPrefab;
+    [SerializeField] Animator slimePossessionAnimator;
+    [SerializeField] SlimePossessMotion slimePossessHealthyPrefab;
+    [SerializeField] SlimePossessMotion slimePossessHurtPrefab;
+    [SerializeField] SlimePossessMotion slimePossessPerilPrefab;
     [SerializeField] Transform slimeAttachPoint;
     [SerializeField] bool canGetPossessed;
     [Space]
@@ -32,6 +35,7 @@ public class PossessionManager : MonoBehaviour
     EnemyAttack enemyAttack;
     AIMovement aIMovement;
     BaseEnemyAI enemyAI;
+    [SerializeField] ReflexJump reflexJump;
 
     // player components - enabled while the enemy is being possessed
     PlayerMain playerMain;
@@ -104,7 +108,8 @@ public class PossessionManager : MonoBehaviour
     void Update()
     {
         possessionTimer += Time.deltaTime;
-        bool isUnpossessButtonPressed = MInput.GetKeyDown(KeyCode.F) || MInput.GetPadDown(GamepadCode.ButtonNorth);
+        bool isUnpossessButtonPressed = MInput.GetKeyDown(KeyCode.Mouse1) || MInput.GetKeyDown(KeyCode.O) || MInput.GetPadDown(GamepadCode.ButtonEast) || MInput.GetPadDown(GamepadCode.BumperRight);
+        //bool isUnpossessButtonPressed = MInput.GetKeyDown(KeyCode.F) || MInput.GetPadDown(GamepadCode.ButtonNorth);
         if (isPossessed && isUnpossessButtonPressed && possessionTimer >= possessionCooldown)
         {
             RevertPossession();
@@ -134,8 +139,7 @@ public class PossessionManager : MonoBehaviour
         possessionTimer = 0f;
         move.ResetPossessionTimer();
         SetPlayerComponentsEnabled(true);
-        //playerObj.GetComponent<Move>().ResetPossessionTimer();
-        SpawnPlayerPossessObject(playerObj.GetComponent<PlayerMovementController>());
+        SpawnPlayerPossessObject(playerObj);
         Destroy(playerObj);
         isPossessed = true;
         enemyAI.GetComponent<Animator>().SetBool("isPossessed", true);
@@ -178,6 +182,10 @@ public class PossessionManager : MonoBehaviour
         {
             enemyAI.ResetDirection();
         }
+        if (reflexJump != null)
+        {
+            reflexJump.enabled = value;
+        }
     }
 
     void SetPlayerComponentsEnabled(bool value)
@@ -209,13 +217,27 @@ public class PossessionManager : MonoBehaviour
 
     IEnumerator SpawnPlayer()
     {
-        Instantiate(playerPrefab, unpossessionSpawnPoint.position, Quaternion.identity);
+        int currentHealth = playerCombat.GetHealthValue();
+        Instantiate(playerPrefab, unpossessionSpawnPoint.position, Quaternion.identity).GetComponent<PlayerCombat>().SetHealthValue(currentHealth);
         yield return null;
     }
 
-    void SpawnPlayerPossessObject(PlayerMovementController player)
+    void SpawnPlayerPossessObject(GameObject playerObj)
     {
-        Instantiate(slimePossessPrefab, player.transform.position, player.transform.rotation).SetTarget(slimePossessionSpriteRenderer, slimeAttachPoint.position, playerMovementController.IsFacingRight());
+        PlayerCombat playerCombat = playerObj.GetComponent<PlayerCombat>();
+        if(playerCombat.GetHealthStatus() == HealthStatus.Healthy)
+        {
+            Instantiate(slimePossessHealthyPrefab, playerObj.transform.position, playerObj.transform.rotation).SetTarget(slimePossessionSpriteRenderer, slimePossessionAnimator, slimeAttachPoint.position, playerMovementController.IsFacingRight());
+        }
+        else if(playerCombat.GetHealthStatus() == HealthStatus.Hurt)
+        {
+            Instantiate(slimePossessHurtPrefab, playerObj.transform.position, playerObj.transform.rotation).SetTarget(slimePossessionSpriteRenderer, slimePossessionAnimator, slimeAttachPoint.position, playerMovementController.IsFacingRight());
+        }
+        else
+        {
+            Instantiate(slimePossessPerilPrefab, playerObj.transform.position, playerObj.transform.rotation).SetTarget(slimePossessionSpriteRenderer, slimePossessionAnimator, slimeAttachPoint.position, playerMovementController.IsFacingRight());
+        }
+
     }
 
     void FailBadlyAndNoticeably(string reason)

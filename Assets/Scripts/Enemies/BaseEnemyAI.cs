@@ -5,14 +5,13 @@ using UnityEngine.Assertions;
 
 public class BaseEnemyAI : MonoBehaviour
 {
-    public int currentHealth;
-
     [SerializeField] Animator animator;
     [SerializeField] MovementOverride movement;
     [SerializeField] Rigidbody2D rb;
-    [SerializeField] Resource health;
-    [SerializeField] AttackData meleeAttackData;
-    [SerializeField] AttackData projectileAttackData;
+    [SerializeField] Resource healthScriptableObject;
+    [SerializeField] AttackData attackData;
+    // [SerializeField] AttackData meleeAttackData;
+    // [SerializeField] AttackData projectileAttackData;
     [SerializeField] PossessionManager possessionManager;
     [SerializeField] PlayerMovementController possessedMovementController;
     [Space]
@@ -28,13 +27,15 @@ public class BaseEnemyAI : MonoBehaviour
 
     PlayerMovementController player;
     Vector2 velocity;
-    [SerializeField] bool isFacingRight = true;
+    Resource health;
+    bool isFacingRight = true;
     bool isMoving;
     float horizontalMove = 0.0f;
+    float distanceToPlayer;
     float maxSpeedChange;
     float nextMeleeTime = 0f;
     float nextProjectileTime = 0f;
-    float pollInterval = 5f;
+    [SerializeField] float findPlayerPollInterval = 5f;
 
     // Values used for animations:
 
@@ -48,7 +49,9 @@ public class BaseEnemyAI : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(FindingPlayer(pollInterval));
+        health = Instantiate(healthScriptableObject);
+        health.Init();
+        StartCoroutine(FindingPlayer(findPlayerPollInterval));
     }
 
     void Update()
@@ -58,40 +61,46 @@ public class BaseEnemyAI : MonoBehaviour
             player = null;
             return;
         }
-        float distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
-        if (distanceToPlayer < detectionRadius && distanceToPlayer > meleeRange && !isAttacking && !isFiringProjectile)
+        distanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
+        horizontalMove = (player.transform.position - transform.position).normalized.x;
+        if(distanceToPlayer > detectionRadius) return;
+        if (attackData.attackType == AttackType.Projectile && distanceToPlayer <= detectionRadius && distanceToPlayer > meleeRange && !isAttacking && !isFiringProjectile)
         {
-            horizontalMove = (player.transform.position - transform.position).normalized.x;
-            if (horizontalMove > 0 && !isFacingRight)
-            {
-                Flip();
-            }
-            else if (horizontalMove < 0 && isFacingRight)
-            {
-                Flip();
-            }
+            FacePlayer();
             if (Time.time >= nextProjectileTime)
             {
-                nextProjectileTime = Time.time + projectileAttackData.duration;
+                nextProjectileTime = Time.time + attackData.duration;
                 animator.SetTrigger(Constants.PROJECTILE_ATTACK_ANIMATION);
             }
         }
-        else
+        else if (attackData.attackType == AttackType.Melee && distanceToPlayer < meleeRange && Time.time >= nextMeleeTime && !isFiringProjectile)
         {
-            if (distanceToPlayer < meleeRange && Time.time >= nextMeleeTime && !isFiringProjectile)
-            {
-                nextMeleeTime = Time.time + meleeAttackData.duration;
-                animator.SetTrigger(Constants.MELEE_ATTACK_ANIMATION);
-            }
+            FacePlayer();
+            nextMeleeTime = Time.time + attackData.duration;
+            animator.SetTrigger(Constants.MELEE_ATTACK_ANIMATION);
+        }
+    }
+
+    void FacePlayer()
+    {
+        if (horizontalMove > 0 && !isFacingRight)
+        {
+            Flip();
+        }
+        else if (horizontalMove < 0 && isFacingRight)
+        {
+            Flip();
         }
     }
 
     void FixedUpdate()
     {
+        if(distanceToPlayer > detectionRadius) return;
         if (isAttacking || isFiringProjectile || player == null)
         {
             horizontalMove = 0f;
         }
+        FacePlayer();
         Move(horizontalMove * movement.maxSpeed * Time.fixedDeltaTime);
     }
 
@@ -141,9 +150,9 @@ public class BaseEnemyAI : MonoBehaviour
 		} 
 	}
 
-    public void TakeDamage(AttackData attackData, Vector3 attackOrigin)
+    public void TakeDamage(AttackData incomingAttackData, Vector3 attackOrigin)
     {
-        health.SubtractResource(attackData.damage);
+        health.SubtractResource(incomingAttackData.damage);
 
         if (health.GetCurrentValue() <= 0)
         {
@@ -163,11 +172,11 @@ public class BaseEnemyAI : MonoBehaviour
         }
         if (isFacingRight)
         {
-            Instantiate(projectileAttackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation).GetComponent<Hitbox>().SetPossessionManager(possessionManager);
+            Instantiate(attackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation).GetComponent<Hitbox>().SetPossessionManager(possessionManager);
         }
         else
         {
-            Instantiate(projectileAttackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation * Quaternion.Euler(0, 180, 0)).GetComponent<Hitbox>().SetPossessionManager(possessionManager);
+            Instantiate(attackData.projectilePrefab, projectileSpawnPoint.position, transform.rotation * Quaternion.Euler(0, 180, 0)).GetComponent<Hitbox>().SetPossessionManager(possessionManager);
         }
     }
 

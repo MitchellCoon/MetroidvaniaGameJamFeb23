@@ -102,8 +102,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1297940041
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d9bcc0b72bfd05148961c84c1ecfacd0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 6423778844265691397}
   - component: {fileID: 6423778844265691399}
   - component: {fileID: 333294330}
+  - component: {fileID: 1203546901}
   m_Layer: 10
   m_Name: BaseEnemyPrefab
   m_TagString: Enemy
@@ -186,7 +187,6 @@ Transform:
   - {fileID: 54668828}
   - {fileID: 2045206609}
   - {fileID: 3960840469428454059}
-  - {fileID: 1512089850678935286}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -251,8 +251,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 1
   animator: {fileID: 6423778844265691398}
-  defaultAnimator: {fileID: 9100000, guid: fe2fbd83f6379b1498a0f570f9a0b105, type: 2}
-  hurtAnimator: {fileID: 9100000, guid: 424704397e0ce58428e572753fe7db44, type: 2}
+  healthyAnimator: {fileID: 9100000, guid: b15055c35ea427e4996b988747492a2f, type: 2}
+  hurtAnimator: {fileID: 9100000, guid: d6a410519e646fc4c905715b02d1b8d0, type: 2}
   perilAnimator: {fileID: 9100000, guid: f91a80fc31a4aab40bc9454307e483dd, type: 2}
   resources: {fileID: 6423778844265691422}
   rb: {fileID: 6423778844265691414}
@@ -262,6 +262,11 @@ MonoBehaviour:
   hurtThreshold: 7
   hurtSound: {fileID: 7024908643970182786}
   deathSound: {fileID: 7212305870699490204}
+  possessionManager: {fileID: 6423778844265691399}
+  enemySlimePossessionAnimator: {fileID: 2045206611}
+  healthySlimePossessionAnimator: {fileID: 9100000, guid: 16256fc8f71ce594699bb81515ec6fdc, type: 2}
+  hurtSlimePossessionAnimator: {fileID: 9100000, guid: ebf3a82ce5dffb14baffcbc15b2978f9, type: 2}
+  perilSlimePossessionAnimator: {fileID: 9100000, guid: 6c27d2642f77987489f31602eee02aca, type: 2}
 --- !u!114 &6423778844265691416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +338,8 @@ MonoBehaviour:
   groundCheck: {fileID: 6423778844265691396}
   ceilingCheck: {fileID: 6423778846335420144}
   crouchCollider: {fileID: 0}
+  enemyAI: {fileID: 0}
+  isFacingRight: 1
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -397,6 +404,8 @@ MonoBehaviour:
   inputManager: {fileID: 6423778844265691419}
   hitbox: {fileID: 6423778845367789128}
   attackData: {fileID: 0}
+  defaultAttack: {fileID: 11400000, guid: cf21cde720766e34ea46d66506a4c9f4, type: 2}
+  possessAttack: {fileID: 0}
   defaultMeleeAttack: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
   defaultProjectileAttack: {fileID: 11400000, guid: bf54fb62e11806342b1fb295eb2ac1a9, type: 2}
   projectileOrigin: {fileID: 6423778844265691409}
@@ -411,7 +420,7 @@ Animator:
   m_GameObject: {fileID: 6423778844265691413}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: db76bdb7851be0046aad6733350f006d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 95f92aaa00b566f4a9a439dc45fbee6c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -449,7 +458,10 @@ MonoBehaviour:
   unpossessionSpawnPoint: {fileID: 6423778845231642115}
   isPlayerPossessing: {fileID: 11400000, guid: cf0648d02273744cca9a37866585f057, type: 2}
   slimePossessionSpriteRenderer: {fileID: 2045206610}
-  slimePossessPrefab: {fileID: 1241160160387098183, guid: c0e2997abe443574fbec84e07b723934, type: 3}
+  slimePossessionAnimator: {fileID: 2045206611}
+  slimePossessHealthyPrefab: {fileID: 1241160160387098183, guid: c0e2997abe443574fbec84e07b723934, type: 3}
+  slimePossessHurtPrefab: {fileID: 1241160160387098183, guid: 93cb33cd94b9b154da7457911d241ccd, type: 3}
+  slimePossessPerilPrefab: {fileID: 1241160160387098183, guid: 6e1f17b5dd7bee248b0ef5eb2997ea5e, type: 3}
   slimeAttachPoint: {fileID: 2045206609}
   canGetPossessed: 1
   possessSound: {fileID: 6294610537842282306}
@@ -466,13 +478,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d7b7baa2e45124e88c5c60fb077211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
   animator: {fileID: 6423778844265691398}
   movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
   rb: {fileID: 6423778844265691414}
-  health: {fileID: 11400000, guid: 91e5af3b792e07646901238e999c61d2, type: 2}
-  meleeAttackData: {fileID: 11400000, guid: 92eb6a3571a7e324395d2d0b3ed9bd4d, type: 2}
-  projectileAttackData: {fileID: 11400000, guid: 0406c15c3bd2f0b4ca1727de104efbf0, type: 2}
+  healthScriptableObject: {fileID: 11400000, guid: dd75e7e6a895ba24faf8418c9f303c86, type: 2}
+  attackData: {fileID: 11400000, guid: cf21cde720766e34ea46d66506a4c9f4, type: 2}
   possessionManager: {fileID: 6423778844265691399}
   possessedMovementController: {fileID: 6423778844265691421}
   detectionRadius: 10
@@ -481,8 +491,28 @@ MonoBehaviour:
   shootSound: {fileID: 792901319093521066}
   hurtSound: {fileID: 0}
   deathSound: {fileID: 0}
+  findPlayerPollInterval: 2
   isFiringProjectile: 0
   isAttacking: 0
+--- !u!114 &1203546901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6423778844265691413}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84f69ce28bdefc42a4a65e29afd0e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 11400000, guid: 771c146892f477244879b8dfa7bde516, type: 2}
+  movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
+  rb: {fileID: 6423778844265691414}
+  controller: {fileID: 6423778844265691421}
+  groundCheck: {fileID: 6423778844265691396}
+  dashSound: {fileID: 1196644911533754605}
+  dashCooldown: 0.75
 --- !u!1 &6423778845231642114
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,6 +915,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff2088169200442b6a11524187729427, type: 3}
+--- !u!114 &1196644911533754605 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2157548801995775252, guid: ff2088169200442b6a11524187729427, type: 3}
+  m_PrefabInstance: {fileID: 966709317836772857}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe822f54c4bb48a1b6c55dd0534636e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1480200518840397638 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1864714027409357503, guid: ff2088169200442b6a11524187729427, type: 3}
@@ -967,68 +1008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe822f54c4bb48a1b6c55dd0534636e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &3222341496828587185
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6423778844265691409}
-    m_Modifications:
-    - target: {fileID: 4008041233167628498, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-      propertyPath: m_Name
-      value: PlayerSpotlight
-      objectReference: {fileID: 0}
-    - target: {fileID: 4054377873736667719, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4054377873736667719, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4054377873736667719, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4054377873736667719, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4054377873736667719, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4054377873736667719, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4054377873736667719, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4054377873736667719, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4054377873736667719, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4054377873736667719, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4054377873736667719, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
---- !u!4 &1512089850678935286 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4054377873736667719, guid: 8ddec8ed8ab1142558edb4a6db3022c4, type: 3}
-  m_PrefabInstance: {fileID: 3222341496828587185}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3877704734104222175
 PrefabInstance:
   m_ObjectHideFlags: 0

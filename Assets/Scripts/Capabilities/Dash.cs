@@ -8,20 +8,23 @@ public class Dash : MonoBehaviour
     [SerializeField] MovementOverride movement;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] PlayerMovementController controller;
+    [SerializeField] GroundCheck groundCheck;
     [Space]
     [Space]
     [SerializeField] Sound dashSound;
-    [SerializeField] float dashCooldown = 1f;
+    [SerializeField] float dashCooldown = 0.75f;
     
     private bool isDashing = false;
     private Vector3 dashDirection;
     private float dashSpeed;
     private float dashTimer = 0f;
 
-
-
     void Update()
     {
+        if(!isDashing && groundCheck.IsGrounded())
+        {
+            dashTimer += dashCooldown;
+        }
         if (dashTimer >= dashCooldown && input.RetrieveDashInput())
         {
             if (dashSound != null) dashSound.Play();

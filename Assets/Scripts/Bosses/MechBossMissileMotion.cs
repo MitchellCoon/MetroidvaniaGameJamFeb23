@@ -18,6 +18,7 @@ public class MechBossMissileMotion : MonoBehaviour
     [Space]
     [SerializeField] GameObject explosionPrefab;
     [SerializeField] LayerMask detonationLayerMask;
+    [SerializeField] Vector3 explosionOffset;
 
     GameObject player;
     float spawnTime;
@@ -63,7 +64,7 @@ public class MechBossMissileMotion : MonoBehaviour
     }
 
     void Explode() {
-        if (explosionPrefab != null) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        if (explosionPrefab != null) Instantiate(explosionPrefab, transform.position + explosionOffset, Quaternion.identity);
         if (missileFallSound != null) missileFallSound.Stop();
         Destroy(gameObject);
     }

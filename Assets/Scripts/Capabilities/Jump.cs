@@ -71,6 +71,7 @@ public class Jump : MonoBehaviour
         velocity = body.velocity;
         if (groundCheck.IsGrounded())
         {
+            animator.SetBool(Constants.IS_GROUNDED_BOOL, true);
             jumpPhase = 0;
             if (jumpState != JumpState.Grounded)
             {
@@ -83,6 +84,7 @@ public class Jump : MonoBehaviour
         }
         else
         {
+            animator.SetBool(Constants.IS_GROUNDED_BOOL, false);
             coyoteTimeCounter -= Time.fixedDeltaTime;
         }
 
@@ -105,7 +107,7 @@ public class Jump : MonoBehaviour
             body.gravityScale = movement.upwardMovementMultiplier;
 
         }
-        else if (velocity.y > 0 & !isJumpButtonHeld && !groundCheck.IsGrounded())
+        else if (velocity.y > 0 && !isJumpButtonHeld && !groundCheck.IsGrounded())
         {
             if (jumpState != JumpState.Rising)
             {

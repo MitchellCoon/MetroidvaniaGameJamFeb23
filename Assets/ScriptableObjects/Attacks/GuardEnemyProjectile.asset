@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   animationName: ProjectileAttack
   damage: 1
-  duration: 2
+  duration: 1
   attackSoundEffect: {fileID: 0}
   attackType: 1
   knockback: 0

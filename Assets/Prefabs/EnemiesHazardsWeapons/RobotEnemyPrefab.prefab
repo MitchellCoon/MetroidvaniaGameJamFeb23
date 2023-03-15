@@ -351,9 +351,17 @@ PrefabInstance:
       value: 0.59
       objectReference: {fileID: 0}
     - target: {fileID: 333294330, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: attackData
+      value: 
+      objectReference: {fileID: 11400000, guid: 15109c0d51406854485cd46e77187994, type: 2}
+    - target: {fileID: 333294330, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: projectileAttackData
       value: 
       objectReference: {fileID: 11400000, guid: 15109c0d51406854485cd46e77187994, type: 2}
+    - target: {fileID: 333294330, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: healthScriptableObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 5db30d284b5b5914eaedb2c1e36f286b, type: 2}
     - target: {fileID: 3960840469428454059, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -434,6 +442,10 @@ PrefabInstance:
       propertyPath: deathSound
       value: 
       objectReference: {fileID: 3720430338016856498}
+    - target: {fileID: 6423778844265691418, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: defaultAttack
+      value: 
+      objectReference: {fileID: 11400000, guid: 15109c0d51406854485cd46e77187994, type: 2}
     - target: {fileID: 6423778844265691423, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: jumpSound
       value: 

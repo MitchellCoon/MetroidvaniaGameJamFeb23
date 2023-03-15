@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   animationName: MeleeAttack
   damage: 1
-  duration: 1
+  duration: 1.35
   attackSoundEffect: {fileID: 0}
   attackType: 0
   knockback: 1

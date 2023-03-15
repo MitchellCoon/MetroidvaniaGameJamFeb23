@@ -349,8 +349,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitBoxActivetime: 0.1
-  defaultProjectileAttack: {fileID: 11400000, guid: c7fdcca1ed23941879779ac67514dd9b, type: 2}
-  fireRate: 0.5
+  defaultProjectileAttack: {fileID: 11400000, guid: 366b0132bec14474bb8f5529d48e48f8, type: 2}
+  fireRate: 1
   checkRadiusProjectile: 10
   checkRadiusMelee: 2
   rotationAsVector: {x: 0, y: 0, z: 90}
