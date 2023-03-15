@@ -14,7 +14,7 @@ public class SpiderFireballHitbox : Hitbox
         if (other.CompareTag(Constants.ENEMY_TAG) && (!isEnemyHitbox || (isEnemyHitbox && sourcePossessionManager != null && sourcePossessionManager.IsPossessed())))
         {
             PlayHitSound();
-            Instantiate(firePrefab, transform.position, Quaternion.Euler(spawnAngle));
+            Instantiate(firePrefab, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 
