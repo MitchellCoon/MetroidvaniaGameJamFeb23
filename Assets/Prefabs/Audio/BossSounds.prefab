@@ -1,5 +1,81 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6924905467013142619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6150750391662159093}
+  - component: {fileID: 7234091221766911836}
+  - component: {fileID: 3373015435286055533}
+  m_Layer: 0
+  m_Name: BossPoweringUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6150750391662159093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6924905467013142619}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7526850353771815149}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7234091221766911836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6924905467013142619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1614564305
+      Data2: 1209251600
+      Data3: -1156580688
+      Data4: -1503192088
+    Path: event:/ENEMY/BossPowerUp
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 5
+  OverrideMaxDistance: 40
+--- !u!114 &3373015435286055533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6924905467013142619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe822f54c4bb48a1b6c55dd0534636e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playWhilePaused: 0
 --- !u!1 &7526850353758930788
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,6 +187,7 @@ Transform:
   - {fileID: 7526850355152914392}
   - {fileID: 7526850354591404247}
   - {fileID: 7526850353867101329}
+  - {fileID: 6150750391662159093}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -162,11 +239,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 1976669391
-      Data2: 1207657527
-      Data3: 951483288
-      Data4: -1514566682
-    Path: event:/ENVIRON/Alarm
+      Data1: 408832629
+      Data2: 1215052460
+      Data3: -800579430
+      Data4: -1813893374
+    Path: event:/ENVIRON/LaserImpact
   Event: 
   PlayEvent: 0
   StopEvent: 0
@@ -175,8 +252,8 @@ MonoBehaviour:
   Preload: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  OverrideMinDistance: 6
+  OverrideMaxDistance: 25
 --- !u!114 &7526850353867101334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,11 +391,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 337036299
-      Data2: 1305576165
-      Data3: -524721248
-      Data4: -1473050933
-    Path: event:/ENEMY/Thrash
+      Data1: 196504264
+      Data2: 1088511839
+      Data3: 1238391177
+      Data4: 1340313852
+    Path: event:/ENEMY/BossStomp
   Event: 
   PlayEvent: 0
   StopEvent: 0
@@ -390,11 +467,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 1976669391
-      Data2: 1207657527
-      Data3: 951483288
-      Data4: -1514566682
-    Path: event:/ENVIRON/Alarm
+      Data1: -1369775370
+      Data2: 1281072872
+      Data3: 381308584
+      Data4: -111906406
+    Path: event:/ENEMY/BossHurt
   Event: 
   PlayEvent: 0
   StopEvent: 0
@@ -466,11 +543,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 1976669391
-      Data2: 1207657527
-      Data3: 951483288
-      Data4: -1514566682
-    Path: event:/ENVIRON/Alarm
+      Data1: 1355988645
+      Data2: 1233455547
+      Data3: -2080312935
+      Data4: 1954292490
+    Path: event:/ENEMY/BossStompTelegraph
   Event: 
   PlayEvent: 0
   StopEvent: 0

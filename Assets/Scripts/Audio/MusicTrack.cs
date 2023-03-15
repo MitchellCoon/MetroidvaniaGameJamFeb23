@@ -6,6 +6,8 @@ public enum Track
     Dangerman,
     Megacreep,
     Monsterdance,
+    ExitMusic,
+    RollCredits,
 }
 
 public class MusicTrack : BaseAudio

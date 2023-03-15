@@ -1350,7 +1350,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &485400932
 Transform:
   m_ObjectHideFlags: 0
@@ -2343,7 +2343,6 @@ GameObject:
   - component: {fileID: 838910598}
   - component: {fileID: 838910597}
   - component: {fileID: 838910596}
-  - component: {fileID: 838910599}
   m_Layer: 0
   m_Name: MainTilemap
   m_TagString: Untagged
@@ -6562,19 +6561,6 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
---- !u!114 &838910599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838910592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b857bd4807d2443d932b071b4e1c1d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isMapBorder: 0
 --- !u!1 &843682529
 GameObject:
   m_ObjectHideFlags: 0
@@ -14093,7 +14079,6 @@ GameObject:
   - component: {fileID: 1724439450}
   - component: {fileID: 1724439453}
   - component: {fileID: 1724439452}
-  - component: {fileID: 1724439451}
   m_Layer: 0
   m_Name: BorderTilemap
   m_TagString: Untagged
@@ -14116,19 +14101,6 @@ Transform:
   m_Father: {fileID: 1246657494}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1724439451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724439449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b857bd4807d2443d932b071b4e1c1d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isMapBorder: 1
 --- !u!483693784 &1724439452
 TilemapRenderer:
   m_ObjectHideFlags: 0
