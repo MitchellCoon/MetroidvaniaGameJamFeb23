@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 
 using DTDEV.SceneManagement;
+using DevLocker.Utils;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -31,6 +32,9 @@ namespace MapGen
         [SerializeField] Color colorTile = Color.yellow;
         [SerializeField] Color colorVoid = Color.red;
         [SerializeField] Color colorBorder = Color.white;
+        [Space]
+        [Space]
+        [SerializeField] List<SceneReference> scenesToBuild;
 
         // NOTE - full path will be /Assets/<DIR_NAME>
         const string PREFAB_PATH = "Generated/MapPrefabs/";
@@ -80,10 +84,10 @@ namespace MapGen
             Validate();
             Debug.ClearDeveloperConsole();
             Debug.Log("** RUNNING MAP GENERATION **");
-            for (var i = 0; i < EditorSceneManager.sceneCountInBuildSettings; i++)
+
+            for (int i = 0; i < scenesToBuild.Count; i++)
             {
-                string path = SceneUtility.GetScenePathByBuildIndex(i);
-                Scene scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
+                Scene scene = EditorSceneManager.OpenScene(scenesToBuild[i].ScenePath, OpenSceneMode.Additive);
 
                 Debug.Log($"Processing Scene \"{scene.name}\"...");
                 ProcessScene(scene);
@@ -91,6 +95,18 @@ namespace MapGen
                 EditorSceneManager.SaveScene(scene);
                 EditorSceneManager.CloseScene(scene, true);
             }
+
+            // for (var i = 0; i < EditorSceneManager.sceneCountInBuildSettings; i++)
+            // {
+            //     string path = SceneUtility.GetScenePathByBuildIndex(i);
+            //     Scene scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
+
+            //     Debug.Log($"Processing Scene \"{scene.name}\"...");
+            //     ProcessScene(scene);
+            //     EditorSceneManager.MarkSceneDirty(scene);
+            //     EditorSceneManager.SaveScene(scene);
+            //     EditorSceneManager.CloseScene(scene, true);
+            // }
             Debug.Log("Generating Map Prefab...");
             GenerateMapPrefab();
             Debug.Log("✓ all done!");

@@ -993,6 +993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   depth: 0.25
+  localizeCamera: 0
 --- !u!212 &850075477
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1866,6 +1867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   depth: 0.25
+  localizeCamera: 0
 --- !u!212 &1010272672
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2441,7 +2443,6 @@ GameObject:
   - component: {fileID: 1691786824}
   - component: {fileID: 1691786823}
   - component: {fileID: 1691786822}
-  - component: {fileID: 1691786821}
   m_Layer: 0
   m_Name: MainTilemap
   m_TagString: Untagged
@@ -2464,19 +2465,6 @@ Transform:
   m_Father: {fileID: 625732153}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1691786821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691786819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b857bd4807d2443d932b071b4e1c1d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isMapBorder: 0
 --- !u!66 &1691786822
 CompositeCollider2D:
   m_ObjectHideFlags: 0
