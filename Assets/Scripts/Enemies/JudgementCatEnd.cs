@@ -7,6 +7,10 @@ public class JudgementCatEnd : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] BaseEnemyAI enemyAI;
     [SerializeField] Rigidbody2D body;
+    [SerializeField] PossessionManager possessionManager;
+    [SerializeField] Move move;
+    [SerializeField] Jump jump;
+    [SerializeField] Attack attack;
 
     [SerializeField] float chargeTime = 2f;
     [SerializeField] float napTime = 4f;
@@ -21,7 +25,17 @@ public class JudgementCatEnd : MonoBehaviour
     {
         if (MInput.GetKeyDown(KeyCode.J) || MInput.GetPadDown(GamepadCode.ButtonSouth))
         {
-            enemyAI.enabled = false;
+            if (possessionManager.IsPossessed())
+            {
+                move.enabled = false;
+                jump.enabled = false;
+                attack.enabled = false;
+                possessionManager.enabled = false;
+            }
+            else
+            {
+                enemyAI.enabled = false;
+            }
             body.velocity = Vector3.zero;
             chargeTimer = 0f;
             isCharging = true;
@@ -49,7 +63,17 @@ public class JudgementCatEnd : MonoBehaviour
         }
         if(napTimer > napTime)
         {
-            enemyAI.enabled = true;
+            if (possessionManager.IsPossessed())
+            {
+                move.enabled = true;
+                jump.enabled = true;
+                attack.enabled = true;
+                possessionManager.enabled = true;
+            }
+            else
+            {
+                enemyAI.enabled = true;
+            }
             isNapping = false;
             napTimer = 0f;
         }

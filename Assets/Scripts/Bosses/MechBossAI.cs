@@ -26,14 +26,14 @@ public class MechBossAI : MonoBehaviour
     [SerializeField] Sound hurtSound;
     [SerializeField] Sound deathSound;
 
-    PlayerMovementController player;
+    [SerializeField] PlayerMovementController player;
     Vector2 velocity;
     bool isFacingRight = true;
     float horizontalMove = 0.0f;
     float maxSpeedChange;
     float nextMeleeTime = 0f;
     float nextProjectileTime = 0f;
-    float pollInterval = 5f;
+    [SerializeField] float pollInterval = 5f;
     int phase2Threshold = 70;
     int phase3Threshold = 40;
 
@@ -84,7 +84,7 @@ public class MechBossAI : MonoBehaviour
         Assert.IsNotNull(animator);
     }
 
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(FindingPlayer(pollInterval));
     }
