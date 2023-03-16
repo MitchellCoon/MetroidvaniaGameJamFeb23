@@ -79,7 +79,7 @@ public class LockedDoor : MonoBehaviour
             IndicateLocked();
             return;
         }
-        hasOpenedDoor.value = true;
+        if (hasOpenedDoor != null) hasOpenedDoor.value = true;
         StopCoroutineAndReset(ref openingDoor);
         StopCoroutineAndReset(ref closingDoor);
         openingDoor = StartCoroutine(COpenDoor());
