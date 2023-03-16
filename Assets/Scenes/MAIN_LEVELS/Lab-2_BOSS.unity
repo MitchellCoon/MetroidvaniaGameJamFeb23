@@ -605,6 +605,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: bf6b486f033ef4d49a2bc2160c0adb8e, type: 2}
     invert: 0
+  onlyCheckAtRoomLoad: 0
 --- !u!1 &69633561
 GameObject:
   m_ObjectHideFlags: 0
@@ -6717,6 +6718,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: 758bb7ee67e9c912ab4c04907010bcfe, type: 2}
     invert: 0
+  onlyCheckAtRoomLoad: 0
 --- !u!1 &169854193
 GameObject:
   m_ObjectHideFlags: 0
@@ -6766,6 +6768,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: 758bb7ee67e9c912ab4c04907010bcfe, type: 2}
     invert: 1
+  onlyCheckAtRoomLoad: 0
 --- !u!1001 &176916760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10761,6 +10764,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: 57c5f0edd75e24fe48b533c8b1bf6264, type: 2}
     invert: 1
+  onlyCheckAtRoomLoad: 0
 --- !u!1001 &526731972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17414,6 +17418,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1157533389595486089, guid: 96f8e0877585c448aa56777225017796, type: 3}
   m_PrefabInstance: {fileID: 868441343}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &878729764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 878729765}
+  - component: {fileID: 878729766}
+  m_Layer: 0
+  m_Name: DisableIfBossDefeated
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &878729765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878729764}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1735553421}
+  m_Father: {fileID: 2114021780}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &878729766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878729764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d8a3b733e0ab42048dff83c6dca6aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditionToEnable:
+    boolValue: {fileID: 11400000, guid: bf6b486f033ef4d49a2bc2160c0adb8e, type: 2}
+    invert: 1
+  onlyCheckAtRoomLoad: 1
 --- !u!1 &892089586
 GameObject:
   m_ObjectHideFlags: 0
@@ -49601,6 +49654,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: bf6b486f033ef4d49a2bc2160c0adb8e, type: 2}
     invert: 0
+  onlyCheckAtRoomLoad: 0
 --- !u!4 &1425792893 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8617280517585647797, guid: 75cfd3d0c6d0845b0a11ebb06427e117, type: 3}
@@ -126433,6 +126487,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: 57c5f0edd75e24fe48b533c8b1bf6264, type: 2}
     invert: 1
+  onlyCheckAtRoomLoad: 0
 --- !u!1001 &1727388417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126599,12 +126654,13 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: bf6b486f033ef4d49a2bc2160c0adb8e, type: 2}
     invert: 0
+  onlyCheckAtRoomLoad: 0
 --- !u!1001 &1735553420
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2114021780}
+    m_TransformParent: {fileID: 878729765}
     m_Modifications:
     - target: {fileID: 3419721505473412376, guid: 92d3b31a358827e45ad65d646d73a8e8, type: 3}
       propertyPath: hurtSound
@@ -127323,6 +127379,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: bcd5de387c5584a48abe14c51765314e, type: 2}
     invert: 1
+  onlyCheckAtRoomLoad: 0
 --- !u!1 &1931832395
 GameObject:
   m_ObjectHideFlags: 0
@@ -127374,6 +127431,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: bf6b486f033ef4d49a2bc2160c0adb8e, type: 2}
     invert: 0
+  onlyCheckAtRoomLoad: 0
 --- !u!1 &1935976339
 GameObject:
   m_ObjectHideFlags: 0
@@ -145572,7 +145630,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1735553421}
+  - {fileID: 878729765}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -145591,6 +145649,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: bcd5de387c5584a48abe14c51765314e, type: 2}
     invert: 0
+  onlyCheckAtRoomLoad: 0
 --- !u!1001 &2144421617
 PrefabInstance:
   m_ObjectHideFlags: 0
