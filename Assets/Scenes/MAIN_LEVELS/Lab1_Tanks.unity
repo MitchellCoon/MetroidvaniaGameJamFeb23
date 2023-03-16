@@ -445,6 +445,14 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4281003519
       objectReference: {fileID: 0}
+    - target: {fileID: 919481807911210717, guid: 0a26d209ed0874d09b7a2d3aaed85ab2, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2402688748053793749}
+    - target: {fileID: 919481807911210717, guid: 0a26d209ed0874d09b7a2d3aaed85ab2, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 839354287
+      objectReference: {fileID: 0}
     - target: {fileID: 919481808396254659, guid: 0a26d209ed0874d09b7a2d3aaed85ab2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -542,6 +550,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: 57c5f0edd75e24fe48b533c8b1bf6264, type: 2}
     invert: 1
+  onlyCheckAtRoomLoad: 0
 --- !u!1 &119029720
 GameObject:
   m_ObjectHideFlags: 0
@@ -4771,6 +4780,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: e8ffdad2f429440789ba1a7d3bfcfbdf, type: 2}
     invert: 0
+  onlyCheckAtRoomLoad: 0
 --- !u!1 &750888837
 GameObject:
   m_ObjectHideFlags: 0
@@ -5128,6 +5138,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7457008265588940556, guid: 09991568ee85b4a35aa334259db69253, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2402688748053793749}
+    - target: {fileID: 7457008265588940556, guid: 09991568ee85b4a35aa334259db69253, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 839354287
+      objectReference: {fileID: 0}
     - target: {fileID: 7457008266103375331, guid: 09991568ee85b4a35aa334259db69253, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5221,6 +5239,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: 57c5f0edd75e24fe48b533c8b1bf6264, type: 2}
     invert: 1
+  onlyCheckAtRoomLoad: 0
 --- !u!1 &960476983
 GameObject:
   m_ObjectHideFlags: 0
@@ -13602,6 +13621,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: 57c5f0edd75e24fe48b533c8b1bf6264, type: 2}
     invert: 0
+  onlyCheckAtRoomLoad: 0
 --- !u!4 &1824970360 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1987515796906057834, guid: a19310356e7914a7084ee9bf6118abc4, type: 3}
@@ -15494,6 +15514,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7457008265588940556, guid: 09991568ee85b4a35aa334259db69253, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2402688748053793749}
+    - target: {fileID: 7457008265588940556, guid: 09991568ee85b4a35aa334259db69253, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 839354287
+      objectReference: {fileID: 0}
     - target: {fileID: 7457008266103375331, guid: 09991568ee85b4a35aa334259db69253, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -15587,6 +15615,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: 57c5f0edd75e24fe48b533c8b1bf6264, type: 2}
     invert: 1
+  onlyCheckAtRoomLoad: 0
 --- !u!1001 &2144421617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15863,6 +15892,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
+--- !u!20 &2402688748053793749 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2402688748301112497, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
+  m_PrefabInstance: {fileID: 2402688748053793748}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4741865713460081303
 PrefabInstance:
   m_ObjectHideFlags: 0
