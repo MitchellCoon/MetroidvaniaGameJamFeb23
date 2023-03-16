@@ -7,6 +7,7 @@ using CyberneticStudios.SOFramework;
 public class ObjectEnablerDisabler : MonoBehaviour
 {
     [SerializeField] BoolCondition conditionToEnable;
+    [SerializeField] bool onlyCheckAtRoomLoad = false;
 
     public bool HasCondition => conditionToEnable != null && conditionToEnable.hasRef;
     public bool HasChildren => transform.childCount > 0;
@@ -15,12 +16,12 @@ public class ObjectEnablerDisabler : MonoBehaviour
 
     void OnEnable()
     {
-        conditionToEnable.OnChanged += OnConditionChange;
+        if (!onlyCheckAtRoomLoad) conditionToEnable.OnChanged += OnConditionChange;
     }
 
     void OnDisable()
     {
-        conditionToEnable.OnChanged -= OnConditionChange;
+        if (!onlyCheckAtRoomLoad) conditionToEnable.OnChanged -= OnConditionChange;
     }
 
     void Awake()
