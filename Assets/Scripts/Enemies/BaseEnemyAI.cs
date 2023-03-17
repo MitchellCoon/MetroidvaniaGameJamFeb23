@@ -35,7 +35,7 @@ public class BaseEnemyAI : MonoBehaviour
     float maxSpeedChange;
     float nextMeleeTime = 0f;
     float nextProjectileTime = 0f;
-    [SerializeField] float findPlayerPollInterval = 5f;
+    [SerializeField] float findPlayerPollInterval = 2f;
 
     // Values used for animations:
 
@@ -51,6 +51,10 @@ public class BaseEnemyAI : MonoBehaviour
     {
         health = Instantiate(healthScriptableObject);
         health.Init();
+    }
+
+    void OnEnable()
+    {
         StartCoroutine(FindingPlayer(findPlayerPollInterval));
     }
 
@@ -191,23 +195,9 @@ public class BaseEnemyAI : MonoBehaviour
     IEnumerator FindingPlayer(float pollInterval) {
         while (true)
         {
-            player = FindPlayer();
+            player = PlayerUtils.FindPlayer(player);
             yield return new WaitForSeconds(pollInterval);
         }
-    }
-
-    PlayerMovementController FindPlayer()
-    {
-        if (player != null)
-        {
-            return player;
-        }
-        GameObject playerObj = GameObject.FindWithTag(Constants.PLAYER_TAG);
-        if (playerObj == null)
-        {
-            return null;
-        }
-        return playerObj.GetComponent<PlayerMovementController>();
     }
     
 }
