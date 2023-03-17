@@ -23,7 +23,7 @@ public class JudgementCatEnd : MonoBehaviour
 
     void Update()
     {
-        if (MInput.GetKeyDown(KeyCode.J) || MInput.GetPadDown(GamepadCode.ButtonSouth))
+        if (MInput.GetKeyDown(KeyCode.J) || MInput.GetPadDown(GamepadCode.ButtonNorth))
         {
             if (possessionManager.IsPossessed())
             {
