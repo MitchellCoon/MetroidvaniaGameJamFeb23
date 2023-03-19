@@ -10686,11 +10686,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919481807720169090, guid: 0a26d209ed0874d09b7a2d3aaed85ab2, type: 3}
   m_PrefabInstance: {fileID: 526414062}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &526414065 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919481808396254685, guid: 0a26d209ed0874d09b7a2d3aaed85ab2, type: 3}
-  m_PrefabInstance: {fileID: 526414062}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &526414066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10749,22 +10744,6 @@ MonoBehaviour:
   - 0.1
   - 0.1
   waitTimeBetweenMessages: 3
---- !u!114 &526414067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 526414065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d8a3b733e0ab42048dff83c6dca6aa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conditionToEnable:
-    boolValue: {fileID: 11400000, guid: 57c5f0edd75e24fe48b533c8b1bf6264, type: 2}
-    invert: 1
-  onlyCheckAtRoomLoad: 0
 --- !u!1001 &526731972
 PrefabInstance:
   m_ObjectHideFlags: 0
