@@ -1,11 +1,13 @@
 using UnityEngine;
 
 using MapGen;
+using CyberneticStudios.SOFramework;
 
 public class PlayerMain : MonoBehaviour
 {
-    Rigidbody2D body;
+    [SerializeField] BoolVariable isPlayerPossessing;
 
+    Rigidbody2D body;
     PlayerCombat playerCombat;
 
     public void SetKinematic()
@@ -22,6 +24,11 @@ public class PlayerMain : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         playerCombat = GetComponent<PlayerCombat>();
+    }
+
+    void Start()
+    {
+        if (GetComponent<PossessionManager>() == null) isPlayerPossessing.value = false;
     }
 
     void Update()
