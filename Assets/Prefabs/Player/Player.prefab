@@ -168,6 +168,8 @@ MonoBehaviour:
   groundCheck: {fileID: 2806582366043827935}
   ceilingCheck: {fileID: 2806582367019756474}
   crouchCollider: {fileID: 0}
+  enemyAI: {fileID: 0}
+  isFacingRight: 1
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -243,6 +245,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   defaultAnimator: {fileID: 0}
   movement: {fileID: 11400000, guid: 32773d3c345b6404d88ae00620802692, type: 2}
+  moveSound: {fileID: 0}
 --- !u!114 &2806582366043827920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,6 +343,8 @@ MonoBehaviour:
   inputManager: {fileID: 2806582366043827934}
   hitbox: {fileID: 2806582366932157628}
   attackData: {fileID: 0}
+  defaultAttack: {fileID: 0}
+  possessAttack: {fileID: 0}
   defaultMeleeAttack: {fileID: 11400000, guid: e1d19feb4711f4d4ebde7d1bb8164620, type: 2}
   defaultProjectileAttack: {fileID: 11400000, guid: bf54fb62e11806342b1fb295eb2ac1a9, type: 2}
   projectileOrigin: {fileID: 2806582365070056088}
@@ -372,7 +377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnemy: 0
   animator: {fileID: 2806582366043827923}
-  defaultAnimator: {fileID: 0}
+  healthyAnimator: {fileID: 0}
   hurtAnimator: {fileID: 0}
   perilAnimator: {fileID: 0}
   resources: {fileID: 2806582366043827925}
@@ -383,6 +388,15 @@ MonoBehaviour:
   hurtThreshold: 7
   hurtSound: {fileID: 0}
   deathSound: {fileID: 0}
+  possessionManager: {fileID: 0}
+  enemySlimePossessionAnimator: {fileID: 0}
+  healthySlimePossessionAnimator: {fileID: 0}
+  hurtSlimePossessionAnimator: {fileID: 0}
+  perilSlimePossessionAnimator: {fileID: 0}
+  attack: {fileID: 0}
+  healthySlimeProjectileAttackData: {fileID: 0}
+  hurtSlimeProjectileAttackData: {fileID: 0}
+  perilSlimeProjectileAttackData: {fileID: 0}
 --- !u!114 &4127488969785509700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffaae510d1e741308e5c1ccbbaf8a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayerPossessing: {fileID: 11400000, guid: cf0648d02273744cca9a37866585f057, type: 2}
 --- !u!1 &2806582366932157626
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,11 +456,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ea566673b88c74f925f458d07d7f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableInEditor: 0
+  disableInProdBuild: 0
+  debugInPlayMode: 0
   attackData: {fileID: 0}
   isEnemyHitbox: 0
   hitOnce: 0
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 0
   sourcePossessionManager: {fileID: 0}
+  hitSound: {fileID: 0}
 --- !u!212 &2806582366932157630
 SpriteRenderer:
   m_ObjectHideFlags: 0
