@@ -20,9 +20,10 @@ public class MechBossMissileMotion : MonoBehaviour
     [SerializeField] LayerMask detonationLayerMask;
     [SerializeField] Vector3 explosionOffset;
 
-    GameObject player;
+    [SerializeField] GameObject player;
     float spawnTime;
-    Vector3 playerLocationAtSpawn;
+    Vector3 spawnLocation;
+    [SerializeField] Vector3 playerLocationAtSpawn;
     bool isFalling = false;
     float horizontalOffset;
 
@@ -30,6 +31,7 @@ public class MechBossMissileMotion : MonoBehaviour
     {
         rb.velocity = new Vector3(0, riseVelocity , 0);
         spawnTime = Time.time;
+        spawnLocation = transform.position;
         player = GameObject.FindWithTag(Constants.PLAYER_TAG);
         playerLocationAtSpawn = player.transform.position;
     }
@@ -53,7 +55,7 @@ public class MechBossMissileMotion : MonoBehaviour
     {
         if (!isFalling && Time.time - spawnTime >= riseTime)
         {
-            transform.position = new Vector3(playerLocationAtSpawn.x + horizontalOffset, fallHeight, transform.position.z);
+            transform.position = new Vector3(playerLocationAtSpawn.x + horizontalOffset, spawnLocation.y + fallHeight, transform.position.z);
             Vector3 localScale = transform.localScale;
 		    localScale.y *= -1;
 		    transform.localScale = localScale;

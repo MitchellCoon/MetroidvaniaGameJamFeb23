@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpiderFireballHitbox : Hitbox
 {
-    [SerializeField] GameObject firePrefab;
+    [SerializeField] SpiderFireHitboxSpawner firePrefab;
     [SerializeField] Vector3 spawnAngle;
 
     void OnTriggerEnter2D(Collider2D other)
@@ -14,7 +14,7 @@ public class SpiderFireballHitbox : Hitbox
         if (other.CompareTag(Constants.ENEMY_TAG) && (!isEnemyHitbox || (isEnemyHitbox && sourcePossessionManager != null && sourcePossessionManager.IsPossessed())))
         {
             PlayHitSound();
-            Instantiate(firePrefab, transform.position, transform.rotation);
+            Instantiate(firePrefab, transform.position, transform.rotation).SetPossessionManager(sourcePossessionManager);
             Destroy(gameObject);
         }
 
@@ -24,7 +24,7 @@ public class SpiderFireballHitbox : Hitbox
         {
             other.GetComponent<PlayerCombat>().TakeDamage(attackData, transform.position);
             PlayHitSound();
-            Instantiate(firePrefab, transform.position, transform.rotation);
+            Instantiate(firePrefab, transform.position, transform.rotation).SetPossessionManager(sourcePossessionManager);
             Destroy(gameObject);
         }
     }

@@ -106,11 +106,20 @@ public class MechBossAI : MonoBehaviour
                 animator.SetTrigger(Constants.PROJECTILE_ATTACK_ANIMATION);
             }
         }
-        else if (distanceToPlayer < meleeRange && Time.time >= nextMeleeTime && !isFiringProjectile)
+        else if (distanceToPlayer < meleeRange && Time.time >= nextMeleeTime && !isStomping && !isFiringProjectile)
         {
             FacePlayer();
-            nextMeleeTime = Time.time + stompData.duration;
-            animator.SetTrigger(Constants.MELEE_ATTACK_ANIMATION);
+            if (Time.time >= nextProjectileTime)
+            {
+                nextProjectileTime = Time.time + missileData.duration;
+                animator.SetTrigger(Constants.PROJECTILE_ATTACK_ANIMATION);
+            }
+            else
+            {
+                nextMeleeTime = Time.time + stompData.duration;
+                animator.SetTrigger(Constants.MELEE_ATTACK_ANIMATION);
+            }
+
         }
     }
 

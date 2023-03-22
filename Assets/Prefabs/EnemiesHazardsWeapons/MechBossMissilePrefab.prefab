@@ -106,13 +106,15 @@ MonoBehaviour:
   rb: {fileID: 6624971411110971916}
   riseVelocity: 10
   fallVelocity: 20
-  fallHeight: 15
+  fallHeight: 10
   missileFallSound: {fileID: 2013066647839653474}
   explosionPrefab: {fileID: 2489834823405233076, guid: 9498151a21c22403f9b4fa876fbcc0e0, type: 3}
   detonationLayerMask:
     serializedVersion: 2
     m_Bits: 137
   explosionOffset: {x: 0, y: -1, z: 0}
+  player: {fileID: 0}
+  playerLocationAtSpawn: {x: 0, y: 0, z: 0}
 --- !u!50 &6624971411110971916
 Rigidbody2D:
   serializedVersion: 4

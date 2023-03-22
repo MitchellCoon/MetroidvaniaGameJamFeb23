@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6caa88c8e4eb5a046a58d73884644334, type: 3}
-  m_Name: SpiderEnemyProjectile
+  m_Name: SpiderEnemyProjectilePossessed
   m_EditorClassIdentifier: 
   name: 
   description: 
   animationName: ProjectileAttack
   damage: 1
-  duration: 2
+  duration: 0.5
   attackSoundEffect: {fileID: 0}
   attackType: 1
   knockback: 0

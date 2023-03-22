@@ -265,8 +265,8 @@ GameObject:
   - component: {fileID: 6624971411110971916}
   - component: {fileID: 1678638503480523690}
   - component: {fileID: 1294727736}
-  - component: {fileID: 8228191669675615902}
   - component: {fileID: 9111220567205382277}
+  - component: {fileID: -8460476769202952724}
   m_Layer: 0
   m_Name: SpiderEnemyFire
   m_TagString: Enemy
@@ -399,28 +399,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &8228191669675615902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8368949391819313113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4ea566673b88c74f925f458d07d7f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  disableInProdBuild: 0
-  debugInPlayMode: 0
-  attackData: {fileID: 11400000, guid: 1073039dc11d3ae4ea32eb9ee4036d45, type: 2}
-  isEnemyHitbox: 1
-  hitOnce: 0
-  targetLayers:
-    serializedVersion: 2
-    m_Bits: 1152
-  sourcePossessionManager: {fileID: 0}
-  hitSound: {fileID: 985127869259959668}
 --- !u!61 &9111220567205382277
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -447,6 +425,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.53, y: 2.52}
   m_EdgeRadius: 0
+--- !u!114 &-8460476769202952724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8368949391819313113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ba5ecddd11aba449261c84bb496dce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackData: {fileID: 11400000, guid: 1073039dc11d3ae4ea32eb9ee4036d45, type: 2}
+  hitboxPrefab: {fileID: 8228191669675615902, guid: 81cef31497f581c4ca848f01e19a09b3, type: 3}
+  sourcePossessionManager: {fileID: 0}
 --- !u!1001 &3709643340462397032
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -504,17 +497,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
---- !u!114 &985127869259959668 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4526307176611076892, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
-  m_PrefabInstance: {fileID: 3709643340462397032}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbe822f54c4bb48a1b6c55dd0534636e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &985127869680470413 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4526307176725340133, guid: 1281cb150d35c49f9b32a2847f2ecb47, type: 3}
