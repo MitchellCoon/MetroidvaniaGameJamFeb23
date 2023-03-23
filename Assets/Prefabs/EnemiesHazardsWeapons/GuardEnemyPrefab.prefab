@@ -130,6 +130,10 @@ PrefabInstance:
       propertyPath: reflexJump
       value: 
       objectReference: {fileID: 1980591411}
+    - target: {fileID: 6423778844265691399, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: reflexJumpCollider
+      value: 
+      objectReference: {fileID: 1980591412}
     - target: {fileID: 6423778844265691409, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -210,6 +214,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 28cb2e78134e5f64faba57e771a62089, type: 3}
+    - target: {fileID: 8487835381121414874, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
 --- !u!114 &1459318839837618881 stripped

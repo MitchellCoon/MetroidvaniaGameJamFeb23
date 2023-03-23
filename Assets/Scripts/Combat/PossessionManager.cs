@@ -38,6 +38,7 @@ public class PossessionManager : MonoBehaviour
     AIMovement aIMovement;
     BaseEnemyAI enemyAI;
     [SerializeField] ReflexJump reflexJump;
+    [SerializeField] Collider2D reflexJumpCollider;
 
     // player components - enabled while the enemy is being possessed
     PlayerMain playerMain;
@@ -190,6 +191,7 @@ public class PossessionManager : MonoBehaviour
         if (reflexJump != null)
         {
             reflexJump.enabled = value;
+            reflexJumpCollider.enabled = value;
         }
     }
 
