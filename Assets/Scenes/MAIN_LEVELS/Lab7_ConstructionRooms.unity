@@ -5137,6 +5137,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: 57c5f0edd75e24fe48b533c8b1bf6264, type: 2}
     invert: 1
+  onlyCheckAtRoomLoad: 0
 --- !u!1 &1409216172
 GameObject:
   m_ObjectHideFlags: 0
@@ -5903,7 +5904,7 @@ Tilemap:
     m_Data: {r: 0, g: 0, b: 0, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_Origin: {x: -37, y: -17, z: 0}
   m_Size: {x: 74, y: 40, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -12137,6 +12138,7 @@ MonoBehaviour:
   conditionToEnable:
     boolValue: {fileID: 11400000, guid: 57c5f0edd75e24fe48b533c8b1bf6264, type: 2}
     invert: 1
+  onlyCheckAtRoomLoad: 0
 --- !u!1 &1955268430
 GameObject:
   m_ObjectHideFlags: 0
@@ -14245,11 +14247,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748301112501, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.040107727
+      value: -0.03478241
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748301112501, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5649796
+      value: 3.5649567
       objectReference: {fileID: 0}
     - target: {fileID: 2402688748420255459, guid: fd2acec88cd4e4a7ca2dbe4c39e30400, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
