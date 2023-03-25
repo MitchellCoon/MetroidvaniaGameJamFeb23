@@ -33,6 +33,11 @@ public class PossessionIndicator : MonoBehaviour
 
         foreach (GameObject enemy in enemiesInRange)
         {
+            if (enemy == null)
+            {
+                enemiesInRange.Remove(enemy);
+                continue;
+            }
             enemyPosition = enemy.transform.position;
             distanceToPlayer = Vector3.Distance(playerPosition, enemyPosition);
             if (distanceToPlayer < minimumDistanceToPlayer)
