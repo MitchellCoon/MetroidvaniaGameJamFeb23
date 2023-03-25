@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6caa88c8e4eb5a046a58d73884644334, type: 3}
-  m_Name: SpiderEnemyProjectile
+  m_Name: RatMeleeAttackPossessed
   m_EditorClassIdentifier: 
   name: 
   description: 
-  animationName: ProjectileAttack
+  animationName: MeleeAttack
   damage: 1
-  duration: 2
+  duration: 0.1
   attackSoundEffect: {fileID: 0}
-  attackType: 1
-  knockback: 0
-  knockbackForce: 0
-  projectilePrefab: {fileID: 8368949391819313113, guid: 08d4fa3cc6fef2643a728ee1fcf45aeb, type: 3}
-  projectileSpeed: 10
-  projectileRange: 10
-  destroyProjectileOnHit: 1
+  attackType: 0
+  knockback: 1
+  knockbackForce: 1
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 0
+  projectileRange: 0
+  destroyProjectileOnHit: 0
   willPossessTarget: 0

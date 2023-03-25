@@ -171,6 +171,7 @@ namespace DTDEV.SceneManagement
             PrepareRoomTransition();
             // move to top of hierarchy so DontDestroyOnLoad works
             transform.SetParent(null);
+            player.transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
             DontDestroyOnLoad(player.gameObject);
             TransitionFader fader = FindObjectOfType<TransitionFader>();

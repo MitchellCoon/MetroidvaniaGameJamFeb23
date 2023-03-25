@@ -7889,11 +7889,11 @@ PrefabInstance:
     - target: {fileID: 6423778844265691418, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: attackData
       value: 
-      objectReference: {fileID: 11400000, guid: 4b164065165f3374480d5a7724889f55, type: 2}
+      objectReference: {fileID: 11400000, guid: 075898bc2c3a7d34bbb1440cb8caf9f7, type: 2}
     - target: {fileID: 6423778844265691418, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: defaultAttack
       value: 
-      objectReference: {fileID: 11400000, guid: 4b164065165f3374480d5a7724889f55, type: 2}
+      objectReference: {fileID: 11400000, guid: 075898bc2c3a7d34bbb1440cb8caf9f7, type: 2}
     - target: {fileID: 6423778844265691418, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: defaultMeleeAttack
       value: 

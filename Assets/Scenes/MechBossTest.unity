@@ -1143,7 +1143,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4441797537648031110, guid: 374f0f11b8bcc934e9e5cac63b762892, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242271439264065129, guid: 374f0f11b8bcc934e9e5cac63b762892, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 374f0f11b8bcc934e9e5cac63b762892, type: 3}
@@ -3921,6 +3925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffaae510d1e741308e5c1ccbbaf8a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayerPossessing: {fileID: 0}
 --- !u!95 &1099828562
 Animator:
   serializedVersion: 5
@@ -3954,6 +3959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7897570920410490818, guid: a658cfb54edf871488fa26948c32ae90, type: 3}
+  enableOnPossessionContainer: {fileID: 0}
   unpossessionSpawnPoint: {fileID: 2015183447}
   isPlayerPossessing: {fileID: 11400000, guid: cf0648d02273744cca9a37866585f057, type: 2}
   slimePossessionSpriteRenderer: {fileID: 0}
@@ -11907,6 +11913,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4664956826829216410, guid: 1a9131e66d4016d479f9b23fc1cfcbac, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6680975513234232504, guid: 1a9131e66d4016d479f9b23fc1cfcbac, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -11938,7 +11948,12 @@ MonoBehaviour:
   animator: {fileID: 4664956828325691069}
   enemyAI: {fileID: 4664956828325691066}
   body: {fileID: 4664956828325691083}
+  possessionManager: {fileID: 0}
+  move: {fileID: 0}
+  jump: {fileID: 0}
+  attack: {fileID: 0}
   chargeTime: 2
+  napTime: 4
 --- !u!114 &4664956828325691066 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4664956826829216410, guid: 1a9131e66d4016d479f9b23fc1cfcbac, type: 3}

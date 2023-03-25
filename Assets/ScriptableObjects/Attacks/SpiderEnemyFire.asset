@@ -16,11 +16,11 @@ MonoBehaviour:
   description: 
   animationName: ProjectileAttack
   damage: 1
-  duration: 2
+  duration: 0.5
   attackSoundEffect: {fileID: 0}
   attackType: 1
   knockback: 1
-  knockbackForce: 20
+  knockbackForce: -10
   projectilePrefab: {fileID: 8368949391819313113, guid: 08d4fa3cc6fef2643a728ee1fcf45aeb, type: 3}
   projectileSpeed: 0.05
   projectileRange: 0.1

@@ -20,7 +20,10 @@ public class Hazard : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        HandleCollision(other, -other.attachedRigidbody.velocity.normalized);
+        Vector2 collisionPoint = other.attachedRigidbody != null
+            ? -other.attachedRigidbody.velocity.normalized
+            : Vector2.zero;
+        HandleCollision(other, collisionPoint);
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -42,13 +45,13 @@ public class Hazard : MonoBehaviour
 
     void HandleCollision(Collider2D other, Vector2 collisionPoint)
     {
-        if (other.CompareTag(Constants.PLAYER_TAG))
+        if (other.CompareTag(Constants.PLAYER_TAG) && other.TryGetComponent<PlayerCombat>(out PlayerCombat playerCombat))
         {
-            other.GetComponent<PlayerCombat>().TakeDamage(attackData, collisionPoint);
+            playerCombat.TakeDamage(attackData, collisionPoint);
         }
-        if (other.CompareTag(Constants.ENEMY_TAG))
+        if (other.CompareTag(Constants.ENEMY_TAG) && other.TryGetComponent<BaseEnemyAI>(out BaseEnemyAI enemyAI))
         {
-            other.GetComponent<BaseEnemyAI>().TakeDamage(attackData, transform.position);
+            enemyAI.TakeDamage(attackData, transform.position);
         }
     }
 

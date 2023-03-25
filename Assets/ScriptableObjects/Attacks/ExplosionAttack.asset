@@ -15,12 +15,12 @@ MonoBehaviour:
   name: Splosion
   description: Splodey
   animationName: 
-  damage: 6
+  damage: 1
   duration: 0
   attackSoundEffect: {fileID: 0}
   attackType: 0
   knockback: 1
-  knockbackForce: 35
+  knockbackForce: 10
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   projectileRange: 0

@@ -426,6 +426,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1504192467}
     m_Modifications:
+    - target: {fileID: 131025751533240346, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 131025753192615389, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -473,6 +477,10 @@ PrefabInstance:
     - target: {fileID: 131025753192615390, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
       propertyPath: m_Name
       value: ThinPlatformXS (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 131025753192615390, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
@@ -17801,7 +17809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201b75e0ce83d46a096d994c054b8a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToTween: 5
+  timeToTween: 3
   targetObject: {fileID: 1553340598}
 --- !u!1 &1010272669
 GameObject:
@@ -18512,7 +18520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 131025753192615389, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -491.18
+      value: -492.51
       objectReference: {fileID: 0}
     - target: {fileID: 131025753192615389, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -52530,6 +52538,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1504192467}
     m_Modifications:
+    - target: {fileID: 131025751533240346, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 131025753192615389, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -52577,6 +52589,10 @@ PrefabInstance:
     - target: {fileID: 131025753192615390, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
       propertyPath: m_Name
       value: ThinPlatformXS (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 131025753192615390, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
@@ -127286,7 +127302,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 131025753192615389, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -491.18
+      value: -492.51
       objectReference: {fileID: 0}
     - target: {fileID: 131025753192615389, guid: e9a8e75acb91a451aa9cbb907d671da8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -127547,7 +127563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201b75e0ce83d46a096d994c054b8a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToTween: 5
+  timeToTween: 3
   targetObject: {fileID: 1587850260}
 --- !u!1 &1955268430
 GameObject:

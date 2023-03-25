@@ -130,15 +130,19 @@ PrefabInstance:
     - target: {fileID: 6423778844265691418, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: attackData
       value: 
-      objectReference: {fileID: 11400000, guid: e5cae9a7d08b9c046a4c6904ca948f89, type: 2}
+      objectReference: {fileID: 11400000, guid: c4e96350ee628e147960cdead7503b1c, type: 2}
     - target: {fileID: 6423778844265691418, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: defaultAttack
       value: 
-      objectReference: {fileID: 11400000, guid: e5cae9a7d08b9c046a4c6904ca948f89, type: 2}
+      objectReference: {fileID: 11400000, guid: c4e96350ee628e147960cdead7503b1c, type: 2}
+    - target: {fileID: 6423778844265691418, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 8368949391819313113, guid: 08d4fa3cc6fef2643a728ee1fcf45aeb, type: 3}
     - target: {fileID: 6423778844265691418, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: defaultProjectileAttack
       value: 
-      objectReference: {fileID: 11400000, guid: e5cae9a7d08b9c046a4c6904ca948f89, type: 2}
+      objectReference: {fileID: 11400000, guid: c4e96350ee628e147960cdead7503b1c, type: 2}
     - target: {fileID: 6423778845231642115, guid: ad0318c83ccbc354899248ab4f217e14, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.5

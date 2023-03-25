@@ -20,7 +20,8 @@ public class PossessionManager : MonoBehaviour
     [SerializeField] SlimePossessMotion slimePossessHurtPrefab;
     [SerializeField] SlimePossessMotion slimePossessPerilPrefab;
     [SerializeField] Transform slimeAttachPoint;
-    [SerializeField] bool canGetPossessed;
+    public bool canGetPossessed;
+    bool isClosestEnemyToPlayer = false;
     [Space]
     [Space]
     [SerializeField] Sound possessSound;
@@ -37,6 +38,7 @@ public class PossessionManager : MonoBehaviour
     AIMovement aIMovement;
     BaseEnemyAI enemyAI;
     [SerializeField] ReflexJump reflexJump;
+    [SerializeField] Collider2D reflexJumpCollider;
 
     // player components - enabled while the enemy is being possessed
     PlayerMain playerMain;
@@ -131,7 +133,7 @@ public class PossessionManager : MonoBehaviour
 
     public void GetPossessed(GameObject playerObj)
     {
-        if (isPlayerPossessing.value || !canGetPossessed) return;
+        if (isPlayerPossessing.value || !canGetPossessed || !isClosestEnemyToPlayer) return;
         if (possessSound != null) possessSound.Play();
         if (enableOnPossessionContainer != null) enableOnPossessionContainer.SetActive(true);
         SetEnemyComponentsEnabled(false);
@@ -189,6 +191,7 @@ public class PossessionManager : MonoBehaviour
         if (reflexJump != null)
         {
             reflexJump.enabled = value;
+            reflexJumpCollider.enabled = value;
         }
     }
 
@@ -253,5 +256,10 @@ public class PossessionManager : MonoBehaviour
     public bool IsPossessed()
     {
         return isPossessed;
+    }
+
+    public void SetClosestToPlayer(bool value)
+    {
+        isClosestEnemyToPlayer = value;
     }
 }

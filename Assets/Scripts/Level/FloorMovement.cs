@@ -13,8 +13,8 @@ public class FloorMovement : MonoBehaviour
     private Vector3 startPosition; 
 
     void OnEnable() {
-      this.startPosition = transform.position; 
-      this.gameObject.TweenPosition (targetObject.position, timeToTween).SetFrom (transform.position).SetPingPong ().SetInfinite();//.SetLoopCount(-1);//.SetOnComplete (SomeMethod);
+      this.startPosition = transform.position;
+      if (targetObject != null) this.gameObject.TweenPosition (targetObject.position, timeToTween).SetFrom (transform.position).SetPingPong ().SetInfinite();//.SetLoopCount(-1);//.SetOnComplete (SomeMethod);
     }
 
     void OnDisable() {
